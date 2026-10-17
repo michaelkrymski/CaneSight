@@ -17,9 +17,12 @@
   "estimate_hours": 1.5,
   "elapsed_window": "2–5",
   "owner": "michaelkrymski",
-  "status": "in_progress",
-  "branch": "claim/CS-021-michaelkrymski",
-  "pr_url": null,
-  "evidence": [],
+  "status": "review",
+  "branch": "task/CS-022-latest-upload",
+  "pr_url": "https://github.com/michaelkrymski/CaneSight/pull/18",
+  "evidence": [
+    "handoffs/CS-022-latest-upload-20261017.md",
+    "13 edge tests passed locally; synthetic JPEG multipart accepted by actual backend; real Pi execution/upload pending"
+  ],
   "blocker": ""
 }

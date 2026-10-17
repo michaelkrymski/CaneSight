@@ -42,6 +42,14 @@ PM assignment proposes Michael as owner of CS-021 (Picamera2/in-memory CSI valid
 
 Validation: Task structural checks, generated changelog check, scoped assignment guard and whitespace check. Shared/backend CI runs separately. No Picamera2 in-memory loop, uploader, hardware safety or live backend integration acceptance is claimed by this metadata assignment.
 
+## 2026-10-17 — CS-022-LATEST-UPLOAD-20261017: Implement bounded latest-only Pi JPEG upload for review
+
+Author: michaelkrymski (AI-assisted) · Task: CS-022
+
+Add nominal 1Hz 416-square quality75 in-memory capture, conservative original sensor timing, reversible letterbox mapping, one-slot replacement queue, two-entry lineage ledger and verified-HTTPS multipart sender. Reject stale/future pending frames and stop on authentication/order/ACK errors. Document capture-only Pi verification and short-lived live session enrollment without operator credentials on the device.
+
+Validation: 13 local edge tests pass, including blocked-sender replacement, no retry, timing rejection, ACK/epoch identity and actual backend multipart ingestion with synthetic JPEG. No execution of this new module on Pi, live HTTPS upload, WSS, inference, electrical or readiness acceptance. Existing CI does not discover edge test root; explicit execution required.
+
 ## 2026-10-17 — CS-028-CLAIM-ADITSANGANI-20261017: Claim FastAPI skeleton and frame endpoint for Adit
 
 Author: aditsangani · Task: CS-028
