@@ -1,0 +1,9 @@
+{
+  "id": "CS-033-FINAL-IMAGE-AND-CI-20261017-GMARCIALCALLEJA",
+  "date": "2026-10-17",
+  "author": "Gavin (gmarcialcalleja)",
+  "task": "CS-033",
+  "summary": "Record final deployed image and restore unchanged task metadata",
+  "details": "Rebuild from the committed deployment snapshot, verify identical packaged runtime Python source hashes, test and deploy its final immutable image. Restore task elapsed-window text to the exact accepted baseline after a Windows encoding error; no task requirements or governance rules change. Preserve previous handoffs/fragments as historical evidence.",
+  "validation": "Final image sha256:c374fd16ab6a57ba17c775cbf6c01c0a06443b35c2e7ef206bf6f3c2c3c77e14: all 115 Linux backend/deployment tests passed with actual image/Caddy integration enabled. Complete public authenticated HTTPS/WSS/JPEG, duplicate/expiry and reconnect probe passed after activation; actual readiness remains 503 without a model/worker. Prior Windows laptop fallback and 39 shared tests passed. CI rerun verifies restored task metadata."
+}

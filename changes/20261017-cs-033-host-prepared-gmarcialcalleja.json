@@ -1,0 +1,9 @@
+{
+  "id": "CS-033-HOST-PREPARED-20261017-GMARCIALCALLEJA",
+  "date": "2026-10-17",
+  "author": "Gavin (gmarcialcalleja)",
+  "task": "CS-033",
+  "summary": "Prepare the actual CPU host and verify Caddy on loopback",
+  "details": "Confirm the deployed host is Ubuntu 24.04 with two vCPUs, 4 GB RAM and 128 GB disk, without an NVIDIA GPU. Install Docker Engine and Compose from the official repository using an in-scope preparation script. Add an opt-in real Caddy TLS/WebSocket integration test and record successful host results. Public application exposure remains blocked on DNS and accepted backend/auth/rate-limit integration.",
+  "validation": "Actual Vultr host: all 56 tests passed with Docker Engine 29.9.1, Compose 5.6.0 and digest-pinned Caddy 2.11.7; production Caddyfile validation passed. Windows: 56 discovered, 54 passed, two platform/opt-in tests skipped. Repository structure, generated changelog and whitespace checks passed. Only SSH remains publicly listening. No live application, public certificate, YOLO, Gemini, Tiger Data, laptop fallback or hardware acceptance claimed."
+}

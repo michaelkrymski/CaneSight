@@ -178,6 +178,14 @@ Integrate accepted CS-029 sessions, CS-031 worker and CS-030 freshness baseline.
 
 Validation: Windows isolated environment and Vultr Linux each passed 88 backend and 39 shared tests plus replay smoke. Real verified WSS tests cover 10 reconnects, eleventh source-depth rejection, independent sessions, NaN/overflow/duplicate JSON, oversize frames and impersonation. Authenticated 200-frame slow-model flood preserves latest-only work and same-loop watchdog progress; 1000 further rejected requests retain under 1 MB additional Python heap. Synthetic models only; no physical watchdog, real YOLO sizing or public API deployment acceptance claimed.
 
+## 2026-10-17 — CS-033-AUTHENTICATED-DEPLOYMENT-20261017-GMARCIALCALLEJA: Deploy authenticated HTTPS/WSS and rehearse laptop backend fallback
+
+Author: Gavin (gmarcialcalleja) · Task: CS-033
+
+Integrate accepted CS-029/032 in an immutable backend image and bounded private launcher. Keep the operator secret server-side, reuse trusted public IP TLS, permit authenticated enrollment before model readiness, and add credential-safe session acceptance and loopback SSH fallback tools. Preserve actual readiness 503 while the model/worker is unavailable.
+
+Validation: Vultr: 115 backend/deployment tests passed including actual packaged backend and Caddy containers. Windows: 115 discovered, 109 passed and 6 environment-specific skips. All 39 shared tests and synthetic replay smoke passed on both hosts. Public authenticated HTTPS/WSS/JPEG, credential expiry, duplicate rejection, disconnect/reconnect protection and proxy restart passed. Actual Windows laptop fallback passed with the Vultr backend stopped, then production restored and passed again. No real model, physical Pi/iPhone, full-host outage or hardware acceptance claimed.
+
 ## 2026-10-17 — CS-033-CLAIM-20261017-GMARCIALCALLEJA: Propose Gavin's ownership of Vultr backend deployment
 
 Author: Gavin (gmarcialcalleja) · Task: CS-033
@@ -185,6 +193,46 @@ Author: Gavin (gmarcialcalleja) · Task: CS-033
 Claim CS-033 for gmarcialcalleja with status in_progress on claim/CS-033-gmarcialcalleja. Implementation waits for Michael to merge this claim and remains dependent on CS-029 and CS-032. Task requirements, master plan and other tasks are unchanged; no deployment or hardware acceptance is claimed.
 
 Validation: Claim-only metadata change; repository check results are recorded in the claim PR. No Vultr, HTTPS/WSS, secret configuration, laptop fallback or hardware tests performed.
+
+## 2026-10-17 — CS-033-DEPLOYMENT-PREPARATION-20261017-GMARCIALCALLEJA: Prepare Vultr deployment configuration and TLS/authentication probes
+
+Author: Gavin (gmarcialcalleja) · Task: CS-033
+
+Add Compose/Caddy deployment templates with private backend networking, digest-pinned input requirements, non-root read-only backend, bounded logs, readiness gating, server-only raw environment configuration, a safe input validator, TLS/authentication handshake smoke probes and a setup/rollback/fallback runbook. Mark CS-033 blocked pending infrastructure and CS-029/032 integration; no live deployment or acceptance is claimed.
+
+Validation: Local Python 3.14.7: 32 unit tests discovered, 31 passed and one Linux permissions test skipped on Windows. Includes temporary HTTPS/WSS fixtures and Docker Compose configuration validation without an engine. Repository validation, changelog verification and whitespace checks passed. Docker engine/Caddy startup, Vultr deployment, actual backend authentication/secret validity, laptop fallback and hardware were not tested.
+
+## 2026-10-17 — CS-033-FINAL-IMAGE-AND-CI-20261017-GMARCIALCALLEJA: Record final deployed image and restore unchanged task metadata
+
+Author: Gavin (gmarcialcalleja) · Task: CS-033
+
+Rebuild from the committed deployment snapshot, verify identical packaged runtime Python source hashes, test and deploy its final immutable image. Restore task elapsed-window text to the exact accepted baseline after a Windows encoding error; no task requirements or governance rules change. Preserve previous handoffs/fragments as historical evidence.
+
+Validation: Final image sha256:c374fd16ab6a57ba17c775cbf6c01c0a06443b35c2e7ef206bf6f3c2c3c77e14: all 115 Linux backend/deployment tests passed with actual image/Caddy integration enabled. Complete public authenticated HTTPS/WSS/JPEG, duplicate/expiry and reconnect probe passed after activation; actual readiness remains 503 without a model/worker. Prior Windows laptop fallback and 39 shared tests passed. CI rerun verifies restored task metadata.
+
+## 2026-10-17 — CS-033-HOST-PREPARED-20261017-GMARCIALCALLEJA: Prepare the actual CPU host and verify Caddy on loopback
+
+Author: Gavin (gmarcialcalleja) · Task: CS-033
+
+Confirm the deployed host is Ubuntu 24.04 with two vCPUs, 4 GB RAM and 128 GB disk, without an NVIDIA GPU. Install Docker Engine and Compose from the official repository using an in-scope preparation script. Add an opt-in real Caddy TLS/WebSocket integration test and record successful host results. Public application exposure remains blocked on DNS and accepted backend/auth/rate-limit integration.
+
+Validation: Actual Vultr host: all 56 tests passed with Docker Engine 29.9.1, Compose 5.6.0 and digest-pinned Caddy 2.11.7; production Caddyfile validation passed. Windows: 56 discovered, 54 passed, two platform/opt-in tests skipped. Repository structure, generated changelog and whitespace checks passed. Only SSH remains publicly listening. No live application, public certificate, YOLO, Gemini, Tiger Data, laptop fallback or hardware acceptance claimed.
+
+## 2026-10-17 — CS-033-PRIVATE-INGESTION-20261017-GMARCIALCALLEJA: Deploy and test the accepted FastAPI app privately on Vultr
+
+Author: Gavin (gmarcialcalleja) · Task: CS-033
+
+Package merged CS-028 with a digest-pinned Python base and allowlisted build context. Add a loopback-only private Compose stack, default-state smoke tool and opt-in real-image restart/replay tests. Deploy on the existing CPU host and verify laptop SSH-tunnel access. Remove this PR's tests/backend package marker to preserve the accepted separate discovery roots. Keep live acceptance blocked on CS-029/032, real model/worker readiness and deferred public TLS.
+
+Validation: Vultr: 40 component tests and 39 shared tests passed, including real built-image startup/restart and replay upload 202/duplicate 409, real Caddy proxy and TLS cases. Persistent private app returned health 200, readiness 503 and missing/invalid credentials 401 before/after Compose restart; laptop SSH tunnel passed. Windows: 40 component tests with four documented skips, 39 shared tests passed, replay rehearsal passed. No live sensing, complete WSS auth, public certificate or hardware acceptance claimed.
+
+## 2026-10-17 — CS-033-PUBLIC-HTTPS-BOOTSTRAP-20261017-GMARCIALCALLEJA: Deploy verified public IP HTTPS for health-only bootstrap
+
+Author: Gavin (gmarcialcalleja) · Task: CS-033
+
+Add a standalone pinned Caddy proxy with Let's Encrypt short-lived public IP certificates, persistent renewal storage, strict non-secret configuration validation and a verified-TLS probe. Only GET health/readiness reach the existing private backend; all API, enrollment, upload and WebSocket routes remain 503 pending accepted integration. Preserve existing backend readiness and private ports; no domain or new server purchase.
+
+Validation: Laptop and server verified HTTPS health 200, readiness/API 503 and IP certificate trust. Proxy restart preserved the certificate fingerprint and passed probes. After accepted CS-031 integration, Linux: 74 backend tests, 72 passed and 2 optional image tests skipped, including real Caddy routing/TLS; 39 shared tests and replay smoke passed. Full authenticated backend, real Pi upload, model readiness and laptop fallback remain unaccepted.
 
 ## 2026-10-17 — CS-034-CLAIM-ADITSANGANI-20261017: Claim pinned YOLO baseline and class inspection for Adit
 

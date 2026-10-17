@@ -1,0 +1,9 @@
+{
+  "id": "CS-033-PUBLIC-HTTPS-BOOTSTRAP-20261017-GMARCIALCALLEJA",
+  "date": "2026-10-17",
+  "author": "Gavin (gmarcialcalleja)",
+  "task": "CS-033",
+  "summary": "Deploy verified public IP HTTPS for health-only bootstrap",
+  "details": "Add a standalone pinned Caddy proxy with Let's Encrypt short-lived public IP certificates, persistent renewal storage, strict non-secret configuration validation and a verified-TLS probe. Only GET health/readiness reach the existing private backend; all API, enrollment, upload and WebSocket routes remain 503 pending accepted integration. Preserve existing backend readiness and private ports; no domain or new server purchase.",
+  "validation": "Laptop and server verified HTTPS health 200, readiness/API 503 and IP certificate trust. Proxy restart preserved the certificate fingerprint and passed probes. After accepted CS-031 integration, Linux: 74 backend tests, 72 passed and 2 optional image tests skipped, including real Caddy routing/TLS; 39 shared tests and replay smoke passed. Full authenticated backend, real Pi upload, model readiness and laptop fallback remain unaccepted."
+}

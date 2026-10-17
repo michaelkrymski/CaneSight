@@ -130,3 +130,10 @@ Never change readiness to a constant 200 to satisfy deployment health checks.
 Image build/digest, real TLS/WSS and server deployment remain Gavin's task;
 authenticated service acceptance still depends on CS-029 and CS-032. No host
 changes, live credentials, Docker image or cloud deployment were created here.
+
+## CS-033 deployment
+
+See [deploy/README.md](deploy/README.md) for the authenticated Vultr deployment,
+verified HTTPS/WSS probes and rehearsed laptop fallback. Its Compose service
+overrides the unconfigured image default with the bounded `backend.server`
+session launcher. Model/worker readiness remains unavailable and returns 503.

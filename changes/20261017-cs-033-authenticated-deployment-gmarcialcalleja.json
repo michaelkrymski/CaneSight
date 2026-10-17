@@ -1,0 +1,9 @@
+{
+  "id": "CS-033-AUTHENTICATED-DEPLOYMENT-20261017-GMARCIALCALLEJA",
+  "date": "2026-10-17",
+  "author": "Gavin (gmarcialcalleja)",
+  "task": "CS-033",
+  "summary": "Deploy authenticated HTTPS/WSS and rehearse laptop backend fallback",
+  "details": "Integrate accepted CS-029/032 in an immutable backend image and bounded private launcher. Keep the operator secret server-side, reuse trusted public IP TLS, permit authenticated enrollment before model readiness, and add credential-safe session acceptance and loopback SSH fallback tools. Preserve actual readiness 503 while the model/worker is unavailable.",
+  "validation": "Vultr: 115 backend/deployment tests passed including actual packaged backend and Caddy containers. Windows: 115 discovered, 109 passed and 6 environment-specific skips. All 39 shared tests and synthetic replay smoke passed on both hosts. Public authenticated HTTPS/WSS/JPEG, credential expiry, duplicate rejection, disconnect/reconnect protection and proxy restart passed. Actual Windows laptop fallback passed with the Vultr backend stopped, then production restored and passed again. No real model, physical Pi/iPhone, full-host outage or hardware acceptance claimed."
+}
