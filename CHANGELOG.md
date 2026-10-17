@@ -393,6 +393,21 @@ Author: aditsangani (AI-assisted) · Task: CS-037
 Propose ownership of CS-037 within existing vision scope, using accepted CS-036 replay fixtures for shape/temporal checks, uncertain flashing and null ambiguous digits. HSV alone is insufficient. No implementation, training, hardware activation, production-recognition or completion claim. Implementation waits for Michael to merge this ordinary teammate claim.
 
 Validation: Ownership-only proposal from accepted main ed85778fa016a023a4ab7a6709140da8880ad707; task unowned with no competing open CS-037 PR. CS-036 implementation PR #37 merged. Checked publishing runs repository/shared tests, generated changelog and whitespace validation; no parser/hardware tests apply to this claim.
+## 2026-10-17 — CS-039-BONDMILA-CLAIM-20261017: Propose bondmila assignment for isolated Gemini context service
+
+Author: bondmila (AI-assisted) · Task: CS-039
+
+Assignment only. Implementation waits for Michael to merge this claim. Requirements, dependencies and allowed paths are unchanged. No API credentials or implementation included.
+
+Validation: Repository structure, shared unit tests, changelog consistency and whitespace checked by publish_task.py before commit. No hardware or Gemini API tests performed.
+
+## 2026-10-17 — CS-039-CLAIM-CI-REPAIR-BONDMILA-20261017: Repair generated assignment changelog after main integration
+
+Author: bondmila (AI-assisted) · Task: CS-039
+
+Integrate accepted main and regenerate CHANGELOG.md from immutable fragments. Assignment-only PR still waits for merged ownership; no Gemini implementation or credentials added.
+
+Validation: Prior CI failure confirmed as stale generated changelog; checked publisher reruns structure, root tests, changelog and whitespace checks before pushing.
 
 ## 2026-10-17 — CS-040-BONDMILA-CLAIM-20261017: Propose bondmila assignment for restricted and preemptible narration
 
