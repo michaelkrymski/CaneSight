@@ -8,7 +8,9 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def render(root=ROOT):
     text = '# CaneSight master changelog\n\nGenerated from append-only `changes/*.json`; do not edit by hand.\n\n'
-    for path in sorted((root / 'changes').glob('*.json')):
+    # pathlib comparison case-folds on Windows but not POSIX. Sort by portable
+    # string keys so every machine renders the same accepted fragment history.
+    for path in sorted((root / 'changes').glob('*.json'), key=lambda p: (p.name.casefold(), p.name)):
         entry = json.loads(path.read_text(encoding='utf-8'))
         text += f"## {entry['date']} — {entry['id']}: {entry['summary']}\n\n"
         text += f"Author: {entry['author']} · Task: {entry['task']}\n\n"
