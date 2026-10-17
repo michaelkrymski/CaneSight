@@ -1,0 +1,9 @@
+{
+  "id": "CS-028-CLAIM-20261017-GMARCIALCALLEJA",
+  "date": "2026-10-17",
+  "author": "Gavin (gmarcialcalleja)",
+  "task": "CS-028",
+  "summary": "Propose Gavin's ownership of the FastAPI skeleton and frame endpoint",
+  "details": "Claim CS-028 for gmarcialcalleja with status in_progress on claim/CS-028-gmarcialcalleja, in addition to the separate CS-033 claim. Implementation waits for Michael to merge this claim and remains dependent on CS-003. Task requirements, master plan and other tasks are unchanged; no backend implementation or acceptance is claimed.",
+  "validation": "Claim-only metadata change; repository check results are recorded in the claim PR. No endpoint, JPEG validation, readiness, frame lineage, deployment or hardware tests performed."
+}
