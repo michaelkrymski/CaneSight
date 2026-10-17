@@ -106,6 +106,22 @@ Share uploader boot, BOOTTIME and bounded original-frame ledger with the accepte
 
 Validation: 26 edge tests passed on Windows and Linux Python 3.12, including real local HTTPS/WSS using synthetic backend observations, idle expiry and fresh-result revocation. Windows backend regression: 128 discovered, 121 passed, seven skips. Shared/repository/changelog/whitespace checks run by checked publisher. Real Pi receiver test remains pending.
 
+## 2026-10-17 — CS-026-CLAIM-20261017-GMARCIALCALLEJA: Propose independent watchdog and restart task assignment
+
+Author: Gavin (gmarcialcalleja) · Task: CS-026
+
+Assignment runtime fields only. Implementation waits for merged ownership. Plan independent expiry and boot/crash state reset with simulated outputs, preserving the frozen-GPIO limitation and physical kill requirement.
+
+Validation: Verified accepted main task is unclaimed and no open assignment competes. Checked publishing runs repository, shared tests, changelog and whitespace validation. No watchdog implementation or hardware test performed.
+
+## 2026-10-17 — CS-026-WATCHDOG-20261017-GMARCIALCALLEJA: Add independent policy watchdog and fresh-epoch restart behavior
+
+Author: Gavin (gmarcialcalleja) · Task: CS-026
+
+Completed policy ticks alone renew a bounded lease. Independent supervisor and scheduler guard latch unavailable, clip pulses to the admitted lease and request off on expiry. Add SIGTERM cleanup, subprocess restart/failure tests and an uninstalled simulated-output service example. No GPIO or real Pi access; frozen-output limitations remain.
+
+Validation: 83 edge cases: Linux 83 passed; Windows 82 passed with POSIX SIGTERM skipped. 59 shared/dashboard tests passed on Linux; checked publishing repeats shared/repository/changelog/whitespace validation. Synthetic demo ends off/unarmed at startup, faulted/off after stalled feeds, with no credentials or GPIO.
+
 ## 2026-10-17 — CS-028-CLAIM-ADITSANGANI-20261017: Claim FastAPI skeleton and frame endpoint for Adit
 
 Author: aditsangani · Task: CS-028
@@ -377,6 +393,30 @@ Author: aditsangani (AI-assisted) · Task: CS-036
 Prepare 12 synthetic cases across 18 PNG frames, original CC0-1.0 asset/annotation dedication, source/license records, hashes, authored replay sequences and bounded manual ROI metadata. Add an offline generator/verifier; no parser, model training, automatic pedestrian recognition, live transport or production state change.
 
 Validation: 31 vision tests passed including nine new fixture tests. All decoded pixels/annotations reproduced; committed asset hashes verified. First frames of all 12 cases visually inspected. Checked publishing runs shared tests, repository structure, generated changelog and whitespace validation. No real-scene accuracy or hardware evidence.
+
+## 2026-10-17 — CS-037-CLAIM-ADITSANGANI-20261017: Claim replay-first symbol and countdown parser for aditsangani
+
+Author: aditsangani (AI-assisted) · Task: CS-037
+
+Propose ownership of CS-037 within existing vision scope, using accepted CS-036 replay fixtures for shape/temporal checks, uncertain flashing and null ambiguous digits. HSV alone is insufficient. No implementation, training, hardware activation, production-recognition or completion claim. Implementation waits for Michael to merge this ordinary teammate claim.
+
+Validation: Ownership-only proposal from accepted main ed85778fa016a023a4ab7a6709140da8880ad707; task unowned with no competing open CS-037 PR. CS-036 implementation PR #37 merged. Checked publishing runs repository/shared tests, generated changelog and whitespace validation; no parser/hardware tests apply to this claim.
+
+## 2026-10-17 — CS-039-BONDMILA-CLAIM-20261017: Propose bondmila assignment for isolated Gemini context service
+
+Author: bondmila (AI-assisted) · Task: CS-039
+
+Assignment only. Implementation waits for Michael to merge this claim. Requirements, dependencies and allowed paths are unchanged. No API credentials or implementation included.
+
+Validation: Repository structure, shared unit tests, changelog consistency and whitespace checked by publish_task.py before commit. No hardware or Gemini API tests performed.
+
+## 2026-10-17 — CS-039-CLAIM-CI-REPAIR-BONDMILA-20261017: Repair generated assignment changelog after main integration
+
+Author: bondmila (AI-assisted) · Task: CS-039
+
+Integrate accepted main and regenerate CHANGELOG.md from immutable fragments. Assignment-only PR still waits for merged ownership; no Gemini implementation or credentials added.
+
+Validation: Prior CI failure confirmed as stale generated changelog; checked publisher reruns structure, root tests, changelog and whitespace checks before pushing.
 
 ## 2026-10-17 — CS-040-BONDMILA-CLAIM-20261017: Propose bondmila assignment for restricted and preemptible narration
 

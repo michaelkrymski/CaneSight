@@ -1,0 +1,9 @@
+{
+  "id": "CS-026-CLAIM-20261017-GMARCIALCALLEJA",
+  "date": "2026-10-17",
+  "author": "Gavin (gmarcialcalleja)",
+  "task": "CS-026",
+  "summary": "Propose independent watchdog and restart task assignment",
+  "details": "Assignment runtime fields only. Implementation waits for merged ownership. Plan independent expiry and boot/crash state reset with simulated outputs, preserving the frozen-GPIO limitation and physical kill requirement.",
+  "validation": "Verified accepted main task is unclaimed and no open assignment competes. Checked publishing runs repository, shared tests, changelog and whitespace validation. No watchdog implementation or hardware test performed."
+}

@@ -98,6 +98,7 @@ class HapticScheduler:
         self.last_now = None
         self.accepted = self.rejected = 0
         self.last_rejection = None
+        self.guard = None
         self._stop = threading.Event()
         self._thread = None
         # Request BOTH outputs low, even when one write fails. No clock needed.
@@ -165,7 +166,33 @@ class HapticScheduler:
             used += now - max(state.started_ms, floor)
         return used
 
+    def _guard_deadline(self):
+        if self.guard is None:
+            return None
+        try:
+            deadline = self.guard()
+            number(deadline)
+            return deadline
+        except Exception:
+            return None
+
+    def set_guard(self, guard):
+        """Attach one trusted same-clock watchdog before arming; no network API."""
+        with self.lock:
+            if self.guard is not None or self.ready or self.accepted or self.closed or not callable(guard):
+                raise ValueError('Attach one local guard before any pulse')
+            self.guard = guard
+
+    def trip(self, reason='Local watchdog unavailable'):
+        with self.lock:
+            self._fail('Local watchdog unavailable; new epoch required', self._now())
+
     def _tick(self, now):
+        if self.guard is not None:
+            deadline = self._guard_deadline()
+            if deadline is None or now >= deadline:
+                self._fail('Policy lease unavailable; new epoch required', now)
+                return
         for name, state in self.channels.items():
             self._used(state, now)
             if state.deadline_ms is not None and now >= state.deadline_ms:
@@ -216,6 +243,13 @@ class HapticScheduler:
                 self._tick(now)
             reason = None
             deadline = min(now + duration_ms, valid_until_ms) if now is not None else 0
+            if self.guard is not None:
+                lease = self._guard_deadline()
+                if lease is None:
+                    self._fail('Policy lease unavailable; new epoch required', now)
+                    deadline = 0
+                else:
+                    deadline = min(deadline,lease)
             if self.closed or self.fault or not self.ready:
                 reason = 'unavailable'
             elif deadline <= now:

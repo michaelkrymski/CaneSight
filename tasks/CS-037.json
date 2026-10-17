@@ -16,9 +16,9 @@
   "suggested_role": "CV",
   "estimate_hours": 2.0,
   "elapsed_window": "8–11",
-  "owner": null,
-  "status": "backlog",
-  "branch": null,
+  "owner": "aditsangani",
+  "status": "in_progress",
+  "branch": "claim/CS-037-aditsangani",
   "pr_url": null,
   "evidence": [],
   "blocker": ""

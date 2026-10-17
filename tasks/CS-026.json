@@ -15,10 +15,15 @@
   "suggested_role": "Edge",
   "estimate_hours": 1.0,
   "elapsed_window": "8–11",
-  "owner": null,
-  "status": "backlog",
-  "branch": null,
+  "owner": "gmarcialcalleja",
+  "status": "review",
+  "branch": "task/CS-026-independent-watchdog",
   "pr_url": null,
-  "evidence": [],
-  "blocker": ""
+  "evidence": [
+    "Assignment proposal only; implementation waits for Michael to merge this claim. CS-024 software checkpoint merged in PR #32. Planned scope: independent watchdog/lease expiry, clean boot/crash/restart state and simulated failure tests; disclose frozen-GPIO limitation.",
+    "handoffs/CS-026-20261017-independent-watchdog.md",
+    "Merged assignment #40; independent completed-policy lease and scheduler admission/deadline guard, sticky fault shutdown, fresh-epoch subprocess tests, graceful SIGTERM cleanup and uninstalled restart service example. No Pi or camera access.",
+    "83 edge cases: Linux 83 passed; Windows 82 passed and POSIX SIGTERM skipped. 59 shared/dashboard tests passed on Linux. Demonstration ended with simulated outputs off, initial readiness false, no credentials loaded and gpio_used=false. Physical off after abrupt death is not asserted."
+  ],
+  "blocker": "Software checkpoint ready for review; real Pi boot/crash/restart, electrical startup/off state, frozen-GPIO behavior and service installation remain unverified. Simulated outputs only; physical kill/hardware timeout requirements retained."
 }
