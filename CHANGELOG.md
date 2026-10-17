@@ -570,3 +570,11 @@ Fixed 25-case campaign combines multi-stage consumer/policy failures with accept
 
 Validation: All 25 selected cases passed in each Windows/Linux campaign, no skips/errors/failures, and all 92 shared checks passed on both. Added ten fast campaign/report tests under existing discovery. No production modules, protected workflow, Pi/camera/GPIO or deployed services changed.
 
+## 2026-10-17 — CS-045-CLAIM-20261017-GMARCIALCALLEJA: Propose latency and depth-error measurement-analysis assignment
+
+Author: Gavin (gmarcialcalleja) · Task: CS-045
+
+Assignment runtime only. After merged ownership, prepare bounded validation/statistics tools with explicit clock uncertainty, provenance and sample-count gates. Synthetic values do not count as real latency/distance acceptance; no Pi/camera/GPIO access.
+
+Validation: Verified accepted task unclaimed and no competing open claim. Checked publishing runs repository/shared/changelog/whitespace checks. No measurement implementation or real-device evidence included.
+

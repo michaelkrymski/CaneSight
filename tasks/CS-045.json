@@ -16,10 +16,12 @@
   "suggested_role": "QA",
   "estimate_hours": 1.0,
   "elapsed_window": "14–17",
-  "owner": null,
-  "status": "backlog",
-  "branch": null,
+  "owner": "gmarcialcalleja",
+  "status": "in_progress",
+  "branch": "claim/CS-045-gmarcialcalleja",
   "pr_url": null,
-  "evidence": [],
+  "evidence": [
+    "Assignment proposal only; implementation waits for Michael to merge ownership. CS-025/CS-044 software checkpoints are merged. Planned measurement-analysis preparation: validate original capture-age/clock uncertainty and distinguish software command times from physical onset; real 20-sample latency and distance evidence remain required."
+  ],
   "blocker": ""
 }
