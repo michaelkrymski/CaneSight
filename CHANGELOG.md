@@ -66,6 +66,14 @@ Add nominal 1Hz 416-square quality75 in-memory capture, conservative original se
 
 Validation: 13 local edge tests pass, including blocked-sender replacement, no retry, timing rejection, ACK/epoch identity and actual backend multipart ingestion with synthetic JPEG. No execution of this new module on Pi, live HTTPS upload, WSS, inference, electrical or readiness acceptance. Existing CI does not discover edge test root; explicit execution required.
 
+## 2026-10-17 — CS-023-CLAIM-GMARCIALCALLEJA-20261017: Propose Gavin as capped haptic scheduler owner
+
+Author: Gavin (gmarcialcalleja) · Task: CS-023
+
+Claim only, with acceptance, dependencies and allowed paths preserved. After merged assignment, start two-channel bounded pulse/duty and startup/cleanup-off tests using simulated outputs. Keep CS-009 hardware verification prerequisite; no GPIO/motor activation or electrical claims.
+
+Validation: Checked publisher runs repository validation, all shared tests, generated changelog and whitespace checks. No executable implementation or new hardware test applies to this ownership-only PR.
+
 ## 2026-10-17 — CS-024-CLAIM-GMARCIALCALLEJA-20261017: Propose Gavin as CS-024 local policy and source expiry owner
 
 Author: Gavin (gmarcialcalleja) · Task: CS-024

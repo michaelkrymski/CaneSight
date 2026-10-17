@@ -1,0 +1,9 @@
+{
+  "id": "CS-023-CLAIM-GMARCIALCALLEJA-20261017",
+  "date": "2026-10-17",
+  "author": "Gavin (gmarcialcalleja)",
+  "task": "CS-023",
+  "summary": "Propose Gavin as capped haptic scheduler owner",
+  "details": "Claim only, with acceptance, dependencies and allowed paths preserved. After merged assignment, start two-channel bounded pulse/duty and startup/cleanup-off tests using simulated outputs. Keep CS-009 hardware verification prerequisite; no GPIO/motor activation or electrical claims.",
+  "validation": "Checked publisher runs repository validation, all shared tests, generated changelog and whitespace checks. No executable implementation or new hardware test applies to this ownership-only PR."
+}
