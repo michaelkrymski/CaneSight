@@ -183,3 +183,9 @@ and 20 accepted vision results, with zero rejections, stale drops, failures or
 queue replacements. See tests/edge/evidence/pr32-pi-receiver-20261017.json and
 handoffs/CS-024-20261017-manual-pi-receiver-pass.md for evidence and limits.
 Zero expirations in continuous fresh input does not independently validate idle expiry.
+
+## CS-024 local policy
+
+See [POLICY.md](POLICY.md) for the opt-in simulated policy, explicit trusted
+phone binding, clock uncertainty gate, expiry tests and remaining physical gates.
+`--simulate-policy` never uses GPIO; existing receiver-only behavior is preserved.

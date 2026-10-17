@@ -236,6 +236,10 @@ def main():
     parser.add_argument('--ca-file')
     parser.add_argument('--receive-vision', action='store_true',
                         help='Receive native WSS vision in this same process; no motor outputs')
+    parser.add_argument('--simulate-policy', action='store_true',
+                        help='Arm local policy with simulated outputs only; requires receiver')
+    parser.add_argument('--phone-binding-file', type=Path,
+                        help='Trusted phone source/boot/drift file; never a phone/operator token')
     args = parser.parse_args()
     if args.frames < 0 or not ID.fullmatch(args.source_id):
         parser.error('Use nonnegative frames and a protocol source ID')
@@ -243,10 +247,13 @@ def main():
         parser.error('Supply --session-file or --capture-only')
     if args.receive_vision and args.capture_only:
         parser.error('--receive-vision requires a live enrolled upload session')
+    if (args.simulate_policy or args.phone_binding_file) and not args.receive_vision:
+        parser.error('Policy/phone binding requires --receive-vision')
     boot_id = uuid.uuid4().hex
     print(f'Source: {args.source_id}; boot: {boot_id}', flush=True)
     session_id = 'capture-only'
     latest, sender, worker, receiver = Latest(), None, None, None
+    policy, scheduler = None, None
     if not args.capture_only:
         print('Enroll this identity; waiting up to 300s for matching private session file.', flush=True)
         deadline = time.monotonic() + 300
@@ -263,7 +270,12 @@ def main():
         transport = Transport(session['base_url'], session['token'], ca_file=args.ca_file)
         if args.receive_vision:
             from .receiver import VisionReceiver
-            receiver = VisionReceiver(session, ca_file=args.ca_file)
+            if args.phone_binding_file:
+                from .policy import PhoneBinding
+                binding = PhoneBinding.load(args.phone_binding_file)
+                receiver = VisionReceiver(session,ca_file=args.ca_file,phone_binding=binding)
+            else:
+                receiver = VisionReceiver(session, ca_file=args.ca_file)
         sender = Sender(latest, transport, receiver=receiver)
         if receiver:
             receiver.start()  # Authenticated WSS must exist before any capture/upload.
@@ -271,6 +283,15 @@ def main():
         worker.start()
     camera = None
     try:
+        if args.simulate_policy:
+            from .haptics import HapticScheduler, SimulatedOutput
+            from .policy import LocalPolicy
+            scheduler = HapticScheduler(SimulatedOutput(),clock=clock_ms).start()
+            policy = LocalPolicy(receiver.gate,
+                receiver.phone_binding.source_id if receiver.phone_binding else None,
+                scheduler,clock=clock_ms)
+            policy.arm(True)
+            policy.start()
         from picamera2 import Picamera2  # Hardware dependency intentionally lazy.
         camera = Picamera2()
         camera.configure(camera.create_video_configuration(
@@ -306,6 +327,10 @@ def main():
                 print(f'Frame {seq} dropped: {exc}', flush=True)
             time.sleep(max(0, 1 - (time.monotonic() - started)))
     finally:
+        if policy:
+            policy.close()
+        if scheduler:
+            scheduler.close()
         try:
             if receiver:
                 receiver.set_camera_ready(False)
@@ -320,6 +345,11 @@ def main():
                 if receiver:
                     receiver.stop()
                     print(f'Vision accepted={receiver.accepted}; rejected={receiver.rejected}; expired={receiver.expired}; unavailable on exit')
+        if policy:
+            print('Policy ' + json.dumps(policy.snapshot(),sort_keys=True))
+            print('Simulated outputs off=' + str(all(value is False for value in scheduler.snapshot()['outputs'].values())) + '; gpio_used=false')
+        if receiver and receiver.phone_binding:
+            print(f'Depth accepted={receiver.phone_accepted}; rejected={receiver.phone_rejected}; phone binding configured; physical readiness unverified')
         if sender:
             print(f'Accepted={sender.accepted}; stale={sender.dropped}; failed={sender.failed}; replaced={latest.replaced}')
             if sender.error:

@@ -90,6 +90,14 @@ Claim only; preserve acceptance, dependencies and allowed paths. First checkpoin
 
 Validation: Checked publisher runs repository validation, shared tests, generated changelog and whitespace checks. No implementation or new hardware verification claimed by this ownership PR.
 
+## 2026-10-17 — CS-024-LOCAL-POLICY-20261017-GMARCIALCALLEJA: Connect final-consumer expiry and depth policy to simulated haptics
+
+Author: Gavin (gmarcialcalleja) · Task: CS-024
+
+Opt-in local policy keeps health separate from hazards, recovers sectors from distinct covered frames, preserves original capture deadlines and cancels on loss. Trusted phone source/boot binding and explicit measured drift gate native clock/depth reception; unknown drift defaults unavailable. Simulated outputs only; no GPIO or crossing permission.
+
+Validation: 71 edge and 41 shared tests passed on Windows/Linux. Synthetic verified-TLS native phone relay test exercised clock exchange, depth, simulated left pulse and interruption cancellation. Real phone/Pi policy, drift, mount and electrical acceptance remain outstanding; earlier Pi vision evidence is retained separately.
+
 ## 2026-10-17 — CS-024-PI-RECEIVER-EXPIRY-20261017-GMARCIALCALLEJA: Integrate opt-in Pi vision reception with original capture expiry
 
 Author: Gavin (gmarcialcalleja) · Task: CS-024
