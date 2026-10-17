@@ -89,6 +89,13 @@ Author: aditsangani · Task: CS-029
 Address Michael's PR #14 reconnect finding: an already-invalidated connection drains only its own queue during detach and does not invalidate replacement peers or clear their control state. Reject relay through detached connection objects, and immediately clear overloaded pairs' buffers/control state. Preserve sequence high-water marks and normal disconnect invalidation; add the exact ordering regression with successful fresh relay after reconnect.
 
 Validation: Regression reproduced the original 1012 closure before the fix and passed afterward. 36 backend cases including real HTTPS/WSS and the legacy loopback replay passed locally. Shared repository tests, scope, rendered changelog and whitespace validation run through checked publishing. No device, hardware or public deployment acceptance claimed.
+## 2026-10-17 — CS-030-CLAIM-ADITSANGANI-20261017: Claim capture-age bounds and replay rejection for Adit
+
+Author: aditsangani · Task: CS-030
+
+Propose aditsangani as CS-030 owner to continue the backend lane. Acceptance, dependency and allowed paths remain unchanged. Implementation waits for Michael to merge this claim and accept CS-029 in PR #14. No freshness, clock synchronization or replay-policy implementation is claimed by this ownership change.
+
+Validation: Claim metadata only. Checked publishing runs shared repository/contract tests, structure, ownership/scope, generated changelog and whitespace verification; actual results are recorded in the claim PR. No runtime or hardware acceptance claimed.
 
 ## 2026-10-17 — CS-031-CLAIM-20261017-GMARCIALCALLEJA: Propose Gavin's ownership of the bounded inference worker
 

@@ -1,0 +1,9 @@
+{
+  "id": "CS-030-CLAIM-ADITSANGANI-20261017",
+  "date": "2026-10-17",
+  "author": "aditsangani",
+  "task": "CS-030",
+  "summary": "Claim capture-age bounds and replay rejection for Adit",
+  "details": "Propose aditsangani as CS-030 owner to continue the backend lane. Acceptance, dependency and allowed paths remain unchanged. Implementation waits for Michael to merge this claim and accept CS-029 in PR #14. No freshness, clock synchronization or replay-policy implementation is claimed by this ownership change.",
+  "validation": "Claim metadata only. Checked publishing runs shared repository/contract tests, structure, ownership/scope, generated changelog and whitespace verification; actual results are recorded in the claim PR. No runtime or hardware acceptance claimed."
+}
