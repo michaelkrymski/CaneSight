@@ -20,9 +20,12 @@
   "estimate_hours": 0.5,
   "elapsed_window": "11\u201314",
   "owner": "bondmila",
-  "status": "in_progress",
-  "branch": "claim/CS-040-bondmila",
+  "status": "blocked",
+  "branch": "task/CS-040-restricted-narration",
   "pr_url": null,
-  "evidence": [],
-  "blocker": ""
+  "evidence": [
+    "backend/context/narration.py: closed object vocabulary, uncertain <=20-word template, capture-based expiry, single-use request tickets, cancellation and hazard/unavailable priority.",
+    "15 isolated context unit tests passed; no Gemini API, physical audio, VoiceOver, GPIO or end-to-end device acceptance claimed."
+  ],
+  "blocker": "Component implemented with synthetic speech adapter; CS-039 provider and CS-018/CS-027 device audio/button integration are not yet available."
 }

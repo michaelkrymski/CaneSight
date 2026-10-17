@@ -386,6 +386,14 @@ Assignment only. Implementation waits for Michael to merge this claim. Requireme
 
 Validation: Repository structure, shared unit tests, changelog consistency and whitespace checked by publish_task.py before commit. No hardware or Gemini API tests performed.
 
+## 2026-10-17 — CS-040-NARRATION-GATE-BONDMILA-20261017: Add restricted narration and local cancellation/priority gate
+
+Author: bondmila (AI-assisted) · Task: CS-040
+
+Render only uncertain short descriptions from closed object labels; suppress stale, cancelled, superseded and duplicate responses. Hazard/unavailable policy preempts audio. Component-only checkpoint; provider, button and accessible audio integration remain dependencies. No shared protocol, hardware or permission policy changes.
+
+Validation: 15 isolated context tests passed; repository/shared tests and changelog validation run through checked publishing. No live Gemini/device test claimed.
+
 ## 2026-10-17 — CS-041-CLAIM-GMARCIALCALLEJA-20261017: Claim session-health dashboard for Gavin
 
 Author: Gavin (gmarcialcalleja) · Task: CS-041
