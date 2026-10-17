@@ -98,6 +98,14 @@ Address Michael's PR #14 reconnect finding: an already-invalidated connection dr
 
 Validation: Regression reproduced the original 1012 closure before the fix and passed afterward. 36 backend cases including real HTTPS/WSS and the legacy loopback replay passed locally. Shared repository tests, scope, rendered changelog and whitespace validation run through checked publishing. No device, hardware or public deployment acceptance claimed.
 
+## 2026-10-17 — CS-030-CAPTURE-AGE-20261017: Bound consumer capture age with correlated clocks and original frame lineage
+
+Author: aditsangani · Task: CS-030
+
+Add a stateful final-consumer freshness gate and certificate-verified WSS client using the accepted protocol. Bound phone depth/heartbeat through one-time local clock exchanges and justified drift, and vision through the originating Pi's bounded capture ledger. Preserve original deadlines and sequence marks; invalidate unknown, expired, future, replayed or mismatched evidence. Heartbeat and clock resync never renew observations. Relay clocks, shared schemas and baseline budgets remain unchanged.
+
+Validation: 57 backend tests passed locally, including 21 freshness cases and actual loopback WSS calibration, fresh-depth eligibility and stale rejection. Legacy HTTP replay passed. Shared repository/contract, scope, structure, rendered log and whitespace checks run through checked publishing. Test drift values are synthetic; no real phone/Pi drift, edge motor integration, electrical or deployed-service acceptance claimed.
+
 ## 2026-10-17 — CS-030-CLAIM-ADITSANGANI-20261017: Claim capture-age bounds and replay rejection for Adit
 
 Author: aditsangani · Task: CS-030
@@ -145,6 +153,14 @@ Author: Gavin (gmarcialcalleja) · Task: CS-032
 Claim CS-032 for gmarcialcalleja with status in_progress on claim/CS-032-gmarcialcalleja. Implementation waits for Michael's merged claim and coordinates with Adit's CS-029 and the CS-031 worker dependency. Requirements, master plan, other task records and prior fragments are unchanged; no rate-limit implementation or acceptance is claimed.
 
 Validation: Claim metadata only. Shared/backend suites, repository validation, replay rehearsal and changelog/whitespace check results are recorded in the claim PR. No deployment, flood performance, inference, physical watchdog or hardware acceptance claimed.
+
+## 2026-10-17 — CS-032-INTEGRATED-LIMITS-20261017-GMARCIALCALLEJA: Complete authenticated source quotas and bounded inference-load integration
+
+Author: Gavin (gmarcialcalleja) · Task: CS-032
+
+Integrate accepted CS-029 sessions, CS-031 worker and CS-030 freshness baseline. Enforce reconnect-stable phone quotas before sequence/relay commit and Pi quotas after authentication before body parsing. Preserve accepted 1008 malformed-packet semantics and worker/session lifespans. Add bounded single-process server launcher with explicit WebSocket receive limits and restricted proxy trust; mark task Review for Michael.
+
+Validation: Windows isolated environment and Vultr Linux each passed 88 backend and 39 shared tests plus replay smoke. Real verified WSS tests cover 10 reconnects, eleventh source-depth rejection, independent sessions, NaN/overflow/duplicate JSON, oversize frames and impersonation. Authenticated 200-frame slow-model flood preserves latest-only work and same-loop watchdog progress; 1000 further rejected requests retain under 1 MB additional Python heap. Synthetic models only; no physical watchdog, real YOLO sizing or public API deployment acceptance claimed.
 
 ## 2026-10-17 — CS-033-CLAIM-20261017-GMARCIALCALLEJA: Propose Gavin's ownership of Vultr backend deployment
 
