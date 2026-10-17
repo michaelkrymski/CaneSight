@@ -98,6 +98,14 @@ Address Michael's PR #14 reconnect finding: an already-invalidated connection dr
 
 Validation: Regression reproduced the original 1012 closure before the fix and passed afterward. 36 backend cases including real HTTPS/WSS and the legacy loopback replay passed locally. Shared repository tests, scope, rendered changelog and whitespace validation run through checked publishing. No device, hardware or public deployment acceptance claimed.
 
+## 2026-10-17 — CS-030-CAPTURE-AGE-20261017: Bound consumer capture age with correlated clocks and original frame lineage
+
+Author: aditsangani · Task: CS-030
+
+Add a stateful final-consumer freshness gate and certificate-verified WSS client using the accepted protocol. Bound phone depth/heartbeat through one-time local clock exchanges and justified drift, and vision through the originating Pi's bounded capture ledger. Preserve original deadlines and sequence marks; invalidate unknown, expired, future, replayed or mismatched evidence. Heartbeat and clock resync never renew observations. Relay clocks, shared schemas and baseline budgets remain unchanged.
+
+Validation: 57 backend tests passed locally, including 21 freshness cases and actual loopback WSS calibration, fresh-depth eligibility and stale rejection. Legacy HTTP replay passed. Shared repository/contract, scope, structure, rendered log and whitespace checks run through checked publishing. Test drift values are synthetic; no real phone/Pi drift, edge motor integration, electrical or deployed-service acceptance claimed.
+
 ## 2026-10-17 — CS-030-CLAIM-ADITSANGANI-20261017: Claim capture-age bounds and replay rejection for Adit
 
 Author: aditsangani · Task: CS-030
