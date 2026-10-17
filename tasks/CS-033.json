@@ -22,7 +22,8 @@
   "pr_url": "https://github.com/michaelkrymski/CaneSight/pull/6",
   "evidence": [
     "handoffs/CS-033-20261017-deployment-preparation.md",
-    "Local Python 3.14.7: 32 tests discovered, 31 passed, 1 POSIX-permissions test skipped on Windows; includes temporary TLS and Compose configuration tests."
+    "Local Python 3.14.7: 32 tests discovered, 31 passed, 1 POSIX-permissions test skipped on Windows; includes temporary TLS and Compose configuration tests.",
+    "Linux CI: all 32 tests passed, including Compose configuration and POSIX permissions: https://github.com/michaelkrymski/CaneSight/actions/runs/39011295378"
   ],
-  "blocker": "No Vultr server, approved spending limit or DNS target exists yet. CS-029 and CS-032 remain backlog; accepted backend has no runnable image. Live HTTPS/WSS, secret-readiness failure, startup/restart and laptop fallback rehearsal remain unverified."
+  "blocker": "User has $100 Vultr credit; no server or DNS target exists yet. Instance plan and SSH/DNS setup remain pending. CS-029 and CS-032 remain backlog; accepted backend has no runnable image. Live HTTPS/WSS, secret-readiness failure, startup/restart and laptop fallback rehearsal remain unverified."
 }
