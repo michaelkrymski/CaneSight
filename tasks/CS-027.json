@@ -17,9 +17,13 @@
   "estimate_hours": 0.5,
   "elapsed_window": "11\u201314",
   "owner": "bondmila",
-  "status": "in_progress",
-  "branch": "claim/CS-027-bondmila",
+  "status": "blocked",
+  "branch": "task/CS-027-context-button",
   "pr_url": null,
-  "evidence": [],
-  "blocker": ""
+  "evidence": [
+    "edge/buttons.py and edge/context_client.py: 30ms release-to-arm debounce, one outstanding request, ten-second minimum interval retained through cancellation, capture+8s expiry, independent timer, cancellable network child and Pi session/frame binding.",
+    "28 new button/client tests and all 116 edge tests passed on Python 3.13 with pinned backend test requirements. All 82 root tests passed. In-process accepted context route parsed real multipart with synthetic provider; actual spawned-child delivery/cancellation/reaping passed.",
+    "No real camera, GPIO/button, public context deployment, Gemini API, physical audio or electrical acceptance claimed. See edge/CONTEXT_BUTTON.md and handoffs/CS-027-context-button-bondmila-20261017.md."
+  ],
+  "blocker": "Software button/client checkpoint implemented and tested with synthetic input/provider. Physical GPIO/button, uploader integration and end-to-end narration tests remain unverified; CS-023 electrical prerequisites and CS-040/CS-018 integration remain separate."
 }

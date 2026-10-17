@@ -1,0 +1,278 @@
+{
+  "schema_version": 1,
+  "task": "CS-044",
+  "generated_utc": "2026-10-17T21:26:08.241656+00:00",
+  "commit": null,
+  "worktree_dirty": null,
+  "git_metadata_available": false,
+  "source_files_sha256": {
+    "backend/__init__.py": "8305412560ed6ebee4cc9bb81ebf1d8a5c508dfada5bf95970ec9b17059646da",
+    "backend/app.py": "a54fc0ebe787a504591a1774cd6fe2730b67e8ff3eff7133ca7608ae8218ea35",
+    "backend/context/__init__.py": "04acbe31ab082f570bc3eda204a9618d54fbffeb5df5883a96fd2099a2ba3a91",
+    "backend/context/probe.py": "a934d1a27c90514924c5e5c807cd6e28417915ea3e290e361de3495914453526",
+    "backend/context/provider.py": "e5717004374dbb8a71bbaedf430e24358c4468908928b177a39138cf87af2b24",
+    "backend/context/server.py": "cd7772f070b09803d0829f6936939884221d83aaeb15d399ad380c43d9a2630d",
+    "backend/context/service.py": "f6694d867effd6684d193b9edd2754ac55483391e14f2feaf71450087a058392",
+    "backend/demo_replay.py": "0284bddce9f0ee3fa4234535efe90cefda308be5603483e491fa744391a561d5",
+    "backend/deploy/bootstrap_check.py": "dfb8c4f9126144644c7f75eb2303cdbddb65c0403c961c78b4edb5bd1ad62847",
+    "backend/deploy/bootstrap_probe.py": "a50da2f6853314879d87d7dc81f9953122cd1b804d91ce4fafebec0e3f14205a",
+    "backend/deploy/check_config.py": "d84e3dd6e3a12e01783ad884f52800959aa1d8fc2ec7b3c27d2bab272d76df61",
+    "backend/deploy/laptop_fallback.py": "e94e831b6b203d1bc6dee6f9c172ab5bee5ea66d30c1f245008d07fc085216ef",
+    "backend/deploy/private_smoke.py": "2066aa6a58fa5a3deeef91eb576d301e0da97c16bfd8489b8ae76aceac67ff45",
+    "backend/deploy/readiness.py": "67b796ebebd1b87181cc382f318f0af73dfe836aadc205420d502b1dee45e27d",
+    "backend/deploy/session_probe.py": "b8b6afe309f494cc6072c2e500f11cc9b1afd7e79c520d07545c0876bb2f2784",
+    "backend/deploy/smoke.py": "a8465f242914192bb551476538d9facef27a8723afb7fa2b63d4a5c831294a32",
+    "backend/deploy/switch_upstream.py": "1d4e0c5a28c0c0346d5a5e7fa9f8f37dd23d7ca1cdfafcbe1131de78dd145856",
+    "backend/deploy/vision_probe.py": "018bfdd4a70256151cd9b0948126a90018ff161dbf204d44534781c41c205bd7",
+    "backend/events_client.py": "8c92258bc7246f5f7800041d9b3612b5816b5321bbbe72fedb5163094d9a3538",
+    "backend/freshness.py": "61cccae9693d9b4087862e397783eb16efa98b85bd1acd812f3f6ea236f22cf8",
+    "backend/inference_worker.py": "5eed09e29815445526f2c2e670ce5fbb1a71364342e03a49790b28bbdda56d4d",
+    "backend/limits.py": "b3f263bd7ccc9806601f0eced2b6f7f73176b1d77c4e69ae7242a16ecb40a38e",
+    "backend/replay.py": "3180d1d42e9afec7dd1499b645ed6567c6298e12394113cff700e859463bd0ce",
+    "backend/server.py": "732707e0ccd8d9f571da7640e335badf7f5e4fd69d8b879d438e665fb4d7d9d8",
+    "backend/sessions.py": "1aaff291c3328f3130c3372b1041285be2861ca0a0709901bcf27d2d6b54a45c",
+    "backend/smoke_replay.py": "138159dac709982f0d05a7170761f9a88c507a434acdd91dc4ec2ae486f8b7bb",
+    "backend/telemetry/__init__.py": "0e270778c9647288a97f7d8cfb22bffa9bfd63936326dec429e0f31a3f21c0aa",
+    "backend/telemetry/dashboard.py": "cd2b7340a9cbab81f1e5977027a3cfda3fd715741fb6753598766eaab59ed8c9",
+    "backend/telemetry/live.py": "62be360850a65d20ed77b3c681e8a30c344e06cb05eb3910155314d346e4cd6d",
+    "backend/telemetry/viewer.py": "cf365a2138182bacb127ea011237e77011b77944dc0a1b3809140abc8acdd0a6",
+    "backend/vision/__init__.py": "f05df9f57f0109a51a4babc2e758f53097a9df65ba08cbf28160533df3a3e2ad",
+    "backend/vision/baseline.py": "84aa92799bfa69f0bf3dba3e32133439641eb5ea8847dc57c23e6e96e5c9849f",
+    "backend/vision/observation_smoke.py": "a447386fe8c2249ee9bf23997bc304b1af51305382552f542228665b2ef62458",
+    "backend/vision/observations.py": "7ed7d65c57af43972a100a854e1e3a806a92d58e18ccad981a6053c7f0b842b1",
+    "backend/vision/signal_fixtures.py": "2922df4c879ce4c3d2df82a1e466079f102609254545375c47660b2ff93d362c",
+    "backend/vision/signal_parser.py": "92f7b6d741c8f950b6ac4f9969c7b2c8c102da2bd198057a26c3271a0a0b1fad",
+    "backend/vision/signal_parser_replay.py": "d04d30965777c2df6cda13f685b8fbff9ff6b5c51848043722e76656038d4760",
+    "backend/vision/smoke.py": "b0d9b8fd617733f3d2c81b4f695145873e9c2ccfd92989a7d151629327a6c3ba",
+    "edge/bench.py": "c66a65645f492bb323240280861381fec5dadcb360490df6195aca4142bb639a",
+    "edge/haptics.py": "ae64dbbfb3a47f92c629e1b21aa7a813bd3a95490957eaaec67d5d9af05a7241",
+    "edge/policy.py": "6ebbf2e4e85d34bf768975c0673690d6e557200f12b765c422f80cd079b67c63",
+    "edge/receiver.py": "5b154105180afcfec7b78d6d10f9bbc33b083e4dcd94a8944c1bfb17c3ef043d",
+    "edge/trace.py": "9d77a60e34db3f41029fca4ddda85c287d9e134d3ee931e4a32cb84d61a478cc",
+    "edge/uploader.py": "dc695aa90e056a3a8b9ec6efb1aa33061243a7f2128ed2271b5fb8abcbf35ad5",
+    "edge/watchdog.py": "88da94733f8649382ccf98e5f50fe8d6107a31f1a37e2586f99094c06011e94f",
+    "qa/failure_suite.py": "04c04a819cc442551fac996f34d6bde9db52e57948b5acb621150ff39a33c4ab",
+    "shared/protocol/v1/messages.schema.json": "dc3d781a9246152b2e29ce441a4124347debcd83a0c5f06e52ef95888807f1fe",
+    "shared/protocol/v1/reference.py": "f71c7a3560d14a44db978ba0d015453f737beb0c08d8af904789a422e502ee1f",
+    "tests/backend/test_app.py": "ae73d9eba4163d740eb63993837643fa525a7861b8a6089c75979069a0be15a0",
+    "tests/backend/test_authenticated_deployment.py": "c85ffd1071de35736af4c53b338da7fcdf92f60c17c36f483557c3d073d8b4c4",
+    "tests/backend/test_backend_container.py": "381f5451debcdec6b6f1484fc20f427123236d7dac86fcbadb6e1ee498cd0acb",
+    "tests/backend/test_caddy_proxy.py": "bf45f5a8517769576d310565f47429267a4e3b1f9266cd8bff60b4485c258c56",
+    "tests/backend/test_deployment.py": "7b3a940d4b2ce09f044946d7c69fee8d884e8db4460b8bf0b4f4032056b6a6a6",
+    "tests/backend/test_freshness.py": "8d070700220e92d34cd1c61ee0ac79212da8d279e696eab5c0119c4f7754bae4",
+    "tests/backend/test_https_bootstrap.py": "d42b3d16b0c619b10d93bfbbebc35cdfb9243a7eef313da102c790f8b604d64b",
+    "tests/backend/test_limits.py": "b33708c9636ff5e02ac06179ef32a2c894735b88b6ac7d26a582f73f6b2b9c97",
+    "tests/backend/test_limits_integration.py": "8c84b42da6b7f6bda99e9a1f559059fe7c14545271cd9565c62130279a52024d",
+    "tests/backend/test_native_vision.py": "803a814ceab5cf068c8fb7a8340a7a551b2c9155304730bdb3724bdd11661aac",
+    "tests/backend/test_sessions.py": "4e79309290ef6c14e6fe0198c363b6ac49fcb285c02d1dfd7afe6eebdde8fa56",
+    "tests/backend/test_sessions_tls.py": "48efeb8ce0e14ee8181e8223c5c6846e49bf745741106f1d1a37e8507fff9502",
+    "tests/backend/test_worker.py": "b35fcc7eaa066e66062bd175073b3a79b82cbdd2bd34217b03001d456cd84fe2",
+    "tests/edge/test_bench.py": "cea27e59d107d7ca030eb4c18d3bd315fbd7911ed13299d52c21eddfea02b825",
+    "tests/edge/test_haptics.py": "b0001bf46c5efc9d619bb61a33f0bfc1284b70318f885339480bbdc94e8296ef",
+    "tests/edge/test_policy.py": "b4442d5ad0c3673f7f2fcd66744f2b93a831b27688b00ac51b03e65b35ec2e9d",
+    "tests/edge/test_policy_transport.py": "a9f491180e58761a74f7b6341ca02ebe8fe4afacf3eff4800ff2352034188905",
+    "tests/edge/test_receiver.py": "70727f14c1f4d48e64929a3a924b7420479a9aa181d784cdc474b2f1ca74f4ef",
+    "tests/edge/test_uploader.py": "9d5690b34ef2d6637d8670ee8594a22138469f488d75f2d10f2cada521bbed6a",
+    "tests/edge/test_watchdog.py": "7f5e23de6f343e4d3db7744686197fed829fbe3d9f11e1fc528cb90a9a65936a",
+    "tests/failures/__init__.py": "6f6cd70ea11e2f8cf5e36fa1328243e613408a34eaa4bf7941984f828791a83e",
+    "tests/failures/test_failure_report.py": "544c644ddfff5060ad8e6ebcc03faa9e8e289fa443b24c8ffdb85f583dc5d141",
+    "tests/failures/test_fault_campaign.py": "11cc5a691e8ea512ba5021015e8c7078bca4b4395c3f0c9dc65c65242feb1941"
+  },
+  "source_stable_during_run": true,
+  "python": "3.12.3",
+  "platform": "Linux",
+  "mode": "software-fixtures",
+  "groups": {
+    "N01": {
+      "status": "software_pass",
+      "run": 4,
+      "failures": 0,
+      "errors": 0,
+      "skips": 0,
+      "cases": [
+        {
+          "id": "test_fault_campaign.FaultCampaignTests.test_n01_disconnect_then_new_epoch_cannot_reuse_old_evidence",
+          "status": "pass",
+          "elapsed_ms": 19.447
+        },
+        {
+          "id": "test_fault_campaign.FaultCampaignTests.test_n01_silent_source_expires_depth_then_health_without_network_callbacks",
+          "status": "pass",
+          "elapsed_ms": 22.185
+        },
+        {
+          "id": "test_receiver.ReceiverTlsTests.test_actual_https_upload_wss_receive_idle_expiry_and_revocation",
+          "status": "pass",
+          "elapsed_ms": 2165.911
+        },
+        {
+          "id": "test_policy_transport.PolicyTransportTests.test_verified_native_phone_clock_depth_and_interruption_cancel",
+          "status": "pass",
+          "elapsed_ms": 833.693
+        }
+      ]
+    },
+    "N02": {
+      "status": "software_pass",
+      "run": 4,
+      "failures": 0,
+      "errors": 0,
+      "skips": 0,
+      "cases": [
+        {
+          "id": "test_fault_campaign.FaultCampaignTests.test_n02_delayed_capture_barrage_cannot_become_fresh_at_receipt",
+          "status": "pass",
+          "elapsed_ms": 61.067
+        },
+        {
+          "id": "test_freshness.CaptureAgeTests.test_depth_expires_independently_and_heartbeat_cannot_renew",
+          "status": "pass",
+          "elapsed_ms": 6.353
+        },
+        {
+          "id": "test_freshness.CaptureAgeTests.test_vision_lineage_includes_entire_capture_round_trip_and_expires",
+          "status": "pass",
+          "elapsed_ms": 3.057
+        },
+        {
+          "id": "test_freshness.CaptureAgeTests.test_resync_never_extends_an_existing_observation_deadline",
+          "status": "pass",
+          "elapsed_ms": 8.223
+        }
+      ]
+    },
+    "N03": {
+      "status": "software_pass",
+      "run": 6,
+      "failures": 0,
+      "errors": 0,
+      "skips": 0,
+      "cases": [
+        {
+          "id": "test_fault_campaign.FaultCampaignTests.test_n03_combined_replay_mode_identity_future_and_reorder_after_expiry",
+          "status": "pass",
+          "elapsed_ms": 22.583
+        },
+        {
+          "id": "test_freshness.CaptureAgeTests.test_missing_clock_and_unverified_drift_remain_unavailable",
+          "status": "pass",
+          "elapsed_ms": 2.18
+        },
+        {
+          "id": "test_freshness.CaptureAgeTests.test_late_asymmetric_and_uncertain_clock_exchange",
+          "status": "pass",
+          "elapsed_ms": 7.026
+        },
+        {
+          "id": "test_freshness.CaptureAgeTests.test_clock_nonce_is_consumed_once_and_identity_is_bound",
+          "status": "pass",
+          "elapsed_ms": 5.166
+        },
+        {
+          "id": "test_freshness.CaptureAgeTests.test_authorized_source_boot_change_purges_maps_and_retires_epoch",
+          "status": "pass",
+          "elapsed_ms": 5.184
+        },
+        {
+          "id": "test_freshness.CaptureAgeTests.test_replay_and_reordered_observations_never_restore_expired_state",
+          "status": "pass",
+          "elapsed_ms": 5.927
+        }
+      ]
+    },
+    "N04": {
+      "status": "software_pass",
+      "run": 4,
+      "failures": 0,
+      "errors": 0,
+      "skips": 0,
+      "cases": [
+        {
+          "id": "test_limits_integration.SlowInferenceFloodTests.test_authenticated_flood_keeps_latest_work_heap_and_same_loop_watchdog_bounded",
+          "status": "pass",
+          "elapsed_ms": 2007.948,
+          "software_metrics": {
+            "watchdog_gap_samples": 29,
+            "median_gap_ms": 6.072,
+            "p95_gap_ms": 14.298,
+            "max_gap_ms": 15.516,
+            "retained_heap_growth_bytes": 3745,
+            "flood_frames": 200,
+            "rejected_heap_probe_requests": 1000
+          }
+        },
+        {
+          "id": "test_worker.WorkerTests.test_async_software_watchdog_runs_during_slow_process_and_flood",
+          "status": "pass",
+          "elapsed_ms": 518.414
+        },
+        {
+          "id": "test_watchdog.WatchdogTests.test_monitor_does_not_need_policy_camera_or_network_lock",
+          "status": "pass",
+          "elapsed_ms": 701.06
+        },
+        {
+          "id": "test_watchdog.WatchdogTests.test_admission_checks_lease_even_without_monitor_tick",
+          "status": "pass",
+          "elapsed_ms": 0.125
+        }
+      ]
+    },
+    "N05": {
+      "status": "software_pass",
+      "run": 7,
+      "failures": 0,
+      "errors": 0,
+      "skips": 0,
+      "cases": [
+        {
+          "id": "test_fault_campaign.FaultCampaignTests.test_n05_malformed_wire_cannot_sustain_expired_policy",
+          "status": "pass",
+          "elapsed_ms": 16.425
+        },
+        {
+          "id": "test_app.IngestionTests.test_json_schema_and_wire_rejections",
+          "status": "pass",
+          "elapsed_ms": 14.083
+        },
+        {
+          "id": "test_app.IngestionTests.test_body_limits_even_without_content_length",
+          "status": "pass",
+          "elapsed_ms": 10.503
+        },
+        {
+          "id": "test_app.IngestionTests.test_dimensions_and_byte_count_must_match_actual_jpeg",
+          "status": "pass",
+          "elapsed_ms": 8.543
+        },
+        {
+          "id": "test_app.IngestionTests.test_invalid_image_does_not_consume_sequence_or_store_frame",
+          "status": "pass",
+          "elapsed_ms": 6.119
+        },
+        {
+          "id": "test_native_vision.NativeVisionTests.test_other_session_and_phone_never_consume_the_pi_result",
+          "status": "pass",
+          "elapsed_ms": 1.128
+        },
+        {
+          "id": "test_limits_integration.TLSQuotaTests.test_real_wss_source_quota_survives_reconnect_and_rejects_invalid_input",
+          "status": "pass",
+          "elapsed_ms": 2040.158
+        }
+      ]
+    }
+  },
+  "all_software_passed": true,
+  "physical_acceptance": false,
+  "pi_accessed": false,
+  "camera_used": false,
+  "gpio_used": false,
+  "limits": [
+    "Synthetic observations and model adapters; simulated outputs only.",
+    "Local verified TLS/WSS plus in-process and spawned-process fault tests; not real Wi-Fi loss.",
+    "No real-phone, physical motor, electrical or frozen-GPIO evidence; CS-025 hardware acceptance pending.",
+    "Case elapsed times are test execution durations, not capture-to-motor latency.",
+    "Dirty worktree reports identify tested sources by SHA-256; commit alone is not an exact-head claim."
+  ]
+}
