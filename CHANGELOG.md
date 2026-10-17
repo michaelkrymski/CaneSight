@@ -538,6 +538,14 @@ Initially hide illustrative boxes until an available synthetic observation is es
 
 Validation: 12 Node model tests and all 44 shared Python tests passed, including five HTTP tests. Chromium verified independent phone/Pi disconnection and continued peer observations. Software fixtures only; no device, inference or hardware readiness claim.
 
+## 2026-10-17 — CS-042-CLAIM-ADITSANGANI-20261017: Request CS-042 assignment for consented event logging
+
+Author: aditsangani (AI-assisted) · Task: CS-042
+
+Claim only. Accepted-main CS-042 was unowned and no competing open claim was present; dashboard dependency PR #25 is merged. Plan minimal consented event records, parameterized database writes, retention/deletion and failure isolation within the existing task paths. Implementation waits for Michael to merge this assignment. Live Tiger Data connectivity, credentials, deployment and hardware acceptance are not claimed.
+
+Validation: Checked publishing runs repository validation, shared unit tests, generated changelog consistency and whitespace checks. No implementation tests or live database tests are claimed by this assignment.
+
 ## 2026-10-17 — CS-044-CLAIM-20261017-GMARCIALCALLEJA: Propose disconnect delay and replay failure-test assignment
 
 Author: Gavin (gmarcialcalleja) · Task: CS-044
