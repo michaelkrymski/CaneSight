@@ -8,6 +8,7 @@ import sys
 import threading
 import time
 from collections import deque
+from contextlib import asynccontextmanager
 from dataclasses import dataclass, field
 from pathlib import Path
 
@@ -222,15 +223,26 @@ async def read_parts(request):
         raise HTTPException(422, 'Invalid multipart upload') from None
 
 
-def create_app(*, ingress=None, dependency_health=None):
+def create_app(*, ingress=None, dependency_health=None, inference_worker=None):
     """Inject CS-029 grants and a truthful CS-031/034 health provider.
 
     Default app has no enrolled sources or model/worker. Health is liveness
     only; 202 means retained for ingestion, never fresh or inferred.
     """
     ingress = ingress if ingress is not None else FrameIngress()
-    app = FastAPI(title='CaneSight ingestion', docs_url=None, redoc_url=None)
+    @asynccontextmanager
+    async def lifespan(app):
+        if inference_worker is not None:
+            inference_worker.start()
+        try:
+            yield
+        finally:
+            if inference_worker is not None:
+                await run_in_threadpool(inference_worker.stop)
+
+    app = FastAPI(title='CaneSight ingestion', docs_url=None, redoc_url=None, lifespan=lifespan)
     app.state.ingress = ingress
+    app.state.inference_worker = inference_worker
     # Reject overload before reading/parsing/decompressing request bodies.
     slots = threading.BoundedSemaphore(4)
 
@@ -242,6 +254,8 @@ def create_app(*, ingress=None, dependency_health=None):
     def readyz():
         try:
             health = dependency_health() if dependency_health else {}
+            if inference_worker is not None:
+                health = inference_worker.health()
             checks = {'ingestion_configured': ingress.configured(),
                       'model_available': health.get('model_available') is True,
                       'worker_healthy': health.get('worker_healthy') is True}
@@ -264,6 +278,10 @@ def create_app(*, ingress=None, dependency_health=None):
                 raise HTTPException(422, 'Invalid frame metadata') from None
             await run_in_threadpool(validate_jpeg, jpeg, metadata)
             ingress.accept(grant, metadata, jpeg)
+            if inference_worker is not None:
+                # A 202 remains ingestion-only. Scheduling drops are counted;
+                # worker readiness and observations never derive from this ACK.
+                inference_worker.submit(grant, metadata, jpeg)
             return {'schema_version': 1, 'frame_id': metadata['frame_id'], 'status': 'accepted'}
         finally:
             slots.release()

@@ -16,9 +16,12 @@
   "estimate_hours": 1.0,
   "elapsed_window": "5–8",
   "owner": "gmarcialcalleja",
-  "status": "in_progress",
-  "branch": "claim/CS-031-gmarcialcalleja",
-  "pr_url": "https://github.com/michaelkrymski/CaneSight/pull/16",
-  "evidence": [],
+  "status": "review",
+  "branch": "task/CS-031-bounded-worker",
+  "pr_url": null,
+  "evidence": [
+    "handoffs/CS-031-20261017-bounded-worker.md",
+    "Windows and isolated Vultr Linux: 30 backend and 39 shared tests passed; replay health 200/readiness 503/upload 202/duplicate 409. Real spawned processes use synthetic model adapters; no YOLO or physical watchdog acceptance claimed."
+  ],
   "blocker": ""
 }

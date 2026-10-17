@@ -74,6 +74,14 @@ Propose aditsangani as CS-029 owner. Preserve acceptance, dependency and allowed
 
 Validation: Claim metadata only; shared repository checks, generated changelog verification and scope validation run through the checked publishing helper. No application or hardware tests are claimed for this ownership change.
 
+## 2026-10-17 — CS-031-BOUNDED-WORKER-20261017-GMARCIALCALLEJA: Isolate inference and bound latest work per source
+
+Author: Gavin (gmarcialcalleja) · Task: CS-031
+
+Add one spawned model process with a single load, one active job, latest-only pending work and bounded results per source. Preserve capture lineage, validate observations, expose fixed drop metrics and fail readiness closed on model failure or deadline. Integrate trusted frame admission and ASGI lifecycle without adding a public result API or selecting YOLO weights.
+
+Validation: Windows and isolated Vultr Linux: all 30 backend and 39 shared tests passed; replay smoke preserved. Tests cover 2000-frame flood, bounded identity tables, one load, latest results, slow prediction with software task progress, failures, hung load/prediction, expiry/revocation and shutdown. Synthetic adapters only; no physical watchdog, live YOLO throughput or capture-age acceptance claimed.
+
 ## 2026-10-17 — CS-031-CLAIM-20261017-GMARCIALCALLEJA: Propose Gavin's ownership of the bounded inference worker
 
 Author: Gavin (gmarcialcalleja) · Task: CS-031
