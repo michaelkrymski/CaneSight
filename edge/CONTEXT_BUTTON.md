@@ -60,7 +60,8 @@ verified HTTPS; `--ca-file` supports a private test CA. A phone binding must com
 from verified phone identity and drift evidence, never a fabricated drift value.
 These flags do not establish phone readiness: missing or expired depth, unknown
 sectors, disconnected receiver, sender failure, fault or expired policy lease
-suppress requests. A nearby obstacle also cancels context. Haptic outputs remain
+suppress requests. A busy policy, freshness-gate or watchdog lock is also treated
+as unavailable without waiting on that worker. A nearby obstacle cancels context. Haptic outputs remain
 simulated, and context cannot change the policy, watchdog or motor requests.
 
 Commands are case-sensitive, each followed by Enter:

@@ -154,6 +154,14 @@ Add opt-in release-to-arm input, one outstanding request, ten-second cooldown/ra
 
 Validation: 28 new button/client tests and 116 full edge tests passed; 82 root tests passed. Includes in-process accepted context endpoint with fake provider and actual child termination/reaping. Checked publisher reruns shared checks and generated changelog validation. No hardware/public service/API acceptance.
 
+## 2026-10-17 — CS-027-MANUAL-PRIORITY-LOCKS-BONDMILA-20261017: Keep manual context cancellation responsive during primary-worker lock contention
+
+Author: bondmila (AI-assisted) · Task: CS-027
+
+Acquire accepted policy, freshness-gate and watchdog RLocks without waiting; contention is unavailable and all acquired locks are released. Link task runtime to PR #55. No protected or electrical changes.
+
+Validation: All 132 edge tests passed, including cross-thread contention on each primary-worker lock. Shared checks rerun by checked publisher. Actual-device/deployment/audio limitations remain unchanged.
+
 ## 2026-10-17 — CS-027-MANUAL-UPLOADER-BONDMILA-20261017: Integrate consented manual context input into originating Pi uploader
 
 Author: bondmila (AI-assisted) · Task: CS-027

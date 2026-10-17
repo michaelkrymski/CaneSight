@@ -15,23 +15,34 @@ from .uploader import Frame, clock_ms
 
 def policy_priority(policy, receiver, sender, watchdog):
     """Read trusted policy + original freshness, never infer health from YOLO."""
+    acquired = []
     try:
         if (policy is None or not receiver.connected or receiver.error or sender.error
-                or watchdog is None or watchdog.deadline() is None):
+                or watchdog is None):
             return False, True
-        with policy.lock:
-            state = policy.snapshot()
-            observation = policy.gate.current(policy.phone_id, 'depth_observation')
-            if (policy.closed or state['fault'] or not state['armed']
-                    or state['health']['depth'] != 'fresh' or observation is None
-                    or observation.message['seq'] != policy.last_seq
-                    or observation.deadline_ms != policy.last_deadline
-                    or set(state['hazards']) != {'left', 'center', 'right'}
-                    or any(v not in ('nearby', 'not-nearby-observed') for v in state['hazards'].values())):
+        # A stalled policy/gate/watchdog worker must not stall cancellation.
+        # These accepted components use RLocks, so their readers can reenter.
+        for lock in (policy.lock, policy.gate.lock, watchdog.lock):
+            if not lock.acquire(blocking=False):
                 return False, True
-            return True, any(v == 'nearby' for v in state['hazards'].values())
+            acquired.append(lock)
+        if watchdog.deadline() is None:
+            return False, True
+        state = policy.snapshot()
+        observation = policy.gate.current(policy.phone_id, 'depth_observation')
+        if (policy.closed or state['fault'] or not state['armed']
+                or state['health']['depth'] != 'fresh' or observation is None
+                or observation.message['seq'] != policy.last_seq
+                or observation.deadline_ms != policy.last_deadline
+                or set(state['hazards']) != {'left', 'center', 'right'}
+                or any(v not in ('nearby', 'not-nearby-observed') for v in state['hazards'].values())):
+            return False, True
+        return True, any(v == 'nearby' for v in state['hazards'].values())
     except Exception:
         return False, True
+    finally:
+        for lock in reversed(acquired):
+            lock.release()
 
 
 class ManualContext:

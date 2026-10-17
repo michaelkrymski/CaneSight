@@ -175,10 +175,10 @@ class PriorityTests(unittest.TestCase):
         self.observation = types.SimpleNamespace(message={'seq': 12}, deadline_ms=1400)
         self.policy = types.SimpleNamespace(lock=threading.RLock(), closed=False,
             snapshot=lambda: copy.deepcopy(self.state), phone_id='phone', last_seq=12,
-            last_deadline=1400, gate=types.SimpleNamespace(current=lambda *a: self.observation))
+            last_deadline=1400, gate=types.SimpleNamespace(lock=threading.RLock(), current=lambda *a: self.observation))
         self.receiver = types.SimpleNamespace(connected=True, error=None)
         self.sender = types.SimpleNamespace(error=None)
-        self.watchdog = types.SimpleNamespace(deadline=lambda: 1250)
+        self.watchdog = types.SimpleNamespace(lock=threading.RLock(), deadline=lambda: 1250)
 
     def current(self):
         return policy_priority(self.policy, self.receiver, self.sender, self.watchdog)
@@ -200,6 +200,32 @@ class PriorityTests(unittest.TestCase):
             self.setUp()
             change()
             self.assertEqual(self.current(), (False, True))
+
+    def test_contended_policy_gate_or_watchdog_is_immediately_unavailable(self):
+        for lock in (self.policy.lock, self.policy.gate.lock, self.watchdog.lock):
+            held, release, finished = threading.Event(), threading.Event(), threading.Event()
+            results = []
+            def hold():
+                with lock:
+                    held.set()
+                    release.wait(2)
+            def read():
+                results.append(self.current())
+                finished.set()
+            holder = threading.Thread(target=hold, daemon=True)
+            reader = threading.Thread(target=read, daemon=True)
+            holder.start()
+            try:
+                self.assertTrue(held.wait(1))
+                reader.start()
+                self.assertTrue(finished.wait(.5), 'Priority reader blocked on a stalled worker')
+                self.assertEqual(results, [(False, True)])
+            finally:
+                release.set()
+                holder.join(1)
+                if reader.ident is not None:
+                    reader.join(1)
+            self.assertEqual(self.current(), (True, False))
 
 
 class UploaderContextTests(unittest.TestCase):
