@@ -17,10 +17,12 @@
   "suggested_role": "CV",
   "estimate_hours": 1.0,
   "elapsed_window": "5–8",
-  "owner": null,
-  "status": "backlog",
-  "branch": null,
-  "pr_url": null,
-  "evidence": [],
+  "owner": "gmarcialcalleja",
+  "status": "in_progress",
+  "branch": "claim/CS-035-gmarcialcalleja",
+  "pr_url": "https://github.com/michaelkrymski/CaneSight/pull/27",
+  "evidence": [
+    "Claim proposal only; implementation waits for Michael to merge assignment. CS-031 PR #19 and CS-034 PR #26 are merged."
+  ],
   "blocker": ""
 }
