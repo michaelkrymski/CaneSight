@@ -1,0 +1,9 @@
+{
+  "id": "CS-027-MANUAL-PRIORITY-LOCKS-BONDMILA-20261017",
+  "date": "2026-10-17",
+  "author": "bondmila (AI-assisted)",
+  "task": "CS-027",
+  "summary": "Keep manual context cancellation responsive during primary-worker lock contention",
+  "details": "Acquire accepted policy, freshness-gate and watchdog RLocks without waiting; contention is unavailable and all acquired locks are released. Link task runtime to PR #55. No protected or electrical changes.",
+  "validation": "All 132 edge tests passed, including cross-thread contention on each primary-worker lock. Shared checks rerun by checked publisher. Actual-device/deployment/audio limitations remain unchanged."
+}
