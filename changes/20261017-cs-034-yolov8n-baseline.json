@@ -1,0 +1,9 @@
+{
+  "id": "CS-034-YOLOV8N-BASELINE-20261017",
+  "date": "2026-10-17",
+  "author": "aditsangani (AI-assisted)",
+  "task": "CS-034",
+  "summary": "Pin and verify a pretrained YOLOv8n testing baseline",
+  "details": "Add an explicit size/SHA-256-verified pretrained weight loader, pinned optional CPU runtime, complete 80-class model card and AGPL-3.0 publisher license references. Record actual loaded classes and synthetic inference evidence. Generic traffic light does not establish pedestrian WALK/hand/countdown state. No training, service activation or protected contract/deployment change.",
+  "validation": "11 offline vision tests; 39 shared/governance and 13 edge tests passed. Backend: 115 discovered, 107 passed and 8 environment-specific skips. Actual Windows Python 3.12.5 CPU inference: one warmup and 20 generated 416-square predictions; median 70.290 ms, p95 167.836 ms, max 171.200 ms. Replay smoke health200/readiness503/upload202/duplicate409. Timings are local prediction only, not accuracy, deployed latency or hardware evidence."
+}

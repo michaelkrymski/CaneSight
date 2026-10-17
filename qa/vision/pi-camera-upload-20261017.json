@@ -1,0 +1,45 @@
+{
+  "date": "2026-10-17",
+  "task_context": [
+    "CS-021",
+    "CS-022",
+    "CS-035"
+  ],
+  "pi_checkout_commit": "66627a64314388e182cce7895c59041016c1f6ce",
+  "pi_branch": "task/CS-022-latest-upload",
+  "python": "3.13.5",
+  "sensor_reported": "imx708_wide_noir",
+  "public_base": "https://64.177.50.116",
+  "input": "Real camera captures; no saved images included",
+  "frames": 20,
+  "jpeg_dimensions": [
+    416,
+    416
+  ],
+  "jpeg_bytes": {
+    "min": 12257,
+    "max": 12333
+  },
+  "reported_capture_age_bound_ms": {
+    "min": 117,
+    "max": 218,
+    "median": 121.0
+  },
+  "accepted": 20,
+  "stale_drops": 0,
+  "failed": 0,
+  "replaced": 0,
+  "uploader_exit": 0,
+  "ssh_exit": 0,
+  "working_tree_clean_before_and_after": true,
+  "pi_credential_owner_and_mode_verified": true,
+  "phone_counterpart": "unconnected bench binding",
+  "warnings": [
+    "libcamera lacks static properties and verified sensor delays for imx708_wide_noir; uses unverified defaults"
+  ],
+  "limits": [
+    "Reported capture-age bounds are not independently calibrated sensor timing.",
+    "Accepted ACKs establish ingestion only; uploader has no native WSS receiver.",
+    "No Pi receipt of vision, receiving-side freshness, phone connectivity, detection accuracy or motor readiness established."
+  ]
+}

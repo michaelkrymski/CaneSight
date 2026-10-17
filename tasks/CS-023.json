@@ -16,10 +16,12 @@
   "suggested_role": "Edge",
   "estimate_hours": 1.0,
   "elapsed_window": "2–5",
-  "owner": null,
-  "status": "backlog",
-  "branch": null,
-  "pr_url": null,
-  "evidence": [],
+  "owner": "gmarcialcalleja",
+  "status": "in_progress",
+  "branch": "claim/CS-023-gmarcialcalleja",
+  "pr_url": "https://github.com/michaelkrymski/CaneSight/pull/34",
+  "evidence": [
+    "Claim proposal only; implementation waits for Michael to merge assignment. First checkpoint uses simulated outputs for two-channel pulse/duty caps and startup/cleanup-off behavior. CS-009 remains a prerequisite for physical GPIO/motor validation."
+  ],
   "blocker": ""
 }

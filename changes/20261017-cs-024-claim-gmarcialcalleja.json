@@ -1,0 +1,9 @@
+{
+  "id": "CS-024-CLAIM-GMARCIALCALLEJA-20261017",
+  "date": "2026-10-17",
+  "author": "Gavin (gmarcialcalleja)",
+  "task": "CS-024",
+  "summary": "Propose Gavin as CS-024 local policy and source expiry owner",
+  "details": "Claim only; preserve acceptance, dependencies and allowed paths. First checkpoint is native Pi reception and source expiry sharing the uploader process identity, BOOTTIME clock and bounded lineage ledger. Existing CS-023 dependency remains. No runtime implementation or hardware changes; ownership becomes assigned only after Michael merges.",
+  "validation": "Checked publisher runs repository validation, shared tests, generated changelog and whitespace checks. No implementation or new hardware verification claimed by this ownership PR."
+}

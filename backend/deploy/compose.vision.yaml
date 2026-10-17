@@ -1,0 +1,14 @@
+# Opt-in overlay for compose.yaml. BACKEND_IMAGE must be the reviewed vision digest.
+services:
+  backend:
+    environment:
+      CANESIGHT_VISION_WEIGHTS: /opt/canesight/models/yolov8n.pt
+    volumes:
+      - type: bind
+        source: ${CANESIGHT_VISION_HOST_WEIGHTS:?Set an absolute verified weight path}
+        target: /opt/canesight/models/yolov8n.pt
+        read_only: true
+        bind:
+          create_host_path: false
+    tmpfs:
+      - /opt/canesight/backend/vision/artifacts/runtime:size=8m,mode=0700,uid=10001,gid=10001

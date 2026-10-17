@@ -26,6 +26,14 @@ Document $100 Vultr and $1,000 Tiger Data allocations, plus a potential unconfir
 
 Validation: Documentation-only arithmetic: $1,100 reported allocations, $1,400 potential combined face value if the $300 Gemini allocation is confirmed. Repository structure, generated log and whitespace checks before publication; provider redemption, terms and balances not independently verified.
 
+## 2026-10-17 — CS-001-PM-SELF-ASSIGNMENT-20261017: Separate PM self-assignment authorization from implementation merge approval
+
+Author: Michael Krymski (AI-assisted) · Task: CS-001
+
+Propose a narrow verified PM-authored claim PR exception so Michael can start an unclaimed task before that assignment merges, continuing implementation in the same PR. Preserve native independent reviews, all branch settings, protected scope/reassignment checks and accepted-main status. No actual task assignment or production behavior changes.
+
+Validation: 41 shared tests passed, including two PM/teammate/scope/reassignment boundary regressions; repository validation, generated changelog and whitespace checks passed. Branch protection inspected read-only; exact-head PM approval and independent review remain required for this amendment.
+
 ## 2026-10-17 — CS-001-PUBLISHING-RETRY-FIX-20261017: Allow checked-publishing retry after failed validation
 
 Author: michaelkrymski (AI-assisted) · Task: CS-001
@@ -57,6 +65,22 @@ Author: michaelkrymski (AI-assisted) · Task: CS-022
 Add nominal 1Hz 416-square quality75 in-memory capture, conservative original sensor timing, reversible letterbox mapping, one-slot replacement queue, two-entry lineage ledger and verified-HTTPS multipart sender. Reject stale/future pending frames and stop on authentication/order/ACK errors. Document capture-only Pi verification and short-lived live session enrollment without operator credentials on the device.
 
 Validation: 13 local edge tests pass, including blocked-sender replacement, no retry, timing rejection, ACK/epoch identity and actual backend multipart ingestion with synthetic JPEG. No execution of this new module on Pi, live HTTPS upload, WSS, inference, electrical or readiness acceptance. Existing CI does not discover edge test root; explicit execution required.
+
+## 2026-10-17 — CS-023-CLAIM-GMARCIALCALLEJA-20261017: Propose Gavin as capped haptic scheduler owner
+
+Author: Gavin (gmarcialcalleja) · Task: CS-023
+
+Claim only, with acceptance, dependencies and allowed paths preserved. After merged assignment, start two-channel bounded pulse/duty and startup/cleanup-off tests using simulated outputs. Keep CS-009 hardware verification prerequisite; no GPIO/motor activation or electrical claims.
+
+Validation: Checked publisher runs repository validation, all shared tests, generated changelog and whitespace checks. No executable implementation or new hardware test applies to this ownership-only PR.
+
+## 2026-10-17 — CS-024-CLAIM-GMARCIALCALLEJA-20261017: Propose Gavin as CS-024 local policy and source expiry owner
+
+Author: Gavin (gmarcialcalleja) · Task: CS-024
+
+Claim only; preserve acceptance, dependencies and allowed paths. First checkpoint is native Pi reception and source expiry sharing the uploader process identity, BOOTTIME clock and bounded lineage ledger. Existing CS-023 dependency remains. No runtime implementation or hardware changes; ownership becomes assigned only after Michael merges.
+
+Validation: Checked publisher runs repository validation, shared tests, generated changelog and whitespace checks. No implementation or new hardware verification claimed by this ownership PR.
 
 ## 2026-10-17 — CS-028-CLAIM-ADITSANGANI-20261017: Claim FastAPI skeleton and frame endpoint for Adit
 
@@ -241,6 +265,70 @@ Author: aditsangani · Task: CS-034
 Propose aditsangani as CS-034 owner. Preserve acceptance, dependency and allowed paths. CS-028 implementation is accepted; implementation waits for Michael to merge this claim. No model download, hash/class/license verification, inference or pedestrian-signal recognition is claimed by this ownership change.
 
 Validation: Claim metadata only. Shared repository checks, generated changelog, scope/ownership and whitespace validation run through checked publishing; actual results are recorded in the claim PR. No application or hardware acceptance claimed.
+
+## 2026-10-17 — CS-034-REVIEW-LINK-20261017: Record CS-034 baseline review PR
+
+Author: aditsangani (AI-assisted) · Task: CS-034
+
+Link the reviewed-runtime task record to PR #26. Model code and prior evidence are unchanged; status remains Review, not Done.
+
+Validation: Metadata-only follow-up; existing 11 vision tests and 20 real CPU predictions remain applicable. Checked publishing reruns repository/shared checks, generated changelog and whitespace validation; current-head CI is inspected after push.
+
+## 2026-10-17 — CS-034-YOLOV8N-BASELINE-20261017: Pin and verify a pretrained YOLOv8n testing baseline
+
+Author: aditsangani (AI-assisted) · Task: CS-034
+
+Add an explicit size/SHA-256-verified pretrained weight loader, pinned optional CPU runtime, complete 80-class model card and AGPL-3.0 publisher license references. Record actual loaded classes and synthetic inference evidence. Generic traffic light does not establish pedestrian WALK/hand/countdown state. No training, service activation or protected contract/deployment change.
+
+Validation: 11 offline vision tests; 39 shared/governance and 13 edge tests passed. Backend: 115 discovered, 107 passed and 8 environment-specific skips. Actual Windows Python 3.12.5 CPU inference: one warmup and 20 generated 416-square predictions; median 70.290 ms, p95 167.836 ms, max 171.200 ms. Replay smoke health200/readiness503/upload202/duplicate409. Timings are local prediction only, not accuracy, deployed latency or hardware evidence.
+
+## 2026-10-17 — CS-035-CLAIM-GMARCIALCALLEJA-20261017: Claim observation-only inference results for Gavin
+
+Author: Gavin (gmarcialcalleja) · Task: CS-035
+
+Propose gmarcialcalleja as owner of CS-035 with unchanged acceptance, dependencies and allowed paths. CS-031 and CS-034 are merged. Claim only; implementation waits for Michael to merge ownership. No model, backend, deployment or protocol changes.
+
+Validation: 11 existing offline vision tests and all 39 shared Python tests passed. Repository validation passed. Checked publishing verifies generated changelog and whitespace. No real model, live device or hardware tests claimed.
+
+## 2026-10-17 — CS-035-COMPOSE-CI-PORTABILITY-20261017-GMARCIALCALLEJA: Accept older Compose false-value JSON serialization in native runtime test
+
+Author: Gavin (gmarcialcalleja) · Task: CS-035
+
+Keep the explicit create_host_path false deployment setting and verify it in the source overlay. Allow older Compose normalized JSON to omit that false value while still rejecting true. Runtime and deployment protections are unchanged.
+
+Validation: 13 focused native tests passed, including actual configured model HTTPS/WSS. Checked publisher reruns the 39 shared tests and repository/changelog/whitespace checks. Current-head CI is inspected after publishing.
+
+## 2026-10-17 — CS-035-NATIVE-RESULT-SCOPE-PM-20261017: Propose narrow service, native-result and deployment scope for CS-035
+
+Author: Michael Krymski (AI-assisted) · Task: CS-035
+
+Append backend/server.py, backend/sessions.py, tests/backend/ and backend/deploy/ to CS-035 allowed_paths so Gavin can complete reviewed native observation delivery and runtime integration after this amendment merges. Preserve all other task fields, the master plan, protocol and governance. Record explicit safety, isolation, freshness, readiness and rollback conditions in a new change request.
+
+Validation: Repository structure, all 39 shared/governance tests, generated changelog and whitespace checks passed. Exact task-field comparison confirmed only the four allowed_paths additions. Trusted-base staged-diff inspection found no structural/scope errors and correctly requires exact-head PM GitHub authorization. No runtime, deployment or hardware acceptance claimed.
+
+## 2026-10-17 — CS-035-NATIVE-TRANSPORT-20261017-GMARCIALCALLEJA: Deliver bounded observation results to authenticated native Pi sessions
+
+Author: Gavin (gmarcialcalleja) · Task: CS-035
+
+Integrate merged scope PR #29. Add explicit verified-model factory configuration, latest-frame/grant/socket checks during bounded delivery, reconnect/interruption work disposal, lifecycle regression tests and opt-in CPU image/Compose packaging with verified read-only weights. Candidate tested privately on Vultr and removed afterward. Public service, shared protocol and browser authorization remain unchanged.
+
+Validation: Linux: 128 backend tests, 122 passed/six environment or opt-in skips, 22 vision and 39 shared tests passed. Windows: 13 focused native tests including actual configured model HTTPS/WSS passed. Vultr constrained candidate completed 20 generated HTTPS/WSS results: median122.358/p95 174.652/max197.754 ms; isolated roles/sessions, original lineage, revocation, expiry and restart verified. Runtime source hashes match checkout; candidate credentials/TLS key removed. No production promotion or physical-device/motor/accuracy claim.
+
+## 2026-10-17 — CS-035-OBSERVATION-ADAPTER-20261017-GMARCIALCALLEJA: Adapt pinned YOLO detections to bounded observation-only worker results
+
+Author: Gavin (gmarcialcalleja) · Task: CS-035
+
+Add a picklable verified model factory, bounded JPEG decoder and original-image normalized object mapping. Keep unsupported pedestrian signal unknown and countdown null. Preserve original lineage through the existing worker and capture-age gate. Include actual generated-input worker evidence and a concrete PM scope proposal for native result delivery and deployment; production remains unchanged.
+
+Validation: 22 vision and 39 shared tests passed on isolated Python 3.12.14. Existing Python 3.14 backend suite: 115 discovered, 109 passed, six environment-specific skips. Actual pinned CPU model: 21 completed results including warmup, one model load, zero failures/timeouts; 20-sample local result median47/p95max63 ms. Generated pixels only, not detection accuracy, deployed latency, readiness or hardware evidence.
+
+## 2026-10-17 — CS-035-PUBLIC-ROLLOUT-20261017-GMARCIALCALLEJA: Deploy merged inference image and record public HTTPS/WSS acceptance
+
+Author: Gavin (gmarcialcalleja) · Task: CS-035
+
+Promote accepted source 2af3150 with verified read-only weights, bounded backend runtime and preserved proxy/certificates/rollback. Record only sanitized results; real Pi uploads remain unverified.
+
+Validation: 20 generated public HTTPS/WSS results passed lineage, isolation, authorization, revocation and expiry checks; deployed container healthy. Checked publisher runs repository/shared checks.
 
 ## 2026-10-17 — CS-041-CLAIM-GMARCIALCALLEJA-20261017: Claim session-health dashboard for Gavin
 
