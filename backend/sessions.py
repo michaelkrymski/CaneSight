@@ -96,6 +96,14 @@ class SessionManager:
         self.clock = clock
         self.lock = threading.RLock()
         self.sessions = {}
+        self._inference_worker = None
+
+    def bind_inference_worker(self, worker):
+        """Trusted app setup; admission and revocation use this same worker."""
+        with self.lock:
+            if self._inference_worker is not None and self._inference_worker is not worker:
+                raise ValueError('Session manager already bound to an inference worker')
+            self._inference_worker = worker
 
     def authorize_operator(self, authorization):
         token = bearer(authorization)
@@ -103,6 +111,10 @@ class SessionManager:
             raise HTTPException(401, 'Invalid operator credential')
 
     def _discard(self, session, code=4401):
+        if self._inference_worker is not None:
+            for grant in session.ingress.grants:
+                if grant.role == 'pi':
+                    self._inference_worker.discard_source(grant)
         for connection in session.connections.values():
             connection.close_code = code
             drain(connection.queue)
@@ -187,6 +199,8 @@ class SessionManager:
             if grant not in session.ingress.grants:
                 raise HTTPException(401, 'Credential no longer enrolled')
             session.ingress.accept(grant, metadata, jpeg)
+            if self._inference_worker is not None:
+                self._inference_worker.submit(grant, metadata, jpeg)
 
     def attach(self, session, role):
         with self.lock:
@@ -384,19 +398,24 @@ def install_routes(app, manager):
     async def events(websocket: WebSocket):
         await socket_session(websocket, manager, 'pi')
 
+    previous_lifecycle = app.router.lifespan_context
+
     @asynccontextmanager
     async def lifecycle(app):
         async def sweep():
             while True:
                 manager.expire()
                 await asyncio.sleep(.1)
-        cleanup = asyncio.create_task(sweep())
-        try:
-            yield
-        finally:
-            cleanup.cancel()
-            await asyncio.gather(cleanup, return_exceptions=True)
-            for session_id in list(manager.sessions):
-                with contextlib.suppress(HTTPException):
-                    manager.revoke(session_id)
+        # Preserve worker/app startup and shutdown. Revoke sessions while the
+        # worker is still alive, then let its outer lifespan stop inference.
+        async with previous_lifecycle(app) as state:
+            cleanup = asyncio.create_task(sweep())
+            try:
+                yield state
+            finally:
+                cleanup.cancel()
+                await asyncio.gather(cleanup, return_exceptions=True)
+                for session_id in list(manager.sessions):
+                    with contextlib.suppress(HTTPException):
+                        manager.revoke(session_id)
     app.router.lifespan_context = lifecycle
