@@ -1,0 +1,9 @@
+{
+  "id": "CS-001-PM-SELF-ASSIGNMENT-20261017",
+  "date": "2026-10-17",
+  "author": "Michael Krymski (AI-assisted)",
+  "task": "CS-001",
+  "summary": "Separate PM self-assignment authorization from implementation merge approval",
+  "details": "Propose a narrow verified PM-authored claim PR exception so Michael can start an unclaimed task before that assignment merges, continuing implementation in the same PR. Preserve native independent reviews, all branch settings, protected scope/reassignment checks and accepted-main status. No actual task assignment or production behavior changes.",
+  "validation": "41 shared tests passed, including two PM/teammate/scope/reassignment boundary regressions; repository validation, generated changelog and whitespace checks passed. Branch protection inspected read-only; exact-head PM approval and independent review remain required for this amendment."
+}

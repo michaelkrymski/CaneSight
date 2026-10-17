@@ -65,6 +65,33 @@ class GovernanceTests(unittest.TestCase):
         errors, _ = self.inspect([{'filename': 'edge/camera.py', 'status': 'added'}])
         self.assertTrue(any('claim' in e for e in errors))
 
+    def test_verified_pm_can_implement_self_assignment_without_merged_claim(self):
+        self.task.update(owner=None, status='backlog')
+        after = dict(self.task, owner='pm', status='in_progress')
+        files = [{'filename': 'tasks/CS-001.json', 'status': 'modified'},
+                 {'filename': 'edge/camera.py', 'status': 'added'}]
+        errors, needed = self.inspect(files, author='pm', after=after)
+        self.assertEqual(errors, [])
+        self.assertFalse(needed)
+        # The same unmerged ownership/code diff is not authorized for a teammate.
+        errors, _ = self.inspect(files, author='alice', after=dict(after, owner='alice'))
+        self.assertTrue(any('claim must be merged' in e for e in errors))
+
+    def test_pm_self_assignment_does_not_exempt_scope_changes_or_reassignment(self):
+        self.task.update(owner=None, status='backlog')
+        after = dict(self.task, owner='pm', status='in_progress', allowed_paths=['ios/'])
+        errors, needed = self.inspect(
+            [{'filename': 'tasks/CS-001.json', 'status': 'modified'}],
+            author='pm', after=after)
+        self.assertTrue(needed)
+        self.assertTrue(any('new decisions/CR-' in e for e in errors))
+        self.task.update(owner='alice', status='in_progress')
+        errors, needed = self.inspect(
+            [{'filename': 'tasks/CS-001.json', 'status': 'modified'}],
+            author='pm', after=dict(self.task, owner='pm'))
+        self.assertTrue(needed)
+        self.assertTrue(any('new decisions/CR-' in e for e in errors))
+
     def test_approval_is_identity_and_head_bound(self):
         comment = {'user': {'login': 'pm'}, 'body': 'PM-APPROVE-PLAN abc'}
         self.assertTrue(has_approval('pm', 'abc', [comment], []))
