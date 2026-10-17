@@ -1,0 +1,54 @@
+name: canesight
+services:
+  backend:
+    # Supply a reviewed Python backend image after CS-028/029/032 integration.
+    image: ${BACKEND_IMAGE:?Set a reviewed backend image digest}
+    env_file:
+      - path: ./secrets/backend.env
+        format: raw
+    restart: unless-stopped
+    init: true
+    user: '10001:10001'
+    read_only: true
+    tmpfs:
+      - /tmp:size=128m,mode=1777
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    pids_limit: 256
+    mem_limit: 2g
+    cpus: 1.5
+    stop_grace_period: 15s
+    healthcheck:
+      test: [CMD, python, /opt/canesight/readiness.py]
+      interval: 10s
+      timeout: 4s
+      start_period: 60s
+      retries: 3
+    volumes:
+      - ./readiness.py:/opt/canesight/readiness.py:ro
+    logging:
+      driver: json-file
+      options: {max-size: 10m, max-file: '3'}
+    # No host port. The application must bind 0.0.0.0:8000 in its container.
+  proxy:
+    image: ${CADDY_IMAGE:?Set a reviewed Caddy image digest}
+    restart: unless-stopped
+    environment:
+      CANESIGHT_DOMAIN: ${CANESIGHT_DOMAIN:?Set the backend DNS hostname}
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    security_opt: [no-new-privileges:true]
+    logging:
+      driver: json-file
+      options: {max-size: 10m, max-file: '3'}
+    depends_on:
+      backend:
+        condition: service_healthy
+volumes:
+  caddy_data:
+  caddy_config:

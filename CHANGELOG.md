@@ -18,3 +18,11 @@ Claim CS-033 for gmarcialcalleja with status in_progress on claim/CS-033-gmarcia
 
 Validation: Claim-only metadata change; repository check results are recorded in the claim PR. No Vultr, HTTPS/WSS, secret configuration, laptop fallback or hardware tests performed.
 
+## 2026-10-17 — CS-033-DEPLOYMENT-PREPARATION-20261017-GMARCIALCALLEJA: Prepare Vultr deployment configuration and TLS/authentication probes
+
+Author: Gavin (gmarcialcalleja) · Task: CS-033
+
+Add Compose/Caddy deployment templates with private backend networking, digest-pinned input requirements, non-root read-only backend, bounded logs, readiness gating, server-only raw environment configuration, a safe input validator, TLS/authentication handshake smoke probes and a setup/rollback/fallback runbook. Mark CS-033 blocked pending infrastructure and CS-029/032 integration; no live deployment or acceptance is claimed.
+
+Validation: Local Python 3.14.7: 32 unit tests discovered, 31 passed and one Linux permissions test skipped on Windows. Includes temporary HTTPS/WSS fixtures and Docker Compose configuration validation without an engine. Repository validation, changelog verification and whitespace checks passed. Docker engine/Caddy startup, Vultr deployment, actual backend authentication/secret validity, laptop fallback and hardware were not tested.
+

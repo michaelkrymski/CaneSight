@@ -1,0 +1,14 @@
+{
+    admin off
+}
+
+{$CANESIGHT_DOMAIN} {
+    # Automatic HTTPS and WebSocket upgrades are handled by Caddy.
+    # Do not enable request access logs: URLs may identify demo sessions.
+    reverse_proxy backend:8000 {
+        transport http {
+            dial_timeout 3s
+            response_header_timeout 10s
+        }
+    }
+}

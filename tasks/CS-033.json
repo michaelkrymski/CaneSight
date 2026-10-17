@@ -17,9 +17,12 @@
   "estimate_hours": 1.0,
   "elapsed_window": "11–14",
   "owner": "gmarcialcalleja",
-  "status": "in_progress",
-  "branch": "claim/CS-033-gmarcialcalleja",
+  "status": "blocked",
+  "branch": "codex/CS-033-vultr-deployment",
   "pr_url": null,
-  "evidence": [],
-  "blocker": ""
+  "evidence": [
+    "handoffs/CS-033-20261017-deployment-preparation.md",
+    "Local Python 3.14.7: 32 tests discovered, 31 passed, 1 POSIX-permissions test skipped on Windows; includes temporary TLS and Compose configuration tests."
+  ],
+  "blocker": "No Vultr server, approved spending limit or DNS target exists yet. CS-029 and CS-032 remain backlog; accepted backend has no runnable image. Live HTTPS/WSS, secret-readiness failure, startup/restart and laptop fallback rehearsal remain unverified."
 }
