@@ -402,6 +402,14 @@ Propose ownership of CS-037 within existing vision scope, using accepted CS-036 
 
 Validation: Ownership-only proposal from accepted main ed85778fa016a023a4ab7a6709140da8880ad707; task unowned with no competing open CS-037 PR. CS-036 implementation PR #37 merged. Checked publishing runs repository/shared tests, generated changelog and whitespace validation; no parser/hardware tests apply to this claim.
 
+## 2026-10-17 — CS-037-ROI-RETARGET-20261017: Reset schematic confirmation when a manual ROI is retargeted
+
+Author: aditsangani (AI-assisted) · Task: CS-037
+
+Include manual ROI geometry in the replay selection identity so moving the box clears prior shape/digit/temporal state even if the target ID is reused. Preserve previous evidence/records and add the exact regression.
+
+Validation: New regression reproduced old walk confirmation on a shifted ROI and passed after the fix. Final 46 vision tests (15 parser) and all 18 replay frames passed. No live/real-world/hardware claim; checked publishing reruns repository/shared checks and generated log/whitespace validation.
+
 ## 2026-10-17 — CS-037-SCHEMATIC-PARSER-20261017: Add a manual-ROI schematic replay symbol and countdown parser
 
 Author: aditsangani (AI-assisted) · Task: CS-037

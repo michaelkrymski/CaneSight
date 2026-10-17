@@ -154,9 +154,10 @@ class ReplaySignalParser:
                 or not 0 <= box[0] < box[2] <= 416 or not 0 <= box[1] < box[3] <= 416
                 or box[2]-box[0] < 64 or box[3]-box[1] < 64):
             return self._clear('invalid_manual_roi')
-        if target_id != self.target:
+        selection = (target_id,tuple(box))
+        if selection != self.target:
             self._clear('target_changed')
-            self.target = target_id
+            self.target = selection
         normalized = image.crop(box).resize((208,248),Image.Resampling.NEAREST)
         mask = foreground(normalized.crop((16,16,192,170)))
         ranked = sorted(((iou(mask,template),name) for name,template in self.templates.items()),reverse=True)

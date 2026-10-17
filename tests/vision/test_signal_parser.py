@@ -3,7 +3,7 @@ import copy
 import json
 import unittest
 
-from PIL import Image, ImageDraw
+from PIL import Image, ImageDraw, ImageChops
 
 from backend.vision.signal_fixtures import PACK
 from backend.vision.signal_parser import ReplaySignalParser, read_digit, segment_template
@@ -78,6 +78,20 @@ class ParserTests(unittest.TestCase):
         self.observe(seq=2,ms=100)
         self.assertEqual(self.observe('hand_like',seq=3,ms=200).symbol,'unknown')
         self.assertEqual(self.observe('hand_like',seq=4,ms=300).symbol,'dont_walk')
+
+    def test_retargeted_manual_box_resets_even_if_operator_reuses_target_id(self):
+        self.observe();self.observe(seq=2,ms=100)
+        fixture = self.cases['walk_like']['frames'][0]
+        rois = copy.deepcopy(fixture['manual_rois'])
+        rois[0]['box_xyxy'] = [120,96,328,344]
+        with Image.open(PACK/fixture['file']) as original:
+            shifted = ImageChops.offset(original,16,0)
+            result = self.parser.observe(shifted,mode='replay',sequence=3,replay_ms=200,
+                                         target_id='target-a',manual_rois=rois)
+            self.assertEqual(result.symbol,'unknown')
+            result = self.parser.observe(shifted,mode='replay',sequence=4,replay_ms=300,
+                                         target_id='target-a',manual_rois=rois)
+            self.assertEqual(result.symbol,'walk')
 
     def test_sequence_time_and_mode_errors_remove_evidence(self):
         for overrides in (dict(sequence=2),dict(sequence=3,replay_ms=100),

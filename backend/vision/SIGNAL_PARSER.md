@@ -58,7 +58,7 @@ hand, not a road-use instruction. Consumers must retain the replay/profile label
 ## Temporal and digit behavior
 
 - At least two matching frames spanning >=100 ms are needed for a schematic
-  symbol. A shape or target change immediately removes the prior result and
+  symbol. A shape, target ID or ROI geometry change immediately removes the prior result and
   starts confirmation again. Missing/ambiguous shapes never retain old evidence.
 - An authored hand/off/hand or walk/off/walk sequence within the bounded history
   becomes `flashing_or_uncertain`; symbol/countdown remain unknown/null. This
@@ -99,7 +99,7 @@ to the parser. Single-frame positive examples remain unconfirmed, the authored
 countdown sequence returns its observed 11, and ambiguous/track-loss examples
 remain unknown. These results do not constitute a real-scene confusion matrix.
 
-Fourteen new tests cover confirmation, expiry, resets, flashing, ROI provenance,
+Fifteen new tests cover confirmation, expiry, resets/retargeting, flashing, ROI provenance,
 color-only negatives, all ten segment digits and malformed/plausibility cases.
 Existing baseline, adapter and fixture tests are retained. Run `tests/vision`
 explicitly; protected repository CI does not discover that root. No workflow or

@@ -23,7 +23,8 @@
   "evidence": [
     "handoffs/CS-037-schematic-parser-20261017.md",
     "qa/vision/signal-parser-replay-20261017.json",
-    "45 vision tests passed including 14 parser regressions; replay CLI processed all 18 fixture frames. Manual schematic profile only; no training, automatic real-world recognition or hardware acceptance."
+    "45 vision tests passed including 14 parser regressions; replay CLI processed all 18 fixture frames. Manual schematic profile only; no training, automatic real-world recognition or hardware acceptance.",
+    "ROI retarget regression failed before fix and passed after selection included geometry. Final suite: 46 vision tests including 15 parser tests; all 18 replay frames still passed. See handoffs/CS-037-roi-retarget-20261017.md."
   ],
   "blocker": ""
 }
