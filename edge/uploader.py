@@ -241,6 +241,10 @@ def main():
     parser.add_argument('--phone-binding-file', type=Path,
                         help='Trusted phone source/boot/drift file; never a phone/operator token')
     parser.add_argument('--policy-trace',type=Path,help='New private metadata JSONL outside checkout; simulated policy only')
+    parser.add_argument('--context-stdin', action='store_true',
+                        help='Manual terminal context button; no GPIO/audio; requires verified primary-source policy')
+    parser.add_argument('--context-consent', action='store_true',
+                        help='Explicit consent to send requested scene frames to the context provider')
     args = parser.parse_args()
     if args.frames < 0 or not ID.fullmatch(args.source_id):
         parser.error('Use nonnegative frames and a protocol source ID')
@@ -252,11 +256,16 @@ def main():
         parser.error('Policy/phone binding requires --receive-vision')
     if args.policy_trace and not args.simulate_policy:
         parser.error('--policy-trace requires --simulate-policy')
+    if args.context_stdin and not (args.context_consent and args.simulate_policy and args.phone_binding_file):
+        parser.error('--context-stdin requires --context-consent, --simulate-policy and --phone-binding-file')
+    if args.context_consent and not args.context_stdin:
+        parser.error('--context-consent requires --context-stdin')
     boot_id = uuid.uuid4().hex
     print(f'Source: {args.source_id}; boot: {boot_id}', flush=True)
     session_id = 'capture-only'
     latest, sender, worker, receiver = Latest(), None, None, None
     policy, scheduler, watchdog, trace = None, None, None, None
+    context_input = None
     if not args.capture_only:
         print('Enroll this identity; waiting up to 300s for matching private session file.', flush=True)
         deadline = time.monotonic() + 300
@@ -302,11 +311,22 @@ def main():
                 scheduler,clock=clock_ms,watchdog=watchdog,trace=trace)
             policy.arm(True)
             policy.start()
+        if args.context_stdin:
+            import sys
+            from .context_runtime import ManualContext, policy_priority
+            context_input = ManualContext(session,
+                lambda: policy_priority(policy, receiver, sender, watchdog),
+                consent=args.context_consent, ca_file=args.ca_file, clock=clock_ms)
+            context_input.start(sys.stdin)
+            print('Manual context input: release / press / cancel / off. No GPIO or audio. '
+                  'Unknown primary-source state suppresses requests.', flush=True)
         from picamera2 import Picamera2  # Hardware dependency intentionally lazy.
         camera = Picamera2()
         camera.configure(camera.create_video_configuration(
             main={'size': (640, 480), 'format': 'RGB888'}, buffer_count=2, queue=False))
         camera.start()
+        if context_input:
+            context_input.set_camera_ready(True)
         if receiver:
             receiver.set_camera_ready(True)
         time.sleep(2)
@@ -335,10 +355,15 @@ def main():
                 print(f'Frame {seq}: 416x416, {len(frame.jpeg)} bytes, age bound {age:.0f}ms', flush=True)
                 if sender:
                     latest.put(frame)
+                if context_input:
+                    context_input.offer(frame)
             except ValueError as exc:
                 print(f'Frame {seq} dropped: {exc}', flush=True)
             time.sleep(max(0, 1 - (time.monotonic() - started)))
     finally:
+        if context_input:
+            context_input.close()
+            print('Context ' + json.dumps(context_input.snapshot(), sort_keys=True))
         if policy:
             policy.close()
         if trace:

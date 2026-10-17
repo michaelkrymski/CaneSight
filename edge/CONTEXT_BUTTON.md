@@ -3,8 +3,8 @@
 `edge.buttons.ContextButton` is an opt-in software coordinator with injected input,
 latest-frame and request adapters. `edge.context_client.ContextClient` supplies a
 Pi-role HTTPS adapter for the accepted CS-039 context service. No GPIO driver,
-speech sink or motor output is included or armed. Existing uploader/receiver,
-policy, watchdog, deployed backend and task ownership are unchanged.
+speech sink or motor output is included or armed. The originating uploader now
+has an explicit opt-in manual terminal adapter; default operation is unchanged.
 
 ## Behavior
 
@@ -44,33 +44,56 @@ policy, watchdog, deployed backend and task ownership are unchanged.
 
 ## Integrating in the originating Pi process
 
-The following is a wiring example for a future reviewed adapter, not a runnable
-GPIO setup or evidence that a physical button is connected:
+The user confirmed that no physical button is installed. Use the uploader's
+manual terminal mode with explicit scene-sharing consent:
 
-```python
-from edge.buttons import ContextButton
-from edge.context_client import ContextClient
-from edge.uploader import clock_ms
-
-client = ContextClient(pi_session, ca_file=private_test_ca_or_none)
-button = ContextButton(latest_frame_supplier, client.start, clock=clock_ms).start()
-try:
-    # Drive from trusted local state; do not infer consent or health from Gemini.
-    button.set_state(ready=context_ready, consent=user_consented, hazard=hazard_present)
-    button.sample(raw_pressed)  # Adapter supplies subsequent level changes too.
-    result = button.take_result()  # Poll independently; may be None.
-finally:
-    button.close()
+```sh
+python -m edge.uploader --receive-vision --simulate-policy \
+  --phone-binding-file /PRIVATE/phone-binding.json \
+  --session-file /PRIVATE/pi-session.json --frames 0 \
+  --context-stdin --context-consent
 ```
 
-Run under the application's `if __name__ == '__main__':` entry guard: request
-workers use multiprocessing spawn. Use the originating uploader's same process,
-source/boot/session, clock and latest original frame. Keep at most one latest
-JPEG for the supplier, under its own short lock; return promptly. Do not launch a
-second camera process, reuse a prior boot, fabricate capture timestamps, or
-substitute a server clock. Explicit replay fixtures must keep `mode=replay`.
-On a new epoch, close this controller/client and construct new ones from the
-newly authorized Pi session. Call `close()` during normal cleanup.
+Use the existing enrollment procedure for the uploader's newly printed source
+and boot. The service must expose the accepted opt-in `/v1/context` endpoint over
+verified HTTPS; `--ca-file` supports a private test CA. A phone binding must come
+from verified phone identity and drift evidence, never a fabricated drift value.
+These flags do not establish phone readiness: missing or expired depth, unknown
+sectors, disconnected receiver, sender failure, fault or expired policy lease
+suppress requests. A nearby obstacle also cancels context. Haptic outputs remain
+simulated, and context cannot change the policy, watchdog or motor requests.
+
+Commands are case-sensitive, each followed by Enter:
+
+- `press`: hold the synthetic input pressed. After 30 ms stable input, request
+  context (or cancel an outstanding request on a second debounced press).
+- `release`: release the input. Release before another press; holding never repeats.
+- `cancel`: immediately cancel and release; the ten-second cooldown remains.
+- `off`: withdraw consent, cancel, and purge the retained frame. Restart and
+  reenroll for another consented session. EOF or input failure also withdraws.
+
+After readiness recovery, release and press again. Commands entered before
+readiness are not queued. Unknown commands cancel without echoing input;
+oversize lines are drained with bounded reads. Terminal input is not an API for
+arbitrary commands. Output contains only closed object labels with an AI and
+uncertainty label; it is text, not audio or narration integration.
+
+`edge.context_runtime.ManualContext` runs inside the originating uploader and
+shares its session/source/boot, capture clock and original frames. It holds at
+most one latest JPEG, copied metadata, and one outstanding request; replacing
+the latest frame never retimes a request. A separate 20 ms worker checks camera
+capture age, primary-source state and results, while the button has its own
+10 ms debounce/expiry worker. Blocked camera capture or terminal reads cannot
+keep stale context eligible. Camera loss, consent withdrawal and cleanup purge
+the retained frame. A blocked daemon stdin reader may remain until input/EOF;
+cleanup never closes caller-owned stdin and the reader cannot dispatch after
+close. Python scheduling is not a hard real-time guarantee.
+
+The injected `ContextButton` API remains available for a future reviewed hardware
+adapter. Use the application's `if __name__ == '__main__':` entry guard for
+multiprocessing spawn. Do not launch a second camera process, reuse a prior boot,
+fabricate capture timestamps or substitute a server clock. Replay fixtures must
+keep `mode=replay`. On a new epoch, close the old runtime/client and reenroll.
 
 The client takes only the existing private six-field Pi credential:
 `base_url`, `session_id`, `source_id`, `boot_id`, `mode`, `token`. Never put a
@@ -92,8 +115,9 @@ external request already made.
 Physical button pin selection, voltage/pull-up/debounce behavior, boot/off-state
 checks, camera scheduling and full Pi run evidence require their actual devices
 and the accepted electrical prerequisites. No physical GPIO activation was
-performed. Uploader integration must be coordinated with the active CS-025
-vertical-slice work. The service must be packaged/deployed through its deployment
+performed. The manual uploader adapter is software-tested; its actual Pi/phone
+run still needs device evidence and coordination with CS-025. The service must
+be packaged/deployed through its deployment
 owner; this change does not activate `/v1/context` on the existing Vultr service.
 CS-040 remains draft PR #41 and owns narration restrictions, cancellation and
 hazard priority; CS-018 owns accessible device audio. Stop/preempt local audio
@@ -111,8 +135,10 @@ python -m unittest discover -s tests -v
 ```
 
 Tests use synthetic button levels, generated JPEGs, fake grants/provider outputs
-and an in-process HTTP adapter. Real child lifecycle tests prove process cleanup;
-they do not prove physical switch behavior or actual TLS deployment. The TLS
-configuration test checks mandatory certificate/hostname verification. Existing
+and an in-process HTTP adapter. A generated local CA test also exercises manual
+input through a real spawned HTTPS child, accepted paired session and context
+route with a fake provider, then verifies child cleanup. These checks do not
+prove physical switch behavior, actual phone readiness, cloud deployment or
+Gemini accuracy. TLS configuration tests require certificate/hostname verification. Existing
 required CI runs root/backend suites, not the separate edge root: edge results
 are explicitly recorded locally; no workflow/protection was changed here.
