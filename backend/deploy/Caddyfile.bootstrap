@@ -1,0 +1,31 @@
+{
+    admin off
+    default_sni {$CANESIGHT_ADDRESS}
+}
+
+{$CANESIGHT_ADDRESS} {
+    # Explicit public issuer: bare IPs otherwise use Caddy's private CA.
+    tls {
+        issuer acme https://acme-v02.api.letsencrypt.org/directory {
+            profile shortlived
+            disable_tlsalpn_challenge
+        }
+    }
+    header Cache-Control "no-store"
+    @health {
+        method GET
+        path /healthz /readyz
+    }
+    handle @health {
+        reverse_proxy backend:8000 {
+            transport http {
+                dial_timeout 3s
+                response_header_timeout 5s
+            }
+        }
+    }
+    handle {
+        # No session enrollment, JPEGs, credentials or WebSocket relay yet.
+        respond "Backend API deployment pending" 503
+    }
+}

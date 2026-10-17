@@ -27,7 +27,9 @@
     "handoffs/CS-033-20261017-host-prepared.md",
     "Vultr host: Docker Engine 29.9.1 / Compose 5.6.0 installed; all 56 tests passed including real loopback Caddy HTTPS/WSS proxy; production Caddy configuration validated. No application publicly listening.",
     "handoffs/CS-033-20261017-private-ingestion.md",
-    "Real CS-028 image built and running on Vultr loopback 18000: health 200, readiness 503, absent/invalid token 401; container restart and laptop SSH tunnel passed. Server: 40 backend/deployment plus 39 shared tests passed; replay upload 202 and duplicate 409."
+    "Real CS-028 image built and running on Vultr loopback 18000: health 200, readiness 503, absent/invalid token 401; container restart and laptop SSH tunnel passed. Server: 40 backend/deployment plus 39 shared tests passed; replay upload 202 and duplicate 409.",
+    "handoffs/CS-033-20261017-public-https-bootstrap.md",
+    "Public https://64.177.50.116/healthz verified from laptop and server using a trusted Let's Encrypt IP certificate; health 200 and readiness/API 503. Proxy restart preserves certificate. After CS-031 merge, Linux: 74 backend tests, 72 passed and 2 optional image tests skipped; includes real loopback Caddy bootstrap route tests. All 39 shared tests and replay smoke passed."
   ],
-  "blocker": "CS-028 backend is privately deployed and tested; CS-029 paired WSS authentication is in progress with Adit and CS-032 remains backlog. Actual model/worker readiness, complete authenticated HTTPS/WSS and full laptop fallback acceptance await integration. User deferred domain registration/public TLS until the end."
+  "blocker": "Public health-only HTTPS is live with a trusted IP certificate; no domain is needed for this stage. The private image still runs CS-028 backend.app:app. CS-029 is accepted but paired-service image/secret integration, accepted CS-032 quotas, model/worker readiness, authenticated HTTPS/WSS, real Pi upload and complete laptop fallback acceptance remain pending. All public API routes stay 503 until integration is reviewed."
 }

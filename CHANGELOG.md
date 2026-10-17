@@ -106,6 +106,14 @@ Propose aditsangani as CS-030 owner to continue the backend lane. Acceptance, de
 
 Validation: Claim metadata only. Checked publishing runs shared repository/contract tests, structure, ownership/scope, generated changelog and whitespace verification; actual results are recorded in the claim PR. No runtime or hardware acceptance claimed.
 
+## 2026-10-17 — CS-031-BOUNDED-WORKER-20261017-GMARCIALCALLEJA: Isolate inference and bound latest work per source
+
+Author: Gavin (gmarcialcalleja) · Task: CS-031
+
+Add one spawned model process with a single load, one active job, latest-only pending work and bounded results per source. Preserve capture lineage, validate observations, expose fixed drop metrics and fail readiness closed on model failure or deadline. Integrate trusted frame admission and ASGI lifecycle without adding a public result API or selecting YOLO weights.
+
+Validation: Windows and isolated Vultr Linux: all 30 backend and 39 shared tests passed; replay smoke preserved. Tests cover 2000-frame flood, bounded identity tables, one load, latest results, slow prediction with software task progress, failures, hung load/prediction, expiry/revocation and shutdown. Synthetic adapters only; no physical watchdog, live YOLO throughput or capture-age acceptance claimed.
+
 ## 2026-10-17 — CS-031-CLAIM-20261017-GMARCIALCALLEJA: Propose Gavin's ownership of the bounded inference worker
 
 Author: Gavin (gmarcialcalleja) · Task: CS-031
@@ -113,6 +121,14 @@ Author: Gavin (gmarcialcalleja) · Task: CS-031
 Claim CS-031 for gmarcialcalleja with status in_progress. Implementation waits for Michael's merged assignment. Scope remains backend and backend tests; acceptance remains one model load, no event-loop blocking, per-source latest work and explicit drop metrics. Dependency CS-028 is accepted. No implementation or model performance is claimed.
 
 Validation: Metadata-only claim; actual repository, shared/backend test and replay results are recorded in the claim PR. No inference, watchdog or hardware acceptance claimed.
+
+## 2026-10-17 — CS-031-REVIEW-PROVENANCE-SESSIONS-20261017-GMARCIALCALLEJA: Protect original provenance and compose authenticated session-worker lifecycle
+
+Author: Gavin (gmarcialcalleja) · Task: CS-031
+
+Address Michael's PR19 feedback: give model adapters a separate deep copy and build observation provenance from an untouched original. Integrate accepted CS-029 while preserving TLS/auth/role enforcement, compose lifespans and bind atomic frame scheduling and session disposal to the same worker. Add mutation, paired success/isolation, revocation/new epoch and expiry-sweeper regressions.
+
+Validation: Reproduced the old mutation failure in an isolated Linux checkout, then restored the fix. Windows and Vultr Linux each passed 51 backend and 39 shared tests plus replay smoke. Existing real certificate-verified HTTPS/WSS tests passed; combined worker tests use ASGI HTTPS scopes and synthetic models. No live YOLO, public deployment or physical watchdog acceptance claimed.
 
 ## 2026-10-17 — CS-032-CLAIM-20261017-GMARCIALCALLEJA: Propose Gavin's ownership of backend validation and rate limits
 
@@ -153,4 +169,12 @@ Author: Gavin (gmarcialcalleja) · Task: CS-033
 Package merged CS-028 with a digest-pinned Python base and allowlisted build context. Add a loopback-only private Compose stack, default-state smoke tool and opt-in real-image restart/replay tests. Deploy on the existing CPU host and verify laptop SSH-tunnel access. Remove this PR's tests/backend package marker to preserve the accepted separate discovery roots. Keep live acceptance blocked on CS-029/032, real model/worker readiness and deferred public TLS.
 
 Validation: Vultr: 40 component tests and 39 shared tests passed, including real built-image startup/restart and replay upload 202/duplicate 409, real Caddy proxy and TLS cases. Persistent private app returned health 200, readiness 503 and missing/invalid credentials 401 before/after Compose restart; laptop SSH tunnel passed. Windows: 40 component tests with four documented skips, 39 shared tests passed, replay rehearsal passed. No live sensing, complete WSS auth, public certificate or hardware acceptance claimed.
+
+## 2026-10-17 — CS-033-PUBLIC-HTTPS-BOOTSTRAP-20261017-GMARCIALCALLEJA: Deploy verified public IP HTTPS for health-only bootstrap
+
+Author: Gavin (gmarcialcalleja) · Task: CS-033
+
+Add a standalone pinned Caddy proxy with Let's Encrypt short-lived public IP certificates, persistent renewal storage, strict non-secret configuration validation and a verified-TLS probe. Only GET health/readiness reach the existing private backend; all API, enrollment, upload and WebSocket routes remain 503 pending accepted integration. Preserve existing backend readiness and private ports; no domain or new server purchase.
+
+Validation: Laptop and server verified HTTPS health 200, readiness/API 503 and IP certificate trust. Proxy restart preserved the certificate fingerprint and passed probes. After accepted CS-031 integration, Linux: 74 backend tests, 72 passed and 2 optional image tests skipped, including real Caddy routing/TLS; 39 shared tests and replay smoke passed. Full authenticated backend, real Pi upload, model readiness and laptop fallback remain unaccepted.
 

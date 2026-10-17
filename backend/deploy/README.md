@@ -3,10 +3,64 @@
 Status: the accepted CS-028 application is packaged and running **privately,
 intentionally unready for live use**. The Vultr host has Ubuntu 24.04, 2 vCPUs,
 4 GB RAM and 128 GB disk; it is CPU-only. Docker Engine and Compose are installed.
-See the latest CS-033 handoff for image identity and test evidence. CS-029
-authentication, CS-032 rate-limit integration and actual model/worker readiness
-are still dependencies. This package does not implement those tasks or substitute
-fixture readiness for them. The user has deferred domain registration.
+See the latest CS-033 handoff for image identity and test evidence. CS-029 is now
+accepted, but the running ingestion image has not yet been replaced with paired
+sessions. CS-032 rate-limit integration and actual model/worker readiness remain
+dependencies. The user deferred domain registration; a public IP certificate now
+provides the health-only HTTPS stage below.
+
+## Public HTTPS bootstrap (health only)
+
+Live origin: **https://64.177.50.116**. `GET /healthz` returns backend liveness
+200; `GET /readyz` remains 503. All other methods/routes, including enrollment,
+JPEG uploads and WebSocket upgrades, return 503 before reaching the private
+backend. This is a public TLS endpoint, not the integrated Pi upload service.
+
+The pinned Caddy 2.11.7 image uses an explicit Let's Encrypt ACME issuer with the
+`shortlived` profile. Public IP certificates are supported; Caddy's default
+private CA behavior for bare IPs is explicitly replaced. Certificate verification
+and IP matching remain enabled on clients. No domain purchase, third-party DNS
+alias, client-installed CA or insecure TLS option is needed for this stage.
+The current certificate expires **2026-10-23 23:17:11 UTC**. Caddy renewal is
+configured with persistent storage, but a future renewal has not been observed.
+
+Runtime directory: `/home/linuxuser/canesight-cs033-https-bootstrap/backend/deploy`.
+Its non-secret `bootstrap.env` contains `CANESIGHT_ADDRESS` and the pinned
+`CADDY_IMAGE`; keep actual runtime configuration on the server. It is separate
+from the private backend's `.env.private`. `compose.bootstrap.yaml` joins only
+the existing private Docker network and publishes TCP 80/443 for certificate
+validation and HTTPS. The existing backend stays on loopback port 18000.
+The proxy does not receive application credentials. Access logging/admin API
+are disabled and Docker logs rotate.
+
+On the host, after the existing private backend is running:
+
+```sh
+cd /home/linuxuser/canesight-cs033-https-bootstrap
+# Set/export the two non-secret values from bootstrap.env locally first.
+python3 backend/deploy/bootstrap_check.py
+sudo docker compose --env-file backend/deploy/bootstrap.env -f backend/deploy/compose.bootstrap.yaml config --quiet
+sudo docker compose --env-file backend/deploy/bootstrap.env -f backend/deploy/compose.bootstrap.yaml up -d
+python3 -m backend.deploy.bootstrap_probe --base https://64.177.50.116
+```
+
+The verifier checks certificate/IP trust, health 200, readiness 503 and closed
+API routes. Run the same command from the operator laptop. Restart testing
+preserved the same public certificate and passed both probes. Stop only this
+proxy with the same Compose arguments followed by `stop` to disable public
+HTTPS; preserve certificate volumes. UFW permits SSH plus TCP 80/443; no backend
+or Docker administration port is opened. No new server was purchased.
+
+Before replacing this stage with the full proxy, integrate accepted CS-029/032,
+review the backend factory/image and operator secret configuration, enroll fresh
+scoped sessions privately, then test authenticated HTTPS uploads/WSS, expiry and
+connection loss. Do not remove the bootstrap API block just to make a Pi connect.
+The full production stack below still waits on actual readiness and uses a DNS
+hostname; stop the bootstrap proxy before starting another service on 80/443.
+Preserve the tested HTTPS address during any later domain migration.
+
+References: [Let's Encrypt IP certificate availability](https://letsencrypt.org/2026/01/15/6day-and-ip-general-availability),
+[Caddy ACME issuer profiles](https://caddyserver.com/docs/caddyfile/directives/tls).
 
 ## Current private deployment
 
@@ -38,8 +92,8 @@ sudo docker compose --env-file .env.private -f compose.private.yaml up -d
 python3 private_smoke.py
 ```
 
-This intentionally differs from the production stack: no proxy or healthy-start
-gate is enabled until enrollment/model/worker integration exists. To reach it from
+This private stack has no proxy or healthy-start gate. The independent bootstrap
+proxy above exposes only its health checks. To reach the private service from
 the operator laptop, keep this SSH tunnel open in a terminal:
 
 ```powershell
@@ -131,7 +185,7 @@ docker compose ps
 The proxy waits for initial backend readiness. Caddy obtains and renews public
 certificates and handles WebSocket upgrades; `/data` and `/config` persist across
 restarts. Do not use self-signed certificates or disable verification for a live
-demo. A domain and reachable ports are required for automatic public HTTPS.
+demo. This full stack uses a DNS hostname; the IP bootstrap is described above.
 
 Application logs must redact credentials and avoid raw images/precise GPS. Docker
 log rotation limits disk growth; Caddy request access logging is not enabled.

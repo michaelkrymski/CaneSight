@@ -1,0 +1,29 @@
+name: canesight-https-bootstrap
+services:
+  proxy:
+    image: ${CADDY_IMAGE:?Set a reviewed immutable Caddy image}
+    restart: unless-stopped
+    environment:
+      CANESIGHT_ADDRESS: ${CANESIGHT_ADDRESS:?Set the public IPv4 address or hostname}
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - ./Caddyfile.bootstrap:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    networks: [private_backend]
+    security_opt: [no-new-privileges:true]
+    pids_limit: 128
+    mem_limit: 256m
+    cpus: 0.5
+    logging:
+      driver: json-file
+      options: {max-size: 10m, max-file: '3'}
+networks:
+  private_backend:
+    external: true
+    name: canesight-private_default
+volumes:
+  caddy_data:
+  caddy_config:
