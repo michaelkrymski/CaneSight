@@ -466,6 +466,22 @@ Claim only. CS-037 implementation PR #46 is merged. Plan to evaluate multiple he
 
 Validation: Checked publishing runs repository validation, shared unit tests, generated changelog consistency and whitespace checks. No implementation or hardware tests are claimed by this assignment.
 
+## 2026-10-17 — CS-038-EVALUATION-20261017: Evaluate manual schematic signal ambiguity, track loss and digit outputs
+
+Author: aditsangani (AI-assisted) · Task: CS-038
+
+Add a deterministic offline evaluator, seven accounting/failure-evidence tests, per-frame report and interpretation. All 309 required-output checks matched across 127 correlated synthetic scenarios, including cold/warm ambiguity, target/ROI changes, flashing, expiry and 100 numeric layouts. OCR numeric exact-match is 103/212 readable-frame observations, with 109 abstentions and zero wrong emitted values. No real-scene accuracy, training, hardware verification or production change is implied.
+
+Validation: 53 vision tests passed; evaluation CLI passed all 309 checks. Checked publishing runs repository structure, shared unit tests, changelog consistency and whitespace checks; exact-head CI inspected after push.
+
+## 2026-10-17 — CS-038-REVIEW-LINK-20261017: Record CS-038 evaluation review PR
+
+Author: aditsangani (AI-assisted) · Task: CS-038
+
+Link CS-038 to PR #51. Existing evaluation code and immutable QA evidence are unchanged; task remains Review pending Michael acceptance.
+
+Validation: Metadata-only follow-up to 53 passing vision tests, 309 matched replay checks and 82 shared tests. Checked publishing reruns shared/structure/log/whitespace checks; inspect exact-head CI after push.
+
 ## 2026-10-17 — CS-039-BONDMILA-CLAIM-20261017: Propose bondmila assignment for isolated Gemini context service
 
 Author: bondmila (AI-assisted) · Task: CS-039
