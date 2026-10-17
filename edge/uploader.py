@@ -242,9 +242,11 @@ def main():
                         help='Trusted phone source/boot/drift file; never a phone/operator token')
     parser.add_argument('--policy-trace',type=Path,help='New private metadata JSONL outside checkout; simulated policy only')
     parser.add_argument('--context-stdin', action='store_true',
-                        help='Manual terminal context button; no GPIO/audio; requires verified primary-source policy')
+                        help='Manual terminal context button; requires verified primary-source policy')
     parser.add_argument('--context-consent', action='store_true',
                         help='Explicit consent to send requested scene frames to the context provider')
+    parser.add_argument('--context-audio', action='store_true',
+                        help='Opt in to Pi narration through the selected system audio output; requires --context-stdin')
     args = parser.parse_args()
     if args.frames < 0 or not ID.fullmatch(args.source_id):
         parser.error('Use nonnegative frames and a protocol source ID')
@@ -260,6 +262,8 @@ def main():
         parser.error('--context-stdin requires --context-consent, --simulate-policy and --phone-binding-file')
     if args.context_consent and not args.context_stdin:
         parser.error('--context-consent requires --context-stdin')
+    if args.context_audio and not args.context_stdin:
+        parser.error('--context-audio requires --context-stdin')
     boot_id = uuid.uuid4().hex
     print(f'Source: {args.source_id}; boot: {boot_id}', flush=True)
     session_id = 'capture-only'
@@ -316,10 +320,12 @@ def main():
             from .context_runtime import ManualContext, policy_priority
             context_input = ManualContext(session,
                 lambda: policy_priority(policy, receiver, sender, watchdog),
-                consent=args.context_consent, ca_file=args.ca_file, clock=clock_ms)
+                consent=args.context_consent, ca_file=args.ca_file, clock=clock_ms,
+                **({'audio': True} if args.context_audio else {}))
             context_input.start(sys.stdin)
-            print('Manual context input: release / press / cancel / off. No GPIO or audio. '
-                  'Unknown primary-source state suppresses requests.', flush=True)
+            print('Manual context input: release / press / cancel / off. No GPIO. '
+                  + ('Pi audio enabled; delivery unverified. ' if args.context_audio else 'Text output only. ')
+                  + 'Unknown primary-source state suppresses requests.', flush=True)
         from picamera2 import Picamera2  # Hardware dependency intentionally lazy.
         camera = Picamera2()
         camera.configure(camera.create_video_configuration(

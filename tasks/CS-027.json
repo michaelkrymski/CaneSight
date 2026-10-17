@@ -19,7 +19,7 @@
   "owner": "bondmila",
   "status": "blocked",
   "branch": "task/CS-027-context-button",
-  "pr_url": "https://github.com/michaelkrymski/CaneSight/pull/55",
+  "pr_url": null,
   "evidence": [
     "edge/buttons.py and edge/context_client.py: 30ms release-to-arm debounce, one outstanding request, ten-second minimum interval retained through cancellation, capture+8s expiry, independent timer, cancellable network child and Pi session/frame binding.",
     "28 new button/client tests and all 116 edge tests passed on Python 3.13 with pinned backend test requirements. All 82 root tests passed. In-process accepted context route parsed real multipart with synthetic provider; actual spawned-child delivery/cancellation/reaping passed.",
@@ -27,7 +27,10 @@
     "User confirmed no physical button installed and selected manual terminal input. edge/context_runtime.py and opt-in uploader flags share the original process/session/frame/clock, require explicit consent and verified primary-source state, and cancel on hazard, unavailable/stale source, input EOF/off and cleanup.",
     "15 added tests passed (14 runtime/uploader regressions plus a real spawned HTTPS request against a generated local CA, accepted paired session/context route and fake provider). All 131 edge tests and all 92 root tests passed on Python 3.13 with pinned backend test requirements.",
     "handoffs/CS-027-manual-uploader-bondmila-20261017.md and edge/CONTEXT_BUTTON.md document terminal commands, module-entry frame normalization, privacy and actual-device/deployment/audio limits. PR #52 is merged; this is a new follow-up checkpoint.",
-    "PR #55 follow-up: nonblocking primary-policy/gate/watchdog lock acquisition fails closed under contention, so a stalled worker cannot block context cancellation. All 132 edge tests passed, including each lock held by another thread."
+    "PR #55 follow-up: nonblocking primary-policy/gate/watchdog lock acquisition fails closed under contention, so a stalled worker cannot block context cancellation. All 132 edge tests passed, including each lock held by another thread.",
+    "Opt-in --context-audio now wires the manual uploader to the CS-040 narration bridge and Pi speech sink when installed. Default remains text-only; audio mode owns one request/button slot, preserves original frame/clock and cancels on terminal off/EOF/error, camera loss/stall, manual cancel and teardown.",
+    "145 edge tests ran on accepted-main checkout: 140 passed, five explicitly skipped for missing unmerged PR #41 dependency. Against exact draft #41 head b07e68ea6e08ba2bbf6bd261d22c8259bf3560cc, all 145 passed with no skips using an external file-based overlay runner; no draft implementation copied into this task branch.",
+    "Combined generated TLS fixture covers terminal input -> real spawned HTTPS client -> accepted paired session/context route with fake provider -> synthetic speech, then cancel. Tests also cover one engine only, cooldown/expiry lineage, camera stall preemption, audio-off default, missing dependency, startup and stop failure cleanup. See handoffs/CS-027-uploader-audio-bondmila-20261017.md."
   ],
-  "blocker": "Manual terminal uploader integration is software-tested; user confirmed no physical button installed. Actual Pi camera/phone/clock-binding run and deployed context endpoint remain unverified. Physical audio/narration integration remains CS-018/CS-040 (PR #41 stays draft); CS-023 electrical prerequisites remain separate. No hardware or end-to-end device acceptance claimed."
+  "blocker": "Audio integration is a draft software checkpoint depending on unmerged draft PR #41 narration modules (validated at b07e68e). Keep #41 draft. Actual Pi camera/phone clock-binding, eSpeak installation, Bluetooth routing/playback/disconnect/reconnect and measured cancellation remain unverified. CS-018 accessible controls and electrical prerequisites remain separate."
 }

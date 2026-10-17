@@ -2,9 +2,9 @@
 
 `edge.buttons.ContextButton` is an opt-in software coordinator with injected input,
 latest-frame and request adapters. `edge.context_client.ContextClient` supplies a
-Pi-role HTTPS adapter for the accepted CS-039 context service. No GPIO driver,
-speech sink or motor output is included or armed. The originating uploader now
-has an explicit opt-in manual terminal adapter; default operation is unchanged.
+Pi-role HTTPS adapter for the accepted CS-039 context service. No GPIO driver
+or motor output is armed. The originating uploader has a manual terminal adapter
+with text output by default and a separate explicit audio opt-in.
 
 ## Behavior
 
@@ -77,7 +77,8 @@ After readiness recovery, release and press again. Commands entered before
 readiness are not queued. Unknown commands cancel without echoing input;
 oversize lines are drained with bounded reads. Terminal input is not an API for
 arbitrary commands. Output contains only closed object labels with an AI and
-uncertainty label; it is text, not audio or narration integration.
+uncertainty label in default text mode. Audio mode uses the restricted narration
+gate instead of creating a second request loop.
 
 `edge.context_runtime.ManualContext` runs inside the originating uploader and
 shares its session/source/boot, capture clock and original frames. It holds at
@@ -111,6 +112,44 @@ best-effort socket cancellation, not a guarantee that the provider incurs no
 charge or has not already processed a frame. Killing a process cannot undo an
 external request already made.
 
+## Optional Pi audio
+
+After narration dependency PR #41 is accepted and installed with the Pi checkout,
+append `--context-audio` to the manual invocation above. The flag requires
+`--context-stdin`, which already requires explicit `--context-consent`, trusted
+phone binding and simulated local policy. No speech module is loaded in default
+text mode. Missing narration modules or an unavailable eSpeak NG installation
+refuse audio startup with a sanitized error; there is no silent text fallback.
+This integration PR stays draft while #41 is draft/unmerged.
+
+Audio mode connects the same latest original frame, Pi session/client, capture
+clock, camera freshness and primary priority to CS-040 `ContextNarration`.
+It replaces the text-mode button/request worker, so one press cannot create two
+requests. The narration bridge independently drives capture-based audio expiry
+and priority checks; the existing bounded terminal reader supplies level changes.
+`cancel`, `off`, EOF, input failure, camera loss and shutdown stop narration and
+cancel provider work. New frames do not renew the original speech deadline.
+Holding `press` does not repeat requests or interrupt its own delivered speech.
+Camera staleness independently cancels while capture or terminal input is blocked.
+
+The owned `EspeakSink` uses `/usr/bin/espeak-ng` and the Pi user's OS-selected
+output. Pair/select and audibly test the Bluetooth speaker on the Pi before
+opting in. This code does not pair, reroute or change volume. Only restricted
+uncertain narration reaches the engine; no raw provider prose, shell commands,
+keys or images are passed to it. Cleanup closes both narration and speech even
+if stop fails; a sanitized fault records that device inspection is required,
+without interrupting primary policy/camera teardown. The snapshot reports audio
+opt-in separately from delivery: `audio_used` is unknown and
+`audio_delivery_verified` remains false, never inferred from process success.
+
+Tests that require the real narration dependency explicitly skip until it exists
+in the checkout. They were also run locally against the exact draft #41 modules
+without copying them into this task branch; that combined result is documented
+in the handoff. They include manual terminal -> spawned verified HTTPS client ->
+accepted context route/fake provider -> synthetic speech and manual preemption.
+No Bluetooth delivery or instant physical silence is established by software:
+OS/speaker buffering, disconnect/reconnect and audible priority need device tests.
+
 ## What remains
 
 Physical button pin selection, voltage/pull-up/debounce behavior, boot/off-state
@@ -120,8 +159,9 @@ performed. The manual uploader adapter is software-tested; its actual Pi/phone
 run still needs device evidence and coordination with CS-025. The service must
 be packaged/deployed through its deployment
 owner; this change does not activate `/v1/context` on the existing Vultr service.
-CS-040 remains draft PR #41 and owns narration restrictions, cancellation and
-hazard priority; CS-018 owns accessible device audio. Stop/preempt local audio
+CS-040 remains draft PR #41 and owns the narration gate and Pi speech adapter;
+this uploader integration depends on its acceptance/installation. CS-018 owns
+accessible controls. Actual speaker behavior remains unverified. Stop/preempt local audio
 first, independently of waiting for network cancellation. A returned description
 never changes haptic policy, source health or movement permissions.
 

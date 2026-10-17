@@ -229,7 +229,7 @@ class PriorityTests(unittest.TestCase):
 
 
 class UploaderContextTests(unittest.TestCase):
-    def run_uploader(self, *, context_enabled=True, camera_error=False):
+    def run_uploader(self, *, context_enabled=True, camera_error=False, audio=False, runtime_error=False):
         frame_request = Mock()
         frame_request.get_metadata.return_value = {'SensorTimestamp': 1000000000, 'ExposureTime': 1000}
         frame_request.make_image.return_value = Image.new('RGB', (640, 480), 'gray')
@@ -252,6 +252,8 @@ class UploaderContextTests(unittest.TestCase):
         if context_enabled:
             args += ['--receive-vision', '--simulate-policy', '--phone-binding-file', '/private/synthetic-binding',
                      '--context-stdin', '--context-consent']
+        if audio:
+            args += ['--context-audio']
         with ExitStack() as stack:
             stack.enter_context(patch('sys.argv', args))
             stack.enter_context(patch.dict('sys.modules', {'picamera2': types.SimpleNamespace(Picamera2=lambda: camera)}))
@@ -265,12 +267,19 @@ class UploaderContextTests(unittest.TestCase):
             stack.enter_context(patch('edge.watchdog.PolicyWatchdog', return_value=watchdog))
             stack.enter_context(patch('edge.policy.LocalPolicy', return_value=policy))
             factory = stack.enter_context(patch('edge.context_runtime.ManualContext', return_value=runtime))
+            if runtime_error:
+                factory.side_effect = RuntimeError('synthetic audio startup failure')
             stack.enter_context(redirect_stdout(io.StringIO()))
-            if camera_error:
-                with self.assertRaisesRegex(RuntimeError, 'synthetic startup'):
+            if camera_error or runtime_error:
+                with self.assertRaisesRegex(RuntimeError, 'synthetic.*failure'):
                     uploader.main()
             else:
                 uploader.main()
+        if runtime_error:
+            policy.close.assert_called_once()
+            scheduler.close.assert_called_once()
+            watchdog.close.assert_called_once()
+            receiver.stop.assert_called_once()
         return runtime, factory, camera
 
     def test_uploader_binds_same_process_frame_clock_and_cleans_up(self):
@@ -295,10 +304,24 @@ class UploaderContextTests(unittest.TestCase):
 
     def test_context_flags_require_explicit_consent_policy_and_phone_binding(self):
         for extra in (['--context-consent'], ['--context-stdin'],
-                      ['--context-stdin', '--context-consent']):
+                      ['--context-stdin', '--context-consent'], ['--context-audio']):
             with patch('sys.argv', ['uploader', '--session-file', '/private/session'] + extra), redirect_stderr(io.StringIO()):
                 with self.assertRaises(SystemExit) as error: uploader.main()
                 self.assertEqual(error.exception.code, 2)
+
+    def test_audio_requires_explicit_flag_and_uses_existing_runtime_cleanup(self):
+        runtime, factory, _ = self.run_uploader(audio=True)
+        self.assertIs(factory.call_args.kwargs['audio'], True)
+        runtime.start.assert_called_once()
+        runtime.close.assert_called_once()
+        _, factory, _ = self.run_uploader()
+        self.assertNotIn('audio', factory.call_args.kwargs)
+
+    def test_failed_audio_startup_unwinds_primary_components_before_camera(self):
+        runtime, factory, camera = self.run_uploader(audio=True, runtime_error=True)
+        self.assertIs(factory.call_args.kwargs['audio'], True)
+        camera.start.assert_not_called()
+        runtime.start.assert_not_called()
 
 
 if __name__ == '__main__': unittest.main()
