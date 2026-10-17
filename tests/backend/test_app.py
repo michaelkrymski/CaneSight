@@ -1,8 +1,4 @@
-"""Run explicitly: python -m unittest discover -s tests/backend -v.
-
-The accepted root CI installs only contract dependencies, not backend runtime.
-Keep this component suite independently runnable until a PM-reviewed CI update.
-"""
+"""Backend endpoint conformance; required CI explicitly discovers this test root."""
 import concurrent.futures
 import copy
 import io

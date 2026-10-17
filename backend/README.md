@@ -14,11 +14,12 @@ python -m unittest discover -s tests/backend -v
 python -m unittest discover -s tests -v
 ```
 
-The backend suite is a separate explicit discovery root because accepted CI
-installs only the contract dependency. Run both commands; root discovery alone
-does not test the backend. Adding backend dependency installation/discovery to
-shared CI requires a separate PM-approved workflow amendment. No existing checks
-are disabled or replaced here.
+The required repository CI installs backend test dependencies, explicitly runs
+both suites (39 shared and 19 backend cases), and rehearses a real loopback HTTP
+upload/duplicate rejection using `backend.demo_replay`. Run both commands locally;
+root discovery alone does not cover backend tests. The separate roots avoid the
+tests/backend package shadowing the application backend package. This CI amendment
+is covered by `decisions/CR-CS-028-backend-ci.md`; no checks are disabled.
 
 ## Default server
 
@@ -90,3 +91,25 @@ original lineage. `dependency_health` must report actual `model_available` and
 the shipped replay server never declares a model ready. TLS termination, paired
 session issuance, quotas and distributed state remain CS-029/032/033 work. This
 component is a loopback software scaffold, not a deployed or complete live system.
+
+## Handoff to CS-029 and CS-033
+
+After PR #9 is reviewed and merged, pull accepted main before starting the
+CS-029 branch. Its ownership is already assigned to Adit. Extend `create_app`,
+inject/replace `FrameIngress` through its `authenticate`/`accept`/`configured`
+boundary, and provide a real `dependency_health` callback. Preserve all CS-028
+endpoint tests. Add paired session issuance, credential expiry/rotation, source
+epoch lifecycle and isolated phone/Pi WebSocket routes as CS-029 work; the fixed
+replay grant is not that implementation. Do not start a second incompatible app.
+
+For Gavin's CS-033 package: this is the real ASGI entry point
+`backend.app:app`, Python 3.12+, one worker, port 8000. In a container use
+`python -m uvicorn backend.app:app --host 0.0.0.0 --port 8000 --workers 1`.
+Install `backend/requirements.txt` and include the repository's `shared/` tree
+in the application image. Keep the host port private behind the reviewed proxy.
+The default app returns `/healthz` 200, `/readyz` 503 and upload 401; those are
+intentional fail-closed states before trusted enrollment/model/worker integration.
+Never change readiness to a constant 200 to satisfy deployment health checks.
+Image build/digest, real TLS/WSS and server deployment remain Gavin's task;
+authenticated service acceptance still depends on CS-029 and CS-032. No host
+changes, live credentials, Docker image or cloud deployment were created here.
