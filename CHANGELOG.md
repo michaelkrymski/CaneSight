@@ -106,6 +106,14 @@ Share uploader boot, BOOTTIME and bounded original-frame ledger with the accepte
 
 Validation: 26 edge tests passed on Windows and Linux Python 3.12, including real local HTTPS/WSS using synthetic backend observations, idle expiry and fresh-result revocation. Windows backend regression: 128 discovered, 121 passed, seven skips. Shared/repository/changelog/whitespace checks run by checked publisher. Real Pi receiver test remains pending.
 
+## 2026-10-17 — CS-026-CLAIM-20261017-GMARCIALCALLEJA: Propose independent watchdog and restart task assignment
+
+Author: Gavin (gmarcialcalleja) · Task: CS-026
+
+Assignment runtime fields only. Implementation waits for merged ownership. Plan independent expiry and boot/crash state reset with simulated outputs, preserving the frozen-GPIO limitation and physical kill requirement.
+
+Validation: Verified accepted main task is unclaimed and no open assignment competes. Checked publishing runs repository, shared tests, changelog and whitespace validation. No watchdog implementation or hardware test performed.
+
 ## 2026-10-17 — CS-028-CLAIM-ADITSANGANI-20261017: Claim FastAPI skeleton and frame endpoint for Adit
 
 Author: aditsangani · Task: CS-028

@@ -15,10 +15,12 @@
   "suggested_role": "Edge",
   "estimate_hours": 1.0,
   "elapsed_window": "8–11",
-  "owner": null,
-  "status": "backlog",
-  "branch": null,
+  "owner": "gmarcialcalleja",
+  "status": "in_progress",
+  "branch": "claim/CS-026-gmarcialcalleja",
   "pr_url": null,
-  "evidence": [],
+  "evidence": [
+    "Assignment proposal only; implementation waits for Michael to merge this claim. CS-024 software checkpoint merged in PR #32. Planned scope: independent watchdog/lease expiry, clean boot/crash/restart state and simulated failure tests; disclose frozen-GPIO limitation."
+  ],
   "blocker": ""
 }
