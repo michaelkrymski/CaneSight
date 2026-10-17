@@ -17,9 +17,12 @@
   "estimate_hours": 0.5,
   "elapsed_window": "8–11",
   "owner": "gmarcialcalleja",
-  "status": "in_progress",
-  "branch": "claim/CS-032-gmarcialcalleja",
+  "status": "blocked",
+  "branch": "task/CS-032-validation-limits",
   "pr_url": null,
-  "evidence": [],
-  "blocker": ""
+  "evidence": [
+    "handoffs/CS-032-20261017-admission-limits.md",
+    "Windows and Linux: 31 backend and 39 shared tests passed; replay smoke health 200/readiness 503/upload 202/duplicate 409. Includes flood, bounded-state, malformed JSON and fixture WebSocket tests."
+  ],
+  "blocker": "Admission/transport guards are implemented and fixture-tested. CS-029 PR #14 must integrate authenticated phone source admission; CS-031 worker is not yet implemented, so end-to-end worker/watchdog load acceptance remains pending."
 }

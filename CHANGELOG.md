@@ -74,6 +74,14 @@ Propose aditsangani as CS-029 owner. Preserve acceptance, dependency and allowed
 
 Validation: Claim metadata only; shared repository checks, generated changelog verification and scope validation run through the checked publishing helper. No application or hardware tests are claimed for this ownership change.
 
+## 2026-10-17 — CS-032-ADMISSION-LIMITS-20261017-GMARCIALCALLEJA: Bound request/source admission and WebSocket message envelopes
+
+Author: Gavin (gmarcialcalleja) · Task: CS-032
+
+Add hard-capped monotonic token buckets, pre-body global/peer admission, authenticated Pi frame budgets, WebSocket connection/byte/depth/JSON guards and fixed rejection metrics. Preserve source timestamps, authentication ownership, schema/JPEG checks and unavailable readiness. Provide a reconnect-stable authenticated phone budget for CS-029 integration; keep full acceptance blocked on CS-029/031.
+
+Validation: Windows and Linux: all 31 component and 39 shared tests passed, plus accepted replay smoke. New tests cover 10,000 rejected identities with bounded tables, 2,000 synthetic requests with scheduled software task, atomic bursts, exact refill, NaN/Infinity/overflow/duplicate/deep JSON, UTF-8 limits, socket cleanup and pre-body flood rejection. No physical watchdog, inference-load or real paired-session acceptance claimed.
+
 ## 2026-10-17 — CS-032-CLAIM-20261017-GMARCIALCALLEJA: Propose Gavin's ownership of backend validation and rate limits
 
 Author: Gavin (gmarcialcalleja) · Task: CS-032

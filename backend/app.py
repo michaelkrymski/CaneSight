@@ -18,6 +18,7 @@ from jsonschema import ValidationError
 from PIL import Image, UnidentifiedImageError
 from starlette.concurrency import run_in_threadpool
 from starlette.datastructures import UploadFile
+from .limits import TrafficGuard, TrafficLimits
 
 # Import the accepted reference without changing the protected contract package.
 _path = Path(__file__).resolve().parents[1] / 'shared/protocol/v1/reference.py'
@@ -222,7 +223,7 @@ async def read_parts(request):
         raise HTTPException(422, 'Invalid multipart upload') from None
 
 
-def create_app(*, ingress=None, dependency_health=None):
+def create_app(*, ingress=None, dependency_health=None, traffic_limits=None):
     """Inject CS-029 grants and a truthful CS-031/034 health provider.
 
     Default app has no enrolled sources or model/worker. Health is liveness
@@ -231,6 +232,9 @@ def create_app(*, ingress=None, dependency_health=None):
     ingress = ingress if ingress is not None else FrameIngress()
     app = FastAPI(title='CaneSight ingestion', docs_url=None, redoc_url=None)
     app.state.ingress = ingress
+    traffic_limits = traffic_limits if traffic_limits is not None else TrafficLimits()
+    app.state.traffic_limits = traffic_limits
+    app.add_middleware(TrafficGuard, limits=traffic_limits)
     # Reject overload before reading/parsing/decompressing request bodies.
     slots = threading.BoundedSemaphore(4)
 
@@ -254,6 +258,8 @@ def create_app(*, ingress=None, dependency_health=None):
     @app.post('/v1/frames', status_code=202)
     async def frames(request: Request):
         grant = ingress.authenticate(request.headers.get('authorization'))
+        if not traffic_limits.frame_allowed(grant):
+            raise HTTPException(429, 'Source frame rate exceeded', headers={'Retry-After': '1'})
         if not slots.acquire(blocking=False):
             raise HTTPException(503, 'Upload capacity reached')
         try:
