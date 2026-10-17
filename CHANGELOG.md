@@ -194,6 +194,14 @@ Add Compose/Caddy deployment templates with private backend networking, digest-p
 
 Validation: Local Python 3.14.7: 32 unit tests discovered, 31 passed and one Linux permissions test skipped on Windows. Includes temporary HTTPS/WSS fixtures and Docker Compose configuration validation without an engine. Repository validation, changelog verification and whitespace checks passed. Docker engine/Caddy startup, Vultr deployment, actual backend authentication/secret validity, laptop fallback and hardware were not tested.
 
+## 2026-10-17 — CS-033-FINAL-IMAGE-AND-CI-20261017-GMARCIALCALLEJA: Record final deployed image and restore unchanged task metadata
+
+Author: Gavin (gmarcialcalleja) · Task: CS-033
+
+Rebuild from the committed deployment snapshot, verify identical packaged runtime Python source hashes, test and deploy its final immutable image. Restore task elapsed-window text to the exact accepted baseline after a Windows encoding error; no task requirements or governance rules change. Preserve previous handoffs/fragments as historical evidence.
+
+Validation: Final image sha256:c374fd16ab6a57ba17c775cbf6c01c0a06443b35c2e7ef206bf6f3c2c3c77e14: all 115 Linux backend/deployment tests passed with actual image/Caddy integration enabled. Complete public authenticated HTTPS/WSS/JPEG, duplicate/expiry and reconnect probe passed after activation; actual readiness remains 503 without a model/worker. Prior Windows laptop fallback and 39 shared tests passed. CI rerun verifies restored task metadata.
+
 ## 2026-10-17 — CS-033-HOST-PREPARED-20261017-GMARCIALCALLEJA: Prepare the actual CPU host and verify Caddy on loopback
 
 Author: Gavin (gmarcialcalleja) · Task: CS-033
