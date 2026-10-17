@@ -386,6 +386,14 @@ Assignment only. Implementation waits for Michael to merge this claim. Requireme
 
 Validation: Repository structure, shared unit tests, changelog consistency and whitespace checked by publish_task.py before commit. No hardware or Gemini API tests performed.
 
+## 2026-10-17 — CS-039-CLAIM-CI-REPAIR-BONDMILA-20261017: Repair generated assignment changelog after main integration
+
+Author: bondmila (AI-assisted) · Task: CS-039
+
+Integrate accepted main and regenerate CHANGELOG.md from immutable fragments. Assignment-only PR still waits for merged ownership; no Gemini implementation or credentials added.
+
+Validation: Prior CI failure confirmed as stale generated changelog; checked publisher reruns structure, root tests, changelog and whitespace checks before pushing.
+
 ## 2026-10-17 — CS-040-BONDMILA-CLAIM-20261017: Propose bondmila assignment for restricted and preemptible narration
 
 Author: bondmila (AI-assisted) · Task: CS-040
