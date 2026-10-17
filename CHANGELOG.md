@@ -522,3 +522,11 @@ Assignment runtime only. After merged ownership, prepare repeatable N01–N05 so
 
 Validation: Verified task is unclaimed on accepted main with no competing open claim. Checked publishing runs repository/shared/changelog/whitespace checks. No new failure suite or physical test executed in this claim.
 
+## 2026-10-17 — CS-044-SOFTWARE-CAMPAIGN-20261017-GMARCIALCALLEJA: Add repeatable N01–N05 software failure campaign and sanitized evidence
+
+Author: Gavin (gmarcialcalleja) · Task: CS-044
+
+Fixed 25-case campaign combines multi-stage consumer/policy failures with accepted native TLS, replay/clock, bounded flood/inference and watchdog tests. Reports preserve case outcomes, allowlisted metrics and source hashes without payloads/credentials. Software-only results cannot establish real-device/physical acceptance.
+
+Validation: All 25 selected cases passed in each Windows/Linux campaign, no skips/errors/failures, and all 92 shared checks passed on both. Added ten fast campaign/report tests under existing discovery. No production modules, protected workflow, Pi/camera/GPIO or deployed services changed.
+
