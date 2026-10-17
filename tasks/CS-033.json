@@ -19,7 +19,7 @@
   "owner": "gmarcialcalleja",
   "status": "blocked",
   "branch": "codex/CS-033-vultr-deployment",
-  "pr_url": null,
+  "pr_url": "https://github.com/michaelkrymski/CaneSight/pull/6",
   "evidence": [
     "handoffs/CS-033-20261017-deployment-preparation.md",
     "Local Python 3.14.7: 32 tests discovered, 31 passed, 1 POSIX-permissions test skipped on Windows; includes temporary TLS and Compose configuration tests."
