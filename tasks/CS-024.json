@@ -17,10 +17,12 @@
   "suggested_role": "Edge",
   "estimate_hours": 1.5,
   "elapsed_window": "5–8",
-  "owner": null,
-  "status": "backlog",
-  "branch": null,
+  "owner": "gmarcialcalleja",
+  "status": "in_progress",
+  "branch": "claim/CS-024-gmarcialcalleja",
   "pr_url": null,
-  "evidence": [],
+  "evidence": [
+    "Claim proposal only; implementation waits for Michael to merge assignment. Receiver/expiry first checkpoint within edge/ and tests/edge/; CS-023 dependency remains outstanding."
+  ],
   "blocker": ""
 }
