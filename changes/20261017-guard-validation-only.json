@@ -1,0 +1,9 @@
+{
+  "id": "TEST-GUARD-ONLY",
+  "date": "2026-10-17",
+  "author": "michaelkrymski",
+  "task": "CS-001",
+  "summary": "Test unapproved master-plan edit is blocked (do not merge)",
+  "details": "Draft-only protection probe; no accepted project progress or plan change.",
+  "validation": "Expect governance failure and repository-check success; close the draft without merging."
+}

@@ -1,5 +1,7 @@
 # CaneSight — implementation plan and engineering handoff
 
+<!-- PROTECTION TEST ONLY: deliberately unapproved marker; do not merge this draft. -->
+
 Version 1.1 • 17 October 2026 • 20-hour hackathon prototype
 
 Revision: the user's intended motor supply is 5 V, within the pictured 1–6 V range. The earlier revision treated 3 V regulation too categorically. The 3 V value is the rated performance point; it is not proof that 5 V is prohibited. This revision plans a verified 5 V motor branch with a 3 V regulated fallback, subject to the checks below.
