@@ -17,9 +17,14 @@
   "estimate_hours": 1.0,
   "elapsed_window": "11–14",
   "owner": "aditsangani",
-  "status": "in_progress",
-  "branch": "claim/CS-038-aditsangani",
+  "status": "review",
+  "branch": "task/CS-038-signal-evaluation",
   "pr_url": null,
-  "evidence": [],
+  "evidence": [
+    "qa/vision/signal-evaluation-20261017.json",
+    "qa/vision/CS-038-EVALUATION.md",
+    "handoffs/CS-038-evaluation-20261017.md",
+    "127 synthetic replay scenarios, 309 required-output checks matched; 53 vision tests passed. No held-out real-scene accuracy, training, production activation or hardware acceptance."
+  ],
   "blocker": ""
 }
