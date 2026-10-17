@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "session_id": "demo-session",
+  "source_id": "phone-1",
+  "boot_id": "phone-boot-1",
+  "seq": 104,
+  "capture_monotonic_ms": 812300,
+  "capture_utc": null,
+  "mode": "replay",
+  "type": "depth_observation",
+  "tracking": "normal",
+  "sectors": {
+    "left": {
+      "distance_m": 1.4,
+      "valid_fraction": 0.82
+    },
+    "center": {
+      "distance_m": 0.9,
+      "valid_fraction": 0.88
+    },
+    "right": {
+      "distance_m": null,
+      "valid_fraction": 0.02
+    }
+  }
+}
