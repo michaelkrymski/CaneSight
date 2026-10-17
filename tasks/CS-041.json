@@ -18,7 +18,7 @@
   "estimate_hours": 1.0,
   "elapsed_window": "11–14",
   "owner": "gmarcialcalleja",
-  "status": "blocked",
+  "status": "review",
   "branch": "task/CS-041-session-health-dashboard",
   "pr_url": "https://github.com/michaelkrymski/CaneSight/pull/25",
   "evidence": [
@@ -26,7 +26,10 @@
     "Local fixture dashboard: six synthetic replay scenarios, independent capture/heartbeat age, unknown/stale/disconnected display, bounded activity and persistent replay/prototype labels. No live backend/device connection or credentials.",
     "10 Node.js model tests and 43 shared Python tests passed, including four real HTTP preview-server checks. Browser verified all six scenarios, pause/expiry, no horizontal overflow at 320/390/768/1024/1440 widths, and no console warnings/errors.",
     "handoffs/CS-041-20261017-partial-source-validation.md",
-    "Follow-up: 12 Node model tests and all 44 shared Python tests passed, including five HTTP tests. Browser verified independent phone/Pi disconnect states and partial transport. Eight synthetic scenarios; illustrative evidence initially hidden until availability is established."
+    "Follow-up: 12 Node model tests and all 44 shared Python tests passed, including five HTTP tests. Browser verified independent phone/Pi disconnect states and partial transport. Eight synthetic scenarios; illustrative evidence initially hidden until availability is established.",
+    "handoffs/CS-041-20261017-authenticated-viewer.md",
+    "Opt-in session-scoped viewer projection and private issuance CLI: native routes/default factory unchanged; secure same-origin cookie, revocation/expiry, bounded polling, no images/distances or device/operator grants in the browser. Capture ages remain unknown; actual mode and lineage retained.",
+    "16 Node model tests and 59 shared/dashboard Python tests passed on Windows/Linux; 128 backend cases: Windows 121 passed/7 skipped, Linux 122 passed/6 skipped. Synthetic verified-TLS/native-Origin tests and browser login/unknown/disconnect checks passed. Optional container built and factory/assets/port smoke passed without network or production activation."
   ],
-  "blocker": "Fixture preview is implemented and tested. Live integration awaits accepted CS-035 and a reviewed authenticated read-only dashboard data source. Native device WSS credentials/Origin restrictions are not bypassed; no live model, phone, Pi or motor readiness is claimed."
+  "blocker": "Public activation awaits Michael review of the opt-in viewer auth/projection interface at this PR head (decisions/CR-CS-041-dashboard-viewer-interface.md). Software is ready for review; true capture-age bounds remain unknown without a separately reviewed clock mapping. No device, inference-accuracy, motor or GPIO readiness claim."
 }

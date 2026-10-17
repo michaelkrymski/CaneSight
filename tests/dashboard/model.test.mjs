@@ -1,6 +1,54 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { Replay, ageUpperBound, observationState, transportState, formatAge, modeLabel } from '../../dashboard/model.js';
+import { Replay, LiveView, ageUpperBound, observationState, transportState, formatAge, modeLabel } from '../../dashboard/model.js';
+
+const projection = () => ({ version: 1, session_id: 'viewer-session', mode: 'live',
+  sources: ['depth', 'vision'].map(kind => ({ kind, id: kind, boot_id: 'boot', connected: true,
+    packet_age_ms: 50, capture: { seq: 1, frame_id: kind === 'vision' ? 'frame-1' : null },
+    model_version: null, capture_age_upper_ms: 0 })), events: ['Backend event'] });
+
+test('live projection keeps capture age unknown despite responding transport or supplied age', () => {
+  const view = new LiveView(0);
+  view.apply(projection(), 100, 20);
+  assert.equal(view.mode, 'live');
+  assert.equal(view.sessionId, 'viewer-session');
+  for (const source of view.sources) {
+    assert.equal(transportState(source, 100), 'connected');
+    assert.equal(observationState(source, 100).state, 'unknown');
+    assert.equal(ageUpperBound(source.observation, 100), null);
+    assert.equal(transportState(source, 2600), 'unavailable');
+  }
+});
+
+test('live projection preserves actual replay mode and clears availability on disconnect', () => {
+  const view = new LiveView(0); const packet = projection(); packet.mode = 'replay';
+  view.apply(packet, 100);
+  assert.equal(view.mode, 'replay');
+  view.disconnect();
+  assert.equal(view.mode, null);
+  assert.ok(view.sources.every(source => !source.connected && source.observation === null));
+  assert.ok(view.sources.every(source => source.id === 'Unknown' && source.frameId === 'Unknown'));
+  assert.equal(view.events.length, 0);
+});
+
+test('malformed projection removes prior state instead of fabricating a source', () => {
+  for (const change of [packet => packet.mode = 'safe', packet => packet.sources.pop(),
+      packet => packet.sources[1].kind = 'depth', packet => packet.sources[0].packet_age_ms = -1,
+      packet => packet.sources[0].id = '<script>', packet => packet.sources[0].capture.seq = -1]) {
+    const view = new LiveView(0); view.apply(projection(), 100);
+    const packet = projection(); change(packet);
+    assert.throws(() => view.apply(packet, 200));
+    assert.ok(view.sources.every(source => !source.connected));
+  }
+});
+
+test('live activity is bounded and transport delay never reduces packet age', () => {
+  const view = new LiveView(0); const packet = projection(); packet.events = Array(50).fill('x'.repeat(300));
+  view.apply(packet, 500, 200);
+  assert.equal(view.events.length, 8);
+  assert.ok(view.events.every(event => event.text.length <= 160));
+  assert.equal(500 - view.sources[0].heartbeatAt, 250);
+});
 
 test('capture-age budgets are independent and expire strictly after their boundaries', () => {
   const replay = new Replay('recent', 0);

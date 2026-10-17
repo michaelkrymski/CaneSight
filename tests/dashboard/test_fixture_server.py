@@ -63,7 +63,7 @@ class FixtureServerTests(unittest.TestCase):
         html = self.request('GET', '/')[2].decode('utf-8')
         self.assertIn('Research prototype — no crossing permission.', html)
         self.assertIn('No live devices or backend connected', html)
-        self.assertIn('Live integration pending CS-035', html)
+        self.assertIn('Live adapter requires reviewed activation', html)
         self.assertNotIn('CANESIGHT_OPERATOR_TOKEN', html)
 
     def test_without_javascript_object_evidence_starts_hidden(self):

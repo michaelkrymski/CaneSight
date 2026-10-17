@@ -52,6 +52,66 @@ export const SCENARIOS = Object.freeze({
   disconnected: { label: 'Sources disconnected', note: 'Lost transport makes source observations unavailable immediately.' },
 });
 
+// Private dashboard projection only. No device-clock subtraction and no native
+// device/operator credential is accepted by this display model.
+export class LiveView {
+  constructor(now = 0) {
+    this.startedAt = now;
+    this.mode = null;
+    this.sessionId = 'No viewer session';
+    this.sources = ['depth', 'vision'].map(kind => ({ kind, id: 'Unknown', seq: 0,
+      name: kind === 'depth' ? 'Phone depth' : 'Pi vision', connected: false,
+      heartbeatAt: null, observation: null, frameId: 'Unknown', modelVersion: 'Unknown' }));
+    this.events = [];
+  }
+
+  disconnect() {
+    for (const source of this.sources) Object.assign(source, { id: 'Unknown', bootId: null,
+      connected: false, observation: null, heartbeatAt: null, seq: 0,
+      frameId: 'Unknown', modelVersion: 'Unknown' });
+    this.mode = null;
+    this.sessionId = 'No viewer session';
+    this.events = [];
+  }
+
+  apply(snapshot, now, roundTripMs = 0) {
+    const identifier = value => typeof value === 'string' && /^[A-Za-z0-9_-]{1,64}$/.test(value);
+    if (!snapshot || snapshot.version !== 1 || !['live', 'replay'].includes(snapshot.mode)
+        || !identifier(snapshot.session_id) || !Array.isArray(snapshot.sources) || snapshot.sources.length !== 2
+        || !Number.isFinite(now) || !Number.isFinite(roundTripMs) || roundTripMs < 0) {
+      this.disconnect(); throw new Error('Invalid dashboard projection');
+    }
+    const sources = [];
+    for (const kind of ['depth', 'vision']) {
+      const matches = snapshot.sources.filter(source => source.kind === kind);
+      const source = matches[0];
+      if (matches.length !== 1 || !identifier(source.id) || !identifier(source.boot_id)
+          || typeof source.connected !== 'boolean'
+          || !(source.packet_age_ms === null || Number.isFinite(source.packet_age_ms) && source.packet_age_ms >= 0)) {
+        this.disconnect(); throw new Error('Invalid source projection');
+      }
+      const capture = source.capture;
+      if (capture !== null && (!capture || !Number.isSafeInteger(capture.seq) || capture.seq < 0)) {
+        this.disconnect(); throw new Error('Invalid capture projection');
+      }
+      sources.push({ kind, id: source.id, bootId: source.boot_id,
+        name: kind === 'depth' ? 'Phone depth' : 'Pi vision', seq: capture?.seq ?? 0,
+        connected: source.connected,
+        heartbeatAt: source.packet_age_ms === null ? null : now - source.packet_age_ms - roundTripMs,
+        // The backend has no verified mapping to either capture clock. Even a
+        // supplied numeric field must not silently turn this into fresh data.
+        observation: capture ? { receivedAt: now, ageAtReceipt: null, known: false } : null,
+        frameId: identifier(capture?.frame_id) ? capture.frame_id : 'Unknown',
+        modelVersion: typeof source.model_version === 'string' ? source.model_version.slice(0, 128) : 'Unknown' });
+    }
+    this.sources = sources;
+    this.mode = snapshot.mode;
+    this.sessionId = snapshot.session_id;
+    this.events = Array.isArray(snapshot.events) ? snapshot.events.slice(0, 8)
+      .filter(value => typeof value === 'string').map((value, index) => ({ text: value.slice(0, 160), at: now - index })) : [];
+  }
+}
+
 export class Replay {
   constructor(scenario = 'recent', now = 0) {
     if (!Object.hasOwn(SCENARIOS, scenario)) throw new Error('Unknown replay scenario');

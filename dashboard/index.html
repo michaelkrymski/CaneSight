@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="/style.css">
   <script type="module" src="/app.js"></script>
 </head>
-<body>
+<body data-feed="fixture">
   <a class="skip-link" href="#main">Skip to session health</a>
   <aside class="sidebar">
     <a class="brand" href="/" aria-label="CaneSight home"><span class="brand-mark" aria-hidden="true">c<span>·</span></span>CaneSight</a>
@@ -29,6 +29,12 @@
 
       <section class="replay-controls" aria-label="Replay controls"><div class="replay-heading"><span class="replay-symbol" aria-hidden="true">↻</span><div><strong>Replay lab</strong><small>No live devices or backend connected</small></div></div><div class="scenario-control"><label for="scenario">Scenario</label><select id="scenario"><option value="recent">Recent observations</option><option value="unknown-depth">Unknown depth</option><option value="delayed">Delayed vision</option><option value="heartbeat">Heartbeats only</option><option value="uncertain">Clock uncertainty</option><option value="phone-disconnected">Phone disconnected</option><option value="pi-disconnected">Pi disconnected</option><option value="disconnected">Sources disconnected</option></select><button type="button" id="pause" aria-pressed="false">Pause replay <span aria-hidden="true">Ⅱ</span></button></div><p id="scenario-note">Synthetic captures and heartbeats arrive independently.</p></section>
 
+      <section id="viewer-access" class="replay-controls" aria-label="Read-only viewer access" hidden>
+        <div><strong>Read-only session viewer</strong><p>Use a separate viewer credential issued by the operator. Never enter a Pi, phone or operator credential.</p></div>
+        <form id="viewer-login"><label for="viewer-token">Viewer credential</label><input id="viewer-token" type="password" autocomplete="off" maxlength="128" required><button type="submit">Connect viewer</button></form>
+        <button id="viewer-logout" type="button">Disconnect viewer</button>
+        <p id="viewer-note" role="status">No viewer session. Capture ages remain unknown until verified clock bounds exist.</p>
+      </section>
       <section class="overview" aria-label="Session summary">
         <article class="summary-card"><div class="card-topline">Phone depth <span aria-hidden="true">◉</span></div><strong id="depth-summary">Unknown</strong><div><span id="depth-summary-age">Unknown</span><span class="summary-hint">500 ms age budget</span></div></article>
         <article class="summary-card"><div class="card-topline">Pi vision <span aria-hidden="true">⌑</span></div><strong id="vision-summary">Unknown</strong><div><span id="vision-summary-age">Unknown</span><span class="summary-hint">1,500 ms age budget</span></div></article>
@@ -48,7 +54,7 @@
           <section class="panel activity-panel" aria-labelledby="activity-title"><div class="panel-header"><div><h2 id="activity-title">Replay activity</h2></div><span class="outline-tag">Synthetic</span></div><ol id="events" aria-label="Recent synthetic captures"></ol><div class="activity-footer">Latest 8 events · local replay clock</div></section>
         </div>
       </div>
-      <footer class="page-footer"><span><span class="footer-dot" aria-hidden="true"></span> Read-only fixture preview</span><span>Live integration pending CS-035 · No device credentials required</span></footer>
+      <footer class="page-footer"><span><span class="footer-dot" aria-hidden="true"></span> Read-only fixture preview</span><span>Live adapter requires reviewed activation · No device credentials required</span></footer>
       <div class="sr-only" id="announcements" role="status" aria-live="polite"></div>
     </main>
   </div>

@@ -1002,3 +1002,6 @@ dd {
     scroll-behavior:auto!important
   }
 }
+[hidden] { display: none !important; }
+#viewer-login { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+#viewer-token { min-width: 0; max-width: 100%; padding: 9px; border: 1px solid #b7c7c2; border-radius: 6px; }

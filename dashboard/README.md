@@ -1,106 +1,119 @@
 # CS-041 session-health dashboard
 
-Local, read-only **synthetic replay preview**. This is not a connection to the
-deployed backend, phone, Pi, model or motors. No device/operator credentials are
-accepted. Live integration remains dependent on CS-035 and a reviewed,
-authenticated read-only source of dashboard data.
+Read-only session metadata and a local synthetic replay preview. Neither view
+provides crossing permission, an all-clear state, or motor control.
 
-## Run
+## Synthetic preview
 
-From repository root, with Python 3.11+:
+Run from the checkout with Python 3.11+:
 
 ```sh
 python -m backend.telemetry.dashboard --port 8041
 ```
 
-Open **http://127.0.0.1:8041**. Stop the server with Ctrl+C. It binds only to
-127.0.0.1 and has no option to expose it publicly. No third-party Python or
-JavaScript packages, build, network fonts, API keys or model download are needed.
-The server serves an explicit static-file allowlist; request logs are disabled.
-It rejects writes, query parameters, unknown assets and untrusted Host headers.
-The content security policy disallows outbound connections and embedding.
+Open http://127.0.0.1:8041. This dependency-free loopback server accepts no
+credentials. Its CSP disallows network connections. Eight scenarios exercise
+recent observations, unknown depth, delayed vision, heartbeats only, clock
+uncertainty, phone disconnect, Pi disconnect, and both disconnected. Pause stops
+packets while display time continues; heartbeats never renew capture age. Boxes
+are illustrations, never camera images. Distances and boxes disappear when their
+independent source becomes stale, unknown or unavailable.
 
-## Replay controls
+The fixture's explicit synthetic capture-age upper bound grows with local elapsed
+time. Depth uses 500 ms and vision 1,500 ms; transport uses a separate 2,500 ms
+deadline. Unknown never becomes zero or clear. Pedestrian signal and countdown
+remain unknown in both views. The notice remains Research prototype — no crossing
+permission.
 
-The persistent Replay/Synthetic labels apply to every scenario. Scenario changes
-start new local fixture state; no production session or device state is changed.
-The page displays no live-mode selector because no live data source is attached.
-The display formatter recognizes live/replay/unknown for future reviewed adapters;
-the existing preview supplies replay only.
+## Optional authenticated metadata view
 
-| Scenario | Expected display |
-|---|---|
-| Recent observations | Independent synthetic depth and vision captures; responding simulated transport; uncovered right sector unknown. |
-| Unknown depth | Recent captures and responding transport do not turn missing depth into a distance. |
-| Delayed vision | Vision age exceeds 1,500 ms; boxes removed while independent depth remains within budget. |
-| Heartbeats only | Transport keeps responding; capture ages grow, observations expire, distances/boxes disappear. |
-| Clock uncertainty | Unbounded capture ages stay unknown; receipt time never substitutes for capture time. |
-| Phone disconnected | Depth unavailable; independent synthetic Pi vision continues. |
-| Pi disconnected | Vision unavailable; independent synthetic phone depth continues. |
-| Sources disconnected | Both source observations unavailable immediately. |
+This implementation is opt-in and awaits Michael's review before public
+activation. See `decisions/CR-CS-041-dashboard-viewer-interface.md`. The default
+`backend.server` factory, deployed service, shared contracts and native Origin
+restrictions are unchanged. Do not expose the fixture server or place operator,
+phone or Pi credentials in the browser.
 
-Pause replay stops simulated captures and heartbeats while the local display
-clock continues. Depth/vision expire at their own budgets; transport eventually
-becomes unavailable. Resume generates new synthetic captures with increasing
-sequences; it does not renew old captures through heartbeat updates. Activity is
-bounded to eight entries, timed from the start of the selected scenario. Screen-reader announcements report state transitions
-without announcing every age tick. The layout supports phone and desktop widths,
-visible keyboard focus, a skip link and native labeled controls.
+The separate `backend.telemetry.live` factory observes admitted native operations
+without consuming peer queues. It preserves the actual session mode, source/boot,
+sequence, frame, original capture timestamp and model version. It exposes no
+images, GPS, detections or distances. A backend-offered vision packet does not
+confirm Pi receipt or acceptance. Socket presence and backend packet age are
+reported separately from capture age. Capture ages always remain **unknown**:
+there is no verified device-to-backend clock mapping. Even responding transport
+cannot make observations eligible. A later clock-bound interface needs separate
+review; this view does not fabricate it.
 
-## Age and unknown semantics
+The browser polls once per second, clearing metadata after logout, malformed
+responses, denied requests, timeout or lost connectivity. The API limits a viewer
+to four reads per second, with at most sixteen hashed viewer bindings and eight
+native sessions. Events are capped at eight. No browser storage or query-string
+credentials are used.
 
-`model.js` is an internal fixture display model, **not a shared wire contract or
-device policy**. `ageAtReceipt` is an explicitly supplied synthetic upper bound;
-`receivedAt` and the current local `performance.now()` use the same display clock.
-The displayed upper bound adds local elapsed time. Missing, nonfinite, negative
-or future-clock bounds stay unknown. The preview never subtracts monotonic
-timestamps from different devices or infers age from receipt time alone.
+### Reviewed activation procedure
 
-Depth and vision use the baseline 500 ms and 1,500 ms budgets. Last heartbeat has
-a separate 2,500 ms transport deadline. A responding heartbeat never changes an
-observation's capture-age anchor. Disconnected/unavailable sources suppress their
-distances and boxes even when a previous capture was recent. An unknown sector,
-signal or countdown never becomes zero, clear, or a crossing decision. The
-persistent notice is **Research prototype — no crossing permission**.
+After Michael approves the current PR head and proposed interface:
 
-These are display tests against fixture bounds, not real-device clock calibration,
-inference accuracy, end-to-end latency, haptic eligibility or hardware evidence.
-The page keeps pedestrian-signal state and countdown unknown in every scenario.
-The illustrated camera-space boxes are not real camera images. Boxes start hidden
-until JavaScript establishes a within-budget synthetic observation, including when
-JavaScript is disabled or fails to load.
+1. Build from the reviewed source using an explicitly supplied immutable native
+   vision image as `BASE_IMAGE`, with `backend/telemetry/Dockerfile.dashboard`.
+   Its adjacent Docker ignore file allows only the required static assets and
+   telemetry modules. Do not include deployment environments or credentials in
+   the build context.
+2. Retain existing TLS termination, loopback-only upstream, resource bounds,
+   verified model mount and private `CANESIGHT_OPERATOR_TOKEN`. Configure
+   `CANESIGHT_DASHBOARD_ORIGIN` to the exact HTTPS origin, with no path/trailing
+   slash. The new factory supports `CANESIGHT_VISION_WEIGHTS` as the native factory
+   does; its local CLI uses port 18083. Keep a single worker. Review the production
+   proxy mapping before changing the service; no deployment configuration is
+   changed in this PR.
+3. Restarting replaces in-memory sessions. Verify health, then create fresh
+   native enrollments using `backend/SESSIONS.md`, keeping device grants private.
+   Issue a separate viewer for an existing session from a trusted operator host
+   checkout with backend deployment requirements installed:
 
-## Live integration gate
+   ```sh
+   python -m backend.telemetry.viewer --base https://BACKEND_ORIGIN \
+     --operator-file /PRIVATE/backend.env --session-id SESSION_ID \
+     --out /PRIVATE/new-dashboard-viewer.json
+   ```
 
-CS-029 is merged; CS-035 remains pending. The deployed native device WebSockets
-reject browser Origins and use role-scoped credentials. Do not bypass those
-restrictions, put the operator/Pi token into this page, or expose this preview
-server to obtain a live dashboard. A future reviewed integration must provide a
-restricted read-only projection, preserve session/source/boot/frame lineage and
-the actual mode, and propagate bounded/unknown capture ages. Any required edits
-outside CS-041's allowed paths need PM authorization first. No backend application,
-protocol, deployment or authentication behavior is changed by this preview.
+   The output must be new and outside the checkout. Use a private parent directory
+   (0700 on Linux; user-only ACL on Windows). Linux output mode is 0600. The file
+   contains only `base_url`, `viewer_token`, `expires_in_seconds`; it is distinct
+   from the Pi enrollment file. Never paste it into chat, Git or issue trackers.
+   The CLI verifies TLS and refuses redirects, environment proxies, extra response
+   fields and invalid lifetimes; it never prints credentials.
+4. Open the configured HTTPS origin. Privately enter **only** its viewer token in
+   Viewer credential. Login clears the field and installs a Secure, HttpOnly,
+   SameSite=Strict host-only cookie. Access lasts at most 600 seconds and never
+   exceeds the native session lifetime. Operator/device tokens cannot log in as
+   viewers. Viewer tokens cannot use native/operator routes. Disconnect revokes
+   that viewer; native revocation/expiry removes all its viewers. Login/logout
+   require the exact browser Origin; there is no CORS grant.
+5. Verify the intended session/source/boot/mode and unknown ages. Rollback uses
+   the previous native image/factory and removes the optional origin setting;
+   restart again requires fresh enrollment. Do not change native Origin checks
+   or weaken TLS to make a dashboard work.
+
+Public activation and real-device dashboard evidence remain pending. Local tests
+use synthetic sessions and temporary trusted TLS certificates. No phone
+connectivity, model accuracy, motor, GPIO or electrical readiness is established.
 
 ## Verification
-
-Python HTTP checks are dependency-free and included in the existing shared test
-discovery. JavaScript model tests require Node.js 20+ and use its built-in runner;
-no npm installation is needed.
 
 ```sh
 node --test tests/dashboard/model.test.mjs
 python -m unittest discover -s tests/dashboard -v
 python -m unittest discover -s tests -v
+python -m unittest discover -s tests/backend -v
 python scripts/validate_repo.py
 python scripts/render_changelog.py --check
 git diff --check
 ```
 
-Alternatively, `npm --prefix dashboard test` runs the same JavaScript tests.
-The shared Python suite does not invoke Node; run the JavaScript command
-separately when changing display semantics. Existing protected CI is unchanged.
-
-Browser checks: exercise all six scenarios, pause until transport expires, and
-confirm that obsolete distances/boxes disappear. Check widths 320, 390, 768,
-1024 and 1440 for horizontal overflow. Do not present a fixture screenshot as
-live hardware or inference evidence. See the task handoff for actual results.
+Backend tests require `backend/requirements-test.txt`. The preview HTTP tests and
+Node fixture model remain dependency-free. Test cases include native/viewer role
+separation, same-origin secure cookies, expiry/revocation, bounded polling,
+closed request bodies, native queue preservation, original capture metadata,
+verified HTTPS/native Origin denial and private issuer output. Protected CI is
+unchanged. Browser checks must label synthetic harnesses explicitly and must not
+present them as deployed device evidence. See the handoff for tests actually run.
