@@ -154,6 +154,9 @@ class SessionTests(unittest.TestCase):
             own_pi = self.manager.attach(a, 'pi')
             other_pi = self.manager.attach(b, 'pi')
             _, grant = self.manager.authenticate('Bearer '+first['phone']['token'], 'phone')
+            _, pi_grant = self.manager.authenticate('Bearer '+first['pi']['token'], 'pi')
+            probe = dict(fixture('clock-probe'), session_id=first['session_id'], receiver_id='pi-camera-1')
+            self.manager.relay(a, pi_grant, own_pi, probe)
             for n in range(8):
                 self.manager.relay(a, grant, phone, self.depth(first, n))
             self.assertEqual(own_pi.queue.qsize(), 8)
@@ -161,6 +164,9 @@ class SessionTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 self.manager.relay(a, grant, phone, self.depth(first, 8))
             self.assertEqual(own_pi.close_code, 1013)
+            self.assertTrue(own_pi.queue.empty())
+            self.assertTrue(phone.queue.empty())
+            self.assertIsNone(a.probe)
         asyncio.run(run())
 
     def test_expiry_closes_idle_socket_and_revokes_credentials(self):
@@ -199,6 +205,57 @@ class SessionTests(unittest.TestCase):
             with self.assertRaises(WebSocketDisconnect) as caught:
                 pi.receive_json()
             self.assertEqual(caught.exception.code, 1012)
+
+    def test_reconnect_cleanup_cannot_invalidate_replacement_peer(self):
+        async def run():
+            pair = self.pair()
+            session = self.manager.sessions[pair['session_id']]
+            phone = self.manager.attach(session, 'phone')
+            pi = self.manager.attach(session, 'pi')
+            _, phone_grant = self.manager.authenticate('Bearer '+pair['phone']['token'], 'phone')
+            _, pi_grant = self.manager.authenticate('Bearer '+pair['pi']['token'], 'pi')
+            self.manager.relay(session, phone_grant, phone, self.depth(pair))
+            probe = dict(fixture('clock-probe'), session_id=pair['session_id'], receiver_id='pi-camera-1')
+            self.manager.relay(session, pi_grant, pi, probe)
+            self.assertIsNotNone(session.probe)
+
+            # Michael's exact ordering: old phone goes away, new phone arrives,
+            # then the invalidated old Pi finishes its asynchronous cleanup.
+            self.manager.detach(session, phone)
+            self.assertEqual(pi.close_code, 1012)
+            self.assertTrue(pi.queue.empty())
+            self.assertIsNone(session.probe)
+            replacement_phone = self.manager.attach(session, 'phone')
+            self.assertIsNone(replacement_phone.close_code)
+            self.manager.detach(session, pi)
+            self.assertIsNone(replacement_phone.close_code)
+            self.assertTrue(phone.queue.empty())
+            replacement_pi = self.manager.attach(session, 'pi')
+
+            # Reconnection does not reset sequence marks or replay old buffers.
+            self.assertTrue(replacement_pi.queue.empty())
+            with self.assertRaises(ValueError):
+                self.manager.relay(session, phone_grant, replacement_phone, self.depth(pair))
+            fresh = self.depth(pair, 105)
+            self.manager.relay(session, phone_grant, replacement_phone, fresh)
+            self.assertEqual(replacement_pi.queue.get_nowait(), fresh)
+            with self.assertRaises(ValueError):
+                self.manager.relay(session, phone_grant, phone, self.depth(pair, 106))
+
+            # Cleanup called again for stale objects cannot touch new control
+            # state or either replacement role's connection registration.
+            self.now += 1
+            fresh_probe = dict(probe, nonce='new-pair-probe')
+            self.manager.relay(session, pi_grant, replacement_pi, fresh_probe)
+            self.manager.detach(session, phone)
+            self.manager.detach(session, pi)
+            self.assertEqual(session.probe['message'], fresh_probe)
+            self.assertIs(session.connections['phone'], replacement_phone)
+            self.assertIs(session.connections['pi'], replacement_pi)
+            self.manager.detach(session, replacement_phone)
+            self.assertEqual(replacement_pi.close_code, 1012)
+            self.assertIsNone(session.probe)
+        asyncio.run(run())
 
     def test_oversize_binary_and_invalid_json_rejected(self):
         for raw, code in ((b'x'*8193, 1009), (b'{"seq":1,"seq":2}', 1008),

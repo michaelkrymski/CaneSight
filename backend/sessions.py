@@ -201,6 +201,12 @@ class SessionManager:
         with self.lock:
             if session.connections.get(connection.role) is connection:
                 session.connections.pop(connection.role)
+                drain(connection.queue)
+                # A peer invalidated by an earlier interruption only owns its
+                # own cleanup. Propagating again would close a replacement
+                # connection attached while this old handler was unwinding.
+                if connection.close_code is not None:
+                    return
                 session.probe = None
                 # A transport interruption must not leave buffered observations
                 # queued on a surviving peer. Reconnect keeps sequence marks.
@@ -211,7 +217,8 @@ class SessionManager:
     def relay(self, session, grant, connection, message):
         with self.lock:
             self._current(session)
-            if connection.close_code is not None:
+            if (connection.close_code is not None
+                    or session.connections.get(grant.role) is not connection):
                 raise ValueError('Connection invalidated')
             if message['session_id'] != session.session_id or message['mode'] != session.mode:
                 raise ValueError('Wrong session/mode')
@@ -248,6 +255,9 @@ class SessionManager:
                 except asyncio.QueueFull:
                     peer.close_code = 1013
                     connection.close_code = 1013
+                    session.probe = None
+                    drain(peer.queue)
+                    drain(connection.queue)
                     raise ValueError('Slow consumer; observations invalidated') from None
 
 
