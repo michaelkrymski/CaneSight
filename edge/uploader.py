@@ -179,12 +179,15 @@ class Transport:
 
 
 class Sender:
-    def __init__(self, latest, transport, *, clock=clock_ms):
+    def __init__(self, latest, transport, *, clock=clock_ms, receiver=None):
         self.latest, self.transport, self.clock = latest, transport, clock
         self.ledger = deque(maxlen=2)  # metadata/mapping only; never JPEGs
         self.lock = threading.Lock()
         self.accepted = self.dropped = self.failed = 0
         self.error = None
+        self.receiver = receiver
+        if receiver is not None:
+            receiver.bind_sender(self)
 
     def run(self):
         try:
@@ -195,6 +198,9 @@ class Sender:
                     continue
                 with self.lock:
                     self.ledger.append((dict(frame.metadata), frame.mapping))
+                    if self.receiver is not None and not self.receiver.record_frame(frame):
+                        self.dropped += 1
+                        continue
                 try:
                     self.transport.send(frame)
                     self.accepted += 1  # ACK is storage acceptance, not freshness/readiness.
@@ -228,15 +234,26 @@ def main():
     parser.add_argument('--source-id', default='pi-camera')
     parser.add_argument('--session-file', type=Path)
     parser.add_argument('--ca-file')
+    parser.add_argument('--receive-vision', action='store_true',
+                        help='Receive native WSS vision in this same process; no motor outputs')
+    parser.add_argument('--simulate-policy', action='store_true',
+                        help='Arm local policy with simulated outputs only; requires receiver')
+    parser.add_argument('--phone-binding-file', type=Path,
+                        help='Trusted phone source/boot/drift file; never a phone/operator token')
     args = parser.parse_args()
     if args.frames < 0 or not ID.fullmatch(args.source_id):
         parser.error('Use nonnegative frames and a protocol source ID')
     if not args.capture_only and not args.session_file:
         parser.error('Supply --session-file or --capture-only')
+    if args.receive_vision and args.capture_only:
+        parser.error('--receive-vision requires a live enrolled upload session')
+    if (args.simulate_policy or args.phone_binding_file) and not args.receive_vision:
+        parser.error('Policy/phone binding requires --receive-vision')
     boot_id = uuid.uuid4().hex
     print(f'Source: {args.source_id}; boot: {boot_id}', flush=True)
     session_id = 'capture-only'
-    latest, sender, worker = Latest(), None, None
+    latest, sender, worker, receiver = Latest(), None, None, None
+    policy, scheduler = None, None
     if not args.capture_only:
         print('Enroll this identity; waiting up to 300s for matching private session file.', flush=True)
         deadline = time.monotonic() + 300
@@ -251,21 +268,45 @@ def main():
             raise SystemExit('No matching session file; no frames sent')
         session_id = session['session_id']
         transport = Transport(session['base_url'], session['token'], ca_file=args.ca_file)
-        sender = Sender(latest, transport)
+        if args.receive_vision:
+            from .receiver import VisionReceiver
+            if args.phone_binding_file:
+                from .policy import PhoneBinding
+                binding = PhoneBinding.load(args.phone_binding_file)
+                receiver = VisionReceiver(session,ca_file=args.ca_file,phone_binding=binding)
+            else:
+                receiver = VisionReceiver(session, ca_file=args.ca_file)
+        sender = Sender(latest, transport, receiver=receiver)
+        if receiver:
+            receiver.start()  # Authenticated WSS must exist before any capture/upload.
         worker = threading.Thread(target=sender.run, daemon=True)
         worker.start()
-    from picamera2 import Picamera2  # Hardware dependency intentionally lazy.
-    camera = Picamera2()
+    camera = None
     try:
+        if args.simulate_policy:
+            from .haptics import HapticScheduler, SimulatedOutput
+            from .policy import LocalPolicy
+            scheduler = HapticScheduler(SimulatedOutput(),clock=clock_ms).start()
+            policy = LocalPolicy(receiver.gate,
+                receiver.phone_binding.source_id if receiver.phone_binding else None,
+                scheduler,clock=clock_ms)
+            policy.arm(True)
+            policy.start()
+        from picamera2 import Picamera2  # Hardware dependency intentionally lazy.
+        camera = Picamera2()
         camera.configure(camera.create_video_configuration(
             main={'size': (640, 480), 'format': 'RGB888'}, buffer_count=2, queue=False))
         camera.start()
+        if receiver:
+            receiver.set_camera_ready(True)
         time.sleep(2)
         seq = 0
         while args.frames == 0 or seq < args.frames:
             started = time.monotonic()
             if sender and sender.error:
                 raise StopSession(sender.error)
+            if receiver and receiver.error:
+                raise StopSession(receiver.error)
             request = camera.capture_request()
             try:
                 metadata = request.get_metadata()
@@ -286,14 +327,35 @@ def main():
                 print(f'Frame {seq} dropped: {exc}', flush=True)
             time.sleep(max(0, 1 - (time.monotonic() - started)))
     finally:
-        camera.close()
-        latest.close()
-        if worker:
-            worker.join(timeout=3)
+        if policy:
+            policy.close()
+        if scheduler:
+            scheduler.close()
+        try:
+            if receiver:
+                receiver.set_camera_ready(False)
+        finally:
+            try:
+                if camera:
+                    camera.close()
+            finally:
+                latest.close()
+                if worker:
+                    worker.join(timeout=3)
+                if receiver:
+                    receiver.stop()
+                    print(f'Vision accepted={receiver.accepted}; rejected={receiver.rejected}; expired={receiver.expired}; unavailable on exit')
+        if policy:
+            print('Policy ' + json.dumps(policy.snapshot(),sort_keys=True))
+            print('Simulated outputs off=' + str(all(value is False for value in scheduler.snapshot()['outputs'].values())) + '; gpio_used=false')
+        if receiver and receiver.phone_binding:
+            print(f'Depth accepted={receiver.phone_accepted}; rejected={receiver.phone_rejected}; phone binding configured; physical readiness unverified')
         if sender:
             print(f'Accepted={sender.accepted}; stale={sender.dropped}; failed={sender.failed}; replaced={latest.replaced}')
             if sender.error:
                 raise SystemExit(sender.error)
+        if receiver and receiver.error:
+            raise SystemExit(receiver.error)
 
 
 if __name__ == '__main__':

@@ -1,0 +1,2 @@
+# Reuse the accepted backend freshness gate and its protocol loader; no ML runtime.
+-r ../backend/requirements.txt
