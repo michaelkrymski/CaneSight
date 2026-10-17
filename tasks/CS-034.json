@@ -17,9 +17,13 @@
   "estimate_hours": 1.0,
   "elapsed_window": "2–5",
   "owner": "aditsangani",
-  "status": "in_progress",
-  "branch": "claim/CS-034-aditsangani",
-  "pr_url": null,
-  "evidence": [],
+  "status": "review",
+  "branch": "task/CS-034-yolov8n-baseline",
+  "pr_url": "https://github.com/michaelkrymski/CaneSight/pull/26",
+  "evidence": [
+    "handoffs/CS-034-yolov8n-baseline-20261017.md",
+    "qa/vision/yolov8n-smoke-20261017.json",
+    "11 offline vision tests passed; actual pretrained model loaded with 80 matching classes and completed 20 generated-image CPU predictions; no training."
+  ],
   "blocker": ""
 }

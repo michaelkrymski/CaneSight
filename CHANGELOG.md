@@ -242,6 +242,22 @@ Propose aditsangani as CS-034 owner. Preserve acceptance, dependency and allowed
 
 Validation: Claim metadata only. Shared repository checks, generated changelog, scope/ownership and whitespace validation run through checked publishing; actual results are recorded in the claim PR. No application or hardware acceptance claimed.
 
+## 2026-10-17 — CS-034-REVIEW-LINK-20261017: Record CS-034 baseline review PR
+
+Author: aditsangani (AI-assisted) · Task: CS-034
+
+Link the reviewed-runtime task record to PR #26. Model code and prior evidence are unchanged; status remains Review, not Done.
+
+Validation: Metadata-only follow-up; existing 11 vision tests and 20 real CPU predictions remain applicable. Checked publishing reruns repository/shared checks, generated changelog and whitespace validation; current-head CI is inspected after push.
+
+## 2026-10-17 — CS-034-YOLOV8N-BASELINE-20261017: Pin and verify a pretrained YOLOv8n testing baseline
+
+Author: aditsangani (AI-assisted) · Task: CS-034
+
+Add an explicit size/SHA-256-verified pretrained weight loader, pinned optional CPU runtime, complete 80-class model card and AGPL-3.0 publisher license references. Record actual loaded classes and synthetic inference evidence. Generic traffic light does not establish pedestrian WALK/hand/countdown state. No training, service activation or protected contract/deployment change.
+
+Validation: 11 offline vision tests; 39 shared/governance and 13 edge tests passed. Backend: 115 discovered, 107 passed and 8 environment-specific skips. Actual Windows Python 3.12.5 CPU inference: one warmup and 20 generated 416-square predictions; median 70.290 ms, p95 167.836 ms, max 171.200 ms. Replay smoke health200/readiness503/upload202/duplicate409. Timings are local prediction only, not accuracy, deployed latency or hardware evidence.
+
 ## 2026-10-17 — CS-041-CLAIM-GMARCIALCALLEJA-20261017: Claim session-health dashboard for Gavin
 
 Author: Gavin (gmarcialcalleja) · Task: CS-041
