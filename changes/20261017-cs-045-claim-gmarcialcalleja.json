@@ -1,0 +1,9 @@
+{
+  "id": "CS-045-CLAIM-20261017-GMARCIALCALLEJA",
+  "date": "2026-10-17",
+  "author": "Gavin (gmarcialcalleja)",
+  "task": "CS-045",
+  "summary": "Propose latency and depth-error measurement-analysis assignment",
+  "details": "Assignment runtime only. After merged ownership, prepare bounded validation/statistics tools with explicit clock uncertainty, provenance and sample-count gates. Synthetic values do not count as real latency/distance acceptance; no Pi/camera/GPIO access.",
+  "validation": "Verified accepted task unclaimed and no competing open claim. Checked publishing runs repository/shared/changelog/whitespace checks. No measurement implementation or real-device evidence included."
+}
