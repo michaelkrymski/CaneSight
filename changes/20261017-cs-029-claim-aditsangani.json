@@ -1,0 +1,9 @@
+{
+  "id": "CS-029-CLAIM-ADITSANGANI-20261017",
+  "date": "2026-10-17",
+  "author": "aditsangani",
+  "task": "CS-029",
+  "summary": "Claim paired authenticated WebSocket sessions for Adit",
+  "details": "Propose aditsangani as CS-029 owner. Preserve acceptance, dependency and allowed paths. Implementation waits for Michael to merge this claim and accept the CS-028 prerequisite, currently under review in PR #9. No WebSocket, pairing, TLS or credential implementation is claimed.",
+  "validation": "Claim metadata only; shared repository checks, generated changelog verification and scope validation run through the checked publishing helper. No application or hardware tests are claimed for this ownership change."
+}
