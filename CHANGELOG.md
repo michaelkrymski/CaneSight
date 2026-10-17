@@ -82,6 +82,14 @@ Propose aditsangani as CS-029 owner. Preserve acceptance, dependency and allowed
 
 Validation: Claim metadata only; shared repository checks, generated changelog verification and scope validation run through the checked publishing helper. No application or hardware tests are claimed for this ownership change.
 
+## 2026-10-17 — CS-031-CLAIM-20261017-GMARCIALCALLEJA: Propose Gavin's ownership of the bounded inference worker
+
+Author: Gavin (gmarcialcalleja) · Task: CS-031
+
+Claim CS-031 for gmarcialcalleja with status in_progress. Implementation waits for Michael's merged assignment. Scope remains backend and backend tests; acceptance remains one model load, no event-loop blocking, per-source latest work and explicit drop metrics. Dependency CS-028 is accepted. No implementation or model performance is claimed.
+
+Validation: Metadata-only claim; actual repository, shared/backend test and replay results are recorded in the claim PR. No inference, watchdog or hardware acceptance claimed.
+
 ## 2026-10-17 — CS-032-CLAIM-20261017-GMARCIALCALLEJA: Propose Gavin's ownership of backend validation and rate limits
 
 Author: Gavin (gmarcialcalleja) · Task: CS-032

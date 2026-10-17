@@ -15,10 +15,10 @@
   "suggested_role": "Backend",
   "estimate_hours": 1.0,
   "elapsed_window": "5–8",
-  "owner": null,
-  "status": "backlog",
-  "branch": null,
-  "pr_url": null,
+  "owner": "gmarcialcalleja",
+  "status": "in_progress",
+  "branch": "claim/CS-031-gmarcialcalleja",
+  "pr_url": "https://github.com/michaelkrymski/CaneSight/pull/16",
   "evidence": [],
   "blocker": ""
 }
