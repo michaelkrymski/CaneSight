@@ -1,0 +1,9 @@
+{
+  "id": "CS-001-PUBLISHING-RETRY-FIX-20261017",
+  "date": "2026-10-17",
+  "author": "michaelkrymski (AI-assisted)",
+  "task": "CS-001",
+  "summary": "Allow checked-publishing retry after failed validation",
+  "details": "Recognize the generated staged CHANGELOG.md on retry and regenerate it before validation. Other unrelated staged and working files remain rejected. Integrate accepted main and preserve Gavin's CS-033 ownership claim and immutable fragment; resolve the generated log conflict by rendering all fragments. No main push, automatic merge or protection change.",
+  "validation": "21 tests including regression coverage that failed before the fix and passes without resetting the staged files; verifies unrelated staged/working files remain blocked and only the task branch is pushed in isolated local repositories. Repository structure, rendered changelog and whitespace checks pass; current-head GitHub CI reported separately."
+}

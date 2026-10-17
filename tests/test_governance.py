@@ -148,7 +148,7 @@ class PublishingTests(unittest.TestCase):
         statuses.append({'id': 2, 'context': 'governance', 'state': 'failure'})
         self.assertEqual(required_result(checks, statuses), 'failure')
 
-    def test_isolated_publish_preserves_remote_history_and_checks_first(self):
+    def test_isolated_publish_preserves_history_and_retries_after_failed_checks(self):
         # All writes/pushes stay inside a temporary local bare repository.
         with tempfile.TemporaryDirectory() as folder:
             root = Path(folder) / 'clone'
@@ -183,9 +183,15 @@ class PublishingTests(unittest.TestCase):
                     publisher.publish(args, root)
             self.assertEqual(git('rev-parse', 'HEAD'), base)
             self.assertEqual(git('ls-remote', '--heads', 'origin', 'task/CS-001-test'), '')
-            git('reset')
+            self.assertIn('CHANGELOG.md', git('diff', '--cached', '--name-only').splitlines())
+            # Keep generated/staged files exactly as the failed attempt left
+            # them. Retry must work without a manual reset or extra --files.
             # Unrelated work must be preserved and must prevent publication.
             (root / 'other.txt').write_text('keep me', encoding='utf-8')
+            git('add', '--', 'other.txt')
+            with patch.object(publisher, 'validate_remote'), self.assertRaisesRegex(ValueError, 'Unrelated files are already staged'):
+                publisher.publish(args, root)
+            git('restore', '--staged', '--', 'other.txt')
             with patch.object(publisher, 'validate_remote'), self.assertRaisesRegex(ValueError, 'Unselected'):
                 publisher.publish(args, root)
             self.assertEqual((root / 'other.txt').read_text(), 'keep me')

@@ -82,7 +82,10 @@ def publish(args, root=ROOT):
     validate_remote(git('remote', 'get-url', 'origin', root=root).stdout.strip())
     selected = normalize_files(args.files, root)
     staged_before = set(filter(None, git('diff', '--cached', '--name-only', '-z', root=root).stdout.split('\0')))
-    if staged_before - set(selected):
+    # A failed check leaves our generated log staged. Allow it on retries;
+    # regenerate it below before validating/committing. Other staged files
+    # still require explicit selection.
+    if staged_before - set(selected) - {'CHANGELOG.md'}:
         raise ValueError('Unrelated files are already staged. Reconcile them before publishing.')
     dirty = set(filter(None, git('diff', '--name-only', '-z', root=root).stdout.split('\0')))
     untracked = set(filter(None, git('ls-files', '--others', '--exclude-standard', '-z', root=root).stdout.split('\0')))
