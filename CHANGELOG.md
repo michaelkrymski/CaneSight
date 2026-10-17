@@ -18,6 +18,14 @@ Add explicit-file task publishing, current-head CI/comment reader and teammate i
 
 Validation: 21 unit/integration tests including isolated local bare-repository push and failed-check/unrelated-file rejection; structural validation, generated changelog check and whitespace check. Live GitHub CI verified separately on the amendment PR. No hardware or app acceptance claimed.
 
+## 2026-10-17 — CS-001-HACKATHON-CREDITS-20261017: Record PM-reported hackathon development credit allocations
+
+Author: michaelkrymski (AI-assisted) · Task: CS-001
+
+Document $100 Vultr and $1,000 Tiger Data allocations, plus a potential unconfirmed $300 Gemini API allocation, in docs/operations/HACKATHON_CREDITS.md. Distinguish service-specific allocations from actual remaining balances, retain optional integration priorities and exclude credentials. The accepted master plan and task requirements are unchanged.
+
+Validation: Documentation-only arithmetic: $1,100 reported allocations, $1,400 potential combined face value if the $300 Gemini allocation is confirmed. Repository structure, generated log and whitespace checks before publication; provider redemption, terms and balances not independently verified.
+
 ## 2026-10-17 — CS-001-PUBLISHING-RETRY-FIX-20261017: Allow checked-publishing retry after failed validation
 
 Author: michaelkrymski (AI-assisted) · Task: CS-001
