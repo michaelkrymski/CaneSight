@@ -1,0 +1,13 @@
+# Send only application dependencies, code and protocol files to the builder.
+**
+!backend/
+!backend/requirements.txt
+!backend/__init__.py
+!backend/app.py
+!backend/replay.py
+!backend/deploy/
+!backend/deploy/readiness.py
+!shared/
+!shared/protocol/
+!shared/protocol/v1/
+!shared/protocol/v1/**

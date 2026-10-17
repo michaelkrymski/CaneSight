@@ -1,12 +1,61 @@
 # CS-033: Vultr deployment package
 
-Status: host prepared and proxy tested with fixtures, **application not deployed
-or accepted**. The Vultr host has Ubuntu 24.04, 2 vCPUs, 4 GB RAM and 128 GB disk;
-it is CPU-only. Docker Engine and Compose are installed. See the latest CS-033
-handoff for versions and test evidence. CS-029 authentication and CS-032
-validation/rate limits are still dependencies; the accepted backend currently has
-no application image. This package does not implement those tasks or substitute
-fixture readiness for them. A domain has not yet been registered.
+Status: the accepted CS-028 application is packaged and running **privately,
+intentionally unready for live use**. The Vultr host has Ubuntu 24.04, 2 vCPUs,
+4 GB RAM and 128 GB disk; it is CPU-only. Docker Engine and Compose are installed.
+See the latest CS-033 handoff for image identity and test evidence. CS-029
+authentication, CS-032 rate-limit integration and actual model/worker readiness
+are still dependencies. This package does not implement those tasks or substitute
+fixture readiness for them. The user has deferred domain registration.
+
+## Current private deployment
+
+The server checkout is `/home/linuxuser/canesight-cs033-ingestion`. Its
+`backend/deploy/.env.private` stores only the built immutable local image ID.
+The private Compose service publishes **127.0.0.1:18000**, runs as UID/GID 10001
+and accepts no real credentials. It uses the normal `backend.app:app` entry point,
+not the replay factory. `/healthz` returns 200, `/readyz` correctly returns 503,
+and missing/invalid upload credentials return 401. Docker will report unhealthy
+after the startup grace period because readiness is unavailable; that is expected,
+not a reason to change health checks or restart repeatedly.
+
+Build from repository root on the authorized Docker host:
+
+```sh
+sudo docker build -f backend/deploy/Dockerfile -t canesight:cs033 .
+sudo docker image inspect canesight:cs033 --format '{{.Id}}'
+```
+
+The Python 3.12 base is digest-pinned. The Dockerfile and its dedicated ignore file
+allowlist only runtime code, dependencies, readiness check and shared contracts;
+no checkout credentials or private assets are sent as build context. Store the
+reported local image ID as `BACKEND_IMAGE` in a private environment file. From
+`backend/deploy`:
+
+```sh
+sudo docker compose --env-file .env.private -f compose.private.yaml config --quiet
+sudo docker compose --env-file .env.private -f compose.private.yaml up -d
+python3 private_smoke.py
+```
+
+This intentionally differs from the production stack: no proxy or healthy-start
+gate is enabled until enrollment/model/worker integration exists. To reach it from
+the operator laptop, keep this SSH tunnel open in a terminal:
+
+```powershell
+ssh -i "$env:USERPROFILE\.ssh\canesight_vultr" -N -L 127.0.0.1:18080:127.0.0.1:18000 linuxuser@64.177.50.116
+```
+
+Then run `python backend/deploy/private_smoke.py --base http://127.0.0.1:18080`
+from the laptop checkout. Only loopback HTTP and the encrypted SSH connection are
+used. Stop the tunnel when finished. This check expects unready/rejected-upload
+states; use `smoke.py` only for the eventual ready HTTPS/WSS service.
+
+For optional real image tests, set `CS_BACKEND_TEST_IMAGE` to its local immutable
+image ID (or registry digest) while running the component test suite on Docker.
+The tests verify startup, restart, unready Docker health, missing/invalid credentials,
+and an explicitly replay-only instance's synthetic upload/duplicate rejection.
+Replay credentials are ephemeral, never logged, and test containers are removed.
 
 ## Inputs needed before deployment
 
@@ -17,7 +66,8 @@ fixture readiness for them. A domain has not yet been registered.
   GPU passthrough and model installation are outside this package.
 - Linux with Docker Engine and Compose **2.30+**, Python 3.11+, registry access,
   outbound DNS/HTTPS, and adequate disk space. Follow official installation docs.
-- Reviewed immutable backend and Caddy image references, including sha256 digests.
+- Reviewed immutable backend and Caddy image references, including sha256 digests
+  for the public stack (the private stack can use the locally built image ID).
   The backend image must contain Python, run as UID/GID 10001, start a **single**
   application worker on `0.0.0.0:8000`, and expose `/healthz` and `/readyz`.
   Model assets must already be readable in the image; the root filesystem is read
@@ -142,9 +192,11 @@ From repository root:
 
 ```sh
 python -m pip install -r tests/contracts/requirements.txt
+python -m pip install -r backend/requirements-test.txt
 python -m unittest discover -s tests/backend -v
 python scripts/validate_repo.py
 python -m unittest discover -s tests -v
+python -m backend.demo_replay
 python scripts/render_changelog.py --check
 git diff --check
 ```

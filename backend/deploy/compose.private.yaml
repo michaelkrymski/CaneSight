@@ -1,0 +1,22 @@
+# Private pre-integration target. Does not gate on readiness or start a proxy:
+# CS-028 correctly remains unready without enrollment/model/worker integration.
+name: canesight-private
+services:
+  backend:
+    image: ${BACKEND_IMAGE:?Set the built local image ID or reviewed digest}
+    restart: unless-stopped
+    init: true
+    user: '10001:10001'
+    read_only: true
+    tmpfs:
+      - /tmp:size=128m,mode=1777
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    pids_limit: 256
+    mem_limit: 2g
+    cpus: 1.5
+    ports:
+      - '127.0.0.1:18000:8000'
+    logging:
+      driver: json-file
+      options: {max-size: 10m, max-file: '3'}

@@ -94,6 +94,19 @@ class ConfigTests(unittest.TestCase):
 
 @unittest.skipUnless(shutil.which('docker'), 'Docker CLI required for Compose configuration validation')
 class ComposeTests(unittest.TestCase):
+    def test_private_target_only_binds_loopback(self):
+        if subprocess.run(['docker', 'compose', 'version'], capture_output=True).returncode:
+            self.skipTest('Docker Compose plugin unavailable')
+        env = dict(os.environ, BACKEND_IMAGE='sha256:' + 'a' * 64)
+        result = subprocess.run(['docker', 'compose', '-f', str(ROOT / 'backend/deploy/compose.private.yaml'),
+                                 'config', '--format', 'json'], env=env, capture_output=True,
+                                text=True, timeout=30)
+        self.assertEqual(result.returncode, 0, 'Private Compose config failed; details suppressed.')
+        services = json.loads(result.stdout)['services']
+        self.assertEqual(set(services), {'backend'})
+        self.assertEqual(services['backend']['ports'][0]['host_ip'], '127.0.0.1')
+        self.assertNotIn('CANESIGHT_REPLAY_TOKEN', services['backend'].get('environment', {}))
+
     def test_private_backend_and_raw_secret_configuration(self):
         if subprocess.run(['docker', 'compose', 'version'], capture_output=True).returncode:
             self.skipTest('Docker Compose plugin unavailable')

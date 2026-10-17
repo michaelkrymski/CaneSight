@@ -90,3 +90,11 @@ Confirm the deployed host is Ubuntu 24.04 with two vCPUs, 4 GB RAM and 128 GB di
 
 Validation: Actual Vultr host: all 56 tests passed with Docker Engine 29.9.1, Compose 5.6.0 and digest-pinned Caddy 2.11.7; production Caddyfile validation passed. Windows: 56 discovered, 54 passed, two platform/opt-in tests skipped. Repository structure, generated changelog and whitespace checks passed. Only SSH remains publicly listening. No live application, public certificate, YOLO, Gemini, Tiger Data, laptop fallback or hardware acceptance claimed.
 
+## 2026-10-17 — CS-033-PRIVATE-INGESTION-20261017-GMARCIALCALLEJA: Deploy and test the accepted FastAPI app privately on Vultr
+
+Author: Gavin (gmarcialcalleja) · Task: CS-033
+
+Package merged CS-028 with a digest-pinned Python base and allowlisted build context. Add a loopback-only private Compose stack, default-state smoke tool and opt-in real-image restart/replay tests. Deploy on the existing CPU host and verify laptop SSH-tunnel access. Remove this PR's tests/backend package marker to preserve the accepted separate discovery roots. Keep live acceptance blocked on CS-029/032, real model/worker readiness and deferred public TLS.
+
+Validation: Vultr: 40 component tests and 39 shared tests passed, including real built-image startup/restart and replay upload 202/duplicate 409, real Caddy proxy and TLS cases. Persistent private app returned health 200, readiness 503 and missing/invalid credentials 401 before/after Compose restart; laptop SSH tunnel passed. Windows: 40 component tests with four documented skips, 39 shared tests passed, replay rehearsal passed. No live sensing, complete WSS auth, public certificate or hardware acceptance claimed.
+

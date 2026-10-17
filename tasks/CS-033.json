@@ -25,7 +25,9 @@
     "Local Python 3.14.7: 32 tests discovered, 31 passed, 1 POSIX-permissions test skipped on Windows; includes temporary TLS and Compose configuration tests.",
     "Linux CI: all 32 tests passed, including Compose configuration and POSIX permissions: https://github.com/michaelkrymski/CaneSight/actions/runs/39011295378",
     "handoffs/CS-033-20261017-host-prepared.md",
-    "Vultr host: Docker Engine 29.9.1 / Compose 5.6.0 installed; all 56 tests passed including real loopback Caddy HTTPS/WSS proxy; production Caddy configuration validated. No application publicly listening."
+    "Vultr host: Docker Engine 29.9.1 / Compose 5.6.0 installed; all 56 tests passed including real loopback Caddy HTTPS/WSS proxy; production Caddy configuration validated. No application publicly listening.",
+    "handoffs/CS-033-20261017-private-ingestion.md",
+    "Real CS-028 image built and running on Vultr loopback 18000: health 200, readiness 503, absent/invalid token 401; container restart and laptop SSH tunnel passed. Server: 40 backend/deployment plus 39 shared tests passed; replay upload 202 and duplicate 409."
   ],
-  "blocker": "CPU-only Vultr host is prepared and SSH works; user has $100 credit. No domain is registered. CS-029 and CS-032 remain backlog; accepted backend has no runnable image. Public HTTPS/WSS, actual backend secrets/readiness, application startup/restart and laptop fallback rehearsal await those dependencies."
+  "blocker": "CS-028 backend is privately deployed and tested; CS-029 paired WSS authentication is in progress with Adit and CS-032 remains backlog. Actual model/worker readiness, complete authenticated HTTPS/WSS and full laptop fallback acceptance await integration. User deferred domain registration/public TLS until the end."
 }
