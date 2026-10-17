@@ -17,9 +17,14 @@
   "estimate_hours": 1.0,
   "elapsed_window": "After hackathon",
   "owner": "aditsangani",
-  "status": "in_progress",
-  "branch": "claim/CS-042-aditsangani",
-  "pr_url": null,
-  "evidence": [],
+  "status": "review",
+  "branch": "task/CS-042-event-logging",
+  "pr_url": "https://github.com/michaelkrymski/CaneSight/pull/57",
+  "evidence": [
+    "handoffs/CS-042-event-logging-20261017.md",
+    "backend/telemetry/EVENT_LOGGING.md",
+    "18 new logging tests passed, including real spawned blocked/failed database workers; 35-test dashboard suite passed before final HTTP frame/vision regression. Optional Psycopg 3.3.6 runtime installed/imported. No live database, deployed logging or hardware acceptance.",
+    "All 110 root-discovered tests passed, including the final 18 logging tests; see handoffs/CS-042-review-link-20261017.md. Software review PR #57; live database setup/acceptance remains unverified."
+  ],
   "blocker": ""
 }

@@ -562,6 +562,22 @@ Claim only. Accepted-main CS-042 was unowned and no competing open claim was pre
 
 Validation: Checked publishing runs repository validation, shared unit tests, generated changelog consistency and whitespace checks. No implementation tests or live database tests are claimed by this assignment.
 
+## 2026-10-17 — CS-042-EVENT-LOGGING-20261017: Add opt-in consented event logging with isolated PostgreSQL writer
+
+Author: aditsangani (AI-assisted) · Task: CS-042
+
+Add a separate dashboard factory, operator consent/withdrawal/deletion controls, private receipt helper, minimal fixed event records, parameterized PostgreSQL/Tiger Data adapter and 24-hour expiry view/cleanup. A bounded spawned writer isolates database stalls; withdrawal stops new submissions even if deletion cannot queue. Existing backend/dashboard factories, device protocol, deployment and policy are unchanged. Live database setup, persisted retention/deletion and cloud TLS verification remain unverified.
+
+Validation: 18 new logging tests passed including privacy/auth, admitted frame/vision output, parameter binding, deletion ordering/failure receipts and actual blocked-worker isolation/shutdown; 35 dashboard tests passed before the final added integration case. Checked publishing runs full shared tests and repository/log/whitespace checks. No live DB or hardware results claimed.
+
+## 2026-10-17 — CS-042-REVIEW-LINK-20261017: Record consented logging review PR and full shared test result
+
+Author: aditsangani (AI-assisted) · Task: CS-042
+
+Link CS-042 to PR #57 and record all 110 root tests passing, including 18 logging tests. Existing implementation and handoff remain unchanged. Status remains Review; live database configuration, persisted retention/deletion and activation are unverified.
+
+Validation: Metadata-only follow-up. Checked publishing reruns full shared tests plus repository structure, generated log and whitespace checks; inspect current-head CI after push.
+
 ## 2026-10-17 — CS-044-CLAIM-20261017-GMARCIALCALLEJA: Propose disconnect delay and replay failure-test assignment
 
 Author: Gavin (gmarcialcalleja) · Task: CS-044

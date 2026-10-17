@@ -1,0 +1,2 @@
+# Optional writer only. Existing server dependencies remain unchanged.
+psycopg[binary]==3.3.6
