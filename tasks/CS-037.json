@@ -17,9 +17,13 @@
   "estimate_hours": 2.0,
   "elapsed_window": "8–11",
   "owner": "aditsangani",
-  "status": "in_progress",
-  "branch": "claim/CS-037-aditsangani",
+  "status": "review",
+  "branch": "task/CS-037-signal-parser",
   "pr_url": null,
-  "evidence": [],
+  "evidence": [
+    "handoffs/CS-037-schematic-parser-20261017.md",
+    "qa/vision/signal-parser-replay-20261017.json",
+    "45 vision tests passed including 14 parser regressions; replay CLI processed all 18 fixture frames. Manual schematic profile only; no training, automatic real-world recognition or hardware acceptance."
+  ],
   "blocker": ""
 }

@@ -402,6 +402,14 @@ Propose ownership of CS-037 within existing vision scope, using accepted CS-036 
 
 Validation: Ownership-only proposal from accepted main ed85778fa016a023a4ab7a6709140da8880ad707; task unowned with no competing open CS-037 PR. CS-036 implementation PR #37 merged. Checked publishing runs repository/shared tests, generated changelog and whitespace validation; no parser/hardware tests apply to this claim.
 
+## 2026-10-17 — CS-037-SCHEMATIC-PARSER-20261017: Add a manual-ROI schematic replay symbol and countdown parser
+
+Author: aditsangani (AI-assisted) · Task: CS-037
+
+Use verified CS-036 shape prototypes, explicit segment geometry and bounded temporal confirmation. Keep uncertain flashing unknown, reject ambiguous digits, preserve sequence/time high-water marks and expire results without polling renewal. Replay-only internal records; no production adapter/protocol, trained model or real-world recognition change.
+
+Validation: 45 vision tests passed including 14 new parser cases. Actual replay processed 12 cases/18 PNG frames; authored countdown ended at observed 11, and generic/ambiguous/track-loss cases stayed unknown. Repository structure and whitespace passed; checked publishing reruns shared tests and exact changelog validation. Prototype fixtures overlap the regression inputs: no held-out accuracy, live timing or hardware evidence.
+
 ## 2026-10-17 — CS-039-BONDMILA-CLAIM-20261017: Propose bondmila assignment for isolated Gemini context service
 
 Author: bondmila (AI-assisted) · Task: CS-039
