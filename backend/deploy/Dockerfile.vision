@@ -1,0 +1,20 @@
+ARG PYTHON_IMAGE=python@sha256:a6e34c598f2467ed0e9a8d349809fcd8b5c603269512df273a0bb1784edc11b1
+FROM ${PYTHON_IMAGE}
+ENV PYTHONUNBUFFERED=1 PYTHONDONTWRITEBYTECODE=1 PIP_DISABLE_PIP_VERSION_CHECK=1 \
+    OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1
+WORKDIR /opt/canesight
+RUN apt-get update && apt-get install -y --no-install-recommends libgl1 libglib2.0-0 \
+    && rm -rf /var/lib/apt/lists/*
+COPY backend/vision/requirements.txt /tmp/vision-requirements.txt
+COPY backend/requirements.txt /tmp/backend-requirements.txt
+RUN python -m pip install --no-cache-dir torch==2.7.1 torchvision==0.22.1 --index-url https://download.pytorch.org/whl/cpu \
+    && python -m pip install --no-cache-dir -r /tmp/vision-requirements.txt -r /tmp/backend-requirements.txt
+COPY shared/protocol/v1/ /opt/canesight/shared/protocol/v1/
+COPY backend/__init__.py backend/app.py backend/replay.py backend/limits.py backend/server.py backend/sessions.py backend/inference_worker.py backend/freshness.py backend/events_client.py /opt/canesight/backend/
+COPY backend/vision/__init__.py backend/vision/baseline.py backend/vision/baseline.json backend/vision/observations.py /opt/canesight/backend/vision/
+COPY backend/deploy/readiness.py /opt/canesight/readiness.py
+RUN mkdir -p /opt/canesight/backend/vision/artifacts/runtime /opt/canesight/models \
+    && chown -R 10001:10001 /opt/canesight/backend/vision/artifacts/runtime
+USER 10001:10001
+HEALTHCHECK --interval=10s --timeout=4s --start-period=60s --retries=3 CMD ["python", "/opt/canesight/readiness.py"]
+CMD ["python", "-m", "backend.server", "--host", "127.0.0.1", "--port", "18083", "--forwarded-allow-ips", "127.0.0.1"]

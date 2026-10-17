@@ -1,0 +1,9 @@
+{
+  "id": "CS-035-NATIVE-TRANSPORT-20261017-GMARCIALCALLEJA",
+  "date": "2026-10-17",
+  "author": "Gavin (gmarcialcalleja)",
+  "task": "CS-035",
+  "summary": "Deliver bounded observation results to authenticated native Pi sessions",
+  "details": "Integrate merged scope PR #29. Add explicit verified-model factory configuration, latest-frame/grant/socket checks during bounded delivery, reconnect/interruption work disposal, lifecycle regression tests and opt-in CPU image/Compose packaging with verified read-only weights. Candidate tested privately on Vultr and removed afterward. Public service, shared protocol and browser authorization remain unchanged.",
+  "validation": "Linux: 128 backend tests, 122 passed/six environment or opt-in skips, 22 vision and 39 shared tests passed. Windows: 13 focused native tests including actual configured model HTTPS/WSS passed. Vultr constrained candidate completed 20 generated HTTPS/WSS results: median122.358/p95 174.652/max197.754 ms; isolated roles/sessions, original lineage, revocation, expiry and restart verified. Runtime source hashes match checkout; candidate credentials/TLS key removed. No production promotion or physical-device/motor/accuracy claim."
+}

@@ -274,6 +274,14 @@ Append backend/server.py, backend/sessions.py, tests/backend/ and backend/deploy
 
 Validation: Repository structure, all 39 shared/governance tests, generated changelog and whitespace checks passed. Exact task-field comparison confirmed only the four allowed_paths additions. Trusted-base staged-diff inspection found no structural/scope errors and correctly requires exact-head PM GitHub authorization. No runtime, deployment or hardware acceptance claimed.
 
+## 2026-10-17 — CS-035-NATIVE-TRANSPORT-20261017-GMARCIALCALLEJA: Deliver bounded observation results to authenticated native Pi sessions
+
+Author: Gavin (gmarcialcalleja) · Task: CS-035
+
+Integrate merged scope PR #29. Add explicit verified-model factory configuration, latest-frame/grant/socket checks during bounded delivery, reconnect/interruption work disposal, lifecycle regression tests and opt-in CPU image/Compose packaging with verified read-only weights. Candidate tested privately on Vultr and removed afterward. Public service, shared protocol and browser authorization remain unchanged.
+
+Validation: Linux: 128 backend tests, 122 passed/six environment or opt-in skips, 22 vision and 39 shared tests passed. Windows: 13 focused native tests including actual configured model HTTPS/WSS passed. Vultr constrained candidate completed 20 generated HTTPS/WSS results: median122.358/p95 174.652/max197.754 ms; isolated roles/sessions, original lineage, revocation, expiry and restart verified. Runtime source hashes match checkout; candidate credentials/TLS key removed. No production promotion or physical-device/motor/accuracy claim.
+
 ## 2026-10-17 — CS-035-OBSERVATION-ADAPTER-20261017-GMARCIALCALLEJA: Adapt pinned YOLO detections to bounded observation-only worker results
 
 Author: Gavin (gmarcialcalleja) · Task: CS-035

@@ -135,4 +135,5 @@ the real spawned worker, default deadlines, one model load, original lineage and
 the accepted schema. It stores no images or credentials. Local timing excludes
 physical capture, network and Pi receipt and proves neither detection accuracy
 nor deployed readiness. Public result delivery and deployment are not enabled
-by the adapter: see [the concrete integration proposal](INTEGRATION.md).
+by importing the adapter. The approved opt-in service/runtime integration is
+documented in [the integration notes](INTEGRATION.md) and `backend/deploy/README.md`.

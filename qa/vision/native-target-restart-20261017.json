@@ -1,0 +1,16 @@
+{
+  "generated_replay_only": true,
+  "verified_https_wss": true,
+  "samples": 1,
+  "original_lineage_preserved": true,
+  "phone_and_other_session_isolated": true,
+  "origin_query_and_role_denied": true,
+  "revocation_and_expiry_closed": true,
+  "pedestrian_signal_unknown": true,
+  "generated_upload_to_result_ms": {
+    "median": 195.351,
+    "p95_nearest_rank": 195.351,
+    "max": 195.351
+  },
+  "limits": "Generated pixels only; excludes physical capture and Pi receipt; no detection accuracy or motor readiness."
+}

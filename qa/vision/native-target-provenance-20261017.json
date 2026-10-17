@@ -1,0 +1,32 @@
+{
+  "runtime": {
+    "ultralytics": "8.3.221",
+    "torch": "2.7.1+cpu",
+    "torchvision": "0.22.1+cpu",
+    "numpy": "2.2.6",
+    "opencv-python": "4.12.0.88",
+    "Pillow": "12.1.1"
+  },
+  "hashes": {
+    "backend/server.py": "732707e0ccd8d9f571da7640e335badf7f5e4fd69d8b879d438e665fb4d7d9d8",
+    "backend/sessions.py": "1aaff291c3328f3130c3372b1041285be2861ca0a0709901bcf27d2d6b54a45c",
+    "backend/vision/observations.py": "7ed7d65c57af43972a100a854e1e3a806a92d58e18ccad981a6053c7f0b842b1",
+    "backend/vision/baseline.py": "84aa92799bfa69f0bf3dba3e32133439641eb5ea8847dc57c23e6e96e5c9849f",
+    "backend/vision/baseline.json": "beb80cc8008d752e620865b7b8b24934f6aa188df1ba344af971616321949e58"
+  },
+  "candidate_image": "sha256:3f41d5a38f4cf04e344277623eed2be06e6798598058698785e47314ebcd975c",
+  "constraints": {
+    "cpus": 1.5,
+    "memory_bytes": 2147483648,
+    "pids": 256,
+    "read_only_root": true,
+    "user": "10001:10001",
+    "cap_drop": [
+      "ALL"
+    ],
+    "loopback_tls_only": true
+  },
+  "observed_memory_mib": 251.2,
+  "memory_observation_limit": "Single idle resource sample, not a peak-memory measurement.",
+  "production_promoted": false
+}
