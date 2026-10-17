@@ -42,6 +42,22 @@ Propose aditsangani as CS-028 owner after the prior claim PR #3 closed unmerged.
 
 Validation: Claim metadata only; repository validation, unit tests, generated changelog verification and whitespace checks are recorded in the claim PR after execution.
 
+## 2026-10-17 — CS-028-FASTAPI-INGESTION-20261017: Add bounded FastAPI frame ingestion and software replay rehearsal
+
+Author: aditsangani · Task: CS-028
+
+Separate liveness from enrollment/model/worker readiness; validate authenticated multipart metadata and actual JPEG bytes/dimensions against the accepted v1 contract; retain original capture lineage with bounded memory and atomic replay guards. Add an explicit loopback-only synthetic replay demonstration. Session issuance, inference, TLS deployment and device verification remain separate tasks. Ready for PM review, not Done.
+
+Validation: 19 backend tests and 39 shared repository/contract tests passed locally on Python 3.14.3. Real loopback HTTP replay returned health 200, readiness 503, upload 202 and duplicate 409. Backend suite runs explicitly per backend/README.md; existing shared CI does not install backend dependencies. No hardware or inference verification.
+
+## 2026-10-17 — CS-028-VERIFIED-CI-20261017: Verify implemented frame ingestion and include it in required CI
+
+Author: michaelkrymski (AI-assisted verification of Adit's implementation) · Task: CS-028
+
+Preserve Adit's endpoint implementation and ownership; regenerate the combined log, explicitly run backend and shared test roots in required CI, install backend CI dependencies and run the real loopback replay rehearsal. Document accepted-app seams for CS-029 and deployment packaging for CS-033. Protected CI amendment awaits review; no auth/WSS, inference or live deployment acceptance claimed.
+
+Validation: 58 total tests (19 backend and 39 shared) and real local HTTP replay: health 200, readiness 503, upload 202 with original frame ID, repeated upload 409. Structure, rendered log and whitespace checks pass. Current-head GitHub CI verified separately; no real device, TLS or cloud tests.
+
 ## 2026-10-17 — CS-029-CLAIM-ADITSANGANI-20261017: Claim paired authenticated WebSocket sessions for Adit
 
 Author: aditsangani · Task: CS-029
