@@ -242,3 +242,11 @@ Propose aditsangani as CS-034 owner. Preserve acceptance, dependency and allowed
 
 Validation: Claim metadata only. Shared repository checks, generated changelog, scope/ownership and whitespace validation run through checked publishing; actual results are recorded in the claim PR. No application or hardware acceptance claimed.
 
+## 2026-10-17 — CS-041-CLAIM-GMARCIALCALLEJA-20261017: Claim session-health dashboard for Gavin
+
+Author: Gavin (gmarcialcalleja) · Task: CS-041
+
+Propose gmarcialcalleja as owner and set CS-041 in_progress on its claim branch. Preserve acceptance, dependencies and allowed paths. CS-029 is merged; CS-035 remains pending. Implementation waits for Michael to merge this claim; no dashboard or live inference acceptance is claimed.
+
+Validation: Claim metadata only. Repository/shared checks, generated changelog and whitespace validation run through checked publishing; actual results are recorded in the claim PR. No application, device or hardware tests claimed.
+
