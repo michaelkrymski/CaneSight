@@ -146,3 +146,11 @@ Claim CS-033 for gmarcialcalleja with status in_progress on claim/CS-033-gmarcia
 
 Validation: Claim-only metadata change; repository check results are recorded in the claim PR. No Vultr, HTTPS/WSS, secret configuration, laptop fallback or hardware tests performed.
 
+## 2026-10-17 — CS-034-CLAIM-ADITSANGANI-20261017: Claim pinned YOLO baseline and class inspection for Adit
+
+Author: aditsangani · Task: CS-034
+
+Propose aditsangani as CS-034 owner. Preserve acceptance, dependency and allowed paths. CS-028 implementation is accepted; implementation waits for Michael to merge this claim. No model download, hash/class/license verification, inference or pedestrian-signal recognition is claimed by this ownership change.
+
+Validation: Claim metadata only. Shared repository checks, generated changelog, scope/ownership and whitespace validation run through checked publishing; actual results are recorded in the claim PR. No application or hardware acceptance claimed.
+
