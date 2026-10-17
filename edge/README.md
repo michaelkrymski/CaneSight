@@ -98,8 +98,9 @@ short-lived paired sessions. Do not disable backend authentication for integrati
   coverage, lens calibration, bearing, distance or phone/Pi alignment.
 - Session identity/clock/ledger must be shared by the eventual single Pi agent;
   starting another process with the same source ID does not share its boot or
-  lineage. Hardware evidence so far: Michael reported ten 416-square in-memory
-  captures around 10.7KB. This implementation has not yet run on his Pi.
+  lineage. Hardware evidence: the original handoff records Michael's ten in-memory
+  captures. Subsequent manual Pi tests acknowledged 20/20 uploads and then
+  accepted 20/20 matched vision results; see the CS-024 evidence below.
 
 ## Developer verification
 
@@ -172,4 +173,9 @@ environment. Receiver tests include real certificate-verified local HTTPS/WSS
 with synthetic backend observations, idle expiry and revocation of a fresh
 result. They do not establish actual Pi timing, real detector performance,
 phone connectivity or motor behavior. CS-023 scheduler/local hazard policy
-integration and coordinated real-Pi receiver evidence remain outstanding.
+integration remains outstanding. A manual Pi run at commit
+17441cee512bb29ae6ad5bd327706a45c0a8f107 reported 20 acknowledged uploads
+and 20 accepted vision results, with zero rejections, stale drops, failures or
+queue replacements. See tests/edge/evidence/pr32-pi-receiver-20261017.json and
+handoffs/CS-024-20261017-manual-pi-receiver-pass.md for evidence and limits.
+Zero expirations in continuous fresh input does not independently validate idle expiry.

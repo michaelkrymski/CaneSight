@@ -27,7 +27,10 @@
     "26 edge tests passed on Windows and Linux Python 3.12, including actual certificate-verified HTTPS/WSS with synthetic observations, independent idle expiry and revocation while a result is fresh.",
     "Windows backend regression: 128 discovered, 121 passed and seven environment/opt-in skips. Real Pi receiver execution, phone clock integration and CS-023-dependent local hazard/motor policy remain outstanding.",
     "handoffs/CS-024-20261017-validation-boundary.md",
-    "handoffs/CS-024-20261017-manual-pi-network-boundary.md"
+    "handoffs/CS-024-20261017-manual-pi-network-boundary.md",
+    "handoffs/CS-024-20261017-manual-pi-receiver-pass.md",
+    "tests/edge/evidence/pr32-pi-receiver-20261017.json",
+    "Manual Pi test at 17441cee512bb29ae6ad5bd327706a45c0a8f107: Vision accepted=20/rejected=0/expired=0/unavailable on exit; upload accepted=20/stale=0/failed=0/replaced=0. Human-reported setup and summaries; test session revoked."
   ],
-  "blocker": "Manual Pi setup succeeded at 17441cee512bb29ae6ad5bd327706a45c0a8f107 (camera/receiver imports OK), but public backend HTTPS timed out from both operator laptop and Pi; Vultr SSH also timed out. Enrollment unconfirmed; real Pi receiver summaries unavailable. Restore backend reachability before fresh-boot reenrollment. CS-023-dependent policy remains outstanding."
+  "blocker": "Real Pi receiver checkpoint validated: 20 matched vision results and 20 acknowledged uploads, zero rejections/failures. Full local hazard/motor policy remains blocked on outstanding CS-023 scheduler and subsequent policy/phone/failure integration; receiver/network validation is no longer blocked."
 }
