@@ -1,0 +1,9 @@
+{
+  "id": "CS-025-BENCH-PREPARATION-20261017-GMARCIALCALLEJA",
+  "date": "2026-10-17",
+  "author": "Gavin (gmarcialcalleja)",
+  "task": "CS-025",
+  "summary": "Prepare repeated depth integration and private capture-age evidence",
+  "details": "Synthetic left/center/right runner exercises accepted gate, policy, watchdog and simulated scheduler. Optional private bounded asynchronous trace preserves original capture/receipt/deadline and age interval at software command observation; excludes credentials, GPS and images and reports incomplete logging. Real phone, physical mapping and power/motor acceptance remain blocked.",
+  "validation": "Linux 88 edge and 82 shared/dashboard/narration tests passed; Windows 87 edge passed plus one POSIX skip. Synthetic three-round run accepted each stimulus three times, wrote 18 records without drops, and ended off. Native TLS synthetic-phone test validates age logging and credential exclusion. No Pi/camera/GPIO access."
+}

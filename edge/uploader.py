@@ -240,6 +240,7 @@ def main():
                         help='Arm local policy with simulated outputs only; requires receiver')
     parser.add_argument('--phone-binding-file', type=Path,
                         help='Trusted phone source/boot/drift file; never a phone/operator token')
+    parser.add_argument('--policy-trace',type=Path,help='New private metadata JSONL outside checkout; simulated policy only')
     args = parser.parse_args()
     if args.frames < 0 or not ID.fullmatch(args.source_id):
         parser.error('Use nonnegative frames and a protocol source ID')
@@ -249,11 +250,13 @@ def main():
         parser.error('--receive-vision requires a live enrolled upload session')
     if (args.simulate_policy or args.phone_binding_file) and not args.receive_vision:
         parser.error('Policy/phone binding requires --receive-vision')
+    if args.policy_trace and not args.simulate_policy:
+        parser.error('--policy-trace requires --simulate-policy')
     boot_id = uuid.uuid4().hex
     print(f'Source: {args.source_id}; boot: {boot_id}', flush=True)
     session_id = 'capture-only'
     latest, sender, worker, receiver = Latest(), None, None, None
-    policy, scheduler, watchdog = None, None, None
+    policy, scheduler, watchdog, trace = None, None, None, None
     if not args.capture_only:
         print('Enroll this identity; waiting up to 300s for matching private session file.', flush=True)
         deadline = time.monotonic() + 300
@@ -291,9 +294,12 @@ def main():
             watchdog = PolicyWatchdog(scheduler.trip,clock=clock_ms)
             scheduler.set_guard(watchdog.deadline)
             watchdog.start()
+            if args.policy_trace:
+                from .trace import DecisionTrace
+                trace = DecisionTrace(args.policy_trace)
             policy = LocalPolicy(receiver.gate,
                 receiver.phone_binding.source_id if receiver.phone_binding else None,
-                scheduler,clock=clock_ms,watchdog=watchdog)
+                scheduler,clock=clock_ms,watchdog=watchdog,trace=trace)
             policy.arm(True)
             policy.start()
         from picamera2 import Picamera2  # Hardware dependency intentionally lazy.
@@ -335,6 +341,8 @@ def main():
     finally:
         if policy:
             policy.close()
+        if trace:
+            print('Policy trace ' + json.dumps(trace.close(),sort_keys=True))
         if watchdog:
             watchdog.close()
         if scheduler:
