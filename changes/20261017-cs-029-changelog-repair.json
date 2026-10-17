@@ -1,0 +1,9 @@
+{
+  "id": "CS-029-CHANGELOG-REPAIR-20261017",
+  "date": "2026-10-17",
+  "author": "michaelkrymski (AI-assisted)",
+  "task": "CS-029",
+  "summary": "Regenerate changelog after resolving PR14 main integration",
+  "details": "Repair generated CHANGELOG.md formatting after the browser conflict resolution omitted a blank line before the accepted CS-030 claim entry. Preserve all immutable fragments and all implementation code; record the correction in its own fragment and handoff.",
+  "validation": "Original head 00b1ed6 reproduces render_changelog.py --check failure. Regenerated output is verified by structure, rendered log, shared/governance tests and whitespace checks before publication. Runtime code is unchanged from reviewed head 83e1bfb; no new hardware acceptance."
+}
