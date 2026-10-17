@@ -250,3 +250,11 @@ Propose gmarcialcalleja as owner and set CS-041 in_progress on its claim branch.
 
 Validation: Claim metadata only. Repository/shared checks, generated changelog and whitespace validation run through checked publishing; actual results are recorded in the claim PR. No application, device or hardware tests claimed.
 
+## 2026-10-17 — CS-041-FIXTURE-DASHBOARD-20261017-GMARCIALCALLEJA: Build a read-only session-health dashboard with explicit replay and unknown states
+
+Author: Gavin (gmarcialcalleja) · Task: CS-041
+
+Add a dependency-free localhost preview and responsive dashboard with six synthetic replay scenarios. Capture-age budgets remain separate from heartbeat transport health; obsolete distances and boxes disappear, unbounded ages stay unknown, and activity remains bounded. Persistent replay/prototype labels prevent live or crossing-permission claims. Live integration remains blocked on CS-035 and a reviewed restricted read-only data source; production authentication and endpoints are unchanged.
+
+Validation: 10 Node model tests passed. All 43 shared Python tests passed, including four real HTTP tests for loopback binding, allowlisted assets, denied mutation/query/path traversal and restrictive security headers. Browser verified six scenarios and paused-source expiry, responsive widths 320/390/768/1024/1440 without horizontal overflow, and no console warnings/errors. No real-device, model, deployment or hardware acceptance claimed.
+

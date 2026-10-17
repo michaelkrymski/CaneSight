@@ -18,9 +18,13 @@
   "estimate_hours": 1.0,
   "elapsed_window": "11–14",
   "owner": "gmarcialcalleja",
-  "status": "in_progress",
-  "branch": "claim/CS-041-gmarcialcalleja",
+  "status": "blocked",
+  "branch": "task/CS-041-session-health-dashboard",
   "pr_url": null,
-  "evidence": [],
-  "blocker": ""
+  "evidence": [
+    "handoffs/CS-041-20261017-fixture-dashboard.md",
+    "Local fixture dashboard: six synthetic replay scenarios, independent capture/heartbeat age, unknown/stale/disconnected display, bounded activity and persistent replay/prototype labels. No live backend/device connection or credentials.",
+    "10 Node.js model tests and 43 shared Python tests passed, including four real HTTP preview-server checks. Browser verified all six scenarios, pause/expiry, no horizontal overflow at 320/390/768/1024/1440 widths, and no console warnings/errors."
+  ],
+  "blocker": "Fixture preview is implemented and tested. Live integration awaits accepted CS-035 and a reviewed authenticated read-only dashboard data source. Native device WSS credentials/Origin restrictions are not bypassed; no live model, phone, Pi or motor readiness is claimed."
 }
