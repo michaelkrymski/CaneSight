@@ -24,7 +24,7 @@
   "owner": "gmarcialcalleja",
   "status": "review",
   "branch": "task/CS-035-public-rollout",
-  "pr_url": null,
+  "pr_url": "https://github.com/michaelkrymski/CaneSight/pull/30",
   "evidence": [
     "Claim proposal only; implementation waits for Michael to merge assignment. CS-031 PR #19 and CS-034 PR #26 are merged.",
     "handoffs/CS-035-20261017-observation-adapter.md",
