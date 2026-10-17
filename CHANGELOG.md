@@ -26,6 +26,14 @@ Document $100 Vultr and $1,000 Tiger Data allocations, plus a potential unconfir
 
 Validation: Documentation-only arithmetic: $1,100 reported allocations, $1,400 potential combined face value if the $300 Gemini allocation is confirmed. Repository structure, generated log and whitespace checks before publication; provider redemption, terms and balances not independently verified.
 
+## 2026-10-17 — CS-001-PM-SELF-ASSIGNMENT-20261017: Separate PM self-assignment authorization from implementation merge approval
+
+Author: Michael Krymski (AI-assisted) · Task: CS-001
+
+Propose a narrow verified PM-authored claim PR exception so Michael can start an unclaimed task before that assignment merges, continuing implementation in the same PR. Preserve native independent reviews, all branch settings, protected scope/reassignment checks and accepted-main status. No actual task assignment or production behavior changes.
+
+Validation: 41 shared tests passed, including two PM/teammate/scope/reassignment boundary regressions; repository validation, generated changelog and whitespace checks passed. Branch protection inspected read-only; exact-head PM approval and independent review remain required for this amendment.
+
 ## 2026-10-17 — CS-001-PUBLISHING-RETRY-FIX-20261017: Allow checked-publishing retry after failed validation
 
 Author: michaelkrymski (AI-assisted) · Task: CS-001
