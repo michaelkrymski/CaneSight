@@ -1,0 +1,9 @@
+{
+  "id": "CS-039-BONDMILA-CLAIM-20261017",
+  "date": "2026-10-17",
+  "author": "bondmila (AI-assisted)",
+  "task": "CS-039",
+  "summary": "Propose bondmila assignment for isolated Gemini context service",
+  "details": "Assignment only. Implementation waits for Michael to merge this claim. Requirements, dependencies and allowed paths are unchanged. No API credentials or implementation included.",
+  "validation": "Repository structure, shared unit tests, changelog consistency and whitespace checked by publish_task.py before commit. No hardware or Gemini API tests performed."
+}

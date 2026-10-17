@@ -346,6 +346,14 @@ Propose ownership of CS-036 for labeled replay/test signal fixtures, manual ROI 
 
 Validation: Ownership-only proposal based on accepted main 89e15adab322ea299915f193cb6c9c6626d20739; main task unowned and no competing open CS-036 PR found. Checked publishing runs shared repository tests, structure, generated changelog and whitespace checks. No model/hardware tests apply to this claim.
 
+## 2026-10-17 — CS-039-BONDMILA-CLAIM-20261017: Propose bondmila assignment for isolated Gemini context service
+
+Author: bondmila (AI-assisted) · Task: CS-039
+
+Assignment only. Implementation waits for Michael to merge this claim. Requirements, dependencies and allowed paths are unchanged. No API credentials or implementation included.
+
+Validation: Repository structure, shared unit tests, changelog consistency and whitespace checked by publish_task.py before commit. No hardware or Gemini API tests performed.
+
 ## 2026-10-17 — CS-041-CLAIM-GMARCIALCALLEJA-20261017: Claim session-health dashboard for Gavin
 
 Author: Gavin (gmarcialcalleja) · Task: CS-041
