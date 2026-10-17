@@ -1,0 +1,9 @@
+{
+  "id": "CS-035-PUBLIC-ROLLOUT-20261017-GMARCIALCALLEJA",
+  "date": "2026-10-17",
+  "author": "Gavin (gmarcialcalleja)",
+  "task": "CS-035",
+  "summary": "Deploy merged inference image and record public HTTPS/WSS acceptance",
+  "details": "Promote accepted source 2af3150 with verified read-only weights, bounded backend runtime and preserved proxy/certificates/rollback. Record only sanitized results; real Pi uploads remain unverified.",
+  "validation": "20 generated public HTTPS/WSS results passed lineage, isolation, authorization, revocation and expiry checks; deployed container healthy. Checked publisher runs repository/shared checks."
+}

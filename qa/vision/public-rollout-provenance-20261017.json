@@ -1,0 +1,19 @@
+{
+  "base_commit": "2af3150dfaeb0efa5ce37f26d66e552fe8147f15",
+  "image": "sha256:8a7bcf8fa9dbcfedea2ecef6d0e5e94d766dc50c2505739229454a0ad851f3fa",
+  "public_base": "https://64.177.50.116",
+  "backend_state": "running",
+  "docker_health": "healthy",
+  "read_only_rootfs": true,
+  "memory_limit_bytes": 2147483648,
+  "nano_cpus": 1500000000,
+  "proxy_recreated": false,
+  "private_rollback_preserved": true,
+  "model_sha256": "f59b3d833e2ff32e194b5bb8e08d211dc7c5bdf144b90d2c8412c47ccfc83b36",
+  "readiness_observed": {
+    "ingestion_configured": true,
+    "model_available": true,
+    "worker_healthy": true
+  },
+  "limits": "Readiness is availability, not capture freshness, phone connectivity or motor readiness. Enrollment credential delivery occurred privately; real Pi upload evidence pending."
+}
