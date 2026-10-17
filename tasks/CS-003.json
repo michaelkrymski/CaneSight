@@ -19,7 +19,7 @@
   "pr_url": null,
   "evidence": [
     "Proposed shared/protocol/v1/protocol.md and messages.schema.json; acceptance pending protected-contract PR review/merge.",
-    "34 local repository/contract tests pass; six replay fixtures. No real-device clock or transport verification claimed."
+    "39 local repository/contract tests pass after integrating accepted main 21eb48a; six replay fixtures. No real-device clock or transport verification claimed."
   ],
   "blocker": ""
 }
