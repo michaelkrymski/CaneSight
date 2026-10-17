@@ -1,0 +1,8 @@
+# Build only after the opt-in auth/projection change has been reviewed.
+# Supply the reviewed immutable vision runtime image; no model/secret is copied.
+ARG BASE_IMAGE
+FROM ${BASE_IMAGE}
+ENV CANESIGHT_INTERNAL_PORT=18083
+COPY backend/telemetry/__init__.py backend/telemetry/live.py backend/telemetry/dashboard.py /opt/canesight/backend/telemetry/
+COPY dashboard/index.html dashboard/app.js dashboard/model.js dashboard/style.css dashboard/icon.svg /opt/canesight/dashboard/
+CMD ["python", "-m", "backend.telemetry.live", "--port", "18083"]

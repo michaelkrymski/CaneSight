@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>CaneSight · Session health</title>
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/style.css">
+  <script type="module" src="/app.js"></script>
+</head>
+<body data-feed="fixture">
+  <a class="skip-link" href="#main">Skip to session health</a>
+  <aside class="sidebar">
+    <a class="brand" href="/" aria-label="CaneSight home"><span class="brand-mark" aria-hidden="true">c<span>·</span></span>CaneSight</a>
+    <div class="workspace-label">OBSERVATION CONSOLE</div>
+    <div class="nav-item selected"><span aria-hidden="true">◫</span> Session health <span class="nav-dot" aria-hidden="true"></span></div>
+    <div class="sidebar-note"><span class="tiny-label">LOCAL PREVIEW</span><p>Understand the evidence.<br>Keep the unknowns visible.</p><span class="outline-tag">Read only</span></div>
+    <div class="sidebar-footer"><span class="small-mark" aria-hidden="true">c·</span><div>Research prototype<br><span>CS-041 · Fixture preview</span></div></div>
+  </aside>
+
+  <div class="workspace">
+    <header class="topbar"><div><span class="breadcrumb">Workspace</span><span class="divider">/</span> Session health</div><span class="fixture-pill"><span aria-hidden="true">◈</span> Synthetic fixtures</span></header>
+    <main id="main">
+      <div class="page-heading"><div><div class="eyebrow">OBSERVE / UNDERSTAND</div><h1>Session health<span>.</span></h1><p>Source timing and observations, with their limits in view.</p></div><div class="session-chip"><span class="mode-tag" id="mode-label">Replay</span><span>Local fixture session</span></div></div>
+
+      <div class="prototype-banner"><span class="banner-icon" aria-hidden="true">!</span><div><strong>Research prototype — no crossing permission.</strong><span> No detection does not establish a clear route. This dashboard does not control movement.</span></div></div>
+      <noscript><p class="prototype-banner">JavaScript is required for the replay. No live source is connected.</p></noscript>
+
+      <section class="replay-controls" aria-label="Replay controls"><div class="replay-heading"><span class="replay-symbol" aria-hidden="true">↻</span><div><strong>Replay lab</strong><small>No live devices or backend connected</small></div></div><div class="scenario-control"><label for="scenario">Scenario</label><select id="scenario"><option value="recent">Recent observations</option><option value="unknown-depth">Unknown depth</option><option value="delayed">Delayed vision</option><option value="heartbeat">Heartbeats only</option><option value="uncertain">Clock uncertainty</option><option value="phone-disconnected">Phone disconnected</option><option value="pi-disconnected">Pi disconnected</option><option value="disconnected">Sources disconnected</option></select><button type="button" id="pause" aria-pressed="false">Pause replay <span aria-hidden="true">Ⅱ</span></button></div><p id="scenario-note">Synthetic captures and heartbeats arrive independently.</p></section>
+
+      <section id="viewer-access" class="replay-controls" aria-label="Read-only viewer access" hidden>
+        <div><strong>Read-only session viewer</strong><p>Use a separate viewer credential issued by the operator. Never enter a Pi, phone or operator credential.</p></div>
+        <form id="viewer-login"><label for="viewer-token">Viewer credential</label><input id="viewer-token" type="password" autocomplete="off" maxlength="128" required><button type="submit">Connect viewer</button></form>
+        <button id="viewer-logout" type="button">Disconnect viewer</button>
+        <p id="viewer-note" role="status">No viewer session. Capture ages remain unknown until verified clock bounds exist.</p>
+      </section>
+      <section class="overview" aria-label="Session summary">
+        <article class="summary-card"><div class="card-topline">Phone depth <span aria-hidden="true">◉</span></div><strong id="depth-summary">Unknown</strong><div><span id="depth-summary-age">Unknown</span><span class="summary-hint">500 ms age budget</span></div></article>
+        <article class="summary-card"><div class="card-topline">Pi vision <span aria-hidden="true">⌑</span></div><strong id="vision-summary">Unknown</strong><div><span id="vision-summary-age">Unknown</span><span class="summary-hint">1,500 ms age budget</span></div></article>
+        <article class="summary-card"><div class="card-topline">Transport <span aria-hidden="true">⇄</span></div><strong id="transport-summary">Unknown</strong><div><span id="transport-detail">Waiting for replay</span><span class="summary-hint">Synthetic sources</span></div></article>
+      </section>
+
+      <div class="content-grid">
+        <div class="primary-column">
+          <section class="panel depth-panel" aria-labelledby="depth-title"><div class="panel-header"><div><span class="section-number">01</span><h2 id="depth-title">Depth observations</h2></div><span class="status" id="depth-status">Unknown</span></div><div class="source-line"><span>PHONE / <code>fixture-phone</code></span><span id="depth-sequence">Capture #0</span></div><div class="sectors"><div class="sector"><span>LEFT</span><strong id="sector-left">—</strong><small id="sector-left-note">Unknown</small></div><div class="sector"><span>CENTER</span><strong id="sector-center">—</strong><small id="sector-center-note">Unknown</small></div><div class="sector"><span>RIGHT</span><strong id="sector-right">—</strong><small id="sector-right-note">Unknown</small></div></div><div class="panel-footnote"><span class="info-icon" aria-hidden="true">i</span><span id="depth-note">No eligible depth observation.</span></div></section>
+
+          <section class="panel vision-panel" aria-labelledby="vision-title"><div class="panel-header"><div><span class="section-number">02</span><h2 id="vision-title">Vision observations</h2></div><span class="status" id="vision-status">Unknown</span></div><div class="source-line"><span>PI CAMERA / <code>fixture-pi</code></span><span id="vision-sequence">Capture #0</span></div><div class="vision-body"><div class="camera-preview"><svg viewBox="0 0 320 192" role="img" aria-labelledby="preview-title"><title id="preview-title">Illustrative camera-space boxes from synthetic fixtures, not a camera feed</title><defs><pattern id="grid" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M 24 0 L 0 0 0 24" fill="none" stroke="#d8dfdd" stroke-width="0.6"/></pattern></defs><rect width="320" height="192" fill="url(#grid)"/><path d="M0 144H320M160 0V192" stroke="#c8d2d0" stroke-dasharray="3 4"/><g id="preview-boxes" visibility="hidden"><rect x="67" y="43" width="60" height="112" rx="3" fill="#dceaf2" fill-opacity="0.65" stroke="#426c88" stroke-width="1.5"/><rect x="67" y="26" width="64" height="19" rx="2" fill="#426c88"/><text x="73" y="39" fill="white" font-size="10" font-family="sans-serif">person · fixture</text><rect x="178" y="88" width="103" height="67" rx="3" fill="#ede8dc" fill-opacity="0.65" stroke="#9b7640" stroke-width="1.5"/><rect x="178" y="71" width="76" height="19" rx="2" fill="#9b7640"/><text x="184" y="84" fill="white" font-size="10" font-family="sans-serif">vehicle · fixture</text></g><text id="preview-unavailable" x="160" y="97" text-anchor="middle" fill="#5b6868" font-size="13" font-family="sans-serif">No current object evidence</text><text x="12" y="179" fill="#667876" font-size="9" font-family="monospace">416 × 416 / CAMERA COORDINATES</text></svg><span>Illustrative boxes · not a camera feed</span></div><div class="vision-details"><div class="tiny-label">PEDESTRIAN SIGNAL</div><strong class="unknown-signal">Unknown</strong><p>Generic objects do not identify a pedestrian signal or establish crossing safety.</p><dl><div><dt>Countdown</dt><dd>Unknown</dd></div><div><dt>Model</dt><dd>fixture-model-v1</dd></div><div><dt>Result</dt><dd id="vision-frame">fixture-frame-0</dd></div></dl></div></div><div class="panel-footnote"><span class="info-icon" aria-hidden="true">i</span><span id="vision-note">No real model or inference worker is connected.</span></div></section>
+        </div>
+
+        <div class="secondary-column">
+          <section class="panel timing-panel" aria-labelledby="timing-title"><div class="panel-header"><div><h2 id="timing-title">Timing &amp; transport</h2></div><span class="subtle-symbol" aria-hidden="true">◷</span></div><p class="panel-description">Transport health and capture age are separate.</p><div class="timing-source"><div><strong>Phone</strong><span id="depth-transport" class="transport-label">Unknown</span></div><dl><div><dt>Capture-age upper bound</dt><dd id="depth-age">Unknown</dd></div><div><dt>Last heartbeat</dt><dd id="depth-heartbeat">Unknown</dd></div></dl></div><div class="timing-source"><div><strong>Pi camera</strong><span id="vision-transport" class="transport-label">Unknown</span></div><dl><div><dt>Capture-age upper bound</dt><dd id="vision-age">Unknown</dd></div><div><dt>Last heartbeat</dt><dd id="vision-heartbeat">Unknown</dd></div></dl></div><div class="timing-principle"><strong>A heartbeat is not a new capture.</strong><p>Old observations keep aging even while the connection responds.</p></div></section>
+
+          <section class="panel activity-panel" aria-labelledby="activity-title"><div class="panel-header"><div><h2 id="activity-title">Replay activity</h2></div><span class="outline-tag">Synthetic</span></div><ol id="events" aria-label="Recent synthetic captures"></ol><div class="activity-footer">Latest 8 events · local replay clock</div></section>
+        </div>
+      </div>
+      <footer class="page-footer"><span><span class="footer-dot" aria-hidden="true"></span> Read-only fixture preview</span><span>Live adapter requires reviewed activation · No device credentials required</span></footer>
+      <div class="sr-only" id="announcements" role="status" aria-live="polite"></div>
+    </main>
+  </div>
+</body>
+</html>
