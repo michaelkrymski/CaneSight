@@ -58,6 +58,14 @@ Add nominal 1Hz 416-square quality75 in-memory capture, conservative original se
 
 Validation: 13 local edge tests pass, including blocked-sender replacement, no retry, timing rejection, ACK/epoch identity and actual backend multipart ingestion with synthetic JPEG. No execution of this new module on Pi, live HTTPS upload, WSS, inference, electrical or readiness acceptance. Existing CI does not discover edge test root; explicit execution required.
 
+## 2026-10-17 — CS-024-CLAIM-GMARCIALCALLEJA-20261017: Propose Gavin as CS-024 local policy and source expiry owner
+
+Author: Gavin (gmarcialcalleja) · Task: CS-024
+
+Claim only; preserve acceptance, dependencies and allowed paths. First checkpoint is native Pi reception and source expiry sharing the uploader process identity, BOOTTIME clock and bounded lineage ledger. Existing CS-023 dependency remains. No runtime implementation or hardware changes; ownership becomes assigned only after Michael merges.
+
+Validation: Checked publisher runs repository validation, shared tests, generated changelog and whitespace checks. No implementation or new hardware verification claimed by this ownership PR.
+
 ## 2026-10-17 — CS-028-CLAIM-ADITSANGANI-20261017: Claim FastAPI skeleton and frame endpoint for Adit
 
 Author: aditsangani · Task: CS-028
