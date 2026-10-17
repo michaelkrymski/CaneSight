@@ -1,0 +1,9 @@
+{
+  "id": "CS-031-REVIEW-PROVENANCE-SESSIONS-20261017-GMARCIALCALLEJA",
+  "date": "2026-10-17",
+  "author": "Gavin (gmarcialcalleja)",
+  "task": "CS-031",
+  "summary": "Protect original provenance and compose authenticated session-worker lifecycle",
+  "details": "Address Michael's PR19 feedback: give model adapters a separate deep copy and build observation provenance from an untouched original. Integrate accepted CS-029 while preserving TLS/auth/role enforcement, compose lifespans and bind atomic frame scheduling and session disposal to the same worker. Add mutation, paired success/isolation, revocation/new epoch and expiry-sweeper regressions.",
+  "validation": "Reproduced the old mutation failure in an isolated Linux checkout, then restored the fix. Windows and Vultr Linux each passed 51 backend and 39 shared tests plus replay smoke. Existing real certificate-verified HTTPS/WSS tests passed; combined worker tests use ASGI HTTPS scopes and synthetic models. No live YOLO, public deployment or physical watchdog acceptance claimed."
+}

@@ -1,0 +1,9 @@
+{
+  "id": "CS-031-BOUNDED-WORKER-20261017-GMARCIALCALLEJA",
+  "date": "2026-10-17",
+  "author": "Gavin (gmarcialcalleja)",
+  "task": "CS-031",
+  "summary": "Isolate inference and bound latest work per source",
+  "details": "Add one spawned model process with a single load, one active job, latest-only pending work and bounded results per source. Preserve capture lineage, validate observations, expose fixed drop metrics and fail readiness closed on model failure or deadline. Integrate trusted frame admission and ASGI lifecycle without adding a public result API or selecting YOLO weights.",
+  "validation": "Windows and isolated Vultr Linux: all 30 backend and 39 shared tests passed; replay smoke preserved. Tests cover 2000-frame flood, bounded identity tables, one load, latest results, slow prediction with software task progress, failures, hung load/prediction, expiry/revocation and shutdown. Synthetic adapters only; no physical watchdog, live YOLO throughput or capture-age acceptance claimed."
+}
