@@ -80,8 +80,9 @@ short-lived paired sessions. Do not disable backend authentication for integrati
 - `Sender.ledger` retains at most two `(original_metadata, Mapping)` records, no
   JPEGs. It is process-local and guarded by `Sender.lock`. CS-023/024 must consume
   it in the same process, match result lineage and enforce capture expiry on
-  every policy cycle. This module does not yet implement WSS, clock probes,
-  model inference, haptics or system readiness.
+  every policy cycle. The opt-in CS-024 receiver below integrates vision WSS
+  and local capture expiry. Phone clock probes, haptics and overall system
+  readiness remain unavailable.
 - Uploaded metadata has the exact accepted v1 fields; capture time is not
   replaced with queue, encode, send or server time. `capture_utc` is unknown/null.
   Crop mapping stays local to avoid an unreviewed schema change.
@@ -115,3 +116,60 @@ HTTPS origin validation, redirect refusal, ACK identity and actual multipart
 ingestion. Transport tests use mocks/in-process HTTP, not real TLS or camera.
 Run this explicit test root: existing CI discovers shared/backend tests only.
 Adding a required CI step is a separately reviewed protected workflow amendment.
+
+## CS-024 receiver checkpoint: observation availability only
+
+Install the accepted freshness-gate dependencies in a dedicated environment that
+can see Raspberry Pi OS's Picamera2/libcamera packages. Do not install the ML
+runtime on the Pi:
+
+```sh
+python3 -m venv --system-site-packages ~/.venvs/canesight-receiver
+~/.venvs/canesight-receiver/bin/python -m pip install -r edge/requirements-receiver.txt
+~/.venvs/canesight-receiver/bin/python -m edge.uploader --receive-vision --frames 20 --session-file ~/.canesight-session.json
+```
+
+Coordinate camera availability with Michael first. Preserve his existing checkout
+and use a separate reviewed checkout for this checkpoint. The process prints a
+new boot ID and waits 300 seconds. Enroll that exact active process with the
+operator, transfer only the six-field Pi JSON privately and atomically, and verify
+that `~/.canesight-session.json` belongs to the Pi user with mode `600`. Session
+creation still requires a phone binding; an explicitly unconnected bench phone
+counterpart is sufficient for a vision-only test. Never copy its credential or
+the operator credential to the Pi. Old boot credentials cannot be reused.
+
+The WSS connection must succeed before camera capture starts. The existing sender
+records original capture metadata in its two-entry ledger and the accepted
+`CaptureAgeGate` before HTTP upload. Both use CLOCK_BOOTTIME. Results must match
+the original session/source/boot/mode/frame/sequence/timestamps/image dimensions;
+unknown, consumed, evicted, future, replayed or stale lineage is unavailable.
+The gate counts capture through upload/inference/return, with a 1500ms vision
+budget. A separate loop calls expiry at a nominal 50ms interval even while socket
+receive blocks. Python scheduling is not a certified real-time deadline.
+
+`VisionReceiver.current()` returns a fresh copied observation and its original
+stream mapping, or `None`; a consumer must call it again on every policy tick
+rather than retain a snapshot. Only local-camera readiness is trusted here.
+Phone data remains unavailable: the Pi-only file supplies no phone identity and
+no measured phone clock drift/mapping. Empty detections and `signal: unknown`
+never imply an obstacle-free route or crossing permission.
+
+There is one socket, one bounded receive queue and no reconnect backlog. TLS and
+hostname verification are required, credentials use a header, proxy discovery is
+disabled for WSS, and redirects are refused. Disconnect, revocation, camera
+failure, shutdown or clock reversal clears evidence. Restart and enroll a new
+boot after WSS interruption. Cleanup closes the camera and invalidates the gate;
+the existing bounded sender socket limitation remains as documented above.
+
+The final line reports vision accepted/rejected/expired counts and unavailable
+on exit without printing result contents or credentials. These are receiver
+metrics, not motor readiness. Capture-only and ordinary upload commands retain
+their existing behavior; `--receive-vision` is explicit and cannot combine with
+`--capture-only`.
+
+Tests: run `python -m unittest discover -s tests/edge -v` in the backend test
+environment. Receiver tests include real certificate-verified local HTTPS/WSS
+with synthetic backend observations, idle expiry and revocation of a fresh
+result. They do not establish actual Pi timing, real detector performance,
+phone connectivity or motor behavior. CS-023 scheduler/local hazard policy
+integration and coordinated real-Pi receiver evidence remain outstanding.
