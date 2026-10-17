@@ -132,7 +132,7 @@ class FrameIngress:
             return any(g.role == 'pi' and g.expires_at > self.clock() for g in self.grants)
 
 
-def parse_metadata(raw):
+def check_json_depth(raw):
     # Bound nesting before json.loads materializes nested objects. Strings and
     # escaped quotes must not contribute structural brackets.
     depth, quoted, escaped = 0, False, False
@@ -152,6 +152,8 @@ def parse_metadata(raw):
                 raise ValueError('JSON nesting limit')
         elif char in (125, 93):
             depth -= 1
+def parse_metadata(raw):
+    check_json_depth(raw)
     metadata = protocol.parse_wire(raw)
     if metadata['type'] != 'frame_metadata':
         raise ValueError('Expected frame metadata')
@@ -222,7 +224,7 @@ async def read_parts(request):
         raise HTTPException(422, 'Invalid multipart upload') from None
 
 
-def create_app(*, ingress=None, dependency_health=None):
+def create_app(*, ingress=None, dependency_health=None, session_manager=None):
     """Inject CS-029 grants and a truthful CS-031/034 health provider.
 
     Default app has no enrolled sources or model/worker. Health is liveness
@@ -231,6 +233,7 @@ def create_app(*, ingress=None, dependency_health=None):
     ingress = ingress if ingress is not None else FrameIngress()
     app = FastAPI(title='CaneSight ingestion', docs_url=None, redoc_url=None)
     app.state.ingress = ingress
+    app.state.sessions = session_manager
     # Reject overload before reading/parsing/decompressing request bodies.
     slots = threading.BoundedSemaphore(4)
 
@@ -242,18 +245,23 @@ def create_app(*, ingress=None, dependency_health=None):
     def readyz():
         try:
             health = dependency_health() if dependency_health else {}
-            checks = {'ingestion_configured': ingress.configured(),
+            checks = {'ingestion_configured': session_manager.configured() if session_manager else ingress.configured(),
                       'model_available': health.get('model_available') is True,
                       'worker_healthy': health.get('worker_healthy') is True}
         except Exception:
-            checks = {'ingestion_configured': ingress.configured(),
+            checks = {'ingestion_configured': session_manager.configured() if session_manager else ingress.configured(),
                       'model_available': False, 'worker_healthy': False}
         ready = all(checks.values())
         return JSONResponse({'ready': ready, 'checks': checks}, status_code=200 if ready else 503)
 
     @app.post('/v1/frames', status_code=202)
     async def frames(request: Request):
-        grant = ingress.authenticate(request.headers.get('authorization'))
+        if session_manager is not None:
+            from .sessions import require_tls
+            require_tls(request)
+            record, grant = session_manager.authenticate(request.headers.get('authorization'), 'pi')
+        else:
+            grant = ingress.authenticate(request.headers.get('authorization'))
         if not slots.acquire(blocking=False):
             raise HTTPException(503, 'Upload capacity reached')
         try:
@@ -263,11 +271,17 @@ def create_app(*, ingress=None, dependency_health=None):
             except (ValueError, ValidationError, TypeError, RecursionError):
                 raise HTTPException(422, 'Invalid frame metadata') from None
             await run_in_threadpool(validate_jpeg, jpeg, metadata)
-            ingress.accept(grant, metadata, jpeg)
+            if session_manager is not None:
+                session_manager.accept_frame(record, grant, metadata, jpeg)
+            else:
+                ingress.accept(grant, metadata, jpeg)
             return {'schema_version': 1, 'frame_id': metadata['frame_id'], 'status': 'accepted'}
         finally:
             slots.release()
 
+    if session_manager is not None:
+        from .sessions import install_routes
+        install_routes(app, session_manager)
     return app
 
 

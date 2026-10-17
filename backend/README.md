@@ -1,4 +1,4 @@
-# CaneSight ingestion â€” CS-028
+# CaneSight backend — CS-028 / CS-029
 
 The FastAPI skeleton implements `GET /healthz`, `GET /readyz` and `POST /v1/frames`
 against the accepted `shared/protocol/v1` contract. It does not run inference or
@@ -15,7 +15,7 @@ python -m unittest discover -s tests -v
 ```
 
 The required repository CI installs backend test dependencies, explicitly runs
-both suites (39 shared and 19 backend cases), and rehearses a real loopback HTTP
+both suites, and rehearses a real loopback HTTP
 upload/duplicate rejection using `backend.demo_replay`. Run both commands locally;
 root discovery alone does not cover backend tests. The separate roots avoid the
 tests/backend package shadowing the application backend package. This CI amendment
@@ -91,6 +91,14 @@ original lineage. `dependency_health` must report actual `model_available` and
 the shipped replay server never declares a model ready. TLS termination, paired
 session issuance, quotas and distributed state remain CS-029/032/033 work. This
 component is a loopback software scaffold, not a deployed or complete live system.
+
+## Paired HTTPS/WSS sessions — CS-029
+
+See [paired sessions](SESSIONS.md) for the operator-created session API, scoped
+phone/Pi bearer credentials, WebSocket transport, teardown rules and TLS setup.
+The new factory is `backend.server:create_session_app`. The legacy CS-028 default
+and explicit replay factory retain their existing behavior; they do not silently
+enable paired sessions. No inference/model readiness is enabled by pairing.
 
 ## Handoff to CS-029 and CS-033
 
