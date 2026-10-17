@@ -4,7 +4,10 @@
 process. The factory must be importable/picklable for Python spawn, return an
 object with a bounded `version` string, and implement `predict(AcceptedFrame)`.
 Prediction returns exactly `detections` and `signal` from the accepted vision
-schema. The worker preserves frame/session/source/boot/mode/sequence/capture
+schema. The adapter receives a separate deep copy of metadata; observation
+provenance comes exclusively from an untouched original, including nested image
+dimensions. Adapter preprocessing cannot rewrite the source capture lineage.
+The worker preserves frame/session/source/boot/mode/sequence/capture
 metadata and image dimensions, adds measured processing duration/model version,
 and validates the complete observation in the model process. Nonfinite,
 oversized or invalid output fails closed. No YOLO package, weights, model hash
@@ -54,9 +57,13 @@ metadata validation, JPEG validation and replay/sequence admission. It performs
 no model work on the calling event loop. Session revocation/epoch reset should
 call `discard_source(grant)`; a removed in-flight generation cannot publish.
 
-For CS-029 #14, retain both `session_manager` and `inference_worker` keywords and
-the existing TLS/role checks. Submit only after either accepted frame admission
-path. Do not change pairing/phone protocol ownership. For CS-032 #15, retain
+The accepted CS-029 session path retains both `session_manager` and
+`inference_worker` keywords and existing TLS/role checks. Session admission and
+worker submission share the session lock so revocation cannot interleave between
+them. Session disposal calls `discard_source` before removing grants. Session
+expiry sweeping and revocation wrap the app/worker lifespan; session cleanup runs
+before worker shutdown. The legacy fixed-grant frame path still submits directly
+after ingestion admission. For CS-032 #15, retain
 `traffic_limits`; apply quotas before body reads and test real authenticated
 session traffic together with a slow worker after those changes are accepted.
 For CS-033, include this module and the selected reviewed CS-034 adapter in the

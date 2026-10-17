@@ -13,7 +13,9 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 from fastapi.testclient import TestClient
 from backend.app import FrameIngress, SourceGrant, create_app, protocol
 from backend.inference_worker import InferenceWorker
+from backend.sessions import SessionManager
 from test_app import encoded_image
+from test_sessions import OPERATOR, specification
 
 
 @dataclass
@@ -59,6 +61,11 @@ class FixtureModel:
             self.release.wait(60)
         if self.kind == 'crash':
             raise RuntimeError('private prediction detail')
+        if self.kind == 'mutate':
+            frame.metadata['capture_monotonic_ms'] += 1000
+            frame.metadata['frame_id'] = 'rewritten-by-adapter'
+            frame.metadata['image']['width'] += 10
+            frame.metadata['image']['height'] += 10
         signal = {'candidate_count': 0, 'symbol': 'unknown', 'confidence': None, 'countdown_s': None}
         if self.kind == 'invalid':
             signal['confidence'] = float('nan')
@@ -146,6 +153,117 @@ class WorkerTests(unittest.TestCase):
         release.set()
         wait_for(lambda: worker.metrics()['completed'] == 1)
         self.assertEqual(worker.take_result(self.grant)['seq'], 1009)
+
+    def test_adapter_mutation_cannot_rewrite_original_provenance(self):
+        worker, _, _ = self.worker('mutate')
+        original = copy.deepcopy(self.metadata)
+        self.assertTrue(worker.submit(self.grant, self.metadata, self.jpeg))
+        wait_for(lambda: worker.metrics()['completed'] == 1)
+        result = worker.take_result(self.grant)
+        for key, value in original.items():
+            if key not in ('type', 'jpeg_bytes'):
+                self.assertEqual(result[key], value, key)
+        self.assertEqual(self.metadata, original)
+        protocol.validate_message(result)
+
+    def session_pair(self, client, body=None):
+        response = client.post('/v1/sessions', json=specification() if body is None else body,
+                               headers={'Authorization': 'Bearer ' + OPERATOR})
+        self.assertEqual(response.status_code, 201, response.text)
+        pair = response.json()
+        metadata = dict(self.metadata, session_id=pair['session_id'], mode=pair['mode'],
+                        source_id=pair['pi']['source_id'], boot_id=pair['pi']['boot_id'])
+        return pair, metadata
+
+    def session_upload(self, client, pair, metadata, *, role='pi', url='/v1/frames'):
+        return client.post(url, headers={'Authorization': 'Bearer ' + pair[role]['token']},
+                           files={'metadata': (None, json.dumps(metadata), 'application/json'),
+                                  'image': ('synthetic.jpg', self.jpeg, 'image/jpeg')})
+
+    def test_paired_worker_auth_tls_isolation_provenance_and_lifespans(self):
+        worker = InferenceWorker(FixtureFactory('mutate'), job_timeout=10)
+        self.addCleanup(worker.stop)
+        manager = SessionManager(OPERATOR)
+        with TestClient(create_app(session_manager=manager, inference_worker=worker),
+                        base_url='https://testserver') as client:
+            wait_for(lambda: worker.health()['worker_healthy'])
+            self.assertEqual(client.get('/readyz').status_code, 503)
+            pair, metadata = self.session_pair(client)
+            other, _ = self.session_pair(client)
+            self.assertEqual(client.get('/readyz').status_code, 200)
+            self.assertEqual(self.session_upload(client, pair, metadata, url='http://testserver/v1/frames').status_code, 403)
+            self.assertEqual(self.session_upload(client, pair, metadata, role='phone').status_code, 403)
+            self.assertEqual(client.post('/v1/frames').status_code, 401)
+            self.assertEqual(self.session_upload(client, other, metadata).status_code, 403)
+            self.assertEqual(worker.metrics()['submitted'], 0)
+            self.assertEqual(self.session_upload(client, pair, metadata).status_code, 202)
+            self.assertEqual(self.session_upload(client, pair, metadata).status_code, 409)
+            wait_for(lambda: worker.metrics()['completed'] == 1)
+            _, other_grant = manager.authenticate('Bearer ' + other['pi']['token'], 'pi')
+            self.assertIsNone(worker.take_result(other_grant))
+            _, grant = manager.authenticate('Bearer ' + pair['pi']['token'], 'pi')
+            result = worker.take_result(grant)
+            for key, value in metadata.items():
+                if key not in ('type', 'jpeg_bytes'):
+                    self.assertEqual(result[key], value, key)
+            protocol.validate_message(result)
+            self.assertEqual(worker.metrics()['model_loads'], 1)
+        self.assertFalse(worker.health()['worker_healthy'])
+        self.assertEqual(manager.sessions, {})
+
+    def test_session_revocation_drops_pending_and_inflight_then_allows_new_epoch(self):
+        entered, release = self.flags()
+        worker = InferenceWorker(FixtureFactory('normal', entered, release), job_timeout=10)
+        self.addCleanup(worker.stop)
+        manager = SessionManager(OPERATOR)
+        with TestClient(create_app(session_manager=manager, inference_worker=worker),
+                        base_url='https://testserver') as client:
+            wait_for(lambda: worker.health()['worker_healthy'])
+            pair, metadata = self.session_pair(client)
+            _, grant = manager.authenticate('Bearer ' + pair['pi']['token'], 'pi')
+            self.assertEqual(self.session_upload(client, pair, metadata).status_code, 202)
+            self.assertTrue(entered.wait(5))
+            self.assertEqual(self.session_upload(client, pair, dict(metadata, seq=10, frame_id='frame-10')).status_code, 202)
+            self.assertEqual(worker.metrics()['pending'], 1)
+            response = client.delete('/v1/sessions/' + pair['session_id'],
+                                     headers={'Authorization': 'Bearer ' + OPERATOR})
+            self.assertEqual(response.status_code, 204)
+            self.assertEqual(worker.metrics()['pending'], 0)
+            self.assertEqual(worker.metrics()['sources'], 0)
+            release.set()
+            wait_for(lambda: worker.metrics()['active'] == 0)
+            self.assertIsNone(worker.take_result(grant))
+            self.assertEqual(worker.metrics()['completed'], 0)
+            self.assertEqual(self.session_upload(client, pair, metadata).status_code, 401)
+            body = specification()
+            body['pi']['boot_id'] = 'new-pi-epoch'
+            replacement, new_metadata = self.session_pair(client, body)
+            self.assertEqual(self.session_upload(client, replacement, new_metadata).status_code, 202)
+            wait_for(lambda: worker.metrics()['completed'] == 1)
+            _, replacement_grant = manager.authenticate('Bearer ' + replacement['pi']['token'], 'pi')
+            self.assertEqual(worker.take_result(replacement_grant)['boot_id'], 'new-pi-epoch')
+            self.assertEqual(worker.metrics()['revoked'], 1)
+
+    def test_session_expiry_sweeper_discards_worker_without_new_requests(self):
+        entered, release = self.flags()
+        worker = InferenceWorker(FixtureFactory('normal', entered, release), job_timeout=10)
+        self.addCleanup(worker.stop)
+        offset = [0]
+        manager = SessionManager(OPERATOR, clock=lambda: time.monotonic() + offset[0])
+        with TestClient(create_app(session_manager=manager, inference_worker=worker),
+                        base_url='https://testserver') as client:
+            wait_for(lambda: worker.health()['worker_healthy'])
+            pair, metadata = self.session_pair(client)
+            _, grant = manager.authenticate('Bearer ' + pair['pi']['token'], 'pi')
+            self.assertEqual(self.session_upload(client, pair, metadata).status_code, 202)
+            self.assertTrue(entered.wait(5))
+            offset[0] = 301
+            wait_for(lambda: not manager.sessions)
+            self.assertEqual(worker.metrics()['revoked'], 1)
+            release.set()
+            wait_for(lambda: worker.metrics()['active'] == 0)
+            self.assertIsNone(worker.take_result(grant))
+            self.assertEqual(worker.metrics()['completed'], 0)
 
     def test_prediction_timeout_kills_child_without_reload(self):
         worker, entered, release = self.worker(gated=True, job_timeout=0.25)

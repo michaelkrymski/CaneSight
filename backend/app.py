@@ -133,7 +133,7 @@ class FrameIngress:
             return any(g.role == 'pi' and g.expires_at > self.clock() for g in self.grants)
 
 
-def parse_metadata(raw):
+def check_json_depth(raw):
     # Bound nesting before json.loads materializes nested objects. Strings and
     # escaped quotes must not contribute structural brackets.
     depth, quoted, escaped = 0, False, False
@@ -153,6 +153,8 @@ def parse_metadata(raw):
                 raise ValueError('JSON nesting limit')
         elif char in (125, 93):
             depth -= 1
+def parse_metadata(raw):
+    check_json_depth(raw)
     metadata = protocol.parse_wire(raw)
     if metadata['type'] != 'frame_metadata':
         raise ValueError('Expected frame metadata')
@@ -223,7 +225,7 @@ async def read_parts(request):
         raise HTTPException(422, 'Invalid multipart upload') from None
 
 
-def create_app(*, ingress=None, dependency_health=None, inference_worker=None):
+def create_app(*, ingress=None, dependency_health=None, session_manager=None, inference_worker=None):
     """Inject CS-029 grants and a truthful CS-031/034 health provider.
 
     Default app has no enrolled sources or model/worker. Health is liveness
@@ -243,6 +245,9 @@ def create_app(*, ingress=None, dependency_health=None, inference_worker=None):
     app = FastAPI(title='CaneSight ingestion', docs_url=None, redoc_url=None, lifespan=lifespan)
     app.state.ingress = ingress
     app.state.inference_worker = inference_worker
+    app.state.sessions = session_manager
+    if session_manager is not None and inference_worker is not None:
+        session_manager.bind_inference_worker(inference_worker)
     # Reject overload before reading/parsing/decompressing request bodies.
     slots = threading.BoundedSemaphore(4)
 
@@ -253,21 +258,25 @@ def create_app(*, ingress=None, dependency_health=None, inference_worker=None):
     @app.get('/readyz')
     def readyz():
         try:
-            health = dependency_health() if dependency_health else {}
-            if inference_worker is not None:
-                health = inference_worker.health()
-            checks = {'ingestion_configured': ingress.configured(),
+            health = (inference_worker.health() if inference_worker is not None
+                      else dependency_health() if dependency_health else {})
+            checks = {'ingestion_configured': session_manager.configured() if session_manager else ingress.configured(),
                       'model_available': health.get('model_available') is True,
                       'worker_healthy': health.get('worker_healthy') is True}
         except Exception:
-            checks = {'ingestion_configured': ingress.configured(),
+            checks = {'ingestion_configured': session_manager.configured() if session_manager else ingress.configured(),
                       'model_available': False, 'worker_healthy': False}
         ready = all(checks.values())
         return JSONResponse({'ready': ready, 'checks': checks}, status_code=200 if ready else 503)
 
     @app.post('/v1/frames', status_code=202)
     async def frames(request: Request):
-        grant = ingress.authenticate(request.headers.get('authorization'))
+        if session_manager is not None:
+            from .sessions import require_tls
+            require_tls(request)
+            record, grant = session_manager.authenticate(request.headers.get('authorization'), 'pi')
+        else:
+            grant = ingress.authenticate(request.headers.get('authorization'))
         if not slots.acquire(blocking=False):
             raise HTTPException(503, 'Upload capacity reached')
         try:
@@ -277,15 +286,21 @@ def create_app(*, ingress=None, dependency_health=None, inference_worker=None):
             except (ValueError, ValidationError, TypeError, RecursionError):
                 raise HTTPException(422, 'Invalid frame metadata') from None
             await run_in_threadpool(validate_jpeg, jpeg, metadata)
-            ingress.accept(grant, metadata, jpeg)
-            if inference_worker is not None:
-                # A 202 remains ingestion-only. Scheduling drops are counted;
-                # worker readiness and observations never derive from this ACK.
-                inference_worker.submit(grant, metadata, jpeg)
+            if session_manager is not None:
+                # Session admission and scheduling share the revocation lock.
+                session_manager.accept_frame(record, grant, metadata, jpeg)
+            else:
+                ingress.accept(grant, metadata, jpeg)
+                if inference_worker is not None:
+                    # A 202 remains ingestion-only, never a freshness verdict.
+                    inference_worker.submit(grant, metadata, jpeg)
             return {'schema_version': 1, 'frame_id': metadata['frame_id'], 'status': 'accepted'}
         finally:
             slots.release()
 
+    if session_manager is not None:
+        from .sessions import install_routes
+        install_routes(app, session_manager)
     return app
 
 

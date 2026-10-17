@@ -28,10 +28,13 @@ def _model_process(connection, factory):
         while True:
             metadata, jpeg = connection.recv()
             started = time.monotonic()
-            prediction = model.predict(AcceptedFrame(metadata, jpeg))
+            # Keep provenance private: a frozen dataclass does not freeze its
+            # nested dicts. Preprocessing may mutate its own independent input.
+            original = copy.deepcopy(metadata)
+            prediction = model.predict(AcceptedFrame(copy.deepcopy(metadata), jpeg))
             if not isinstance(prediction, dict) or set(prediction) != {'detections', 'signal'}:
                 raise ValueError('Prediction must contain detections and signal only')
-            observation = {k: v for k, v in metadata.items() if k != 'jpeg_bytes'}
+            observation = {k: v for k, v in original.items() if k != 'jpeg_bytes'}
             observation.update(type='vision_observation', model_version=version,
                                processing_ms=(time.monotonic() - started) * 1000,
                                **prediction)
