@@ -394,6 +394,14 @@ Prepare 12 synthetic cases across 18 PNG frames, original CC0-1.0 asset/annotati
 
 Validation: 31 vision tests passed including nine new fixture tests. All decoded pixels/annotations reproduced; committed asset hashes verified. First frames of all 12 cases visually inspected. Checked publishing runs shared tests, repository structure, generated changelog and whitespace validation. No real-scene accuracy or hardware evidence.
 
+## 2026-10-17 — CS-037-CLAIM-ADITSANGANI-20261017: Claim replay-first symbol and countdown parser for aditsangani
+
+Author: aditsangani (AI-assisted) · Task: CS-037
+
+Propose ownership of CS-037 within existing vision scope, using accepted CS-036 replay fixtures for shape/temporal checks, uncertain flashing and null ambiguous digits. HSV alone is insufficient. No implementation, training, hardware activation, production-recognition or completion claim. Implementation waits for Michael to merge this ordinary teammate claim.
+
+Validation: Ownership-only proposal from accepted main ed85778fa016a023a4ab7a6709140da8880ad707; task unowned with no competing open CS-037 PR. CS-036 implementation PR #37 merged. Checked publishing runs repository/shared tests, generated changelog and whitespace validation; no parser/hardware tests apply to this claim.
+
 ## 2026-10-17 — CS-039-BONDMILA-CLAIM-20261017: Propose bondmila assignment for isolated Gemini context service
 
 Author: bondmila (AI-assisted) · Task: CS-039
