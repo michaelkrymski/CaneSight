@@ -1,0 +1,9 @@
+{
+  "id": "CS-034-CLAIM-20261017-GMARCIALCALLEJA",
+  "date": "2026-10-17",
+  "author": "Gavin (gmarcialcalleja)",
+  "task": "CS-034",
+  "summary": "Propose Gavin's ownership of the pinned YOLO baseline",
+  "details": "Claim CS-034 for gmarcialcalleja with status in_progress on claim/CS-034-gmarcialcalleja, in addition to the separate CS-028 and CS-033 claims. Implementation waits for Michael to merge this claim and remains dependent on CS-028. Task requirements, master plan and other tasks are unchanged; no model execution or acceptance is claimed.",
+  "validation": "Claim-only metadata change; repository check results are recorded in the claim PR. No model download, inference, class inspection, license verification, deployment or hardware tests performed."
+}
