@@ -40,7 +40,10 @@
     "handoffs/CS-035-20261017-compose-ci-portability.md",
     "handoffs/CS-035-20261017-public-rollout.md",
     "qa/vision/public-transport-20261017.json",
-    "Merged 2af3150 deployed on Vultr: 20 public certificate-verified generated HTTPS/WSS results, median 127.358 ms, p95 169.14 ms, max 198.5 ms; role/session isolation and revocation/expiry passed. Real Pi uploads await credential-free uploader evidence."
+    "Merged 2af3150 deployed on Vultr: 20 public certificate-verified generated HTTPS/WSS results, median 127.358 ms, p95 169.14 ms, max 198.5 ms; role/session isolation and revocation/expiry passed. Real Pi uploads await credential-free uploader evidence.",
+    "qa/vision/pi-camera-upload-20261017.json",
+    "handoffs/CS-035-20261017-real-pi-ingestion.md",
+    "Authorized real Pi test on existing clean CS-022 checkout: 20/20 camera frames acknowledged by public HTTPS ingress; zero stale drops, failures or replacements, exit 0. Pi result reception and calibrated timing remain unverified."
   ],
   "blocker": ""
 }
