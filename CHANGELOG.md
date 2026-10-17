@@ -146,6 +146,14 @@ Assignment only, following human authorization to take the next Gemini integrati
 
 Validation: Accepted main owner null and all open PRs checked for competing CS-027 claims; authenticated GitHub login bondmila. Checked publisher runs repository structure, root tests, generated changelog and whitespace checks before commit. No task implementation or hardware tests apply to this assignment-only change.
 
+## 2026-10-17 — CS-027-CONTEXT-BUTTON-BONDMILA-20261017: Add debounced context request coordinator and cancellable Pi HTTP client
+
+Author: bondmila (AI-assisted) · Task: CS-027
+
+Add opt-in release-to-arm input, one outstanding request, ten-second cooldown/rate cap, second-press/manual/priority cancellation and original-capture expiry. HTTPS client uses only the private Pi credential, preserves lineage and rejects retimed/advisory replies. No GPIO, speech or motor output; existing applications/deployment unchanged. Physical and application integration remain explicit limits.
+
+Validation: 28 new button/client tests and 116 full edge tests passed; 82 root tests passed. Includes in-process accepted context endpoint with fake provider and actual child termination/reaping. Checked publisher reruns shared checks and generated changelog validation. No hardware/public service/API acceptance.
+
 ## 2026-10-17 — CS-028-CLAIM-ADITSANGANI-20261017: Claim FastAPI skeleton and frame endpoint for Adit
 
 Author: aditsangani · Task: CS-028
