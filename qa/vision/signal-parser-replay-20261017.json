@@ -1,0 +1,354 @@
+{
+  "task": "CS-037",
+  "profile": "cs036-schematic-v1",
+  "mode": "replay",
+  "python": "3.14.3",
+  "pillow": "12.1.1",
+  "fixture_manifest_sha256": "7d13851d3c66ce12012271dc20f0ac7f6ccbbf7ce246b09d0ddf2430f0188225",
+  "fixture_cases": 12,
+  "fixture_frames": 18,
+  "template_sources": [
+    "CS-036 walk_like-00.png",
+    "CS-036 hand_like-00.png"
+  ],
+  "template_license": "CC0-1.0",
+  "training_performed": false,
+  "cases": [
+    {
+      "id": "no_signal",
+      "frames": [
+        {
+          "file": "images/no_signal-00.png",
+          "relative_replay_ms": 0,
+          "result": {
+            "mode": "replay",
+            "profile": "cs036-schematic-v1",
+            "automatic_pedestrian_recognition": false,
+            "symbol": "unknown",
+            "countdown_s": null,
+            "confidence": null,
+            "temporal_state": "unknown",
+            "reason": "missing_or_ambiguous_selection",
+            "shape_iou": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "generic_traffic_light",
+      "frames": [
+        {
+          "file": "images/generic_traffic_light-00.png",
+          "relative_replay_ms": 0,
+          "result": {
+            "mode": "replay",
+            "profile": "cs036-schematic-v1",
+            "automatic_pedestrian_recognition": false,
+            "symbol": "unknown",
+            "countdown_s": null,
+            "confidence": null,
+            "temporal_state": "unknown",
+            "reason": "invalid_manual_roi",
+            "shape_iou": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "walk_like",
+      "frames": [
+        {
+          "file": "images/walk_like-00.png",
+          "relative_replay_ms": 0,
+          "result": {
+            "mode": "replay",
+            "profile": "cs036-schematic-v1",
+            "automatic_pedestrian_recognition": false,
+            "symbol": "unknown",
+            "countdown_s": null,
+            "confidence": null,
+            "temporal_state": "unknown",
+            "reason": "needs_temporal_confirmation",
+            "shape_iou": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "id": "hand_like",
+      "frames": [
+        {
+          "file": "images/hand_like-00.png",
+          "relative_replay_ms": 0,
+          "result": {
+            "mode": "replay",
+            "profile": "cs036-schematic-v1",
+            "automatic_pedestrian_recognition": false,
+            "symbol": "unknown",
+            "countdown_s": null,
+            "confidence": null,
+            "temporal_state": "unknown",
+            "reason": "needs_temporal_confirmation",
+            "shape_iou": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "id": "countdown",
+      "frames": [
+        {
+          "file": "images/countdown-00.png",
+          "relative_replay_ms": 0,
+          "result": {
+            "mode": "replay",
+            "profile": "cs036-schematic-v1",
+            "automatic_pedestrian_recognition": false,
+            "symbol": "unknown",
+            "countdown_s": null,
+            "confidence": null,
+            "temporal_state": "unknown",
+            "reason": "needs_temporal_confirmation",
+            "shape_iou": 1.0
+          }
+        },
+        {
+          "file": "images/countdown-01.png",
+          "relative_replay_ms": 1000,
+          "result": {
+            "mode": "replay",
+            "profile": "cs036-schematic-v1",
+            "automatic_pedestrian_recognition": false,
+            "symbol": "dont_walk",
+            "countdown_s": 11,
+            "confidence": null,
+            "temporal_state": "consistent_schematic",
+            "reason": "manual_replay_shape",
+            "shape_iou": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "id": "flashing",
+      "frames": [
+        {
+          "file": "images/flashing-00.png",
+          "relative_replay_ms": 0,
+          "result": {
+            "mode": "replay",
+            "profile": "cs036-schematic-v1",
+            "automatic_pedestrian_recognition": false,
+            "symbol": "unknown",
+            "countdown_s": null,
+            "confidence": null,
+            "temporal_state": "unknown",
+            "reason": "needs_temporal_confirmation",
+            "shape_iou": 1.0
+          }
+        },
+        {
+          "file": "images/flashing-01.png",
+          "relative_replay_ms": 500,
+          "result": {
+            "mode": "replay",
+            "profile": "cs036-schematic-v1",
+            "automatic_pedestrian_recognition": false,
+            "symbol": "unknown",
+            "countdown_s": null,
+            "confidence": null,
+            "temporal_state": "unknown",
+            "reason": "unlit_or_unknown",
+            "shape_iou": null
+          }
+        },
+        {
+          "file": "images/flashing-02.png",
+          "relative_replay_ms": 1000,
+          "result": {
+            "mode": "replay",
+            "profile": "cs036-schematic-v1",
+            "automatic_pedestrian_recognition": false,
+            "symbol": "unknown",
+            "countdown_s": null,
+            "confidence": null,
+            "temporal_state": "flashing_or_uncertain",
+            "reason": "alternating_evidence",
+            "shape_iou": null
+          }
+        },
+        {
+          "file": "images/flashing-03.png",
+          "relative_replay_ms": 1500,
+          "result": {
+            "mode": "replay",
+            "profile": "cs036-schematic-v1",
+            "automatic_pedestrian_recognition": false,
+            "symbol": "unknown",
+            "countdown_s": null,
+            "confidence": null,
+            "temporal_state": "flashing_or_uncertain",
+            "reason": "alternating_evidence",
+            "shape_iou": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "multiple_heads",
+      "frames": [
+        {
+          "file": "images/multiple_heads-00.png",
+          "relative_replay_ms": 0,
+          "result": {
+            "mode": "replay",
+            "profile": "cs036-schematic-v1",
+            "automatic_pedestrian_recognition": false,
+            "symbol": "unknown",
+            "countdown_s": null,
+            "confidence": null,
+            "temporal_state": "unknown",
+            "reason": "missing_or_ambiguous_selection",
+            "shape_iou": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "occluded",
+      "frames": [
+        {
+          "file": "images/occluded-00.png",
+          "relative_replay_ms": 0,
+          "result": {
+            "mode": "replay",
+            "profile": "cs036-schematic-v1",
+            "automatic_pedestrian_recognition": false,
+            "symbol": "unknown",
+            "countdown_s": null,
+            "confidence": null,
+            "temporal_state": "unknown",
+            "reason": "unsupported_or_ambiguous_shape",
+            "shape_iou": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "glare",
+      "frames": [
+        {
+          "file": "images/glare-00.png",
+          "relative_replay_ms": 0,
+          "result": {
+            "mode": "replay",
+            "profile": "cs036-schematic-v1",
+            "automatic_pedestrian_recognition": false,
+            "symbol": "unknown",
+            "countdown_s": null,
+            "confidence": null,
+            "temporal_state": "unknown",
+            "reason": "unsupported_or_ambiguous_shape",
+            "shape_iou": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "low_resolution",
+      "frames": [
+        {
+          "file": "images/low_resolution-00.png",
+          "relative_replay_ms": 0,
+          "result": {
+            "mode": "replay",
+            "profile": "cs036-schematic-v1",
+            "automatic_pedestrian_recognition": false,
+            "symbol": "unknown",
+            "countdown_s": null,
+            "confidence": null,
+            "temporal_state": "unknown",
+            "reason": "unsupported_or_ambiguous_shape",
+            "shape_iou": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "ambiguous_digits",
+      "frames": [
+        {
+          "file": "images/ambiguous_digits-00.png",
+          "relative_replay_ms": 0,
+          "result": {
+            "mode": "replay",
+            "profile": "cs036-schematic-v1",
+            "automatic_pedestrian_recognition": false,
+            "symbol": "unknown",
+            "countdown_s": null,
+            "confidence": null,
+            "temporal_state": "unknown",
+            "reason": "needs_temporal_confirmation",
+            "shape_iou": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "id": "track_loss",
+      "frames": [
+        {
+          "file": "images/track_loss-00.png",
+          "relative_replay_ms": 0,
+          "result": {
+            "mode": "replay",
+            "profile": "cs036-schematic-v1",
+            "automatic_pedestrian_recognition": false,
+            "symbol": "unknown",
+            "countdown_s": null,
+            "confidence": null,
+            "temporal_state": "unknown",
+            "reason": "needs_temporal_confirmation",
+            "shape_iou": 1.0
+          }
+        },
+        {
+          "file": "images/track_loss-01.png",
+          "relative_replay_ms": 500,
+          "result": {
+            "mode": "replay",
+            "profile": "cs036-schematic-v1",
+            "automatic_pedestrian_recognition": false,
+            "symbol": "unknown",
+            "countdown_s": null,
+            "confidence": null,
+            "temporal_state": "unknown",
+            "reason": "missing_or_ambiguous_selection",
+            "shape_iou": null
+          }
+        },
+        {
+          "file": "images/track_loss-02.png",
+          "relative_replay_ms": 1000,
+          "result": {
+            "mode": "replay",
+            "profile": "cs036-schematic-v1",
+            "automatic_pedestrian_recognition": false,
+            "symbol": "unknown",
+            "countdown_s": null,
+            "confidence": null,
+            "temporal_state": "unknown",
+            "reason": "needs_temporal_confirmation",
+            "shape_iou": 1.0
+          }
+        }
+      ]
+    }
+  ],
+  "limits": [
+    "Known schematic profile and manually annotated replay ROIs only; not automatic real-world recognition.",
+    "Single-frame positive silhouettes remain unconfirmed; countdown sequence confirms only drawn 11.",
+    "Similarity thresholds are hand-set engineering rules, not calibrated confidence.",
+    "No held-out evaluation, real-scene/OCR accuracy, live timing, transport, hardware or crossing permission."
+  ]
+}
