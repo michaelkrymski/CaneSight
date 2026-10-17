@@ -39,7 +39,9 @@ and one send is active. A slow send has a one-second deadline, with checks every
 to the network cannot be recalled; receiving-side lineage and expiry still apply.
 Pi admission and transport interruption discard older pending/result generations.
 
-The candidate was validated on a private loopback TLS endpoint on Vultr. This is
-not a promotion of the public deployment. Normal review/merge and the documented
-rollout remain required. Browser read-only authorization is still separate;
-native result delivery does not prove phone connectivity or motor readiness.
+After PR #28 merged, accepted source 2af3150 was built and promoted on Vultr.
+The public certificate-verified HTTPS/WSS probe passed 20 generated replay results;
+see qa/vision/public-transport-20261017.json and the public rollout handoff.
+These results exclude real camera capture and Pi receipt. Browser read-only
+authorization is still separate; native result delivery does not prove phone
+connectivity or motor readiness.
