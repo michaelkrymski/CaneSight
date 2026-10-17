@@ -16,9 +16,14 @@
   "estimate_hours": 1.0,
   "elapsed_window": "2–5",
   "owner": "aditsangani",
-  "status": "in_progress",
-  "branch": "claim/CS-028-aditsangani",
-  "pr_url": null,
-  "evidence": [],
+  "status": "review",
+  "branch": "task/CS-028-fastapi-ingestion",
+  "pr_url": "https://github.com/michaelkrymski/CaneSight/pull/9",
+  "evidence": [
+    "backend/app.py: distinct health/readiness and bounded authenticated v1 JPEG ingestion preserving original frame lineage.",
+    "19 backend fixture tests and 39 shared repository/contract tests passed locally on Python 3.14.3; run component suite separately per backend/README.md.",
+    "Loopback replay smoke: health 200, readiness 503 without a model/worker, synthetic JPEG upload 202, repeated frame 409. No hardware, inference or deployed-service acceptance claimed.",
+    "PM independently verified all 58 tests across the shared/backend suites and real loopback replay; proposed required CI explicitly runs both roots and replay. See handoffs/CS-028-pm-verification-20261017.md; acceptance pending reviewed merge."
+  ],
   "blocker": ""
 }

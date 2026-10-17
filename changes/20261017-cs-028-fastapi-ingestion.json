@@ -1,0 +1,9 @@
+{
+  "id": "CS-028-FASTAPI-INGESTION-20261017",
+  "date": "2026-10-17",
+  "author": "aditsangani",
+  "task": "CS-028",
+  "summary": "Add bounded FastAPI frame ingestion and software replay rehearsal",
+  "details": "Separate liveness from enrollment/model/worker readiness; validate authenticated multipart metadata and actual JPEG bytes/dimensions against the accepted v1 contract; retain original capture lineage with bounded memory and atomic replay guards. Add an explicit loopback-only synthetic replay demonstration. Session issuance, inference, TLS deployment and device verification remain separate tasks. Ready for PM review, not Done.",
+  "validation": "19 backend tests and 39 shared repository/contract tests passed locally on Python 3.14.3. Real loopback HTTP replay returned health 200, readiness 503, upload 202 and duplicate 409. Backend suite runs explicitly per backend/README.md; existing shared CI does not install backend dependencies. No hardware or inference verification."
+}
