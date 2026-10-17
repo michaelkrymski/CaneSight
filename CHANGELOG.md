@@ -106,6 +106,14 @@ Share uploader boot, BOOTTIME and bounded original-frame ledger with the accepte
 
 Validation: 26 edge tests passed on Windows and Linux Python 3.12, including real local HTTPS/WSS using synthetic backend observations, idle expiry and fresh-result revocation. Windows backend regression: 128 discovered, 121 passed, seven skips. Shared/repository/changelog/whitespace checks run by checked publisher. Real Pi receiver test remains pending.
 
+## 2026-10-17 — CS-025-CLAIM-20261017-GMARCIALCALLEJA: Propose depth-to-motor integration assignment
+
+Author: Gavin (gmarcialcalleja) · Task: CS-025
+
+Assignment runtime only. Implementation waits for merged ownership. Prepare repeatable software integration and capture-age evidence with simulated outputs; real phone, orientation/mount and CS-010 power acceptance remain required. No Pi/camera or GPIO access.
+
+Validation: Verified no accepted owner or competing open claim. Checked publishing runs repository/shared/changelog/whitespace checks. No implementation or hardware testing included.
+
 ## 2026-10-17 — CS-026-CLAIM-20261017-GMARCIALCALLEJA: Propose independent watchdog and restart task assignment
 
 Author: Gavin (gmarcialcalleja) · Task: CS-026
