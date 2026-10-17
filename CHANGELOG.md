@@ -346,6 +346,14 @@ Propose ownership of CS-036 for labeled replay/test signal fixtures, manual ROI 
 
 Validation: Ownership-only proposal based on accepted main 89e15adab322ea299915f193cb6c9c6626d20739; main task unowned and no competing open CS-036 PR found. Checked publishing runs shared repository tests, structure, generated changelog and whitespace checks. No model/hardware tests apply to this claim.
 
+## 2026-10-17 — CS-036-SIGNAL-FIXTURES-20261017: Add original labeled signal replay fixtures and manual ROI provenance
+
+Author: aditsangani (AI-assisted) · Task: CS-036
+
+Prepare 12 synthetic cases across 18 PNG frames, original CC0-1.0 asset/annotation dedication, source/license records, hashes, authored replay sequences and bounded manual ROI metadata. Add an offline generator/verifier; no parser, model training, automatic pedestrian recognition, live transport or production state change.
+
+Validation: 31 vision tests passed including nine new fixture tests. All decoded pixels/annotations reproduced; committed asset hashes verified. First frames of all 12 cases visually inspected. Checked publishing runs shared tests, repository structure, generated changelog and whitespace validation. No real-scene accuracy or hardware evidence.
+
 ## 2026-10-17 — CS-041-CLAIM-GMARCIALCALLEJA-20261017: Claim session-health dashboard for Gavin
 
 Author: Gavin (gmarcialcalleja) · Task: CS-041

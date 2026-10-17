@@ -1,0 +1,15 @@
+{
+  "mode": "replay",
+  "cases": 12,
+  "frames": 18,
+  "license": "CC0-1.0",
+  "automatic_pedestrian_recognition": false,
+  "task": "CS-036",
+  "base_commit": "73871efea83f889facf73fcc8732faee972f0ec4",
+  "python": "3.14.3",
+  "pillow": "12.1.1",
+  "manifest_sha256": "7d13851d3c66ce12012271dc20f0ac7f6ccbbf7ce246b09d0ddf2430f0188225",
+  "asset_bytes": 30112,
+  "visual_review": "First frame of all 12 cases inspected in a contact sheet; authored sequence ordering covered by tests.",
+  "limits": "Fixture integrity/execution only; no detection/OCR accuracy, real scene, live transport or hardware evidence."
+}

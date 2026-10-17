@@ -17,9 +17,13 @@
   "estimate_hours": 1.0,
   "elapsed_window": "5–8",
   "owner": "aditsangani",
-  "status": "in_progress",
-  "branch": "claim/CS-036-aditsangani",
+  "status": "review",
+  "branch": "task/CS-036-signal-fixtures",
   "pr_url": null,
-  "evidence": [],
+  "evidence": [
+    "handoffs/CS-036-signal-fixtures-20261017.md",
+    "qa/vision/signal-fixtures-validation-20261017.json",
+    "12 original synthetic replay cases, 18 hash-verified PNG frames; 31 vision tests passed including nine fixture integrity/provenance/reproducibility tests. No training or recognition accuracy claim."
+  ],
   "blocker": ""
 }
