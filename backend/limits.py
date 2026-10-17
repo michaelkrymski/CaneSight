@@ -24,6 +24,7 @@ class RateTable:
                 or type(burst) is not int or not 1 <= burst <= 10000
                 or type(capacity) is not int or not 1 <= capacity <= 4096
                 or not isinstance(idle_seconds, (int, float))
+                or isinstance(idle_seconds, bool)
                 or not math.isfinite(idle_seconds) or idle_seconds < burst / rate):
             raise ValueError('Invalid bounded rate configuration')
         self.rate, self.burst, self.capacity = rate, burst, capacity
@@ -230,7 +231,8 @@ class TrafficGuard:
                         if envelope.get('type') == 'depth_observation' and not depth.allow('depth'):
                             code, reason = 1008, 'ws_rate_rejected'
                 except (ValueError, TypeError, UnicodeError, RecursionError):
-                    code, reason = 1007, 'ws_json_rejected'
+                    # Preserve accepted CS-029 application rejection semantics.
+                    code, reason = 1008, 'ws_json_rejected'
             if code is not None:
                 closed = True
                 self.limits.count(reason)

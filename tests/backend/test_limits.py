@@ -126,8 +126,8 @@ class EndpointLimitTests(unittest.TestCase):
 
     def test_websocket_bytes_and_nonfinite_json_never_reach_downstream(self):
         client = self.socket_app()
-        for payload, code in [('{"x":NaN}', 1007), ('{"x":1e999}', 1007),
-                              ('{"x":1,"x":2}', 1007), ('x' * 8193, 1009),
+        for payload, code in [('{"x":NaN}', 1008), ('{"x":1e999}', 1008),
+                              ('{"x":1,"x":2}', 1008), ('x' * 8193, 1009),
                               ('{"x":"' + '\u00e9' * 4096 + '"}', 1009)]:
             with client.websocket_connect('/v1/telemetry') as websocket:
                 websocket.send_text(payload)

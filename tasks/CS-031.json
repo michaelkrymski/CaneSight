@@ -15,10 +15,15 @@
   "suggested_role": "Backend",
   "estimate_hours": 1.0,
   "elapsed_window": "5–8",
-  "owner": null,
-  "status": "backlog",
-  "branch": null,
-  "pr_url": null,
-  "evidence": [],
+  "owner": "gmarcialcalleja",
+  "status": "review",
+  "branch": "task/CS-031-bounded-worker",
+  "pr_url": "https://github.com/michaelkrymski/CaneSight/pull/19",
+  "evidence": [
+    "handoffs/CS-031-20261017-bounded-worker.md",
+    "Windows and isolated Vultr Linux: 30 backend and 39 shared tests passed; replay health 200/readiness 503/upload 202/duplicate 409. Real spawned processes use synthetic model adapters; no YOLO or physical watchdog acceptance claimed.",
+    "handoffs/CS-031-20261017-review-provenance-sessions.md",
+    "PR19 feedback fix: mutation regression reproduces old behavior and passes with independent original metadata. Windows and isolated Vultr Linux: 51 backend plus 39 shared tests passed, including accepted CS-029 TLS/auth, combined session-worker lifecycle, revocation, expiry and new epoch tests."
+  ],
   "blocker": ""
 }

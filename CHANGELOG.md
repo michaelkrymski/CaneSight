@@ -66,6 +66,14 @@ Preserve Adit's endpoint implementation and ownership; regenerate the combined l
 
 Validation: 58 total tests (19 backend and 39 shared) and real local HTTP replay: health 200, readiness 503, upload 202 with original frame ID, repeated upload 409. Structure, rendered log and whitespace checks pass. Current-head GitHub CI verified separately; no real device, TLS or cloud tests.
 
+## 2026-10-17 — CS-029-CHANGELOG-REPAIR-20261017: Regenerate changelog after resolving PR14 main integration
+
+Author: michaelkrymski (AI-assisted) · Task: CS-029
+
+Repair generated CHANGELOG.md formatting after the browser conflict resolution omitted a blank line before the accepted CS-030 claim entry. Preserve all immutable fragments and all implementation code; record the correction in its own fragment and handoff.
+
+Validation: Original head 00b1ed6 reproduces render_changelog.py --check failure. Regenerated output is verified by structure, rendered log, shared/governance tests and whitespace checks before publication. Runtime code is unchanged from reviewed head 83e1bfb; no new hardware acceptance.
+
 ## 2026-10-17 — CS-029-CLAIM-ADITSANGANI-20261017: Claim paired authenticated WebSocket sessions for Adit
 
 Author: aditsangani · Task: CS-029
@@ -73,6 +81,54 @@ Author: aditsangani · Task: CS-029
 Propose aditsangani as CS-029 owner. Preserve acceptance, dependency and allowed paths. Implementation waits for Michael to merge this claim and accept the CS-028 prerequisite, currently under review in PR #9. No WebSocket, pairing, TLS or credential implementation is claimed.
 
 Validation: Claim metadata only; shared repository checks, generated changelog verification and scope validation run through the checked publishing helper. No application or hardware tests are claimed for this ownership change.
+
+## 2026-10-17 — CS-029-PAIRED-SESSIONS-20261017: Add paired authenticated HTTPS and WebSocket sessions
+
+Author: aditsangani · Task: CS-029
+
+Add an operator-authenticated session API, separate short-lived phone/Pi bearer credentials, bounded session-isolated WSS relays, explicit revocation/expiry and Pi-token frame upload integration. Require TLS schemes, reject URL credentials/browser origins, preserve original capture metadata and sequence state across reconnects. Add a certificate-verified loopback HTTPS/WSS test. No shared protocol, protected CI, task scope or baseline edits.
+
+Validation: 35 backend tests passed locally, including real TLS pairing, invalid/missing credentials, isolated telemetry, generated JPEG upload, expiry, revocation, replay and bounded queues; legacy HTTP replay also passed. Shared repository checks run through checked publishing. No public deployment, hardware, device clocks, inference or capture-age eligibility claimed.
+
+## 2026-10-17 — CS-029-RECONNECT-CLEANUP-20261017: Prevent stale socket cleanup from closing replacement peers
+
+Author: aditsangani · Task: CS-029
+
+Address Michael's PR #14 reconnect finding: an already-invalidated connection drains only its own queue during detach and does not invalidate replacement peers or clear their control state. Reject relay through detached connection objects, and immediately clear overloaded pairs' buffers/control state. Preserve sequence high-water marks and normal disconnect invalidation; add the exact ordering regression with successful fresh relay after reconnect.
+
+Validation: Regression reproduced the original 1012 closure before the fix and passed afterward. 36 backend cases including real HTTPS/WSS and the legacy loopback replay passed locally. Shared repository tests, scope, rendered changelog and whitespace validation run through checked publishing. No device, hardware or public deployment acceptance claimed.
+
+## 2026-10-17 — CS-030-CLAIM-ADITSANGANI-20261017: Claim capture-age bounds and replay rejection for Adit
+
+Author: aditsangani · Task: CS-030
+
+Propose aditsangani as CS-030 owner to continue the backend lane. Acceptance, dependency and allowed paths remain unchanged. Implementation waits for Michael to merge this claim and accept CS-029 in PR #14. No freshness, clock synchronization or replay-policy implementation is claimed by this ownership change.
+
+Validation: Claim metadata only. Checked publishing runs shared repository/contract tests, structure, ownership/scope, generated changelog and whitespace verification; actual results are recorded in the claim PR. No runtime or hardware acceptance claimed.
+
+## 2026-10-17 — CS-031-BOUNDED-WORKER-20261017-GMARCIALCALLEJA: Isolate inference and bound latest work per source
+
+Author: Gavin (gmarcialcalleja) · Task: CS-031
+
+Add one spawned model process with a single load, one active job, latest-only pending work and bounded results per source. Preserve capture lineage, validate observations, expose fixed drop metrics and fail readiness closed on model failure or deadline. Integrate trusted frame admission and ASGI lifecycle without adding a public result API or selecting YOLO weights.
+
+Validation: Windows and isolated Vultr Linux: all 30 backend and 39 shared tests passed; replay smoke preserved. Tests cover 2000-frame flood, bounded identity tables, one load, latest results, slow prediction with software task progress, failures, hung load/prediction, expiry/revocation and shutdown. Synthetic adapters only; no physical watchdog, live YOLO throughput or capture-age acceptance claimed.
+
+## 2026-10-17 — CS-031-CLAIM-20261017-GMARCIALCALLEJA: Propose Gavin's ownership of the bounded inference worker
+
+Author: Gavin (gmarcialcalleja) · Task: CS-031
+
+Claim CS-031 for gmarcialcalleja with status in_progress. Implementation waits for Michael's merged assignment. Scope remains backend and backend tests; acceptance remains one model load, no event-loop blocking, per-source latest work and explicit drop metrics. Dependency CS-028 is accepted. No implementation or model performance is claimed.
+
+Validation: Metadata-only claim; actual repository, shared/backend test and replay results are recorded in the claim PR. No inference, watchdog or hardware acceptance claimed.
+
+## 2026-10-17 — CS-031-REVIEW-PROVENANCE-SESSIONS-20261017-GMARCIALCALLEJA: Protect original provenance and compose authenticated session-worker lifecycle
+
+Author: Gavin (gmarcialcalleja) · Task: CS-031
+
+Address Michael's PR19 feedback: give model adapters a separate deep copy and build observation provenance from an untouched original. Integrate accepted CS-029 while preserving TLS/auth/role enforcement, compose lifespans and bind atomic frame scheduling and session disposal to the same worker. Add mutation, paired success/isolation, revocation/new epoch and expiry-sweeper regressions.
+
+Validation: Reproduced the old mutation failure in an isolated Linux checkout, then restored the fix. Windows and Vultr Linux each passed 51 backend and 39 shared tests plus replay smoke. Existing real certificate-verified HTTPS/WSS tests passed; combined worker tests use ASGI HTTPS scopes and synthetic models. No live YOLO, public deployment or physical watchdog acceptance claimed.
 
 ## 2026-10-17 — CS-032-ADMISSION-LIMITS-20261017-GMARCIALCALLEJA: Bound request/source admission and WebSocket message envelopes
 
