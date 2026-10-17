@@ -16,9 +16,9 @@
   "suggested_role": "Backend",
   "estimate_hours": 1.0,
   "elapsed_window": "After hackathon",
-  "owner": null,
-  "status": "backlog",
-  "branch": null,
+  "owner": "aditsangani",
+  "status": "in_progress",
+  "branch": "claim/CS-042-aditsangani",
   "pr_url": null,
   "evidence": [],
   "blocker": ""

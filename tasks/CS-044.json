@@ -17,10 +17,16 @@
   "suggested_role": "QA",
   "estimate_hours": 1.5,
   "elapsed_window": "8–11",
-  "owner": null,
-  "status": "backlog",
-  "branch": null,
+  "owner": "gmarcialcalleja",
+  "status": "review",
+  "branch": "task/CS-044-failure-injection",
   "pr_url": null,
-  "evidence": [],
-  "blocker": ""
+  "evidence": [
+    "Assignment proposal only; implementation waits for Michael to merge ownership. Accepted CS-025 software preparation is merged in #48. Plan N01–N05 software failure injection against the accepted relay, consumer gate, policy and simulated scheduler; retain explicit real-device/physical evidence limits.",
+    "handoffs/CS-044-20261017-software-failure-campaign.md",
+    "qa/failures/cs044-windows-20261017.json",
+    "qa/failures/cs044-linux-20261017.json",
+    "25 selected software campaign cases passed in all N01–N05 groups on Windows Python 3.14 and Linux Python 3.12, including native verified TLS/WSS, delayed/replayed source attacks, spawned slow inference/flood bounds and independent policy watchdog. All 92 shared checks passed on both. Source manifests preserve tested bytes; Windows worktree is explicitly dirty and Linux archive has no invented Git metadata. No Pi/camera/GPIO access."
+  ],
+  "blocker": "Software N01–N05 campaign passed. Real Wi-Fi/phone/Pi/physical-output failure evidence remains pending CS-025 phone, mount and power prerequisites; no physical acceptance or GPIO-off guarantee is claimed."
 }

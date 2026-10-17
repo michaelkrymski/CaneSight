@@ -106,6 +106,14 @@ Share uploader boot, BOOTTIME and bounded original-frame ledger with the accepte
 
 Validation: 26 edge tests passed on Windows and Linux Python 3.12, including real local HTTPS/WSS using synthetic backend observations, idle expiry and fresh-result revocation. Windows backend regression: 128 discovered, 121 passed, seven skips. Shared/repository/changelog/whitespace checks run by checked publisher. Real Pi receiver test remains pending.
 
+## 2026-10-17 — CS-025-BENCH-PREPARATION-20261017-GMARCIALCALLEJA: Prepare repeated depth integration and private capture-age evidence
+
+Author: Gavin (gmarcialcalleja) · Task: CS-025
+
+Synthetic left/center/right runner exercises accepted gate, policy, watchdog and simulated scheduler. Optional private bounded asynchronous trace preserves original capture/receipt/deadline and age interval at software command observation; excludes credentials, GPS and images and reports incomplete logging. Real phone, physical mapping and power/motor acceptance remain blocked.
+
+Validation: Linux 88 edge and 82 shared/dashboard/narration tests passed; Windows 87 edge passed plus one POSIX skip. Synthetic three-round run accepted each stimulus three times, wrote 18 records without drops, and ended off. Native TLS synthetic-phone test validates age logging and credential exclusion. No Pi/camera/GPIO access.
+
 ## 2026-10-17 — CS-025-CLAIM-20261017-GMARCIALCALLEJA: Propose depth-to-motor integration assignment
 
 Author: Gavin (gmarcialcalleja) · Task: CS-025
@@ -129,6 +137,38 @@ Author: Gavin (gmarcialcalleja) · Task: CS-026
 Completed policy ticks alone renew a bounded lease. Independent supervisor and scheduler guard latch unavailable, clip pulses to the admitted lease and request off on expiry. Add SIGTERM cleanup, subprocess restart/failure tests and an uninstalled simulated-output service example. No GPIO or real Pi access; frozen-output limitations remain.
 
 Validation: 83 edge cases: Linux 83 passed; Windows 82 passed with POSIX SIGTERM skipped. 59 shared/dashboard tests passed on Linux; checked publishing repeats shared/repository/changelog/whitespace validation. Synthetic demo ends off/unarmed at startup, faulted/off after stalled feeds, with no credentials or GPIO.
+
+## 2026-10-17 — CS-027-BONDMILA-CLAIM-20261017: Propose bondmila assignment for the debounced context button
+
+Author: bondmila (AI-assisted) · Task: CS-027
+
+Assignment only, following human authorization to take the next Gemini integration task. Implementation waits for merged ownership. Preserve acceptance, dependencies and allowed paths. No GPIO activation, API credential or implementation included.
+
+Validation: Accepted main owner null and all open PRs checked for competing CS-027 claims; authenticated GitHub login bondmila. Checked publisher runs repository structure, root tests, generated changelog and whitespace checks before commit. No task implementation or hardware tests apply to this assignment-only change.
+
+## 2026-10-17 — CS-027-CONTEXT-BUTTON-BONDMILA-20261017: Add debounced context request coordinator and cancellable Pi HTTP client
+
+Author: bondmila (AI-assisted) · Task: CS-027
+
+Add opt-in release-to-arm input, one outstanding request, ten-second cooldown/rate cap, second-press/manual/priority cancellation and original-capture expiry. HTTPS client uses only the private Pi credential, preserves lineage and rejects retimed/advisory replies. No GPIO, speech or motor output; existing applications/deployment unchanged. Physical and application integration remain explicit limits.
+
+Validation: 28 new button/client tests and 116 full edge tests passed; 82 root tests passed. Includes in-process accepted context endpoint with fake provider and actual child termination/reaping. Checked publisher reruns shared checks and generated changelog validation. No hardware/public service/API acceptance.
+
+## 2026-10-17 — CS-027-MANUAL-PRIORITY-LOCKS-BONDMILA-20261017: Keep manual context cancellation responsive during primary-worker lock contention
+
+Author: bondmila (AI-assisted) · Task: CS-027
+
+Acquire accepted policy, freshness-gate and watchdog RLocks without waiting; contention is unavailable and all acquired locks are released. Link task runtime to PR #55. No protected or electrical changes.
+
+Validation: All 132 edge tests passed, including cross-thread contention on each primary-worker lock. Shared checks rerun by checked publisher. Actual-device/deployment/audio limitations remain unchanged.
+
+## 2026-10-17 — CS-027-MANUAL-UPLOADER-BONDMILA-20261017: Integrate consented manual context input into originating Pi uploader
+
+Author: bondmila (AI-assisted) · Task: CS-027
+
+Add opt-in press/release/cancel/off terminal input with original frame lineage, bounded latest-frame retention, primary-source/hazard preemption, camera freshness, independent timers and cleanup. Require explicit consent, simulated policy and verified phone binding; keep defaults unchanged. Normalize module-entry frames for importable validation/spawn. No GPIO or audio activation.
+
+Validation: 15 new tests passed, including actual spawned HTTPS delivery over generated local CA to accepted context route with fake provider. All 131 edge and 92 root tests passed. No physical device, public service, Gemini API, audio or electrical acceptance; PR #41 remains draft.
 
 ## 2026-10-17 — CS-028-CLAIM-ADITSANGANI-20261017: Claim FastAPI skeleton and frame endpoint for Adit
 
@@ -434,6 +474,30 @@ Use verified CS-036 shape prototypes, explicit segment geometry and bounded temp
 
 Validation: 45 vision tests passed including 14 new parser cases. Actual replay processed 12 cases/18 PNG frames; authored countdown ended at observed 11, and generic/ambiguous/track-loss cases stayed unknown. Repository structure and whitespace passed; checked publishing reruns shared tests and exact changelog validation. Prototype fixtures overlap the regression inputs: no held-out accuracy, live timing or hardware evidence.
 
+## 2026-10-17 — CS-038-CLAIM-ADITSANGANI-20261017: Request CS-038 assignment for signal ambiguity and track-loss evaluation
+
+Author: aditsangani (AI-assisted) · Task: CS-038
+
+Claim only. CS-037 implementation PR #46 is merged. Plan to evaluate multiple heads, glare, occlusion, target changes, symbol confusion and countdown exact-match using clearly labeled replay inputs. No training, production integration or hardware validation is included; real-world accuracy remains unverified. Implementation waits for Michael to merge this assignment.
+
+Validation: Checked publishing runs repository validation, shared unit tests, generated changelog consistency and whitespace checks. No implementation or hardware tests are claimed by this assignment.
+
+## 2026-10-17 — CS-038-EVALUATION-20261017: Evaluate manual schematic signal ambiguity, track loss and digit outputs
+
+Author: aditsangani (AI-assisted) · Task: CS-038
+
+Add a deterministic offline evaluator, seven accounting/failure-evidence tests, per-frame report and interpretation. All 309 required-output checks matched across 127 correlated synthetic scenarios, including cold/warm ambiguity, target/ROI changes, flashing, expiry and 100 numeric layouts. OCR numeric exact-match is 103/212 readable-frame observations, with 109 abstentions and zero wrong emitted values. No real-scene accuracy, training, hardware verification or production change is implied.
+
+Validation: 53 vision tests passed; evaluation CLI passed all 309 checks. Checked publishing runs repository structure, shared unit tests, changelog consistency and whitespace checks; exact-head CI inspected after push.
+
+## 2026-10-17 — CS-038-REVIEW-LINK-20261017: Record CS-038 evaluation review PR
+
+Author: aditsangani (AI-assisted) · Task: CS-038
+
+Link CS-038 to PR #51. Existing evaluation code and immutable QA evidence are unchanged; task remains Review pending Michael acceptance.
+
+Validation: Metadata-only follow-up to 53 passing vision tests, 309 matched replay checks and 82 shared tests. Checked publishing reruns shared/structure/log/whitespace checks; inspect exact-head CI after push.
+
 ## 2026-10-17 — CS-039-BONDMILA-CLAIM-20261017: Propose bondmila assignment for isolated Gemini context service
 
 Author: bondmila (AI-assisted) · Task: CS-039
@@ -505,4 +569,36 @@ Author: Gavin (gmarcialcalleja) · Task: CS-041
 Initially hide illustrative boxes until an available synthetic observation is established. Add independent phone/Pi disconnect scenarios with partial transport, retain unknown on age overflow, and show activity relative to scenario start. Live data remains blocked on accepted CS-035 and a reviewed authenticated read-only projection.
 
 Validation: 12 Node model tests and all 44 shared Python tests passed, including five HTTP tests. Chromium verified independent phone/Pi disconnection and continued peer observations. Software fixtures only; no device, inference or hardware readiness claim.
+
+## 2026-10-17 — CS-042-CLAIM-ADITSANGANI-20261017: Request CS-042 assignment for consented event logging
+
+Author: aditsangani (AI-assisted) · Task: CS-042
+
+Claim only. Accepted-main CS-042 was unowned and no competing open claim was present; dashboard dependency PR #25 is merged. Plan minimal consented event records, parameterized database writes, retention/deletion and failure isolation within the existing task paths. Implementation waits for Michael to merge this assignment. Live Tiger Data connectivity, credentials, deployment and hardware acceptance are not claimed.
+
+Validation: Checked publishing runs repository validation, shared unit tests, generated changelog consistency and whitespace checks. No implementation tests or live database tests are claimed by this assignment.
+
+## 2026-10-17 — CS-044-CLAIM-20261017-GMARCIALCALLEJA: Propose disconnect delay and replay failure-test assignment
+
+Author: Gavin (gmarcialcalleja) · Task: CS-044
+
+Assignment runtime only. After merged ownership, prepare repeatable N01–N05 software failure evidence with explicit simulated outputs and hardware limits. No Pi/camera/GPIO access; CS-025 physical acceptance remains pending.
+
+Validation: Verified task is unclaimed on accepted main with no competing open claim. Checked publishing runs repository/shared/changelog/whitespace checks. No new failure suite or physical test executed in this claim.
+
+## 2026-10-17 — CS-044-SOFTWARE-CAMPAIGN-20261017-GMARCIALCALLEJA: Add repeatable N01–N05 software failure campaign and sanitized evidence
+
+Author: Gavin (gmarcialcalleja) · Task: CS-044
+
+Fixed 25-case campaign combines multi-stage consumer/policy failures with accepted native TLS, replay/clock, bounded flood/inference and watchdog tests. Reports preserve case outcomes, allowlisted metrics and source hashes without payloads/credentials. Software-only results cannot establish real-device/physical acceptance.
+
+Validation: All 25 selected cases passed in each Windows/Linux campaign, no skips/errors/failures, and all 92 shared checks passed on both. Added ten fast campaign/report tests under existing discovery. No production modules, protected workflow, Pi/camera/GPIO or deployed services changed.
+
+## 2026-10-17 — CS-045-CLAIM-20261017-GMARCIALCALLEJA: Propose latency and depth-error measurement-analysis assignment
+
+Author: Gavin (gmarcialcalleja) · Task: CS-045
+
+Assignment runtime only. After merged ownership, prepare bounded validation/statistics tools with explicit clock uncertainty, provenance and sample-count gates. Synthetic values do not count as real latency/distance acceptance; no Pi/camera/GPIO access.
+
+Validation: Verified accepted task unclaimed and no competing open claim. Checked publishing runs repository/shared/changelog/whitespace checks. No measurement implementation or real-device evidence included.
 

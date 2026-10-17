@@ -1,0 +1,9 @@
+{
+  "id": "CS-044-CLAIM-20261017-GMARCIALCALLEJA",
+  "date": "2026-10-17",
+  "author": "Gavin (gmarcialcalleja)",
+  "task": "CS-044",
+  "summary": "Propose disconnect delay and replay failure-test assignment",
+  "details": "Assignment runtime only. After merged ownership, prepare repeatable N01\u2013N05 software failure evidence with explicit simulated outputs and hardware limits. No Pi/camera/GPIO access; CS-025 physical acceptance remains pending.",
+  "validation": "Verified task is unclaimed on accepted main with no competing open claim. Checked publishing runs repository/shared/changelog/whitespace checks. No new failure suite or physical test executed in this claim."
+}

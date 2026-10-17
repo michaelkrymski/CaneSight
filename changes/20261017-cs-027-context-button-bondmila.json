@@ -1,0 +1,9 @@
+{
+  "id": "CS-027-CONTEXT-BUTTON-BONDMILA-20261017",
+  "date": "2026-10-17",
+  "author": "bondmila (AI-assisted)",
+  "task": "CS-027",
+  "summary": "Add debounced context request coordinator and cancellable Pi HTTP client",
+  "details": "Add opt-in release-to-arm input, one outstanding request, ten-second cooldown/rate cap, second-press/manual/priority cancellation and original-capture expiry. HTTPS client uses only the private Pi credential, preserves lineage and rejects retimed/advisory replies. No GPIO, speech or motor output; existing applications/deployment unchanged. Physical and application integration remain explicit limits.",
+  "validation": "28 new button/client tests and 116 full edge tests passed; 82 root tests passed. Includes in-process accepted context endpoint with fake provider and actual child termination/reaping. Checked publisher reruns shared checks and generated changelog validation. No hardware/public service/API acceptance."
+}

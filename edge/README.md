@@ -195,3 +195,9 @@ phone binding, clock uncertainty gate, expiry tests and remaining physical gates
 See [WATCHDOG.md](WATCHDOG.md) for the independent policy lease, local failure
 demonstration, fresh enrollment after restart and uninstalled service example.
 Software supervision cannot force a frozen GPIO or failed driver low.
+
+## CS-025 integration evidence
+
+See [BENCH.md](BENCH.md) for the synthetic left/center/right runner and bounded
+private capture-age trace. Simulated command timestamps are not physical motor
+onset; real phone, mount and power acceptance remain separate gates.
