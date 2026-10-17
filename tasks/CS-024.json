@@ -18,14 +18,15 @@
   "estimate_hours": 1.5,
   "elapsed_window": "5–8",
   "owner": "gmarcialcalleja",
-  "status": "in_progress",
+  "status": "blocked",
   "branch": "task/CS-024-pi-receiver-expiry",
   "pr_url": "https://github.com/michaelkrymski/CaneSight/pull/32",
   "evidence": [
     "Claim proposal only; implementation waits for Michael to merge assignment. Receiver/expiry first checkpoint within edge/ and tests/edge/; CS-023 dependency remains outstanding.",
     "handoffs/CS-024-20261017-pi-receiver-expiry.md",
     "26 edge tests passed on Windows and Linux Python 3.12, including actual certificate-verified HTTPS/WSS with synthetic observations, independent idle expiry and revocation while a result is fresh.",
-    "Windows backend regression: 128 discovered, 121 passed and seven environment/opt-in skips. Real Pi receiver execution, phone clock integration and CS-023-dependent local hazard/motor policy remain outstanding."
+    "Windows backend regression: 128 discovered, 121 passed and seven environment/opt-in skips. Real Pi receiver execution, phone clock integration and CS-023-dependent local hazard/motor policy remain outstanding.",
+    "handoffs/CS-024-20261017-validation-boundary.md"
   ],
-  "blocker": ""
+  "blocker": "Receiver checkpoint implemented/tested locally and on Linux; real Pi receiver test pending because automatic approval review rejected preparing/launching its isolated SSH test runner (blocked by policy). Full local hazard/motor policy still depends on outstanding CS-023."
 }
