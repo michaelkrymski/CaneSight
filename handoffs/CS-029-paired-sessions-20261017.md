@@ -2,6 +2,7 @@
 
 - Human: Adit / `aditsangani`.
 - Base: `49a1332f5bbe35fb1ce709575318ae9a85894684`; branch `task/CS-029-paired-sessions`.
+- Before publication, integrated accepted main `690ed12ac266952ac92e7da9cc6f1cbbc8c6f319` (new team assignments). Regenerated the combined changelog to resolve its generated-content conflict, preserving every accepted fragment and task record. No rebase/reset or history rewrite.
 - Ownership accepted via PR #10; prerequisite CS-028 implementation accepted via PR #9.
 - Acceptance addressed: distinct phone/Pi roles, session-isolated subscriptions, HTTPS/WSS route enforcement and scoped short-lived credentials. New endpoint/control details are documented in `backend/SESSIONS.md`; existing shared v1 message schemas remain unchanged.
 - Changed: `backend/sessions.py`, `backend/server.py`, `backend/app.py` integration seam, runtime/test requirements, backend README and session guide; `tests/backend/test_sessions.py` and `test_sessions_tls.py`; own task runtime fields; new changelog fragment and generated log.
