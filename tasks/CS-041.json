@@ -20,7 +20,7 @@
   "owner": "gmarcialcalleja",
   "status": "blocked",
   "branch": "task/CS-041-session-health-dashboard",
-  "pr_url": null,
+  "pr_url": "https://github.com/michaelkrymski/CaneSight/pull/25",
   "evidence": [
     "handoffs/CS-041-20261017-fixture-dashboard.md",
     "Local fixture dashboard: six synthetic replay scenarios, independent capture/heartbeat age, unknown/stale/disconnected display, bounded activity and persistent replay/prototype labels. No live backend/device connection or credentials.",
