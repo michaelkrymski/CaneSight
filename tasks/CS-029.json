@@ -16,9 +16,14 @@
   "estimate_hours": 1.5,
   "elapsed_window": "2–5",
   "owner": "aditsangani",
-  "status": "in_progress",
-  "branch": "claim/CS-029-aditsangani",
-  "pr_url": null,
-  "evidence": [],
+  "status": "review",
+  "branch": "task/CS-029-paired-sessions",
+  "pr_url": "https://github.com/michaelkrymski/CaneSight/pull/14",
+  "evidence": [
+    "backend/sessions.py and backend/server.py: operator-created short-lived sessions, scoped phone/Pi credentials, isolated native WSS relay and session-bound frame ingestion.",
+    "35 backend tests passed locally on Windows Python 3.14.3, including real certificate-verified HTTPS/WSS pairing, authorization failures, cross-session isolation, generated JPEG upload and revocation.",
+    "Single-process software verification only. CS-030 capture-age eligibility, CS-032 full quotas and CS-033 public TLS/proxy deployment remain separate acceptance work. See handoffs/CS-029-paired-sessions-20261017.md.",
+    "PR #14 reconnect review fix: exact late-cleanup regression failed before correction and passed after it. 36 backend tests, including real HTTPS/WSS, and legacy replay passed; see handoffs/CS-029-reconnect-cleanup-20261017.md."
+  ],
   "blocker": ""
 }

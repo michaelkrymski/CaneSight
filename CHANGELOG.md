@@ -66,6 +66,14 @@ Preserve Adit's endpoint implementation and ownership; regenerate the combined l
 
 Validation: 58 total tests (19 backend and 39 shared) and real local HTTP replay: health 200, readiness 503, upload 202 with original frame ID, repeated upload 409. Structure, rendered log and whitespace checks pass. Current-head GitHub CI verified separately; no real device, TLS or cloud tests.
 
+## 2026-10-17 — CS-029-CHANGELOG-REPAIR-20261017: Regenerate changelog after resolving PR14 main integration
+
+Author: michaelkrymski (AI-assisted) · Task: CS-029
+
+Repair generated CHANGELOG.md formatting after the browser conflict resolution omitted a blank line before the accepted CS-030 claim entry. Preserve all immutable fragments and all implementation code; record the correction in its own fragment and handoff.
+
+Validation: Original head 00b1ed6 reproduces render_changelog.py --check failure. Regenerated output is verified by structure, rendered log, shared/governance tests and whitespace checks before publication. Runtime code is unchanged from reviewed head 83e1bfb; no new hardware acceptance.
+
 ## 2026-10-17 — CS-029-CLAIM-ADITSANGANI-20261017: Claim paired authenticated WebSocket sessions for Adit
 
 Author: aditsangani · Task: CS-029
@@ -73,6 +81,22 @@ Author: aditsangani · Task: CS-029
 Propose aditsangani as CS-029 owner. Preserve acceptance, dependency and allowed paths. Implementation waits for Michael to merge this claim and accept the CS-028 prerequisite, currently under review in PR #9. No WebSocket, pairing, TLS or credential implementation is claimed.
 
 Validation: Claim metadata only; shared repository checks, generated changelog verification and scope validation run through the checked publishing helper. No application or hardware tests are claimed for this ownership change.
+
+## 2026-10-17 — CS-029-PAIRED-SESSIONS-20261017: Add paired authenticated HTTPS and WebSocket sessions
+
+Author: aditsangani · Task: CS-029
+
+Add an operator-authenticated session API, separate short-lived phone/Pi bearer credentials, bounded session-isolated WSS relays, explicit revocation/expiry and Pi-token frame upload integration. Require TLS schemes, reject URL credentials/browser origins, preserve original capture metadata and sequence state across reconnects. Add a certificate-verified loopback HTTPS/WSS test. No shared protocol, protected CI, task scope or baseline edits.
+
+Validation: 35 backend tests passed locally, including real TLS pairing, invalid/missing credentials, isolated telemetry, generated JPEG upload, expiry, revocation, replay and bounded queues; legacy HTTP replay also passed. Shared repository checks run through checked publishing. No public deployment, hardware, device clocks, inference or capture-age eligibility claimed.
+
+## 2026-10-17 — CS-029-RECONNECT-CLEANUP-20261017: Prevent stale socket cleanup from closing replacement peers
+
+Author: aditsangani · Task: CS-029
+
+Address Michael's PR #14 reconnect finding: an already-invalidated connection drains only its own queue during detach and does not invalidate replacement peers or clear their control state. Reject relay through detached connection objects, and immediately clear overloaded pairs' buffers/control state. Preserve sequence high-water marks and normal disconnect invalidation; add the exact ordering regression with successful fresh relay after reconnect.
+
+Validation: Regression reproduced the original 1012 closure before the fix and passed afterward. 36 backend cases including real HTTPS/WSS and the legacy loopback replay passed locally. Shared repository tests, scope, rendered changelog and whitespace validation run through checked publishing. No device, hardware or public deployment acceptance claimed.
 
 ## 2026-10-17 — CS-030-CLAIM-ADITSANGANI-20261017: Claim capture-age bounds and replay rejection for Adit
 
