@@ -10,6 +10,14 @@ Preserve master plan v1.1, map 58 existing Trello cards, add ownership/scope rul
 
 Validation: Repository validation, governance/sync unit tests and offline Trello dry run; live auth, branch protection and workflow execution are verified separately in setup status.
 
+## 2026-10-17 — CS-028-CLAIM-ADITSANGANI-20261017: Claim FastAPI skeleton and frame endpoint for Adit
+
+Author: aditsangani · Task: CS-028
+
+Propose aditsangani as CS-028 owner after the prior claim PR #3 closed unmerged. Implementation waits for Michael to merge this claim and coordinate the CS-003 dependency. Task requirements and scope are unchanged; no application or hardware completion is claimed.
+
+Validation: Claim metadata only; repository validation, unit tests, generated changelog verification and whitespace checks are recorded in the claim PR after execution.
+
 ## 2026-10-17 — CS-033-CLAIM-20261017-GMARCIALCALLEJA: Propose Gavin's ownership of Vultr backend deployment
 
 Author: Gavin (gmarcialcalleja) · Task: CS-033

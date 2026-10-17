@@ -1,0 +1,9 @@
+{
+  "id": "CS-028-CLAIM-ADITSANGANI-20261017",
+  "date": "2026-10-17",
+  "author": "aditsangani",
+  "task": "CS-028",
+  "summary": "Claim FastAPI skeleton and frame endpoint for Adit",
+  "details": "Propose aditsangani as CS-028 owner after the prior claim PR #3 closed unmerged. Implementation waits for Michael to merge this claim and coordinate the CS-003 dependency. Task requirements and scope are unchanged; no application or hardware completion is claimed.",
+  "validation": "Claim metadata only; repository validation, unit tests, generated changelog verification and whitespace checks are recorded in the claim PR after execution."
+}
