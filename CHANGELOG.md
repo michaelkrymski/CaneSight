@@ -49,6 +49,13 @@ Author: aditsangani · Task: CS-028
 Separate liveness from enrollment/model/worker readiness; validate authenticated multipart metadata and actual JPEG bytes/dimensions against the accepted v1 contract; retain original capture lineage with bounded memory and atomic replay guards. Add an explicit loopback-only synthetic replay demonstration. Session issuance, inference, TLS deployment and device verification remain separate tasks. Ready for PM review, not Done.
 
 Validation: 19 backend tests and 39 shared repository/contract tests passed locally on Python 3.14.3. Real loopback HTTP replay returned health 200, readiness 503, upload 202 and duplicate 409. Backend suite runs explicitly per backend/README.md; existing shared CI does not install backend dependencies. No hardware or inference verification.
+## 2026-10-17 — CS-029-CLAIM-ADITSANGANI-20261017: Claim paired authenticated WebSocket sessions for Adit
+
+Author: aditsangani · Task: CS-029
+
+Propose aditsangani as CS-029 owner. Preserve acceptance, dependency and allowed paths. Implementation waits for Michael to merge this claim and accept the CS-028 prerequisite, currently under review in PR #9. No WebSocket, pairing, TLS or credential implementation is claimed.
+
+Validation: Claim metadata only; shared repository checks, generated changelog verification and scope validation run through the checked publishing helper. No application or hardware tests are claimed for this ownership change.
 
 ## 2026-10-17 — CS-033-CLAIM-20261017-GMARCIALCALLEJA: Propose Gavin's ownership of Vultr backend deployment
 
