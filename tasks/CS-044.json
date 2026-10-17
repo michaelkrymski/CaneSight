@@ -17,10 +17,12 @@
   "suggested_role": "QA",
   "estimate_hours": 1.5,
   "elapsed_window": "8–11",
-  "owner": null,
-  "status": "backlog",
-  "branch": null,
+  "owner": "gmarcialcalleja",
+  "status": "in_progress",
+  "branch": "claim/CS-044-gmarcialcalleja",
   "pr_url": null,
-  "evidence": [],
+  "evidence": [
+    "Assignment proposal only; implementation waits for Michael to merge ownership. Accepted CS-025 software preparation is merged in #48. Plan N01–N05 software failure injection against the accepted relay, consumer gate, policy and simulated scheduler; retain explicit real-device/physical evidence limits."
+  ],
   "blocker": ""
 }
