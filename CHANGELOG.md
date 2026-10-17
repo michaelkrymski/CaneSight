@@ -466,6 +466,14 @@ Assignment only. Implementation waits for Michael to merge this claim. Requireme
 
 Validation: Repository structure, shared unit tests, changelog consistency and whitespace checked by publish_task.py before commit. No hardware or Gemini API tests performed.
 
+## 2026-10-17 — CS-040-CLOCK-REVERSAL-BONDMILA-20261017: Cancel narration on clock reversal or clock failure
+
+Author: bondmila (AI-assisted) · Task: CS-040
+
+Track the highest clock reading across begin/delivery/tick and cancellation. Stop audio and invalidate pending tickets on backward, failed, nonfinite or invalid clock reads. Recovery cannot revive old tickets. PR #41 remains draft with synthetic speech adapter and unfinished integration.
+
+Validation: Five new regression methods reproduced failures on the original implementation; all 20 narration tests pass after the fix. Checked publisher reruns repository/root tests/changelog/whitespace checks. No physical audio or device acceptance.
+
 ## 2026-10-17 — CS-040-NARRATION-GATE-BONDMILA-20261017: Add restricted narration and local cancellation/priority gate
 
 Author: bondmila (AI-assisted) · Task: CS-040

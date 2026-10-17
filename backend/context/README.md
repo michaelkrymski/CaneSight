@@ -38,6 +38,12 @@ crossing permission, motor command, or movement recommendation exists here.
    provider work separately. Recovery needs a new request. Call `close()` during
    teardown; a failing stop adapter permanently disables this controller.
 
+Every begin, delivery and tick checks the clock against the highest previous
+reading. A reversal, exception, invalid or nonfinite reading stops audio and
+invalidates the pending ticket. Cancellation/new requests do not reset clock
+history. After reversal, new requests are refused until a valid reading reaches
+the previous high-water mark; recovery never revives the old ticket.
+
 This gate has no authority to change health, haptic patterns, signal state or
 permissions. Integration still requires CS-039 (provider), CS-027 (button) and
 CS-018 (accessible phone audio/manual cancel). No hardware audio, VoiceOver,

@@ -50,7 +50,10 @@ class Ticket:
 
 
 def _finite(value: object) -> bool:
-    return type(value) in (int, float) and math.isfinite(value)
+    try:
+        return type(value) in (int, float) and math.isfinite(value)
+    except OverflowError:
+        return False
 
 
 class NarrationController:
@@ -68,6 +71,7 @@ class NarrationController:
         self._delivered = False
         self._blocked = True
         self._closed = False
+        self._last_clock = None
 
     def _cancel(self):
         self._ticket = None
@@ -78,6 +82,19 @@ class NarrationController:
             # A broken adapter requires replacement; do not accept more audio.
             self._closed = True
 
+    def _read_clock(self):
+        """Read under the controller lock; retain the high-water mark on fault."""
+        try:
+            now = self._clock()
+        except Exception:
+            self._cancel()
+            return None
+        if not _finite(now) or (self._last_clock is not None and now < self._last_clock):
+            self._cancel()
+            return None
+        self._last_clock = now
+        return now
+
     def set_priority(self, *, hazard: bool, unavailable: bool) -> None:
         with self._lock:
             self._blocked = hazard is not False or unavailable is not False
@@ -87,9 +104,9 @@ class NarrationController:
     def begin(self, *, capture_age_upper_s: float, consent: bool) -> Ticket | None:
         with self._lock:
             self._cancel()
-            now = self._clock()
+            now = self._read_clock()
             if (self._closed or self._blocked or consent is not True
-                    or not _finite(now) or not _finite(capture_age_upper_s)
+                    or now is None or not _finite(capture_age_upper_s)
                     or not 0 <= capture_age_upper_s < 8):
                 return None
             self._ticket = Ticket(secrets.token_urlsafe(24), now + 8 - capture_age_upper_s)
@@ -97,11 +114,11 @@ class NarrationController:
 
     def deliver(self, ticket: Ticket, value: object) -> bool:
         with self._lock:
-            now = self._clock()
-            if (self._ticket is None or ticket != self._ticket or self._delivered
+            now = self._read_clock()
+            if (now is None or self._ticket is None or ticket != self._ticket or self._delivered
                     or self._closed or self._blocked):
                 return False
-            if not _finite(now) or now >= ticket.expires_at:
+            if now >= ticket.expires_at:
                 self._cancel()
                 return False
             # Consume before invoking the sink, including on adapter failure.
@@ -115,8 +132,8 @@ class NarrationController:
 
     def tick(self) -> None:
         with self._lock:
-            now = self._clock()
-            if self._ticket and (not _finite(now) or now >= self._ticket.expires_at):
+            now = self._read_clock()
+            if now is not None and self._ticket and now >= self._ticket.expires_at:
                 self._cancel()
 
     def cancel(self) -> None:

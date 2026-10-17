@@ -140,6 +140,69 @@ class ControllerTests(unittest.TestCase):
         self.controller.cancel()
         self.assertIsNone(self.begin())
 
+    def test_clock_reversal_before_delivery_invalidates_ticket(self):
+        self.ready()
+        ticket = self.begin()
+        self.now = 90
+        self.assertFalse(self.controller.deliver(ticket, self.value))
+        self.assertEqual(self.sink.spoken, [])
+        self.assertIsNone(self.begin())
+        self.now = 101
+        self.assertFalse(self.controller.deliver(ticket, self.value))
+        self.assertTrue(self.controller.deliver(self.begin(), self.value))
+
+    def test_tick_stops_playing_audio_on_clock_reversal(self):
+        self.ready()
+        ticket = self.begin()
+        self.now = 102
+        self.assertTrue(self.controller.deliver(ticket, self.value))
+        self.now = 101  # Still after begin, but before the most recent reading.
+        self.controller.tick()
+        self.assertIsNone(self.sink.current)
+        self.now = 103
+        self.assertFalse(self.controller.deliver(ticket, self.value))
+
+    def test_new_begin_does_not_reset_clock_history(self):
+        self.ready()
+        self.begin()
+        self.controller.cancel()
+        self.now = 90
+        self.assertIsNone(self.begin())
+
+    def test_clock_exception_cancels_before_begin_deliver_or_tick(self):
+        def broken_clock():
+            raise RuntimeError('clock unavailable')
+        for operation in ('begin', 'deliver', 'tick'):
+            with self.subTest(operation=operation):
+                self.setUp()
+                self.ready()
+                ticket = self.begin()
+                if operation != 'deliver':
+                    self.assertTrue(self.controller.deliver(ticket, self.value))
+                self.controller._clock = broken_clock
+                if operation == 'begin':
+                    self.assertIsNone(self.begin())
+                elif operation == 'deliver':
+                    self.assertFalse(self.controller.deliver(ticket, self.value))
+                else:
+                    self.controller.tick()
+                self.assertIsNone(self.sink.current)
+                self.controller._clock = lambda: 101
+                self.assertFalse(self.controller.deliver(ticket, self.value))
+
+    def test_nonfinite_or_invalid_clock_readings_cancel_speech(self):
+        for reading in (math.nan, math.inf, -math.inf, None, True, '101', 10 ** 1000):
+            with self.subTest(reading_type=type(reading).__name__):
+                self.setUp()
+                self.ready()
+                ticket = self.begin()
+                self.assertTrue(self.controller.deliver(ticket, self.value))
+                self.now = reading
+                self.controller.tick()
+                self.assertIsNone(self.sink.current)
+                self.now = 101
+                self.assertFalse(self.controller.deliver(ticket, self.value))
+
 
 if __name__ == '__main__':
     unittest.main()

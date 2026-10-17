@@ -22,10 +22,11 @@
   "owner": "bondmila",
   "status": "blocked",
   "branch": "task/CS-040-restricted-narration",
-  "pr_url": null,
+  "pr_url": "https://github.com/michaelkrymski/CaneSight/pull/41",
   "evidence": [
     "backend/context/narration.py: closed object vocabulary, uncertain <=20-word template, capture-based expiry, single-use request tickets, cancellation and hazard/unavailable priority.",
-    "15 isolated context unit tests passed; no Gemini API, physical audio, VoiceOver, GPIO or end-to-end device acceptance claimed."
+    "15 isolated context unit tests passed; no Gemini API, physical audio, VoiceOver, GPIO or end-to-end device acceptance claimed.",
+    "Clock timing follow-up: high-water clock validation cancels on reversal, exceptions or invalid readings; 20 narration tests passed including five new regression methods. PR #41 remains draft; actual audio/button/provider integration is unfinished."
   ],
-  "blocker": "Component implemented with synthetic speech adapter; CS-039 provider and CS-018/CS-027 device audio/button integration are not yet available."
+  "blocker": "Component uses a synthetic speech adapter; actual audio/button/provider integration remains unfinished. Keep PR #41 in draft."
 }
