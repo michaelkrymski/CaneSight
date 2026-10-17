@@ -1,0 +1,727 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/michaelkrymski/CaneSight/raw/main/shared/protocol/v1/messages.schema.json",
+  "title": "CaneSight v1 core sensor messages",
+  "$comment": "Shape only: enforce protocol.md state, identity, clock, lineage and expiry rules as well.",
+  "oneOf": [
+    {
+      "$ref": "#/$defs/depth_observation"
+    },
+    {
+      "$ref": "#/$defs/frame_metadata"
+    },
+    {
+      "$ref": "#/$defs/vision_observation"
+    },
+    {
+      "$ref": "#/$defs/heartbeat"
+    },
+    {
+      "$ref": "#/$defs/clock_probe"
+    },
+    {
+      "$ref": "#/$defs/clock_reply"
+    }
+  ],
+  "$defs": {
+    "depth_observation": {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "const": 1,
+          "type": "integer"
+        },
+        "type": {
+          "const": "depth_observation"
+        },
+        "session_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "^[A-Za-z0-9_-]+$"
+        },
+        "source_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "^[A-Za-z0-9_-]+$"
+        },
+        "boot_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "^[A-Za-z0-9_-]+$"
+        },
+        "seq": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "capture_monotonic_ms": {
+          "type": "number",
+          "minimum": 0
+        },
+        "capture_utc": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "format": "date-time",
+              "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d{1,9})?Z$"
+            }
+          ]
+        },
+        "mode": {
+          "enum": [
+            "live",
+            "replay"
+          ]
+        },
+        "tracking": {
+          "enum": [
+            "normal",
+            "limited",
+            "unavailable"
+          ]
+        },
+        "sectors": {
+          "type": "object",
+          "properties": {
+            "left": {
+              "type": "object",
+              "properties": {
+                "distance_m": {
+                  "anyOf": [
+                    {
+                      "type": "number",
+                      "minimum": 0
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "valid_fraction": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                }
+              },
+              "required": [
+                "distance_m",
+                "valid_fraction"
+              ],
+              "additionalProperties": false
+            },
+            "center": {
+              "type": "object",
+              "properties": {
+                "distance_m": {
+                  "anyOf": [
+                    {
+                      "type": "number",
+                      "minimum": 0
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "valid_fraction": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                }
+              },
+              "required": [
+                "distance_m",
+                "valid_fraction"
+              ],
+              "additionalProperties": false
+            },
+            "right": {
+              "type": "object",
+              "properties": {
+                "distance_m": {
+                  "anyOf": [
+                    {
+                      "type": "number",
+                      "minimum": 0
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "valid_fraction": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                }
+              },
+              "required": [
+                "distance_m",
+                "valid_fraction"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "left",
+            "center",
+            "right"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "schema_version",
+        "type",
+        "session_id",
+        "source_id",
+        "boot_id",
+        "seq",
+        "capture_monotonic_ms",
+        "capture_utc",
+        "mode",
+        "tracking",
+        "sectors"
+      ],
+      "additionalProperties": false
+    },
+    "frame_metadata": {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "const": 1,
+          "type": "integer"
+        },
+        "type": {
+          "const": "frame_metadata"
+        },
+        "session_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "^[A-Za-z0-9_-]+$"
+        },
+        "source_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "^[A-Za-z0-9_-]+$"
+        },
+        "boot_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "^[A-Za-z0-9_-]+$"
+        },
+        "seq": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "capture_monotonic_ms": {
+          "type": "number",
+          "minimum": 0
+        },
+        "capture_utc": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "format": "date-time",
+              "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d{1,9})?Z$"
+            }
+          ]
+        },
+        "mode": {
+          "enum": [
+            "live",
+            "replay"
+          ]
+        },
+        "frame_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "^[A-Za-z0-9_-]+$"
+        },
+        "image": {
+          "type": "object",
+          "properties": {
+            "width": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1920
+            },
+            "height": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1080
+            }
+          },
+          "required": [
+            "width",
+            "height"
+          ],
+          "additionalProperties": false
+        },
+        "jpeg_bytes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1000000
+        }
+      },
+      "required": [
+        "schema_version",
+        "type",
+        "session_id",
+        "source_id",
+        "boot_id",
+        "seq",
+        "capture_monotonic_ms",
+        "capture_utc",
+        "mode",
+        "frame_id",
+        "image",
+        "jpeg_bytes"
+      ],
+      "additionalProperties": false
+    },
+    "vision_observation": {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "const": 1,
+          "type": "integer"
+        },
+        "type": {
+          "const": "vision_observation"
+        },
+        "session_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "^[A-Za-z0-9_-]+$"
+        },
+        "source_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "^[A-Za-z0-9_-]+$"
+        },
+        "boot_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "^[A-Za-z0-9_-]+$"
+        },
+        "seq": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "capture_monotonic_ms": {
+          "type": "number",
+          "minimum": 0
+        },
+        "capture_utc": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "format": "date-time",
+              "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d{1,9})?Z$"
+            }
+          ]
+        },
+        "mode": {
+          "enum": [
+            "live",
+            "replay"
+          ]
+        },
+        "frame_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "^[A-Za-z0-9_-]+$"
+        },
+        "image": {
+          "type": "object",
+          "properties": {
+            "width": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1920
+            },
+            "height": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1080
+            }
+          },
+          "required": [
+            "width",
+            "height"
+          ],
+          "additionalProperties": false
+        },
+        "model_version": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "processing_ms": {
+          "type": "number",
+          "minimum": 0
+        },
+        "detections": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "label": {
+                "enum": [
+                  "person",
+                  "bicycle",
+                  "car",
+                  "motorcycle",
+                  "bus",
+                  "truck",
+                  "traffic_light",
+                  "other"
+                ]
+              },
+              "confidence": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              },
+              "bbox_xyxy": {
+                "type": "array",
+                "items": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                },
+                "minItems": 4,
+                "maxItems": 4
+              }
+            },
+            "required": [
+              "label",
+              "confidence",
+              "bbox_xyxy"
+            ],
+            "additionalProperties": false
+          },
+          "maxItems": 32
+        },
+        "signal": {
+          "type": "object",
+          "properties": {
+            "candidate_count": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 32
+            },
+            "symbol": {
+              "enum": [
+                "unknown",
+                "walk",
+                "dont_walk"
+              ]
+            },
+            "confidence": {
+              "anyOf": [
+                {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "countdown_s": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 199
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "candidate_count",
+            "symbol",
+            "confidence",
+            "countdown_s"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "schema_version",
+        "type",
+        "session_id",
+        "source_id",
+        "boot_id",
+        "seq",
+        "capture_monotonic_ms",
+        "capture_utc",
+        "mode",
+        "frame_id",
+        "image",
+        "model_version",
+        "processing_ms",
+        "detections",
+        "signal"
+      ],
+      "additionalProperties": false
+    },
+    "heartbeat": {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "const": 1,
+          "type": "integer"
+        },
+        "type": {
+          "const": "heartbeat"
+        },
+        "session_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "^[A-Za-z0-9_-]+$"
+        },
+        "source_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "^[A-Za-z0-9_-]+$"
+        },
+        "boot_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "^[A-Za-z0-9_-]+$"
+        },
+        "seq": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "capture_monotonic_ms": {
+          "type": "number",
+          "minimum": 0
+        },
+        "capture_utc": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "format": "date-time",
+              "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d{1,9})?Z$"
+            }
+          ]
+        },
+        "mode": {
+          "enum": [
+            "live",
+            "replay"
+          ]
+        },
+        "state": {
+          "enum": [
+            "starting",
+            "ready",
+            "degraded"
+          ]
+        }
+      },
+      "required": [
+        "schema_version",
+        "type",
+        "session_id",
+        "source_id",
+        "boot_id",
+        "seq",
+        "capture_monotonic_ms",
+        "capture_utc",
+        "mode",
+        "state"
+      ],
+      "additionalProperties": false
+    },
+    "clock_probe": {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "type": "integer",
+          "const": 1
+        },
+        "type": {
+          "const": "clock_probe"
+        },
+        "session_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "^[A-Za-z0-9_-]+$"
+        },
+        "mode": {
+          "enum": [
+            "live",
+            "replay"
+          ]
+        },
+        "nonce": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "^[A-Za-z0-9_-]+$"
+        },
+        "receiver_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "^[A-Za-z0-9_-]+$"
+        },
+        "receiver_boot_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "^[A-Za-z0-9_-]+$"
+        },
+        "source_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "^[A-Za-z0-9_-]+$"
+        },
+        "source_boot_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "^[A-Za-z0-9_-]+$"
+        },
+        "t1_ms": {
+          "type": "number",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "schema_version",
+        "type",
+        "session_id",
+        "mode",
+        "nonce",
+        "receiver_id",
+        "receiver_boot_id",
+        "source_id",
+        "source_boot_id",
+        "t1_ms"
+      ],
+      "additionalProperties": false
+    },
+    "clock_reply": {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "type": "integer",
+          "const": 1
+        },
+        "type": {
+          "const": "clock_reply"
+        },
+        "session_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "^[A-Za-z0-9_-]+$"
+        },
+        "mode": {
+          "enum": [
+            "live",
+            "replay"
+          ]
+        },
+        "nonce": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "^[A-Za-z0-9_-]+$"
+        },
+        "receiver_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "^[A-Za-z0-9_-]+$"
+        },
+        "receiver_boot_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "^[A-Za-z0-9_-]+$"
+        },
+        "source_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "^[A-Za-z0-9_-]+$"
+        },
+        "source_boot_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "^[A-Za-z0-9_-]+$"
+        },
+        "t1_ms": {
+          "type": "number",
+          "minimum": 0
+        },
+        "t2_ms": {
+          "type": "number",
+          "minimum": 0
+        },
+        "t3_ms": {
+          "type": "number",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "schema_version",
+        "type",
+        "session_id",
+        "mode",
+        "nonce",
+        "receiver_id",
+        "receiver_boot_id",
+        "source_id",
+        "source_boot_id",
+        "t1_ms",
+        "t2_ms",
+        "t3_ms"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

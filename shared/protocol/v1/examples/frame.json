@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "session_id": "demo-session",
+  "source_id": "pi-camera-1",
+  "boot_id": "pi-boot-1",
+  "seq": 9,
+  "capture_monotonic_ms": 41000,
+  "capture_utc": null,
+  "mode": "replay",
+  "type": "frame_metadata",
+  "frame_id": "frame-9",
+  "image": {
+    "width": 640,
+    "height": 480
+  },
+  "jpeg_bytes": 45000
+}

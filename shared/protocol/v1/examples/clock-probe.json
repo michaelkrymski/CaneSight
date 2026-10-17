@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "type": "clock_probe",
+  "session_id": "demo-session",
+  "mode": "replay",
+  "nonce": "probe-1",
+  "receiver_id": "pi-1",
+  "receiver_boot_id": "pi-boot-1",
+  "source_id": "phone-1",
+  "source_boot_id": "phone-boot-1",
+  "t1_ms": 1000
+}

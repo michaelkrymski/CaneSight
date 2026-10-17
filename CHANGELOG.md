@@ -10,6 +10,14 @@ Preserve master plan v1.1, map 58 existing Trello cards, add ownership/scope rul
 
 Validation: Repository validation, governance/sync unit tests and offline Trello dry run; live auth, branch protection and workflow execution are verified separately in setup status.
 
+## 2026-10-17 — CS-003-PROTOCOL-V1-20261017: Propose shared core observation and freshness protocol v1
+
+Author: michaelkrymski (AI-assisted) · Task: CS-003
+
+Add closed versioned message schema, six replay fixtures, reference validation/clock/identity/lineage checks and normative transport/freshness agreement. Assign Michael as CS-003 owner with status review pending protected-contract acceptance. Preserve the master plan, capture-age budgets and no-crossing-permission invariant; install declared test dependency in CI. No live hardware, authentication service or deployment implementation is claimed.
+
+Validation: 34 repository/contract tests pass, including duplicate/order/epoch/session/mode handling, unknown fields, nonfinite and oversize input, clock bounds, frame lineage and heartbeat-independent expiry. Structural validation, generated log and whitespace checks pass. Current-head GitHub CI is verified separately; PM/collaborator acceptance remains required.
+
 ## 2026-10-17 — CS-033-CLAIM-20261017-GMARCIALCALLEJA: Propose Gavin's ownership of Vultr backend deployment
 
 Author: Gavin (gmarcialcalleja) · Task: CS-033
