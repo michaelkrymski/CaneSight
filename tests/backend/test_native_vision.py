@@ -251,7 +251,10 @@ class NativeVisionTests(unittest.TestCase):
             self.assertFalse(backend.get('ports'))
             weights = next(v for v in backend['volumes'] if v['target'].endswith('/yolov8n.pt'))
             self.assertTrue(weights['read_only'])
-            self.assertFalse(weights['bind']['create_host_path'])
+            # Older compose-go omits false booleans in normalized JSON (#836).
+            # The source overlay still explicitly denies host-path creation.
+            self.assertIn('create_host_path: false', (folder / 'compose.vision.yaml').read_text())
+            self.assertIs(weights.get('bind', {}).get('create_host_path', False), False)
             self.assertIn('CANESIGHT_VISION_WEIGHTS', backend['environment'])
             self.assertNotIn('CANESIGHT_VISION_WEIGHTS', config['proxy']['environment'])
 

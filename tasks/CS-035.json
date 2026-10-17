@@ -36,7 +36,8 @@
     "qa/vision/native-target-provenance-20261017.json",
     "qa/vision/native-target-restart-20261017.json",
     "After merged scope PR #29: authenticated current-Pi result delivery, opt-in verified model factory and isolated candidate image. Vultr 20-sample generated HTTPS/WSS result median122.358/p95 174.652/max197.754 ms; original lineage, role/session isolation, revocation and expiry passed. Candidate restart passed; public deployment not promoted.",
-    "Linux: 128 backend tests, 122 passed and six environment/opt-in skips; 22 vision and 39 shared tests passed. Windows pinned environment: 13 focused native tests passed including actual model HTTPS/WSS, plus 22 vision and 39 shared tests."
+    "Linux: 128 backend tests, 122 passed and six environment/opt-in skips; 22 vision and 39 shared tests passed. Windows pinned environment: 13 focused native tests passed including actual model HTTPS/WSS, plus 22 vision and 39 shared tests.",
+    "handoffs/CS-035-20261017-compose-ci-portability.md"
   ],
   "blocker": ""
 }

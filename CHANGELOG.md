@@ -266,6 +266,14 @@ Propose gmarcialcalleja as owner of CS-035 with unchanged acceptance, dependenci
 
 Validation: 11 existing offline vision tests and all 39 shared Python tests passed. Repository validation passed. Checked publishing verifies generated changelog and whitespace. No real model, live device or hardware tests claimed.
 
+## 2026-10-17 — CS-035-COMPOSE-CI-PORTABILITY-20261017-GMARCIALCALLEJA: Accept older Compose false-value JSON serialization in native runtime test
+
+Author: Gavin (gmarcialcalleja) · Task: CS-035
+
+Keep the explicit create_host_path false deployment setting and verify it in the source overlay. Allow older Compose normalized JSON to omit that false value while still rejecting true. Runtime and deployment protections are unchanged.
+
+Validation: 13 focused native tests passed, including actual configured model HTTPS/WSS. Checked publisher reruns the 39 shared tests and repository/changelog/whitespace checks. Current-head CI is inspected after publishing.
+
 ## 2026-10-17 — CS-035-NATIVE-RESULT-SCOPE-PM-20261017: Propose narrow service, native-result and deployment scope for CS-035
 
 Author: Michael Krymski (AI-assisted) · Task: CS-035
