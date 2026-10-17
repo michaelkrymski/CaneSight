@@ -1,11 +1,18 @@
 import json
 import sys
 import unittest
+import tempfile
+import shutil
+from argparse import Namespace
+from unittest.mock import patch
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
 from governance import has_approval, inspect_changes
 from trello_sync import managed_description, project_status, START, END
+from render_changelog import render
+from ci_feedback import required_result
+import publish_task as publisher
 
 
 class GovernanceTests(unittest.TestCase):
@@ -100,6 +107,98 @@ class TrelloTests(unittest.TestCase):
     def test_explicit_blocker_overrides_pr(self):
         task = {'id': 'CS-001', 'status': 'blocked', 'blocker': 'Missing hardware'}
         self.assertEqual(project_status(task, [{'title': '[CS-001] Work', 'draft': False}])[2], 'Missing hardware')
+
+
+class PublishingTests(unittest.TestCase):
+    def test_branch_guards(self):
+        for branch in ('main', 'master', 'HEAD', 'task/CS-002-other', 'random'):
+            with self.assertRaises(ValueError):
+                publisher.validate_branch(branch, 'CS-001')
+        publisher.validate_branch('claim/CS-001-alice', 'CS-001')
+
+    def test_remote_and_sensitive_path_guards(self):
+        publisher.validate_remote('https://github.com/michaelkrymski/CaneSight.git')
+        for remote in ('https://github.com/other/CaneSight.git', 'https://github.com.evil/michaelkrymski/CaneSight'):
+            with self.assertRaises(ValueError):
+                publisher.validate_remote(remote)
+        with tempfile.TemporaryDirectory() as folder:
+            for name in ('../outside', '.git/config', '.env', 'token.pem', '.'):
+                with self.assertRaises(ValueError):
+                    publisher.normalize_files([name], Path(folder))
+
+    def test_portable_mixed_case_fragment_order(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            (root / 'changes').mkdir()
+            for filename, identity in [('20261017-bootstrap.json', 'bootstrap'), ('20261017-CS-033.json', 'claim')]:
+                entry = dict(id=identity, date='2026-10-17', author='alice', task='CS-033', summary='x', details='x', validation='x')
+                (root / 'changes' / filename).write_text(json.dumps(entry), encoding='utf-8')
+            log = render(root)
+            self.assertLess(log.index('bootstrap:'), log.index('claim:'))
+
+    def test_current_ci_rerun_wins(self):
+        checks = [{'id': 1, 'name': 'repository-checks', 'status': 'completed', 'conclusion': 'success'},
+                  {'id': 2, 'name': 'repository-checks', 'status': 'completed', 'conclusion': 'failure'}]
+        statuses = [{'id': 1, 'context': 'governance', 'state': 'success'}]
+        self.assertEqual(required_result(checks, statuses), 'failure')
+        checks[1].update(status='in_progress', conclusion=None)
+        self.assertEqual(required_result(checks, statuses), 'pending')
+        checks[1].update(status='completed', conclusion='success')
+        self.assertEqual(required_result(checks, statuses), 'success')
+        statuses.append({'id': 2, 'context': 'governance', 'state': 'failure'})
+        self.assertEqual(required_result(checks, statuses), 'failure')
+
+    def test_isolated_publish_preserves_remote_history_and_checks_first(self):
+        # All writes/pushes stay inside a temporary local bare repository.
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder) / 'clone'
+            remote = Path(folder) / 'remote.git'
+            root.mkdir()
+            def git(*args):
+                return publisher.git(*args, root=root).stdout.strip()
+            git('init', '-b', 'main')
+            git('config', 'user.name', 'Local test')
+            git('config', 'user.email', 'test@example.invalid')
+            git('config', 'commit.gpgsign', 'false')
+            git('init', '--bare', str(remote))
+            git('remote', 'add', 'origin', str(remote))
+            for directory in ('scripts', 'changes', 'tasks', 'edge'):
+                (root / directory).mkdir()
+            shutil.copyfile(publisher.ROOT / 'scripts/render_changelog.py', root / 'scripts/render_changelog.py')
+            policy = dict(pm_github='pm', protected_files=['AGENTS.md'], protected_prefixes=['scripts/'], runtime_fields=['owner', 'status'])
+            (root / 'governance.json').write_text(json.dumps(policy), encoding='utf-8')
+            (root / 'tasks/CS-001.json').write_text(json.dumps(dict(id='CS-001', owner='alice', allowed_paths=['edge/'])), encoding='utf-8')
+            (root / 'CHANGELOG.md').write_text(render(root), encoding='utf-8')
+            git('add', '.')
+            git('commit', '-m', 'baseline')
+            git('push', '-u', 'origin', 'main')
+            base = git('rev-parse', 'HEAD')
+            git('switch', '-c', 'task/CS-001-test')
+            (root / 'edge/app.py').write_text('value = 1\n', encoding='utf-8')
+            entry = dict(id='test', date='2026-10-17', author='alice', task='CS-001', summary='test', details='test', validation='isolated test')
+            (root / 'changes/new.json').write_text(json.dumps(entry), encoding='utf-8')
+            args = Namespace(task='CS-001', user='alice', message='test checkpoint', files=['edge/app.py', 'changes/new.json'], dry_run=False, pr=None)
+            with patch.object(publisher, 'validate_remote'), patch.object(publisher, 'run_checks', side_effect=RuntimeError('test check failure')):
+                with self.assertRaisesRegex(RuntimeError, 'check failure'):
+                    publisher.publish(args, root)
+            self.assertEqual(git('rev-parse', 'HEAD'), base)
+            self.assertEqual(git('ls-remote', '--heads', 'origin', 'task/CS-001-test'), '')
+            git('reset')
+            # Unrelated work must be preserved and must prevent publication.
+            (root / 'other.txt').write_text('keep me', encoding='utf-8')
+            with patch.object(publisher, 'validate_remote'), self.assertRaisesRegex(ValueError, 'Unselected'):
+                publisher.publish(args, root)
+            self.assertEqual((root / 'other.txt').read_text(), 'keep me')
+            (root / 'other.txt').unlink()
+            with patch.object(publisher, 'validate_remote'), patch.object(publisher, 'run_checks') as checks:
+                publisher.publish(args, root)
+            checks.assert_called_once_with(root)
+            head = git('rev-parse', 'HEAD')
+            self.assertNotEqual(head, base)
+            self.assertEqual(git('rev-parse', 'HEAD^'), base)
+            self.assertTrue(git('ls-remote', '--heads', 'origin', 'task/CS-001-test').startswith(head))
+            self.assertTrue(git('ls-remote', '--heads', 'origin', 'main').startswith(base))
+            self.assertEqual(git('status', '--porcelain'), '')
 
 
 if __name__ == '__main__':
