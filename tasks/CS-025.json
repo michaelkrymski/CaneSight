@@ -18,10 +18,12 @@
   "suggested_role": "Edge",
   "estimate_hours": 1.0,
   "elapsed_window": "5–8",
-  "owner": null,
-  "status": "backlog",
-  "branch": null,
+  "owner": "gmarcialcalleja",
+  "status": "in_progress",
+  "branch": "claim/CS-025-gmarcialcalleja",
   "pr_url": null,
-  "evidence": [],
+  "evidence": [
+    "Assignment proposal only; implementation waits for Michael to merge this claim. CS-024 and CS-026 software checkpoints are merged. Planned software preparation: repeatable depth-to-simulated-output integration and original capture-age evidence; real-phone/mount/power acceptance remains pending."
+  ],
   "blocker": ""
 }
