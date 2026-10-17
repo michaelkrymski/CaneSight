@@ -17,11 +17,14 @@
   "estimate_hours": 1.0,
   "elapsed_window": "2–5",
   "owner": "gmarcialcalleja",
-  "status": "in_progress",
-  "branch": "claim/CS-023-gmarcialcalleja",
-  "pr_url": "https://github.com/michaelkrymski/CaneSight/pull/34",
+  "status": "blocked",
+  "branch": "task/CS-023-capped-haptic-scheduler",
+  "pr_url": null,
   "evidence": [
-    "Claim proposal only; implementation waits for Michael to merge assignment. First checkpoint uses simulated outputs for two-channel pulse/duty caps and startup/cleanup-off behavior. CS-009 remains a prerequisite for physical GPIO/motor validation."
+    "Claim proposal only; implementation waits for Michael to merge assignment. First checkpoint uses simulated outputs for two-channel pulse/duty caps and startup/cleanup-off behavior. CS-009 remains a prerequisite for physical GPIO/motor validation.",
+    "handoffs/CS-023-20261017-simulated-scheduler.md",
+    "tests/edge/evidence/cs023-simulation-20261017.json",
+    "25 scheduler tests plus 13 existing uploader tests passed on Windows/Linux Python 3.12. Simulation accepted two independent pulses and cleaned up both outputs off; no GPIO used. Includes 30,000 virtual 10ms stress steps (five simulated minutes), rolling duty, eligibility, fault/clock, startup/cleanup and independent worker tests."
   ],
-  "blocker": ""
+  "blocker": "Software-only scheduler checkpoint implemented and simulated tests pass. Physical driver adapter/bench integration awaits accepted CS-009 off-state/logic/leakage/thermal evidence and its power/wiring prerequisites; no GPIO activation performed."
 }

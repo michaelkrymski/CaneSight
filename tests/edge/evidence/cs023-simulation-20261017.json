@@ -1,0 +1,25 @@
+{
+  "mode": "simulation",
+  "ready": false,
+  "closed": true,
+  "fault": null,
+  "outputs": {
+    "left": false,
+    "right": false
+  },
+  "accepted": 2,
+  "rejected": 0,
+  "last_rejection": null,
+  "gpio_used": false,
+  "limits": "Simulation only; no electrical or physical timing validation.",
+  "task": "CS-023",
+  "base_commit": "89e15adab322ea299915f193cb6c9c6626d20739",
+  "validation": {
+    "windows_edge_tests": 38,
+    "linux_edge_tests": 38,
+    "scheduler_cases": 25,
+    "virtual_stress_steps": 30000,
+    "virtual_stress_duration_ms": 300000
+  },
+  "remaining": "CS-009 hardware evidence, physical adapter/bench validation, CS-024 policy integration and CS-026 watchdog remain separate."
+}

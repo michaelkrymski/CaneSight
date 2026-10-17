@@ -74,6 +74,14 @@ Claim only, with acceptance, dependencies and allowed paths preserved. After mer
 
 Validation: Checked publisher runs repository validation, all shared tests, generated changelog and whitespace checks. No executable implementation or new hardware test applies to this ownership-only PR.
 
+## 2026-10-17 — CS-023-SIMULATED-SCHEDULER-20261017-GMARCIALCALLEJA: Implement capped two-channel scheduler with simulated outputs
+
+Author: Gavin (gmarcialcalleja) · Task: CS-023
+
+Add independent expiry, no backlog or active-pulse extension, original local eligibility deadlines, per-channel pulse/minimum-off/rolling duty limits, sticky fault shutdown and startup/cleanup off requests. Only simulated outputs are shipped; physical driver integration awaits CS-009. No observation-to-cue policy, GPIO or electrical verification.
+
+Validation: 38 edge tests passed on Windows/Linux Python 3.12 (25 scheduler plus 13 uploader), including five simulated minutes of adversarial requests and independent real worker cleanup. Simulation ends with both outputs off and gpio_used false. Checked publishing runs shared/repository/changelog/whitespace checks.
+
 ## 2026-10-17 — CS-024-CLAIM-GMARCIALCALLEJA-20261017: Propose Gavin as CS-024 local policy and source expiry owner
 
 Author: Gavin (gmarcialcalleja) · Task: CS-024
