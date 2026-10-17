@@ -1,0 +1,9 @@
+{
+  "id": "CS-039-CLAIM-CI-REPAIR-BONDMILA-20261017",
+  "date": "2026-10-17",
+  "author": "bondmila (AI-assisted)",
+  "task": "CS-039",
+  "summary": "Repair generated assignment changelog after main integration",
+  "details": "Integrate accepted main and regenerate CHANGELOG.md from immutable fragments. Assignment-only PR still waits for merged ownership; no Gemini implementation or credentials added.",
+  "validation": "Prior CI failure confirmed as stale generated changelog; checked publisher reruns structure, root tests, changelog and whitespace checks before pushing."
+}
