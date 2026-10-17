@@ -19,6 +19,7 @@ from jsonschema import ValidationError
 from PIL import Image, UnidentifiedImageError
 from starlette.concurrency import run_in_threadpool
 from starlette.datastructures import UploadFile
+from .limits import TrafficGuard, TrafficLimits
 
 # Import the accepted reference without changing the protected contract package.
 _path = Path(__file__).resolve().parents[1] / 'shared/protocol/v1/reference.py'
@@ -225,7 +226,8 @@ async def read_parts(request):
         raise HTTPException(422, 'Invalid multipart upload') from None
 
 
-def create_app(*, ingress=None, dependency_health=None, session_manager=None, inference_worker=None):
+def create_app(*, ingress=None, dependency_health=None, session_manager=None,
+               inference_worker=None, traffic_limits=None):
     """Inject CS-029 grants and a truthful CS-031/034 health provider.
 
     Default app has no enrolled sources or model/worker. Health is liveness
@@ -244,6 +246,9 @@ def create_app(*, ingress=None, dependency_health=None, session_manager=None, in
 
     app = FastAPI(title='CaneSight ingestion', docs_url=None, redoc_url=None, lifespan=lifespan)
     app.state.ingress = ingress
+    traffic_limits = traffic_limits if traffic_limits is not None else TrafficLimits()
+    app.state.traffic_limits = traffic_limits
+    app.add_middleware(TrafficGuard, limits=traffic_limits)
     app.state.inference_worker = inference_worker
     app.state.sessions = session_manager
     if session_manager is not None and inference_worker is not None:
@@ -277,6 +282,8 @@ def create_app(*, ingress=None, dependency_health=None, session_manager=None, in
             record, grant = session_manager.authenticate(request.headers.get('authorization'), 'pi')
         else:
             grant = ingress.authenticate(request.headers.get('authorization'))
+        if not traffic_limits.frame_allowed(grant):
+            raise HTTPException(429, 'Source frame rate exceeded', headers={'Retry-After': '1'})
         if not slots.acquire(blocking=False):
             raise HTTPException(503, 'Upload capacity reached')
         try:

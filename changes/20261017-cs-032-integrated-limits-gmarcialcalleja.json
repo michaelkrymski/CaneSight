@@ -1,0 +1,9 @@
+{
+  "id": "CS-032-INTEGRATED-LIMITS-20261017-GMARCIALCALLEJA",
+  "date": "2026-10-17",
+  "author": "Gavin (gmarcialcalleja)",
+  "task": "CS-032",
+  "summary": "Complete authenticated source quotas and bounded inference-load integration",
+  "details": "Integrate accepted CS-029 sessions, CS-031 worker and CS-030 freshness baseline. Enforce reconnect-stable phone quotas before sequence/relay commit and Pi quotas after authentication before body parsing. Preserve accepted 1008 malformed-packet semantics and worker/session lifespans. Add bounded single-process server launcher with explicit WebSocket receive limits and restricted proxy trust; mark task Review for Michael.",
+  "validation": "Windows isolated environment and Vultr Linux each passed 88 backend and 39 shared tests plus replay smoke. Real verified WSS tests cover 10 reconnects, eleventh source-depth rejection, independent sessions, NaN/overflow/duplicate JSON, oversize frames and impersonation. Authenticated 200-frame slow-model flood preserves latest-only work and same-loop watchdog progress; 1000 further rejected requests retain under 1 MB additional Python heap. Synthetic models only; no physical watchdog, real YOLO sizing or public API deployment acceptance claimed."
+}

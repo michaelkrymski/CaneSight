@@ -146,6 +146,14 @@ Address Michael's PR19 feedback: give model adapters a separate deep copy and bu
 
 Validation: Reproduced the old mutation failure in an isolated Linux checkout, then restored the fix. Windows and Vultr Linux each passed 51 backend and 39 shared tests plus replay smoke. Existing real certificate-verified HTTPS/WSS tests passed; combined worker tests use ASGI HTTPS scopes and synthetic models. No live YOLO, public deployment or physical watchdog acceptance claimed.
 
+## 2026-10-17 — CS-032-ADMISSION-LIMITS-20261017-GMARCIALCALLEJA: Bound request/source admission and WebSocket message envelopes
+
+Author: Gavin (gmarcialcalleja) · Task: CS-032
+
+Add hard-capped monotonic token buckets, pre-body global/peer admission, authenticated Pi frame budgets, WebSocket connection/byte/depth/JSON guards and fixed rejection metrics. Preserve source timestamps, authentication ownership, schema/JPEG checks and unavailable readiness. Provide a reconnect-stable authenticated phone budget for CS-029 integration; keep full acceptance blocked on CS-029/031.
+
+Validation: Windows and Linux: all 31 component and 39 shared tests passed, plus accepted replay smoke. New tests cover 10,000 rejected identities with bounded tables, 2,000 synthetic requests with scheduled software task, atomic bursts, exact refill, NaN/Infinity/overflow/duplicate/deep JSON, UTF-8 limits, socket cleanup and pre-body flood rejection. No physical watchdog, inference-load or real paired-session acceptance claimed.
+
 ## 2026-10-17 — CS-032-CLAIM-20261017-GMARCIALCALLEJA: Propose Gavin's ownership of backend validation and rate limits
 
 Author: Gavin (gmarcialcalleja) · Task: CS-032
@@ -153,6 +161,14 @@ Author: Gavin (gmarcialcalleja) · Task: CS-032
 Claim CS-032 for gmarcialcalleja with status in_progress on claim/CS-032-gmarcialcalleja. Implementation waits for Michael's merged claim and coordinates with Adit's CS-029 and the CS-031 worker dependency. Requirements, master plan, other task records and prior fragments are unchanged; no rate-limit implementation or acceptance is claimed.
 
 Validation: Claim metadata only. Shared/backend suites, repository validation, replay rehearsal and changelog/whitespace check results are recorded in the claim PR. No deployment, flood performance, inference, physical watchdog or hardware acceptance claimed.
+
+## 2026-10-17 — CS-032-INTEGRATED-LIMITS-20261017-GMARCIALCALLEJA: Complete authenticated source quotas and bounded inference-load integration
+
+Author: Gavin (gmarcialcalleja) · Task: CS-032
+
+Integrate accepted CS-029 sessions, CS-031 worker and CS-030 freshness baseline. Enforce reconnect-stable phone quotas before sequence/relay commit and Pi quotas after authentication before body parsing. Preserve accepted 1008 malformed-packet semantics and worker/session lifespans. Add bounded single-process server launcher with explicit WebSocket receive limits and restricted proxy trust; mark task Review for Michael.
+
+Validation: Windows isolated environment and Vultr Linux each passed 88 backend and 39 shared tests plus replay smoke. Real verified WSS tests cover 10 reconnects, eleventh source-depth rejection, independent sessions, NaN/overflow/duplicate JSON, oversize frames and impersonation. Authenticated 200-frame slow-model flood preserves latest-only work and same-loop watchdog progress; 1000 further rejected requests retain under 1 MB additional Python heap. Synthetic models only; no physical watchdog, real YOLO sizing or public API deployment acceptance claimed.
 
 ## 2026-10-17 — CS-033-CLAIM-20261017-GMARCIALCALLEJA: Propose Gavin's ownership of Vultr backend deployment
 
