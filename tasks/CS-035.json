@@ -16,11 +16,11 @@
   "trello_url": "https://trello.com/c/r1LypkHG/35-p0-cs-035-return-observation-only-inference-results",
   "suggested_role": "CV",
   "estimate_hours": 1.0,
-  "elapsed_window": "5\u00e2\u20ac\u201c8",
+  "elapsed_window": "5–8",
   "owner": "gmarcialcalleja",
   "status": "in_progress",
   "branch": "claim/CS-035-gmarcialcalleja",
-  "pr_url": null,
+  "pr_url": "https://github.com/michaelkrymski/CaneSight/pull/27",
   "evidence": [
     "Claim proposal only; implementation waits for Michael to merge assignment. CS-031 PR #19 and CS-034 PR #26 are merged."
   ],
