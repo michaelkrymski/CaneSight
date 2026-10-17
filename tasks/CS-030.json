@@ -15,9 +15,9 @@
   "suggested_role": "Backend",
   "estimate_hours": 1.5,
   "elapsed_window": "5–8",
-  "owner": null,
-  "status": "backlog",
-  "branch": null,
+  "owner": "aditsangani",
+  "status": "in_progress",
+  "branch": "claim/CS-030-aditsangani",
   "pr_url": null,
   "evidence": [],
   "blocker": ""
