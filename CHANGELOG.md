@@ -74,6 +74,14 @@ Claim only, with acceptance, dependencies and allowed paths preserved. After mer
 
 Validation: Checked publisher runs repository validation, all shared tests, generated changelog and whitespace checks. No executable implementation or new hardware test applies to this ownership-only PR.
 
+## 2026-10-17 — CS-023-SIMULATED-SCHEDULER-20261017-GMARCIALCALLEJA: Implement capped two-channel scheduler with simulated outputs
+
+Author: Gavin (gmarcialcalleja) · Task: CS-023
+
+Add independent expiry, no backlog or active-pulse extension, original local eligibility deadlines, per-channel pulse/minimum-off/rolling duty limits, sticky fault shutdown and startup/cleanup off requests. Only simulated outputs are shipped; physical driver integration awaits CS-009. No observation-to-cue policy, GPIO or electrical verification.
+
+Validation: 38 edge tests passed on Windows/Linux Python 3.12 (25 scheduler plus 13 uploader), including five simulated minutes of adversarial requests and independent real worker cleanup. Simulation ends with both outputs off and gpio_used false. Checked publishing runs shared/repository/changelog/whitespace checks.
+
 ## 2026-10-17 — CS-024-CLAIM-GMARCIALCALLEJA-20261017: Propose Gavin as CS-024 local policy and source expiry owner
 
 Author: Gavin (gmarcialcalleja) · Task: CS-024
@@ -337,6 +345,14 @@ Author: aditsangani (AI-assisted) · Task: CS-036
 Propose ownership of CS-036 for labeled replay/test signal fixtures, manual ROI provenance and source/license documentation within existing vision scope. No custom model training, automatic pedestrian recognition, implementation, deployment or task requirement change. Implementation waits for Michael to merge this claim.
 
 Validation: Ownership-only proposal based on accepted main 89e15adab322ea299915f193cb6c9c6626d20739; main task unowned and no competing open CS-036 PR found. Checked publishing runs shared repository tests, structure, generated changelog and whitespace checks. No model/hardware tests apply to this claim.
+
+## 2026-10-17 — CS-040-BONDMILA-CLAIM-20261017: Propose bondmila assignment for restricted and preemptible narration
+
+Author: bondmila (AI-assisted) · Task: CS-040
+
+Assignment only. Implementation waits for Michael to merge this claim. Requirements, dependencies and allowed paths are unchanged. No API credentials or implementation included.
+
+Validation: Repository structure, shared unit tests, changelog consistency and whitespace checked by publish_task.py before commit. No hardware or Gemini API tests performed.
 
 ## 2026-10-17 — CS-041-CLAIM-GMARCIALCALLEJA-20261017: Claim session-health dashboard for Gavin
 
