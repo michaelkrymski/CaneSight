@@ -1,0 +1,9 @@
+{
+  "id": "CS-036-REVIEW-LINK-20261017",
+  "date": "2026-10-17",
+  "author": "aditsangani (AI-assisted)",
+  "task": "CS-036",
+  "summary": "Record signal fixture implementation review PR",
+  "details": "Link CS-036 to implementation PR #37. Fixture assets, source code and prior evidence are unchanged; status remains Review.",
+  "validation": "Metadata-only checkpoint. Prior 31 vision tests remain applicable; checked publishing reruns 41 shared tests, structure, generated changelog and whitespace. Inspect current-head CI after push."
+}
