@@ -121,6 +121,10 @@ class HapticScheduler:
                 self.ready = False
                 self._stop.set()
         state.started_ms = state.deadline_ms = None
+        if now is not None and self._used(state, now) > self.limits.max_on_ms:
+            self.fault = self.fault or 'Rolling duty overrun; new scheduler required'
+            self.ready = False
+            self._stop.set()
         try:
             self.output.write(name, False)
             state.on = False
@@ -171,6 +175,9 @@ class HapticScheduler:
                     return
                 if overrun:
                     self._fail('Pulse overrun; new scheduler required', now)
+                    return
+                if self.fault:
+                    self._fail(self.fault, now)
                     return
 
     @staticmethod

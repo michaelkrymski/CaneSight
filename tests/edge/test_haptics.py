@@ -145,6 +145,43 @@ class SchedulerTests(unittest.TestCase):
         self.assertEqual(self.scheduler.channels['left'].history[-1],(200,320))
         self.assertIsNone(self.scheduler.fault)
 
+    def build_1900_ms_usage(self):
+        self.arm()
+        for duration in (500,500,500,400):
+            self.assertTrue(self.pulse(duration=duration))
+            self.clock.advance(duration);self.scheduler.tick();self.clock.advance(200)
+
+    def test_delayed_expiry_rolling_overflow_latches_and_stops_peer(self):
+        self.build_1900_ms_usage()
+        self.assertTrue(self.pulse('left',100))
+        self.assertTrue(self.pulse('right',400))
+        self.clock.advance(150)
+        value=self.scheduler.tick()
+        self.assertIsNotNone(value['fault'])
+        self.assertFalse(value['ready'])
+        self.assertEqual(value['outputs'],dict.fromkeys(CHANNELS,False))
+        self.assertEqual(self.scheduler._used(self.scheduler.channels['left'],self.clock.now),2050)
+        self.assertFalse(self.scheduler.set_ready(True))
+
+    def test_delayed_cancellation_rolling_overflow_latches_and_stops_peer(self):
+        self.build_1900_ms_usage()
+        self.assertTrue(self.pulse('left',100))
+        self.assertTrue(self.pulse('right',400))
+        self.clock.advance(150)
+        self.scheduler.cancel('left')
+        self.assertIsNotNone(self.scheduler.fault)
+        self.assertFalse(self.scheduler.ready)
+        self.assertEqual(self.output.states,dict.fromkeys(CHANNELS,False))
+        self.clock.advance(20_000)
+        self.assertFalse(self.scheduler.set_ready(True))
+
+    def test_exact_rolling_duty_boundary_remains_available(self):
+        self.build_1900_ms_usage()
+        self.assertTrue(self.pulse(duration=100))
+        self.clock.advance(100)
+        self.assertIsNone(self.scheduler.tick()['fault'])
+        self.assertEqual(self.scheduler._used(self.scheduler.channels['left'],self.clock.now),2000)
+
     def test_late_cancellation_cannot_hide_overrun_or_leave_peer_enabled(self):
         self.arm();self.pulse(CHANNELS,500);self.clock.advance(800)
         self.scheduler.cancel('left')

@@ -74,8 +74,8 @@ health behavior and precedence; the scheduler knows neither depth nor vision.
 On Linux the default clock is CLOCK_BOOTTIME, matching the Pi uploader/receiver.
 Other platforms use monotonic time for laptop simulation. Clock reversal,
 nonfinite/invalid time or an output fault latches unavailable and requests both
-channels off. A scheduler observing a pulse longer than its maximum also latches
-a fault. New readiness calls cannot clear faults; a new scheduler is required.
+channels off. A scheduler observing a pulse longer than its maximum or actual rolling
+duty above its cap also latches a fault and requests both channels off. New readiness calls cannot clear faults; a new scheduler is required.
 The integration must also reset session/evidence on restart before rearming.
 
 `start()` or a context manager runs expiry in a dedicated thread independently
