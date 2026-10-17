@@ -16,9 +16,13 @@
   "estimate_hours": 1.5,
   "elapsed_window": "2–5",
   "owner": "aditsangani",
-  "status": "in_progress",
-  "branch": "claim/CS-029-aditsangani",
+  "status": "review",
+  "branch": "task/CS-029-paired-sessions",
   "pr_url": null,
-  "evidence": [],
+  "evidence": [
+    "backend/sessions.py and backend/server.py: operator-created short-lived sessions, scoped phone/Pi credentials, isolated native WSS relay and session-bound frame ingestion.",
+    "35 backend tests passed locally on Windows Python 3.14.3, including real certificate-verified HTTPS/WSS pairing, authorization failures, cross-session isolation, generated JPEG upload and revocation.",
+    "Single-process software verification only. CS-030 capture-age eligibility, CS-032 full quotas and CS-033 public TLS/proxy deployment remain separate acceptance work. See handoffs/CS-029-paired-sessions-20261017.md."
+  ],
   "blocker": ""
 }
