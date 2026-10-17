@@ -114,6 +114,14 @@ Assignment runtime fields only. Implementation waits for merged ownership. Plan 
 
 Validation: Verified accepted main task is unclaimed and no open assignment competes. Checked publishing runs repository, shared tests, changelog and whitespace validation. No watchdog implementation or hardware test performed.
 
+## 2026-10-17 — CS-026-WATCHDOG-20261017-GMARCIALCALLEJA: Add independent policy watchdog and fresh-epoch restart behavior
+
+Author: Gavin (gmarcialcalleja) · Task: CS-026
+
+Completed policy ticks alone renew a bounded lease. Independent supervisor and scheduler guard latch unavailable, clip pulses to the admitted lease and request off on expiry. Add SIGTERM cleanup, subprocess restart/failure tests and an uninstalled simulated-output service example. No GPIO or real Pi access; frozen-output limitations remain.
+
+Validation: 83 edge cases: Linux 83 passed; Windows 82 passed with POSIX SIGTERM skipped. 59 shared/dashboard tests passed on Linux; checked publishing repeats shared/repository/changelog/whitespace validation. Synthetic demo ends off/unarmed at startup, faulted/off after stalled feeds, with no credentials or GPIO.
+
 ## 2026-10-17 — CS-028-CLAIM-ADITSANGANI-20261017: Claim FastAPI skeleton and frame endpoint for Adit
 
 Author: aditsangani · Task: CS-028

@@ -1,0 +1,21 @@
+# Example USER service only. Not installed/enabled by this PR.
+# Review checkout/venv paths and coordinate camera availability before starting.
+[Unit]
+Description=CaneSight simulated-output uploader (fresh enrollment per process)
+StartLimitIntervalSec=900
+StartLimitBurst=3
+
+[Service]
+Type=simple
+WorkingDirectory=%h/CaneSight
+ExecStart=%h/.venvs/canesight/bin/python -m edge.uploader --receive-vision --simulate-policy --frames 0 --session-file %h/.canesight-session.json
+Restart=on-failure
+RestartSec=5
+KillSignal=SIGTERM
+KillMode=control-group
+TimeoutStopSec=5
+UMask=0077
+NoNewPrivileges=yes
+
+[Install]
+WantedBy=default.target

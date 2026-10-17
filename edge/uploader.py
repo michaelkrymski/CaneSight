@@ -253,7 +253,7 @@ def main():
     print(f'Source: {args.source_id}; boot: {boot_id}', flush=True)
     session_id = 'capture-only'
     latest, sender, worker, receiver = Latest(), None, None, None
-    policy, scheduler = None, None
+    policy, scheduler, watchdog = None, None, None
     if not args.capture_only:
         print('Enroll this identity; waiting up to 300s for matching private session file.', flush=True)
         deadline = time.monotonic() + 300
@@ -286,10 +286,14 @@ def main():
         if args.simulate_policy:
             from .haptics import HapticScheduler, SimulatedOutput
             from .policy import LocalPolicy
+            from .watchdog import PolicyWatchdog
             scheduler = HapticScheduler(SimulatedOutput(),clock=clock_ms).start()
+            watchdog = PolicyWatchdog(scheduler.trip,clock=clock_ms)
+            scheduler.set_guard(watchdog.deadline)
+            watchdog.start()
             policy = LocalPolicy(receiver.gate,
                 receiver.phone_binding.source_id if receiver.phone_binding else None,
-                scheduler,clock=clock_ms)
+                scheduler,clock=clock_ms,watchdog=watchdog)
             policy.arm(True)
             policy.start()
         from picamera2 import Picamera2  # Hardware dependency intentionally lazy.
@@ -303,6 +307,8 @@ def main():
         seq = 0
         while args.frames == 0 or seq < args.frames:
             started = time.monotonic()
+            if watchdog and watchdog.fault:
+                raise StopSession('Local watchdog unavailable; restart and reenroll')
             if sender and sender.error:
                 raise StopSession(sender.error)
             if receiver and receiver.error:
@@ -329,6 +335,8 @@ def main():
     finally:
         if policy:
             policy.close()
+        if watchdog:
+            watchdog.close()
         if scheduler:
             scheduler.close()
         try:
@@ -359,6 +367,10 @@ def main():
 
 
 if __name__ == '__main__':
+    import signal
+    def terminate(_signum, _frame):
+        raise KeyboardInterrupt()
+    signal.signal(signal.SIGTERM, terminate)
     try:
         main()
     except KeyboardInterrupt:
