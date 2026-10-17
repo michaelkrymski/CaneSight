@@ -1,5 +1,6 @@
 """Real HTTP checks for the loopback fixture preview, not a production API."""
 import http.client
+from html.parser import HTMLParser
 import threading
 import unittest
 
@@ -64,6 +65,22 @@ class FixtureServerTests(unittest.TestCase):
         self.assertIn('No live devices or backend connected', html)
         self.assertIn('Live integration pending CS-035', html)
         self.assertNotIn('CANESIGHT_OPERATOR_TOKEN', html)
+
+    def test_without_javascript_object_evidence_starts_hidden(self):
+        class PreviewParser(HTMLParser):
+            def __init__(self):
+                super().__init__()
+                self.elements = {}
+
+            def handle_starttag(self, tag, attrs):
+                attrs = dict(attrs)
+                if attrs.get('id') in ('preview-boxes', 'preview-unavailable'):
+                    self.elements[attrs['id']] = attrs
+
+        parser = PreviewParser()
+        parser.feed(self.request('GET', '/')[2].decode('utf-8'))
+        self.assertEqual(parser.elements['preview-boxes'].get('visibility'), 'hidden')
+        self.assertNotEqual(parser.elements['preview-unavailable'].get('visibility'), 'hidden')
 
 
 if __name__ == '__main__':

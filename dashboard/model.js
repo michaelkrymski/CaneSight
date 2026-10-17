@@ -6,7 +6,8 @@ export function ageUpperBound(observation, now) {
   if (!observation || !Number.isFinite(now) || !Number.isFinite(observation.receivedAt)
       || !Number.isFinite(observation.ageAtReceipt) || observation.ageAtReceipt < 0
       || now < observation.receivedAt) return null;
-  return observation.ageAtReceipt + (now - observation.receivedAt);
+  const age = observation.ageAtReceipt + (now - observation.receivedAt);
+  return Number.isFinite(age) ? age : null;
 }
 
 export function transportState(source, now) {
@@ -46,6 +47,8 @@ export const SCENARIOS = Object.freeze({
   delayed: { label: 'Delayed vision', note: 'The vision capture-age bound exceeds 1,500 ms.' },
   heartbeat: { label: 'Heartbeats only', note: 'Heartbeats continue. Without new captures, observations expire.' },
   uncertain: { label: 'Clock uncertainty', note: 'An unbounded capture age stays unknown; receipt time cannot replace it.' },
+  'phone-disconnected': { label: 'Phone disconnected', note: 'Phone depth is unavailable; independent synthetic Pi vision continues.' },
+  'pi-disconnected': { label: 'Pi disconnected', note: 'Pi vision is unavailable; independent synthetic phone depth continues.' },
   disconnected: { label: 'Sources disconnected', note: 'Lost transport makes source observations unavailable immediately.' },
 });
 
@@ -53,13 +56,14 @@ export class Replay {
   constructor(scenario = 'recent', now = 0) {
     if (!Object.hasOwn(SCENARIOS, scenario)) throw new Error('Unknown replay scenario');
     this.scenario = scenario;
+    this.startedAt = now;
     this.paused = false;
     this.sources = [
-      { id: 'fixture-phone', name: 'Phone depth', kind: 'depth', seq: 0, connected: scenario !== 'disconnected', heartbeatAt: now, observation: null },
-      { id: 'fixture-pi', name: 'Pi vision', kind: 'vision', seq: 0, connected: scenario !== 'disconnected', heartbeatAt: now, observation: null },
+      { id: 'fixture-phone', name: 'Phone depth', kind: 'depth', seq: 0, connected: !['disconnected', 'phone-disconnected'].includes(scenario), heartbeatAt: now, observation: null },
+      { id: 'fixture-pi', name: 'Pi vision', kind: 'vision', seq: 0, connected: !['disconnected', 'pi-disconnected'].includes(scenario), heartbeatAt: now, observation: null },
     ];
     this.events = [];
-    for (const source of this.sources) this.capture(source, now);
+    for (const source of this.sources) if (source.connected) this.capture(source, now);
     this.lastCapture = { depth: now, vision: now };
     this.lastHeartbeat = now;
   }
@@ -82,12 +86,12 @@ export class Replay {
   tick(now) {
     if (this.paused || this.scenario === 'disconnected') return;
     if (now - this.lastHeartbeat >= 500) {
-      for (const source of this.sources) source.heartbeatAt = now;
+      for (const source of this.sources) if (source.connected) source.heartbeatAt = now;
       this.lastHeartbeat = now;
     }
     if (this.scenario === 'heartbeat') return;
     for (const source of this.sources) {
-      if (now - this.lastCapture[source.kind] >= (source.kind === 'depth' ? 200 : 1000)) {
+      if (source.connected && now - this.lastCapture[source.kind] >= (source.kind === 'depth' ? 200 : 1000)) {
         this.capture(source, now);
         this.lastCapture[source.kind] = now;
       }

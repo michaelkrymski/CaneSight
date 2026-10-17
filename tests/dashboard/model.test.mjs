@@ -62,7 +62,8 @@ test('delayed vision does not invalidate an independent current depth fixture', 
 });
 
 test('disconnect removes observation availability even at a recent capture age', () => {
-  const replay = new Replay('disconnected', 0);
+  const replay = new Replay('recent', 0);
+  for (const source of replay.sources) source.connected = false;
   replay.tick(100);
   assert.ok(replay.sources.every(source => observationState(source, 100).state === 'unavailable'));
   assert.ok(replay.sources.every(source => source.seq === 1));
@@ -94,4 +95,30 @@ test('mode and age formatting preserve unknown values', () => {
   assert.equal(formatAge(NaN), 'Unknown');
   assert.equal(formatAge(0), '0 ms');
   assert.equal(formatAge(1100), '1.1 s');
+});
+
+test('one disconnected source cannot renew or invalidate its independent peer', () => {
+  for (const scenario of ['phone-disconnected', 'pi-disconnected']) {
+    const replay = new Replay(scenario, 0);
+    const lost = replay.sources.find(source => !source.connected);
+    const peer = replay.sources.find(source => source.connected);
+    for (let now = 0; now <= 6000; now += 100) replay.tick(now);
+    assert.equal(lost.seq, 0);
+    assert.equal(lost.observation, null);
+    assert.equal(lost.heartbeatAt, 0);
+    assert.equal(observationState(lost, 6000).state, 'unavailable');
+    assert.equal(transportState(peer, 6000), 'connected');
+    assert.equal(observationState(peer, 6000).state, 'within-budget');
+    replay.paused = true;
+    replay.tick(9000);
+    assert.ok(replay.sources.every(source => observationState(source, 9000).state === 'unavailable'));
+    replay.paused = false;
+    replay.tick(9100);
+    assert.equal(observationState(lost, 9100).state, 'unavailable');
+    assert.equal(observationState(peer, 9100).state, 'within-budget');
+  }
+});
+
+test('overflowing age arithmetic stays unknown instead of yielding an infinite bound', () => {
+  assert.equal(ageUpperBound({receivedAt: 0, ageAtReceipt: Number.MAX_VALUE}, Number.MAX_VALUE), null);
 });

@@ -62,7 +62,7 @@ function render(now) {
       const time = document.createElement('span');
       const body = document.createElement('span');
       time.className = 'event-time';
-      time.textContent = `+${(event.at / 1000).toFixed(1)}s`;
+      time.textContent = `+${((event.at - replay.startedAt) / 1000).toFixed(1)}s`;
       body.textContent = event.text;
       row.append(time, body);
       return row;

@@ -35,13 +35,15 @@ the existing preview supplies replay only.
 | Delayed vision | Vision age exceeds 1,500 ms; boxes removed while independent depth remains within budget. |
 | Heartbeats only | Transport keeps responding; capture ages grow, observations expire, distances/boxes disappear. |
 | Clock uncertainty | Unbounded capture ages stay unknown; receipt time never substitutes for capture time. |
+| Phone disconnected | Depth unavailable; independent synthetic Pi vision continues. |
+| Pi disconnected | Vision unavailable; independent synthetic phone depth continues. |
 | Sources disconnected | Both source observations unavailable immediately. |
 
 Pause replay stops simulated captures and heartbeats while the local display
 clock continues. Depth/vision expire at their own budgets; transport eventually
 becomes unavailable. Resume generates new synthetic captures with increasing
 sequences; it does not renew old captures through heartbeat updates. Activity is
-bounded to eight entries. Screen-reader announcements report state transitions
+bounded to eight entries, timed from the start of the selected scenario. Screen-reader announcements report state transitions
 without announcing every age tick. The layout supports phone and desktop widths,
 visible keyboard focus, a skip link and native labeled controls.
 
@@ -64,7 +66,9 @@ persistent notice is **Research prototype — no crossing permission**.
 These are display tests against fixture bounds, not real-device clock calibration,
 inference accuracy, end-to-end latency, haptic eligibility or hardware evidence.
 The page keeps pedestrian-signal state and countdown unknown in every scenario.
-The illustrated camera-space boxes are not real camera images.
+The illustrated camera-space boxes are not real camera images. Boxes start hidden
+until JavaScript establishes a within-budget synthetic observation, including when
+JavaScript is disabled or fails to load.
 
 ## Live integration gate
 

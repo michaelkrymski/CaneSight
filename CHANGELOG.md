@@ -258,3 +258,11 @@ Add a dependency-free localhost preview and responsive dashboard with six synthe
 
 Validation: 10 Node model tests passed. All 43 shared Python tests passed, including four real HTTP tests for loopback binding, allowlisted assets, denied mutation/query/path traversal and restrictive security headers. Browser verified six scenarios and paused-source expiry, responsive widths 320/390/768/1024/1440 without horizontal overflow, and no console warnings/errors. No real-device, model, deployment or hardware acceptance claimed.
 
+## 2026-10-17 — CS-041-PARTIAL-SOURCE-20261017-GMARCIALCALLEJA: Finish fixture dashboard source-failure validation and initial unknown display
+
+Author: Gavin (gmarcialcalleja) · Task: CS-041
+
+Initially hide illustrative boxes until an available synthetic observation is established. Add independent phone/Pi disconnect scenarios with partial transport, retain unknown on age overflow, and show activity relative to scenario start. Live data remains blocked on accepted CS-035 and a reviewed authenticated read-only projection.
+
+Validation: 12 Node model tests and all 44 shared Python tests passed, including five HTTP tests. Chromium verified independent phone/Pi disconnection and continued peer observations. Software fixtures only; no device, inference or hardware readiness claim.
+
