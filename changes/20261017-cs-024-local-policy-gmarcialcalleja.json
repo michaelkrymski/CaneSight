@@ -1,0 +1,9 @@
+{
+  "id": "CS-024-LOCAL-POLICY-20261017-GMARCIALCALLEJA",
+  "date": "2026-10-17",
+  "author": "Gavin (gmarcialcalleja)",
+  "task": "CS-024",
+  "summary": "Connect final-consumer expiry and depth policy to simulated haptics",
+  "details": "Opt-in local policy keeps health separate from hazards, recovers sectors from distinct covered frames, preserves original capture deadlines and cancels on loss. Trusted phone source/boot binding and explicit measured drift gate native clock/depth reception; unknown drift defaults unavailable. Simulated outputs only; no GPIO or crossing permission.",
+  "validation": "71 edge and 41 shared tests passed on Windows/Linux. Synthetic verified-TLS native phone relay test exercised clock exchange, depth, simulated left pulse and interruption cancellation. Real phone/Pi policy, drift, mount and electrical acceptance remain outstanding; earlier Pi vision evidence is retained separately."
+}

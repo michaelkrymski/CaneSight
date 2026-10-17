@@ -1,0 +1,468 @@
+{
+  "fixture_pack_version": 1,
+  "mode": "replay",
+  "origin": "original_procedural_schematic",
+  "license": "CC0-1.0",
+  "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "source": "backend/vision/signal_fixtures.py",
+  "author": "CaneSight contributors (AI-assisted)",
+  "image": {
+    "width": 416,
+    "height": 416,
+    "format": "PNG",
+    "color_mode": "RGB"
+  },
+  "automatic_pedestrian_recognition": false,
+  "production_signal": {
+    "candidate_count": 0,
+    "symbol": "unknown",
+    "confidence": null,
+    "countdown_s": null
+  },
+  "limits": [
+    "Original schematic assets, not real scenes or a representative training/evaluation dataset.",
+    "Manual boxes and artistic content are annotations, not automatic detections.",
+    "Relative replay time is not a live source/capture timestamp.",
+    "No training, recognition accuracy, route clearance or crossing permission."
+  ],
+  "cases": [
+    {
+      "id": "no_signal",
+      "note": "No signal panel; absence is not clearance.",
+      "frames": [
+        {
+          "file": "images/no_signal-00.png",
+          "sha256": "f1f56dd023f0d5fc0318cb4ec9bbd69d5ec7888be5ababc7c549c2fd3e1a34b7",
+          "rgb_sha256": "ffc04e9c64ead75c18ed287a6c9624e260dae3d7b7aaa9219365a0d0bf83ec06",
+          "relative_replay_ms": 0,
+          "drawn_content": "none",
+          "drawn_digits": null,
+          "manual_rois": [],
+          "authored_target_id": null
+        }
+      ]
+    },
+    {
+      "id": "generic_traffic_light",
+      "note": "Vehicle-style light; not a pedestrian classifier.",
+      "frames": [
+        {
+          "file": "images/generic_traffic_light-00.png",
+          "sha256": "daceb720d965afec051464337a9fef8359a974fd79a5b40b7689e53f95708831",
+          "rgb_sha256": "cd81b73c10b2f33a387dcdf6f1cebf3243f36e98f6051ae93c3e47fd5ae1a2f7",
+          "relative_replay_ms": 0,
+          "drawn_content": "traffic",
+          "drawn_digits": null,
+          "manual_rois": [
+            {
+              "box_xyxy": [
+                165,
+                96,
+                252,
+                345
+              ],
+              "kind": "generic_traffic_light",
+              "provenance": "manual_fixture_annotation"
+            }
+          ],
+          "authored_target_id": null
+        }
+      ]
+    },
+    {
+      "id": "walk_like",
+      "note": "Original schematic walking figure, not a real signal photo.",
+      "frames": [
+        {
+          "file": "images/walk_like-00.png",
+          "sha256": "06a4b67803b7e072ed0424223eaa2296b1f5ddc63a6b61930371a8dccbdb5cb2",
+          "rgb_sha256": "f8c90322de10cdd5178a5cbd54bab35711e7796abc0bf3427a21683377efa9b3",
+          "relative_replay_ms": 0,
+          "drawn_content": "walk",
+          "drawn_digits": null,
+          "manual_rois": [
+            {
+              "box_xyxy": [
+                104,
+                96,
+                312,
+                344
+              ],
+              "kind": "schematic_panel",
+              "provenance": "manual_fixture_annotation"
+            }
+          ],
+          "authored_target_id": null
+        }
+      ]
+    },
+    {
+      "id": "hand_like",
+      "note": "Original schematic raised hand, not a real signal photo.",
+      "frames": [
+        {
+          "file": "images/hand_like-00.png",
+          "sha256": "2e4ee3a067ff8c26b74f7785c564f044e0925bddac42c48ec069c31b1fda8595",
+          "rgb_sha256": "28508a39e79cb242f842bf9cdd0c126feff53621f940427794195d850b935f77",
+          "relative_replay_ms": 0,
+          "drawn_content": "hand",
+          "drawn_digits": null,
+          "manual_rois": [
+            {
+              "box_xyxy": [
+                104,
+                96,
+                312,
+                344
+              ],
+              "kind": "schematic_panel",
+              "provenance": "manual_fixture_annotation"
+            }
+          ],
+          "authored_target_id": null
+        }
+      ]
+    },
+    {
+      "id": "countdown",
+      "note": "Drawn digits only; no crossing-time extrapolation.",
+      "frames": [
+        {
+          "file": "images/countdown-00.png",
+          "sha256": "e9b06938fcc860574ce32162044f0a4711749ad33961d64a37d6db968086a881",
+          "rgb_sha256": "a114c2d4c2a5caa4b7bed9c23529765a2386149194c3ea8902bda0ecaf783fb7",
+          "relative_replay_ms": 0,
+          "drawn_content": "hand",
+          "drawn_digits": "12",
+          "manual_rois": [
+            {
+              "box_xyxy": [
+                104,
+                96,
+                312,
+                344
+              ],
+              "kind": "schematic_panel",
+              "provenance": "manual_fixture_annotation"
+            }
+          ],
+          "authored_target_id": null
+        },
+        {
+          "file": "images/countdown-01.png",
+          "sha256": "274a23e5136fba442e663641fe840897b1b6d28f6cf9db2f34d43f31edc68c83",
+          "rgb_sha256": "5d08591998528c4c3d4d3393fdb8f2c758dc2e44bfa5722d72c98325ddca40ac",
+          "relative_replay_ms": 1000,
+          "drawn_content": "hand",
+          "drawn_digits": "11",
+          "manual_rois": [
+            {
+              "box_xyxy": [
+                104,
+                96,
+                312,
+                344
+              ],
+              "kind": "schematic_panel",
+              "provenance": "manual_fixture_annotation"
+            }
+          ],
+          "authored_target_id": null
+        }
+      ]
+    },
+    {
+      "id": "flashing",
+      "note": "Alternation is an authored sequence; a single frame cannot establish flashing.",
+      "frames": [
+        {
+          "file": "images/flashing-00.png",
+          "sha256": "2e4ee3a067ff8c26b74f7785c564f044e0925bddac42c48ec069c31b1fda8595",
+          "rgb_sha256": "28508a39e79cb242f842bf9cdd0c126feff53621f940427794195d850b935f77",
+          "relative_replay_ms": 0,
+          "drawn_content": "hand",
+          "drawn_digits": null,
+          "manual_rois": [
+            {
+              "box_xyxy": [
+                104,
+                96,
+                312,
+                344
+              ],
+              "kind": "schematic_panel",
+              "provenance": "manual_fixture_annotation"
+            }
+          ],
+          "authored_target_id": null
+        },
+        {
+          "file": "images/flashing-01.png",
+          "sha256": "35bb497689aab6e4aa6708d65cd20bd9af6586a52e2e00ac1451995ed9fc1459",
+          "rgb_sha256": "d42413d10373df088afddd6ea6e1887ee9351d5b2c8d286b791f17a397d410a3",
+          "relative_replay_ms": 500,
+          "drawn_content": "off",
+          "drawn_digits": null,
+          "manual_rois": [
+            {
+              "box_xyxy": [
+                104,
+                96,
+                312,
+                344
+              ],
+              "kind": "schematic_panel",
+              "provenance": "manual_fixture_annotation"
+            }
+          ],
+          "authored_target_id": null
+        },
+        {
+          "file": "images/flashing-02.png",
+          "sha256": "2e4ee3a067ff8c26b74f7785c564f044e0925bddac42c48ec069c31b1fda8595",
+          "rgb_sha256": "28508a39e79cb242f842bf9cdd0c126feff53621f940427794195d850b935f77",
+          "relative_replay_ms": 1000,
+          "drawn_content": "hand",
+          "drawn_digits": null,
+          "manual_rois": [
+            {
+              "box_xyxy": [
+                104,
+                96,
+                312,
+                344
+              ],
+              "kind": "schematic_panel",
+              "provenance": "manual_fixture_annotation"
+            }
+          ],
+          "authored_target_id": null
+        },
+        {
+          "file": "images/flashing-03.png",
+          "sha256": "35bb497689aab6e4aa6708d65cd20bd9af6586a52e2e00ac1451995ed9fc1459",
+          "rgb_sha256": "d42413d10373df088afddd6ea6e1887ee9351d5b2c8d286b791f17a397d410a3",
+          "relative_replay_ms": 1500,
+          "drawn_content": "off",
+          "drawn_digits": null,
+          "manual_rois": [
+            {
+              "box_xyxy": [
+                104,
+                96,
+                312,
+                344
+              ],
+              "kind": "schematic_panel",
+              "provenance": "manual_fixture_annotation"
+            }
+          ],
+          "authored_target_id": null
+        }
+      ]
+    },
+    {
+      "id": "multiple_heads",
+      "note": "Two conflicting schematic heads; applicability is unknown.",
+      "frames": [
+        {
+          "file": "images/multiple_heads-00.png",
+          "sha256": "3e2f77f5569edb143a1825eea80d6dc556740c87281434c838b28e7ba32bf097",
+          "rgb_sha256": "5818bc64892eabad0eb102bce286bfa08453ec495c655c3a2d5b6691f57fd709",
+          "relative_replay_ms": 0,
+          "drawn_content": "multiple",
+          "drawn_digits": null,
+          "manual_rois": [
+            {
+              "box_xyxy": [
+                24,
+                108,
+                192,
+                308
+              ],
+              "kind": "schematic_panel",
+              "provenance": "manual_fixture_annotation"
+            },
+            {
+              "box_xyxy": [
+                224,
+                108,
+                392,
+                308
+              ],
+              "kind": "schematic_panel",
+              "provenance": "manual_fixture_annotation"
+            }
+          ],
+          "authored_target_id": null
+        }
+      ]
+    },
+    {
+      "id": "occluded",
+      "note": "Opaque mask; no retained symbol claim.",
+      "frames": [
+        {
+          "file": "images/occluded-00.png",
+          "sha256": "3dd9e7aff597b8d2da4ec57dbf527f7aa42d91cca0af55fc706708463ac7f4f6",
+          "rgb_sha256": "4275b7771694b8a25255badee532a69a3f664401c39a4eef0aab8305fb0f4d21",
+          "relative_replay_ms": 0,
+          "drawn_content": "occluded",
+          "drawn_digits": null,
+          "manual_rois": [
+            {
+              "box_xyxy": [
+                104,
+                96,
+                312,
+                344
+              ],
+              "kind": "schematic_panel",
+              "provenance": "manual_fixture_annotation"
+            }
+          ],
+          "authored_target_id": null
+        }
+      ]
+    },
+    {
+      "id": "glare",
+      "note": "Synthetic white wash; not representative lighting validation.",
+      "frames": [
+        {
+          "file": "images/glare-00.png",
+          "sha256": "6152de3d1daf27c94e4c9769cd464686f619de360a55d95286a17f21f8fd0483",
+          "rgb_sha256": "b2133205e5c32ec241f8423a50132c04614c0f0f166cba6d426b4d56585f792f",
+          "relative_replay_ms": 0,
+          "drawn_content": "glare",
+          "drawn_digits": null,
+          "manual_rois": [
+            {
+              "box_xyxy": [
+                104,
+                96,
+                312,
+                344
+              ],
+              "kind": "schematic_panel",
+              "provenance": "manual_fixture_annotation"
+            }
+          ],
+          "authored_target_id": null
+        }
+      ]
+    },
+    {
+      "id": "low_resolution",
+      "note": "Panel reduced to 12x14 then enlarged; detail is limited.",
+      "frames": [
+        {
+          "file": "images/low_resolution-00.png",
+          "sha256": "0481e991c238b0fd868d2c661f43129275cd23674aa1bd418e110b5ef4f1ef0d",
+          "rgb_sha256": "f9d5cb82d41bef0d9cb6d03bffcfa61eff6d1aa59fc7b9303ba9f552be1232b7",
+          "relative_replay_ms": 0,
+          "drawn_content": "low_resolution",
+          "drawn_digits": null,
+          "manual_rois": [
+            {
+              "box_xyxy": [
+                104,
+                96,
+                312,
+                344
+              ],
+              "kind": "schematic_panel",
+              "provenance": "manual_fixture_annotation"
+            }
+          ],
+          "authored_target_id": null
+        }
+      ]
+    },
+    {
+      "id": "ambiguous_digits",
+      "note": "Broken/obscured segments; intended digit value is null.",
+      "frames": [
+        {
+          "file": "images/ambiguous_digits-00.png",
+          "sha256": "4f753148a72ba4fc88831e4648ef6f82df6fb7c1fc77edcbcd3132b535bab2d0",
+          "rgb_sha256": "7dedc156c34b51240c67f53f5b4fd2d60dff1f750ff7af041b8b8c1a9b6b4251",
+          "relative_replay_ms": 0,
+          "drawn_content": "ambiguous_digits",
+          "drawn_digits": null,
+          "manual_rois": [
+            {
+              "box_xyxy": [
+                104,
+                96,
+                312,
+                344
+              ],
+              "kind": "schematic_panel",
+              "provenance": "manual_fixture_annotation"
+            }
+          ],
+          "authored_target_id": null
+        }
+      ]
+    },
+    {
+      "id": "track_loss",
+      "note": "Target A disappears; target B must not inherit its state.",
+      "frames": [
+        {
+          "file": "images/track_loss-00.png",
+          "sha256": "06a4b67803b7e072ed0424223eaa2296b1f5ddc63a6b61930371a8dccbdb5cb2",
+          "rgb_sha256": "f8c90322de10cdd5178a5cbd54bab35711e7796abc0bf3427a21683377efa9b3",
+          "relative_replay_ms": 0,
+          "drawn_content": "walk",
+          "drawn_digits": null,
+          "manual_rois": [
+            {
+              "box_xyxy": [
+                104,
+                96,
+                312,
+                344
+              ],
+              "kind": "schematic_panel",
+              "provenance": "manual_fixture_annotation"
+            }
+          ],
+          "authored_target_id": "target-a"
+        },
+        {
+          "file": "images/track_loss-01.png",
+          "sha256": "f1f56dd023f0d5fc0318cb4ec9bbd69d5ec7888be5ababc7c549c2fd3e1a34b7",
+          "rgb_sha256": "ffc04e9c64ead75c18ed287a6c9624e260dae3d7b7aaa9219365a0d0bf83ec06",
+          "relative_replay_ms": 500,
+          "drawn_content": "none",
+          "drawn_digits": null,
+          "manual_rois": [],
+          "authored_target_id": null
+        },
+        {
+          "file": "images/track_loss-02.png",
+          "sha256": "2e4ee3a067ff8c26b74f7785c564f044e0925bddac42c48ec069c31b1fda8595",
+          "rgb_sha256": "28508a39e79cb242f842bf9cdd0c126feff53621f940427794195d850b935f77",
+          "relative_replay_ms": 1000,
+          "drawn_content": "hand",
+          "drawn_digits": null,
+          "manual_rois": [
+            {
+              "box_xyxy": [
+                104,
+                96,
+                312,
+                344
+              ],
+              "kind": "schematic_panel",
+              "provenance": "manual_fixture_annotation"
+            }
+          ],
+          "authored_target_id": "target-b"
+        }
+      ]
+    }
+  ]
+}

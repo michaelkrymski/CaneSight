@@ -90,6 +90,22 @@ Claim only; preserve acceptance, dependencies and allowed paths. First checkpoin
 
 Validation: Checked publisher runs repository validation, shared tests, generated changelog and whitespace checks. No implementation or new hardware verification claimed by this ownership PR.
 
+## 2026-10-17 — CS-024-LOCAL-POLICY-20261017-GMARCIALCALLEJA: Connect final-consumer expiry and depth policy to simulated haptics
+
+Author: Gavin (gmarcialcalleja) · Task: CS-024
+
+Opt-in local policy keeps health separate from hazards, recovers sectors from distinct covered frames, preserves original capture deadlines and cancels on loss. Trusted phone source/boot binding and explicit measured drift gate native clock/depth reception; unknown drift defaults unavailable. Simulated outputs only; no GPIO or crossing permission.
+
+Validation: 71 edge and 41 shared tests passed on Windows/Linux. Synthetic verified-TLS native phone relay test exercised clock exchange, depth, simulated left pulse and interruption cancellation. Real phone/Pi policy, drift, mount and electrical acceptance remain outstanding; earlier Pi vision evidence is retained separately.
+
+## 2026-10-17 — CS-024-PI-RECEIVER-EXPIRY-20261017-GMARCIALCALLEJA: Integrate opt-in Pi vision reception with original capture expiry
+
+Author: Gavin (gmarcialcalleja) · Task: CS-024
+
+Share uploader boot, BOOTTIME and bounded original-frame ledger with the accepted freshness gate. Establish header-authenticated verified WSS before capture, reject mismatched/stale/replayed results, expire independently of blocked reads and invalidate on interruption. No phone enrollment, remote drift claim, motor outputs or full-policy completion.
+
+Validation: 26 edge tests passed on Windows and Linux Python 3.12, including real local HTTPS/WSS using synthetic backend observations, idle expiry and fresh-result revocation. Windows backend regression: 128 discovered, 121 passed, seven skips. Shared/repository/changelog/whitespace checks run by checked publisher. Real Pi receiver test remains pending.
+
 ## 2026-10-17 — CS-028-CLAIM-ADITSANGANI-20261017: Claim FastAPI skeleton and frame endpoint for Adit
 
 Author: aditsangani · Task: CS-028
@@ -346,9 +362,30 @@ Propose ownership of CS-036 for labeled replay/test signal fixtures, manual ROI 
 
 Validation: Ownership-only proposal based on accepted main 89e15adab322ea299915f193cb6c9c6626d20739; main task unowned and no competing open CS-036 PR found. Checked publishing runs shared repository tests, structure, generated changelog and whitespace checks. No model/hardware tests apply to this claim.
 
+## 2026-10-17 — CS-036-REVIEW-LINK-20261017: Record signal fixture implementation review PR
+
+Author: aditsangani (AI-assisted) · Task: CS-036
+
+Link CS-036 to implementation PR #37. Fixture assets, source code and prior evidence are unchanged; status remains Review.
+
+Validation: Metadata-only checkpoint. Prior 31 vision tests remain applicable; checked publishing reruns 41 shared tests, structure, generated changelog and whitespace. Inspect current-head CI after push.
+
+## 2026-10-17 — CS-036-SIGNAL-FIXTURES-20261017: Add original labeled signal replay fixtures and manual ROI provenance
+
+Author: aditsangani (AI-assisted) · Task: CS-036
+
+Prepare 12 synthetic cases across 18 PNG frames, original CC0-1.0 asset/annotation dedication, source/license records, hashes, authored replay sequences and bounded manual ROI metadata. Add an offline generator/verifier; no parser, model training, automatic pedestrian recognition, live transport or production state change.
+
+Validation: 31 vision tests passed including nine new fixture tests. All decoded pixels/annotations reproduced; committed asset hashes verified. First frames of all 12 cases visually inspected. Checked publishing runs shared tests, repository structure, generated changelog and whitespace validation. No real-scene accuracy or hardware evidence.
+
 ## 2026-10-17 — CS-039-BONDMILA-CLAIM-20261017: Propose bondmila assignment for isolated Gemini context service
 
 Author: bondmila (AI-assisted) · Task: CS-039
+
+Assignment only. Implementation waits for Michael to merge this claim. Requirements, dependencies and allowed paths are unchanged. No API credentials or implementation included.
+
+Validation: Repository structure, shared unit tests, changelog consistency and whitespace checked by publish_task.py before commit. No hardware or Gemini API tests performed.
+
 ## 2026-10-17 — CS-040-BONDMILA-CLAIM-20261017: Propose bondmila assignment for restricted and preemptible narration
 
 Author: bondmila (AI-assisted) · Task: CS-040

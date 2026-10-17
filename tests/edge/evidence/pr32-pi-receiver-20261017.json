@@ -1,0 +1,49 @@
+{
+  "date": "2026-10-17",
+  "task": "CS-024",
+  "evidence_source": "Human-operated manual Pi terminal test; summaries supplied by operator",
+  "tested_commit": "17441cee512bb29ae6ad5bd327706a45c0a8f107",
+  "checkout": "/home/interfere/CaneSight-PR32-test",
+  "command": "python -u -m edge.uploader --receive-vision --frames 20 --session-file ~/.canesight-session.json",
+  "public_base": "https://64.177.50.116",
+  "backend_image_observed_after_run": "sha256:8a7bcf8fa9dbcfedea2ecef6d0e5e94d766dc50c2505739229454a0ad851f3fa",
+  "backend_state_observed_after_run": "running healthy",
+  "credential_install_owner_and_mode_reported": "interfere:600",
+  "enrollment_ttl_seconds": 600,
+  "phone_counterpart": "Explicitly unconnected bench binding",
+  "upload": {
+    "accepted": 20,
+    "stale": 0,
+    "failed": 0,
+    "replaced": 0
+  },
+  "vision": {
+    "accepted": 20,
+    "rejected": 0,
+    "expired": 0,
+    "unavailable_on_exit": true
+  },
+  "capture": {
+    "reported_age_bounds_ms": {
+      "min": 115,
+      "max": 254
+    },
+    "frame_1_line_truncated": true,
+    "frames_2_through_20_dimensions": [
+      416,
+      416
+    ],
+    "frames_2_through_20_jpeg_bytes": {
+      "min": 12228,
+      "max": 12326
+    }
+  },
+  "test_session_cleanup": "Operator DELETE confirmed revocation after completion",
+  "limits": [
+    "No independent full terminal log or shell exit status supplied; snapshot/setup and summaries are human-reported.",
+    "20 accepted vision results passed same-process lineage and 1500ms capture-age gate; not a complete latency distribution.",
+    "Zero expirations in continuous fresh results does not test idle expiry; separate synthetic TLS/failure tests cover it.",
+    "Sensor-delay defaults remain unverified; reported capture ages are not calibrated physical timing.",
+    "No phone connectivity, clock mapping, detection accuracy, crossing permission, GPIO, motor policy or electrical readiness established."
+  ]
+}
