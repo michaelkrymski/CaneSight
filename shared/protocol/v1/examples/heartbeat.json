@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "session_id": "demo-session",
+  "source_id": "phone-1",
+  "boot_id": "phone-boot-1",
+  "seq": 8,
+  "capture_monotonic_ms": 812500,
+  "capture_utc": null,
+  "mode": "replay",
+  "type": "heartbeat",
+  "state": "degraded"
+}

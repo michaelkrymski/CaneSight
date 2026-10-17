@@ -13,10 +13,13 @@
   "suggested_role": "Backend",
   "estimate_hours": 1.0,
   "elapsed_window": "0–2",
-  "owner": null,
-  "status": "backlog",
-  "branch": null,
+  "owner": "michaelkrymski",
+  "status": "review",
+  "branch": "task/CS-003-protocol-v1",
   "pr_url": null,
-  "evidence": [],
+  "evidence": [
+    "Proposed shared/protocol/v1/protocol.md and messages.schema.json; acceptance pending protected-contract PR review/merge.",
+    "39 local repository/contract tests pass after integrating accepted main 21eb48a; six replay fixtures. No real-device clock or transport verification claimed."
+  ],
   "blocker": ""
 }
