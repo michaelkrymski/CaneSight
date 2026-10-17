@@ -42,6 +42,14 @@ PM assignment proposes Michael as owner of CS-021 (Picamera2/in-memory CSI valid
 
 Validation: Task structural checks, generated changelog check, scoped assignment guard and whitespace check. Shared/backend CI runs separately. No Picamera2 in-memory loop, uploader, hardware safety or live backend integration acceptance is claimed by this metadata assignment.
 
+## 2026-10-17 — CS-022-LATEST-UPLOAD-20261017: Implement bounded latest-only Pi JPEG upload for review
+
+Author: michaelkrymski (AI-assisted) · Task: CS-022
+
+Add nominal 1Hz 416-square quality75 in-memory capture, conservative original sensor timing, reversible letterbox mapping, one-slot replacement queue, two-entry lineage ledger and verified-HTTPS multipart sender. Reject stale/future pending frames and stop on authentication/order/ACK errors. Document capture-only Pi verification and short-lived live session enrollment without operator credentials on the device.
+
+Validation: 13 local edge tests pass, including blocked-sender replacement, no retry, timing rejection, ACK/epoch identity and actual backend multipart ingestion with synthetic JPEG. No execution of this new module on Pi, live HTTPS upload, WSS, inference, electrical or readiness acceptance. Existing CI does not discover edge test root; explicit execution required.
+
 ## 2026-10-17 — CS-028-CLAIM-ADITSANGANI-20261017: Claim FastAPI skeleton and frame endpoint for Adit
 
 Author: aditsangani · Task: CS-028
@@ -98,6 +106,14 @@ Address Michael's PR #14 reconnect finding: an already-invalidated connection dr
 
 Validation: Regression reproduced the original 1012 closure before the fix and passed afterward. 36 backend cases including real HTTPS/WSS and the legacy loopback replay passed locally. Shared repository tests, scope, rendered changelog and whitespace validation run through checked publishing. No device, hardware or public deployment acceptance claimed.
 
+## 2026-10-17 — CS-030-CAPTURE-AGE-20261017: Bound consumer capture age with correlated clocks and original frame lineage
+
+Author: aditsangani · Task: CS-030
+
+Add a stateful final-consumer freshness gate and certificate-verified WSS client using the accepted protocol. Bound phone depth/heartbeat through one-time local clock exchanges and justified drift, and vision through the originating Pi's bounded capture ledger. Preserve original deadlines and sequence marks; invalidate unknown, expired, future, replayed or mismatched evidence. Heartbeat and clock resync never renew observations. Relay clocks, shared schemas and baseline budgets remain unchanged.
+
+Validation: 57 backend tests passed locally, including 21 freshness cases and actual loopback WSS calibration, fresh-depth eligibility and stale rejection. Legacy HTTP replay passed. Shared repository/contract, scope, structure, rendered log and whitespace checks run through checked publishing. Test drift values are synthetic; no real phone/Pi drift, edge motor integration, electrical or deployed-service acceptance claimed.
+
 ## 2026-10-17 — CS-030-CLAIM-ADITSANGANI-20261017: Claim capture-age bounds and replay rejection for Adit
 
 Author: aditsangani · Task: CS-030
@@ -130,6 +146,14 @@ Address Michael's PR19 feedback: give model adapters a separate deep copy and bu
 
 Validation: Reproduced the old mutation failure in an isolated Linux checkout, then restored the fix. Windows and Vultr Linux each passed 51 backend and 39 shared tests plus replay smoke. Existing real certificate-verified HTTPS/WSS tests passed; combined worker tests use ASGI HTTPS scopes and synthetic models. No live YOLO, public deployment or physical watchdog acceptance claimed.
 
+## 2026-10-17 — CS-032-ADMISSION-LIMITS-20261017-GMARCIALCALLEJA: Bound request/source admission and WebSocket message envelopes
+
+Author: Gavin (gmarcialcalleja) · Task: CS-032
+
+Add hard-capped monotonic token buckets, pre-body global/peer admission, authenticated Pi frame budgets, WebSocket connection/byte/depth/JSON guards and fixed rejection metrics. Preserve source timestamps, authentication ownership, schema/JPEG checks and unavailable readiness. Provide a reconnect-stable authenticated phone budget for CS-029 integration; keep full acceptance blocked on CS-029/031.
+
+Validation: Windows and Linux: all 31 component and 39 shared tests passed, plus accepted replay smoke. New tests cover 10,000 rejected identities with bounded tables, 2,000 synthetic requests with scheduled software task, atomic bursts, exact refill, NaN/Infinity/overflow/duplicate/deep JSON, UTF-8 limits, socket cleanup and pre-body flood rejection. No physical watchdog, inference-load or real paired-session acceptance claimed.
+
 ## 2026-10-17 — CS-032-CLAIM-20261017-GMARCIALCALLEJA: Propose Gavin's ownership of backend validation and rate limits
 
 Author: Gavin (gmarcialcalleja) · Task: CS-032
@@ -137,6 +161,22 @@ Author: Gavin (gmarcialcalleja) · Task: CS-032
 Claim CS-032 for gmarcialcalleja with status in_progress on claim/CS-032-gmarcialcalleja. Implementation waits for Michael's merged claim and coordinates with Adit's CS-029 and the CS-031 worker dependency. Requirements, master plan, other task records and prior fragments are unchanged; no rate-limit implementation or acceptance is claimed.
 
 Validation: Claim metadata only. Shared/backend suites, repository validation, replay rehearsal and changelog/whitespace check results are recorded in the claim PR. No deployment, flood performance, inference, physical watchdog or hardware acceptance claimed.
+
+## 2026-10-17 — CS-032-INTEGRATED-LIMITS-20261017-GMARCIALCALLEJA: Complete authenticated source quotas and bounded inference-load integration
+
+Author: Gavin (gmarcialcalleja) · Task: CS-032
+
+Integrate accepted CS-029 sessions, CS-031 worker and CS-030 freshness baseline. Enforce reconnect-stable phone quotas before sequence/relay commit and Pi quotas after authentication before body parsing. Preserve accepted 1008 malformed-packet semantics and worker/session lifespans. Add bounded single-process server launcher with explicit WebSocket receive limits and restricted proxy trust; mark task Review for Michael.
+
+Validation: Windows isolated environment and Vultr Linux each passed 88 backend and 39 shared tests plus replay smoke. Real verified WSS tests cover 10 reconnects, eleventh source-depth rejection, independent sessions, NaN/overflow/duplicate JSON, oversize frames and impersonation. Authenticated 200-frame slow-model flood preserves latest-only work and same-loop watchdog progress; 1000 further rejected requests retain under 1 MB additional Python heap. Synthetic models only; no physical watchdog, real YOLO sizing or public API deployment acceptance claimed.
+
+## 2026-10-17 — CS-033-AUTHENTICATED-DEPLOYMENT-20261017-GMARCIALCALLEJA: Deploy authenticated HTTPS/WSS and rehearse laptop backend fallback
+
+Author: Gavin (gmarcialcalleja) · Task: CS-033
+
+Integrate accepted CS-029/032 in an immutable backend image and bounded private launcher. Keep the operator secret server-side, reuse trusted public IP TLS, permit authenticated enrollment before model readiness, and add credential-safe session acceptance and loopback SSH fallback tools. Preserve actual readiness 503 while the model/worker is unavailable.
+
+Validation: Vultr: 115 backend/deployment tests passed including actual packaged backend and Caddy containers. Windows: 115 discovered, 109 passed and 6 environment-specific skips. All 39 shared tests and synthetic replay smoke passed on both hosts. Public authenticated HTTPS/WSS/JPEG, credential expiry, duplicate rejection, disconnect/reconnect protection and proxy restart passed. Actual Windows laptop fallback passed with the Vultr backend stopped, then production restored and passed again. No real model, physical Pi/iPhone, full-host outage or hardware acceptance claimed.
 
 ## 2026-10-17 — CS-033-CLAIM-20261017-GMARCIALCALLEJA: Propose Gavin's ownership of Vultr backend deployment
 
@@ -177,4 +217,12 @@ Author: Gavin (gmarcialcalleja) · Task: CS-033
 Add a standalone pinned Caddy proxy with Let's Encrypt short-lived public IP certificates, persistent renewal storage, strict non-secret configuration validation and a verified-TLS probe. Only GET health/readiness reach the existing private backend; all API, enrollment, upload and WebSocket routes remain 503 pending accepted integration. Preserve existing backend readiness and private ports; no domain or new server purchase.
 
 Validation: Laptop and server verified HTTPS health 200, readiness/API 503 and IP certificate trust. Proxy restart preserved the certificate fingerprint and passed probes. After accepted CS-031 integration, Linux: 74 backend tests, 72 passed and 2 optional image tests skipped, including real Caddy routing/TLS; 39 shared tests and replay smoke passed. Full authenticated backend, real Pi upload, model readiness and laptop fallback remain unaccepted.
+
+## 2026-10-17 — CS-034-CLAIM-ADITSANGANI-20261017: Claim pinned YOLO baseline and class inspection for Adit
+
+Author: aditsangani · Task: CS-034
+
+Propose aditsangani as CS-034 owner. Preserve acceptance, dependency and allowed paths. CS-028 implementation is accepted; implementation waits for Michael to merge this claim. No model download, hash/class/license verification, inference or pedestrian-signal recognition is claimed by this ownership change.
+
+Validation: Claim metadata only. Shared repository checks, generated changelog, scope/ownership and whitespace validation run through checked publishing; actual results are recorded in the claim PR. No application or hardware acceptance claimed.
 

@@ -5,6 +5,12 @@
 !backend/__init__.py
 !backend/app.py
 !backend/replay.py
+!backend/limits.py
+!backend/server.py
+!backend/sessions.py
+!backend/inference_worker.py
+!backend/freshness.py
+!backend/events_client.py
 !backend/deploy/
 !backend/deploy/readiness.py
 !shared/

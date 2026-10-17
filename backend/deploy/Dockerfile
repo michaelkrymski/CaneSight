@@ -7,7 +7,7 @@ COPY backend/requirements.txt /tmp/requirements.txt
 RUN python -m pip install --no-cache-dir -r /tmp/requirements.txt
 # Explicit allowlist: never copy a checkout's .env, keys, logs or scene images.
 COPY shared/protocol/v1/ /opt/canesight/shared/protocol/v1/
-COPY backend/__init__.py backend/app.py backend/replay.py /opt/canesight/backend/
+COPY backend/__init__.py backend/app.py backend/replay.py backend/limits.py backend/server.py backend/sessions.py backend/inference_worker.py backend/freshness.py backend/events_client.py /opt/canesight/backend/
 COPY backend/deploy/readiness.py /opt/canesight/readiness.py
 USER 10001:10001
 EXPOSE 8000

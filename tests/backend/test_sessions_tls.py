@@ -22,6 +22,7 @@ from websockets.exceptions import InvalidStatus
 
 from backend.app import create_app
 from backend.sessions import SessionManager
+from backend.events_client import PairedEventsClient
 
 
 class TLSIntegrationTests(unittest.TestCase):
@@ -81,7 +82,9 @@ class TLSIntegrationTests(unittest.TestCase):
             def auth(pair, role):
                 return {'Authorization': 'Bearer '+pair[role]['token']}
             options = {'ssl': context, 'proxy': None, 'open_timeout': 3, 'close_timeout': 1}
-            async with connect(wss+'/v1/events', additional_headers=auth(first, 'pi'), **options) as pi:
+            consumer = PairedEventsClient(wss, first, ssl_context=context, relative_drift_ppm=0)
+            async with consumer.connection():
+                pi = consumer.socket
                 async with connect(wss+'/v1/events', additional_headers=auth(second, 'pi'), **options) as other_pi:
                     async with connect(wss+'/v1/telemetry', additional_headers=auth(first, 'phone'), **options) as phone:
                         root = Path(__file__).resolve().parents[2]
@@ -91,6 +94,35 @@ class TLSIntegrationTests(unittest.TestCase):
                         self.assertEqual(json.loads(await asyncio.wait_for(pi.recv(), 2)), depth)
                         with self.assertRaises(TimeoutError):
                             await asyncio.wait_for(other_pi.recv(), .15)
+                        # The Pi-side consumer measures its own exchange. The
+                        # synthetic phone clock has a deliberate +200 ms offset;
+                        # zero drift here is a fixture assumption, not device data.
+                        await consumer.probe(first['phone']['source_id'])
+                        probe = json.loads(await asyncio.wait_for(phone.recv(), 2))
+                        reply = dict(probe, type='clock_reply', t2_ms=time.monotonic()*1000+200)
+                        reply['t3_ms'] = time.monotonic()*1000+200
+                        await phone.send(json.dumps(reply))
+                        self.assertIsNone(await asyncio.wait_for(consumer.receive_once(), 2))
+                        await asyncio.sleep(.02)
+                        heartbeat = json.loads((root/'shared/protocol/v1/examples/heartbeat.json').read_text())
+                        heartbeat.update(session_id=first['session_id'], seq=1, state='ready',
+                                         capture_monotonic_ms=time.monotonic()*1000+200)
+                        await phone.send(json.dumps(heartbeat))
+                        await asyncio.sleep(.02)
+                        self.assertIsNone(await asyncio.wait_for(consumer.receive_once(), 2))
+                        await asyncio.sleep(.02)
+                        fresh = dict(depth, seq=105, capture_monotonic_ms=time.monotonic()*1000+200)
+                        await phone.send(json.dumps(fresh))
+                        await asyncio.sleep(.02)
+                        observation = await asyncio.wait_for(consumer.receive_once(), 2)
+                        self.assertIsNotNone(observation)
+                        self.assertEqual(observation.message, fresh)
+                        self.assertIsNotNone(consumer.gate.current('phone-1','depth_observation'))
+                        stale = dict(fresh, seq=106, capture_monotonic_ms=time.monotonic()*1000-800)
+                        await phone.send(json.dumps(stale))
+                        await asyncio.sleep(.02)
+                        self.assertIsNone(await asyncio.wait_for(consumer.receive_once(), 2))
+                        self.assertIsNone(consumer.gate.current('phone-1','depth_observation'))
                         image = io.BytesIO()
                         Image.new('RGB', (16, 16)).save(image, format='JPEG')
                         metadata = json.loads((root/'shared/protocol/v1/examples/frame.json').read_text())

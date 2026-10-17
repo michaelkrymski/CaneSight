@@ -46,7 +46,7 @@ class ConfigTests(unittest.TestCase):
                        'CADDY_IMAGE': 'caddy@sha256:' + 'b' * 64}
         (self.root / 'secrets').mkdir()
         self.secret = self.root / 'secrets' / 'backend.env'
-        self.secret.write_text('FIXTURE_ONLY=synthetic\n')
+        self.secret.write_text('CANESIGHT_OPERATOR_TOKEN=fixture-only-operator-token-0000000000\nFIXTURE_ONLY=synthetic\n')
         self.secret.chmod(0o600)
 
     def write_config(self):
@@ -71,6 +71,17 @@ class ConfigTests(unittest.TestCase):
         self.write_config()
         with patch.dict(os.environ, {'CADDY_IMAGE': 'caddy:latest'}):
             self.assertTrue(config.validate(self.root))
+
+    def test_public_ip_and_local_digest_work_but_remote_upstream_is_rejected(self):
+        self.values.update(CANESIGHT_DOMAIN='64.177.50.116', BACKEND_IMAGE='sha256:' + 'a' * 64,
+                           CANESIGHT_UPSTREAM='127.0.0.1:18083')
+        self.write_config()
+        self.assertEqual(config.validate(self.root), [])
+        with patch.dict(os.environ, {'CANESIGHT_UPSTREAM': 'external.example.org:8000'}):
+            self.assertTrue(config.validate(self.root))
+        self.values['CANESIGHT_DOMAIN'] = '127.0.0.1'
+        self.write_config()
+        self.assertTrue(config.validate(self.root))
 
     @unittest.skipIf(os.name == 'nt', 'POSIX mode enforcement is Linux-specific')
     def test_rejects_world_readable_secret(self):
@@ -128,8 +139,10 @@ class ComposeTests(unittest.TestCase):
             # Compose may escape dollars for round-trippable config output.
             self.assertIn(backend['environment']['FIXTURE_ONLY'], ('dollar$sign', 'dollar$$sign'))
             self.assertNotIn('FIXTURE_ONLY', proxy['environment'])
-            self.assertEqual({port['target'] for port in proxy['ports']}, {80, 443})
-            self.assertEqual(proxy['depends_on']['backend']['condition'], 'service_healthy')
+            self.assertEqual(proxy['network_mode'], 'host')
+            self.assertEqual(backend['network_mode'], 'host')
+            self.assertEqual(proxy['depends_on']['backend']['condition'], 'service_started')
+            self.assertIn('127.0.0.1', backend['command'])
             self.assertTrue(backend['read_only'])
             self.assertEqual(backend['user'], '10001:10001')
 

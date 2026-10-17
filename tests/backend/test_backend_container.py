@@ -26,6 +26,15 @@ class PrivateProbeTests(unittest.TestCase):
 
 @unittest.skipUnless(os.environ.get('CS_BACKEND_TEST_IMAGE'), 'Opt-in built backend container integration')
 class BackendContainerTests(unittest.TestCase):
+    def test_missing_operator_secret_refuses_paired_factory_startup(self):
+        image = os.environ['CS_BACKEND_TEST_IMAGE']
+        result = subprocess.run(['docker', 'run', '--rm', '--read-only',
+            '--cap-drop', 'ALL', '--security-opt', 'no-new-privileges:true', image,
+            'python', '-m', 'backend.server', '--host', '0.0.0.0'],
+            capture_output=True, timeout=20)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertNotIn(b'ModuleNotFoundError', result.stderr)
+
     def test_explicit_replay_image_accepts_fixture_and_rejects_duplicate(self):
         import io
         import httpx

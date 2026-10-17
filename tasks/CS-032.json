@@ -17,9 +17,14 @@
   "estimate_hours": 0.5,
   "elapsed_window": "8–11",
   "owner": "gmarcialcalleja",
-  "status": "in_progress",
-  "branch": "claim/CS-032-gmarcialcalleja",
-  "pr_url": null,
-  "evidence": [],
+  "status": "review",
+  "branch": "task/CS-032-validation-limits",
+  "pr_url": "https://github.com/michaelkrymski/CaneSight/pull/15",
+  "evidence": [
+    "handoffs/CS-032-20261017-admission-limits.md",
+    "Windows and Linux: 31 backend and 39 shared tests passed; replay smoke health 200/readiness 503/upload 202/duplicate 409. Includes flood, bounded-state, malformed JSON and fixture WebSocket tests.",
+    "handoffs/CS-032-20261017-integrated-limits.md",
+    "Final combined Windows/Linux: 88 backend and 39 shared tests passed, plus replay smoke. Real certificate-verified WSS proves source quota survives reconnects; authenticated slow-inference flood preserves latest work, same-loop software watchdog progress and bounded retained Python heap. Launcher transport limits are exercised by the WSS test."
+  ],
   "blocker": ""
 }

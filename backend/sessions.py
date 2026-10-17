@@ -228,7 +228,7 @@ class SessionManager:
                     peer.close_code = 1012
                     drain(peer.queue)
 
-    def relay(self, session, grant, connection, message):
+    def relay(self, session, grant, connection, message, *, traffic_limits=None):
         with self.lock:
             self._current(session)
             if (connection.close_code is not None
@@ -261,6 +261,11 @@ class SessionManager:
             else:
                 if message['source_id'] != grant.source_id or message['boot_id'] != grant.boot_id:
                     raise ValueError('Source impersonation')
+                if (message['type'] == 'depth_observation' and grant.role == 'phone'
+                        and traffic_limits is not None and not traffic_limits.telemetry_allowed(grant)):
+                    # Trusted source quota persists across socket reconnects.
+                    # Reject before sequence state or a peer queue is advanced.
+                    raise ValueError('Source telemetry rate exceeded')
                 session.gate.admit(message)
             peer = session.connections.get(target)
             if peer is not None and peer.close_code is None:
@@ -338,7 +343,8 @@ async def socket_session(websocket, manager, role):
                     break
                 check_json_depth(raw)
                 message = protocol.parse_wire(raw)
-                manager.relay(session, grant, connection, message)
+                manager.relay(session, grant, connection, message,
+                              traffic_limits=websocket.app.state.traffic_limits)
                 receive = asyncio.create_task(websocket.receive())
                 tasks[0] = receive
             if outgoing in done:

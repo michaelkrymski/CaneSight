@@ -100,6 +100,15 @@ The new factory is `backend.server:create_session_app`. The legacy CS-028 defaul
 and explicit replay factory retain their existing behavior; they do not silently
 enable paired sessions. No inference/model readiness is enabled by pairing.
 
+## Capture age and replay — CS-030
+
+See [freshness policy](FRESHNESS.md) for the stateful consumer gate and verified
+WSS client. Phone depth requires the receiving consumer's bounded clock exchange;
+vision requires its original local capture ledger. Unknown drift stays unknown.
+An independent local tick expires observations even while networking is blocked;
+heartbeats and resynchronization never renew old capture age. The backend relay
+does not substitute its own clock for the Pi's.
+
 ## Handoff to CS-029 and CS-033
 
 After PR #9 is reviewed and merged, pull accepted main before starting the
@@ -124,5 +133,7 @@ changes, live credentials, Docker image or cloud deployment were created here.
 
 ## CS-033 deployment
 
-See [deploy/README.md](deploy/README.md) for image packaging, private host tests,
-HTTPS/WSS configuration and remaining deployment acceptance.
+See [deploy/README.md](deploy/README.md) for the authenticated Vultr deployment,
+verified HTTPS/WSS probes and rehearsed laptop fallback. Its Compose service
+overrides the unconfigured image default with the bounded `backend.server`
+session launcher. Model/worker readiness remains unavailable and returns 503.

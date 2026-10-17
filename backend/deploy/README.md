@@ -1,151 +1,77 @@
-# CS-033: Vultr deployment package
+# CS-033: authenticated Vultr deployment
 
-Status: the accepted CS-028 application is packaged and running **privately,
-intentionally unready for live use**. The Vultr host has Ubuntu 24.04, 2 vCPUs,
-4 GB RAM and 128 GB disk; it is CPU-only. Docker Engine and Compose are installed.
-See the latest CS-033 handoff for image identity and test evidence. CS-029 is now
-accepted, but the running ingestion image has not yet been replaced with paired
-sessions. CS-032 rate-limit integration and actual model/worker readiness remain
-dependencies. The user deferred domain registration; a public IP certificate now
-provides the health-only HTTPS stage below.
+The deployed origin is **https://64.177.50.116**. Accepted CS-029 sessions and
+CS-032 admission limits run behind Caddy with verified HTTPS/WSS. Synthetic
+replay acceptance covers operator enrollment, role-scoped JPEG upload, WSS
+relay, duplicate/expired credentials, and disconnect/reconnect behavior.
 
-## Public HTTPS bootstrap (health only)
+`/healthz` returns 200. `/readyz` deliberately returns 503: ingestion is configured,
+but a real selected model and inference worker are unavailable. Docker therefore
+reports the backend as unhealthy after its startup grace period. This does not
+restart the process automatically. Enrollment and authenticated transport work
+before model readiness; the proxy starts after the backend process starts, rather
+than waiting for a readiness condition that enrollment itself needs. This is
+transport evidence, not live perception or hardware acceptance.
 
-Live origin: **https://64.177.50.116**. `GET /healthz` returns backend liveness
-200; `GET /readyz` remains 503. All other methods/routes, including enrollment,
-JPEG uploads and WebSocket upgrades, return 503 before reaching the private
-backend. This is a public TLS endpoint, not the integrated Pi upload service.
+## Runtime and exposure
 
-The pinned Caddy 2.11.7 image uses an explicit Let's Encrypt ACME issuer with the
-`shortlived` profile. Public IP certificates are supported; Caddy's default
-private CA behavior for bare IPs is explicitly replaced. Certificate verification
-and IP matching remain enabled on clients. No domain purchase, third-party DNS
-alias, client-installed CA or insecure TLS option is needed for this stage.
-The current certificate expires **2026-10-23 23:17:11 UTC**. Caddy renewal is
-configured with persistent storage, but a future renewal has not been observed.
+The authorized existing Vultr host is Ubuntu 24.04, 2 vCPUs, approximately 4 GiB
+RAM, 128 GB disk, CPU-only. No replacement instance or domain was purchased.
+Docker Engine and Compose are installed; Docker commands require sudo.
 
-Runtime directory: `/home/linuxuser/canesight-cs033-https-bootstrap/backend/deploy`.
-Its non-secret `bootstrap.env` contains `CANESIGHT_ADDRESS` and the pinned
-`CADDY_IMAGE`; keep actual runtime configuration on the server. It is separate
-from the private backend's `.env.private`. `compose.bootstrap.yaml` joins only
-the existing private Docker network and publishes TCP 80/443 for certificate
-validation and HTTPS. The existing backend stays on loopback port 18000.
-The proxy does not receive application credentials. Access logging/admin API
-are disabled and Docker logs rotate.
+Current runtime directory:
+`/home/linuxuser/canesight-cs033-authenticated/backend/deploy`.
+Its `.env` holds non-secret origin, upstream, immutable image references and
+certificate volume names. `secrets/backend.env` contains the operator credential,
+with directory mode 0700 and file mode 0600. The credential stays on the server.
+Only the backend receives it; Caddy does not receive application credentials.
+Do not paste environment files, resolved Compose configuration or enrollment
+responses into chat, issues, logs or Git.
 
-On the host, after the existing private backend is running:
+The production Compose file requires Linux host networking. The backend's
+bounded single-process launcher binds **127.0.0.1:18083**, trusts forwarded
+headers only from 127.0.0.1, and runs as UID/GID 10001 with a read-only filesystem,
+dropped capabilities, bounded temporary storage, CPU, memory, process and log
+limits. Host networking gives containers access to host network interfaces;
+protection of the API port depends on this explicit loopback bind. Caddy alone
+listens publicly on TCP 80/443; its admin API and request access logs are disabled.
+UFW permits SSH and TCP 80/443; backend ports remain closed publicly.
 
-```sh
-cd /home/linuxuser/canesight-cs033-https-bootstrap
-# Set/export the two non-secret values from bootstrap.env locally first.
-python3 backend/deploy/bootstrap_check.py
-sudo docker compose --env-file backend/deploy/bootstrap.env -f backend/deploy/compose.bootstrap.yaml config --quiet
-sudo docker compose --env-file backend/deploy/bootstrap.env -f backend/deploy/compose.bootstrap.yaml up -d
-python3 -m backend.deploy.bootstrap_probe --base https://64.177.50.116
-```
+Both images are immutable; the Dockerfile base is digest-pinned and its build
+context explicitly allowlists runtime code and shared contracts. No environment
+files, private keys or scene images enter the build context. Compose overrides
+the image's unconfigured ingestion default with `python -m backend.server`, which
+refuses to start without a valid operator credential. Readiness checks still use
+actual `/readyz`, not liveness.
 
-The verifier checks certificate/IP trust, health 200, readiness 503 and closed
-API routes. Run the same command from the operator laptop. Restart testing
-preserved the same public certificate and passed both probes. Stop only this
-proxy with the same Compose arguments followed by `stop` to disable public
-HTTPS; preserve certificate volumes. UFW permits SSH plus TCP 80/443; no backend
-or Docker administration port is opened. No new server was purchased.
+The proxy uses an explicit Let's Encrypt ACME issuer with the `shortlived`
+profile and HTTP validation. Clients retain certificate and hostname/IP
+verification. The existing certificate expires **2026-10-23 23:17:11 UTC**;
+renewal is configured but a future renewal has not yet been observed. The existing
+`canesight-https-bootstrap_caddy_data` and `_caddy_config` volumes are reused, and
+proxy restart preserved the certificate. Never delete these volumes during a
+restart or rollback. Domain registration remains deferred.
 
-Before replacing this stage with the full proxy, integrate accepted CS-029/032,
-review the backend factory/image and operator secret configuration, enroll fresh
-scoped sessions privately, then test authenticated HTTPS uploads/WSS, expiry and
-connection loss. Do not remove the bootstrap API block just to make a Pi connect.
-The full production stack below still waits on actual readiness and uses a DNS
-hostname; stop the bootstrap proxy before starting another service on 80/443.
-Preserve the tested HTTPS address during any later domain migration.
+The previous health-only bootstrap proxy is stopped, with its configuration and
+volumes preserved. The previous CS-028 private ingestion container remains on
+127.0.0.1:18000 for rollback. `compose.bootstrap.yaml`, `bootstrap_probe.py`,
+`compose.private.yaml` and `private_smoke.py` describe these earlier stages;
+they are not the active authenticated deployment.
 
-References: [Let's Encrypt IP certificate availability](https://letsencrypt.org/2026/01/15/6day-and-ip-general-availability),
-[Caddy ACME issuer profiles](https://caddyserver.com/docs/caddyfile/directives/tls).
+## Build and configure
 
-## Current private deployment
+Use an authorized Linux host and dedicated checkout of the reviewed task commit.
+Install the backend test requirements into a dedicated venv for acceptance probes.
+The host preparation script installs Docker from its official signed repository,
+Compose and Python venv support. It does not provision an instance or alter SSH
+or firewall access; review it before running on another host.
 
-The server checkout is `/home/linuxuser/canesight-cs033-ingestion`. Its
-`backend/deploy/.env.private` stores only the built immutable local image ID.
-The private Compose service publishes **127.0.0.1:18000**, runs as UID/GID 10001
-and accepts no real credentials. It uses the normal `backend.app:app` entry point,
-not the replay factory. `/healthz` returns 200, `/readyz` correctly returns 503,
-and missing/invalid upload credentials return 401. Docker will report unhealthy
-after the startup grace period because readiness is unavailable; that is expected,
-not a reason to change health checks or restart repeatedly.
-
-Build from repository root on the authorized Docker host:
+From repository root:
 
 ```sh
 sudo docker build -f backend/deploy/Dockerfile -t canesight:cs033 .
 sudo docker image inspect canesight:cs033 --format '{{.Id}}'
-```
-
-The Python 3.12 base is digest-pinned. The Dockerfile and its dedicated ignore file
-allowlist only runtime code, dependencies, readiness check and shared contracts;
-no checkout credentials or private assets are sent as build context. Store the
-reported local image ID as `BACKEND_IMAGE` in a private environment file. From
-`backend/deploy`:
-
-```sh
-sudo docker compose --env-file .env.private -f compose.private.yaml config --quiet
-sudo docker compose --env-file .env.private -f compose.private.yaml up -d
-python3 private_smoke.py
-```
-
-This private stack has no proxy or healthy-start gate. The independent bootstrap
-proxy above exposes only its health checks. To reach the private service from
-the operator laptop, keep this SSH tunnel open in a terminal:
-
-```powershell
-ssh -i "$env:USERPROFILE\.ssh\canesight_vultr" -N -L 127.0.0.1:18080:127.0.0.1:18000 linuxuser@64.177.50.116
-```
-
-Then run `python backend/deploy/private_smoke.py --base http://127.0.0.1:18080`
-from the laptop checkout. Only loopback HTTP and the encrypted SSH connection are
-used. Stop the tunnel when finished. This check expects unready/rejected-upload
-states; use `smoke.py` only for the eventual ready HTTPS/WSS service.
-
-For optional real image tests, set `CS_BACKEND_TEST_IMAGE` to its local immutable
-image ID (or registry digest) while running the component test suite on Docker.
-The tests verify startup, restart, unready Docker health, missing/invalid credentials,
-and an explicitly replay-only instance's synthetic upload/duplicate rejection.
-Replay credentials are ephemeral, never logged, and test containers are removed.
-
-## Inputs needed before deployment
-
-- An operator-approved Vultr instance, spending limit, SSH destination/key and DNS
-  hostname. Do not provision a billable instance based on this file alone. Size
-  the machine using actual backend/model measurements; the Compose backend caps
-  are an initial CPU-only evaluation envelope (1.5 CPU, 2 GiB), not measured needs.
-  GPU passthrough and model installation are outside this package.
-- Linux with Docker Engine and Compose **2.30+**, Python 3.11+, registry access,
-  outbound DNS/HTTPS, and adequate disk space. Follow official installation docs.
-- Reviewed immutable backend and Caddy image references, including sha256 digests
-  for the public stack (the private stack can use the locally built image ID).
-  The backend image must contain Python, run as UID/GID 10001, start a **single**
-  application worker on `0.0.0.0:8000`, and expose `/healthz` and `/readyz`.
-  Model assets must already be readable in the image; the root filesystem is read
-  only, with bounded writable `/tmp`. Use a separate reviewed configuration if the
-  integrated backend needs writable caches or additional memory.
-- The accepted CS-029 secret names and authentication flow. The smoke tool supports
-  bearer headers; if CS-029 chooses another flow, adapt the tool in a follow-up
-  before claiming authenticated WSS acceptance. It does not define a new contract.
-- `/readyz` must return 503 until secrets, model and worker are ready; `/healthz`
-  reports process liveness independently. Docker health checks call `/readyz`.
-  Unhealthy status does not restart a hung-but-running container automatically.
-
-## Prepare the server without exposing the application
-
-On an authorized fresh Ubuntu 24.04 host, `sudo bash prepare_host.sh` installs
-Docker from its official signed apt repository, Compose, Python venv support and
-OpenSSL. Review it first. It does not change SSH, add users to the Docker group,
-modify firewall rules or publish application ports. Use sudo for Docker commands
-unless a separately approved access configuration exists. The currently prepared
-host has only SSH allowed in its active UFW rules.
-
-Use a dedicated checkout of the reviewed commit. From `backend/deploy` on Linux:
-
-```sh
+cd backend/deploy
 umask 077
 cp .env.example .env
 mkdir -p secrets
@@ -154,122 +80,116 @@ cp backend.env.example secrets/backend.env
 chmod 600 secrets/backend.env
 ```
 
-Edit `.env` locally with `CANESIGHT_DOMAIN`, `BACKEND_IMAGE` and `CADDY_IMAGE`.
-Fill `secrets/backend.env` directly on the server with the exact configuration
-required by the integrated backend. Never paste secrets into chat or commit them.
-Compose reads the secret file in raw format, preserving literal dollar signs and
-quotes. Only the backend receives it; the proxy receives the DNS hostname.
-The input checker enforces presence, Linux permissions and image digests; it
-cannot establish whether application credentials are valid. Missing/invalid
-required credentials must fail backend readiness; rehearse that failure too.
+Set `.env` locally with a public IPv4 address or DNS hostname and reviewed image
+references: either a local `sha256:<64 hex>` image ID or registry `@sha256:` digest.
+Use the existing certificate volume names when upgrading the bootstrap stage.
+Generate a cryptographically random operator credential directly into the private
+file, using the accepted `CANESIGHT_OPERATOR_TOKEN` configuration (32–128 ASCII
+characters, no whitespace). Do not enter actual credentials as shell arguments.
+Compose raw-format environment files require Compose 2.30 or later.
 
-Restrict SSH at the Vultr firewall to the operator's address. Ensure no existing
-service is using ports 80/443. Point DNS A (and AAAA only if working) to the host.
-When authorized to expose the service, allow inbound TCP 80 and 443 for Caddy's
-certificate issuance and HTTPS. Do **not** open 8000, Docker's API, or Caddy's
-admin port. The backend has no published host port; the proxy's admin API is off.
-The backend's auth/rate limits must be accepted before public exposure. Docker
-published ports can bypass UFW rules; use the cloud firewall as well.
-
-## Validate and start
+From `backend/deploy`:
 
 ```sh
 python3 check_config.py
-docker compose --env-file .env config --quiet
-docker compose --env-file .env pull
-docker compose --env-file .env run --rm --no-deps proxy caddy validate --config /etc/caddy/Caddyfile --adapter caddyfile
-docker compose --env-file .env up -d --wait --wait-timeout 120
-docker compose ps
+sudo docker compose --env-file .env config --quiet
+sudo docker compose --env-file .env run --rm --no-deps proxy caddy validate --config /etc/caddy/Caddyfile --adapter caddyfile
+sudo docker compose --env-file .env up -d backend
+# Verify private liveness; ensure any previous proxy on 80/443 is stopped.
+sudo docker compose --env-file .env up -d proxy
 ```
 
-The proxy waits for initial backend readiness. Caddy obtains and renews public
-certificates and handles WebSocket upgrades; `/data` and `/config` persist across
-restarts. Do not use self-signed certificates or disable verification for a live
-demo. This full stack uses a DNS hostname; the IP bootstrap is described above.
+Do not use `up --wait` while a selected model/worker is unavailable: readiness
+must remain false. Do not change it to 200 to satisfy Docker health. Model asset
+installation, a runtime worker factory, GPU passthrough, Gemini credentials and
+Tiger Data configuration require their respective accepted implementations.
+The current image does not provide them. Additional caches or model memory need
+a reviewed deployment configuration and actual measurements.
 
-Application logs must redact credentials and avoid raw images/precise GPS. Docker
-log rotation limits disk growth; Caddy request access logging is not enabled.
-Never paste `docker compose config` output, environment inspection, or logs into
-issues: they can expose backend secrets. Use `config --quiet` for validation.
+## Verify the live service
 
-## Live acceptance and failure rehearsal
-
-Obtain a short-lived Pi/dashboard credential and a session-specific events path
-using the **accepted** pairing procedure. Set `CS_SMOKE_BASE_URL` to the HTTPS
-origin, `CS_SMOKE_WS_PATH` to its `/v1/events` path (with session query only if the
-accepted contract requires it), and `CS_SMOKE_TOKEN` locally via a secret input
-mechanism. Do not put credentials in command arguments, URL queries or shell
-history. Then run:
+From the checkout root, using the dedicated test venv:
 
 ```sh
-python3 smoke.py
-unset CS_SMOKE_TOKEN
+python -m backend.deploy.session_probe --base https://64.177.50.116 --operator-file backend/deploy/secrets/backend.env
 ```
 
-The tool verifies HTTPS liveness/readiness; rejects untrusted certificates and
-hostnames; requires missing/invalid WSS tokens to receive HTTP 401/403; and requires
-the configured token to receive a valid HTTP 101 upgrade. It sends no observation
-payloads. It suppresses response bodies, paths and credentials from output. A
-handshake pass does not prove session isolation, message validation, expiry or
-model accuracy; retain CS-029/032 evidence separately.
+The probe uses the private operator file, creates fresh short-lived replay pairs,
+and verifies trusted HTTPS, absent/incorrect credentials, authenticated WSS relay,
+role separation, synthetic JPEG acknowledgment, duplicate rejection, expiry,
+peer interruption, and reconnect sequence protection. It revokes its test sessions
+and prints only boolean results and readiness checks. No credentials, images or
+session identities are printed. Tests intentionally preserve capture metadata;
+they do not establish real device clock mapping or freshness acceptance.
 
-On an isolated test instance, remove a required secret and restart the backend:
-readiness must fail and the smoke command must return nonzero. Restore it, verify
-fresh session pairing, and rerun. Also interrupt the model/worker and network to
-verify readiness loss, reconnect behavior and source expiry. The proxy does not
-make a running backend healthy or renew observation ages. Record actual results;
-do not prefill passes.
+By default the probe requires readiness 503, matching this model-unconfigured
+transport deployment. Only add `--expect-ready` after a real model and worker are
+configured and available. `smoke.py` remains a separate strict readiness/handshake
+probe; its 200 requirement must not be weakened to hide missing perception.
 
-Record commit, image digests, host sizing, timestamp, operator, readiness/startup
-duration, HTTPS and auth outcomes, restart results and limitations in a new handoff.
-Exclude tokens, raw scene images and precise location. CS-033 remains blocked until
-live acceptance and the laptop fallback rehearsal have evidence accepted by PM.
+Live devices use the accepted flow in `backend/SESSIONS.md`: the operator enrolls
+the actual source and boot identities in **live** mode over authenticated HTTPS,
+then delivers each role's token through a private configuration channel. Never
+send the operator token to a Pi or phone. Restart loses process-local pairs, so
+re-enroll after restart. Current evidence uses synthetic replay inputs; physical
+Pi/iPhone uploads and inference are not claimed.
 
-## Recovery and laptop fallback
+## Rehearsed laptop fallback
 
-Record the previous image digests before updating. To roll back, restore the
-previous reviewed references in `.env`, run `check_config.py`, `config --quiet`,
-`pull`, then `up -d --wait --wait-timeout 120` and rerun the probes. Use a new paired
-session after restart; process-local sessions and queued observations must reset.
+From the operator laptop checkout with backend test requirements installed:
 
-For an outage, `docker compose stop` stops the service without deleting certificates.
-Keep a separate, tested laptop checkout of the same backend image and contracts.
-Bind that backend to loopback for operator-only tests. For phone/Pi access, use an
-authorized reachable HTTPS/WSS hostname and valid certificate; rerun the same
-probes and reconnect clients with fresh sessions. A laptop terminal showing
-`/healthz` alone is not a rehearsed fallback. If HTTPS/auth/freshness gates fail,
-use the master plan's labeled replay/disconnected demo. No crossing permission.
+```powershell
+python -m backend.deploy.laptop_fallback --base https://64.177.50.116 --ssh-host linuxuser@64.177.50.116 --identity "$env:USERPROFILE\.ssh\canesight_vultr" --remote-directory /home/linuxuser/canesight-cs033-authenticated/backend/deploy --simulate-backend-outage
+```
 
-## Local verification
+The helper starts a bounded laptop backend on 127.0.0.1:18082 with an ephemeral
+operator key, opens a loopback-only reverse SSH forward to Vultr 127.0.0.1:18081,
+and switches Caddy to that upstream. It stops the production backend when the
+outage flag is supplied, then runs the complete verified HTTPS/WSS/JPEG probe
+against the laptop. Its distinct operator credential proves requests reached
+the laptop. Finally it restarts and selects the production backend, then stops
+the laptop child process and SSH tunnel. This rehearsal passed with the actual
+Windows laptop and Vultr proxy. Run the normal production probe afterward.
 
-From repository root:
+`switch_upstream.py` accepts only `production` or `laptop`, checks target liveness
+before changing the proxy, and restores previous configuration on a Compose
+failure. It suppresses private command output. If a fallback rehearsal fails,
+verify restoration directly on the server before reconnecting devices:
 
 ```sh
-python -m pip install -r tests/contracts/requirements.txt
-python -m pip install -r backend/requirements-test.txt
-python -m unittest discover -s tests/backend -v
+python3 backend/deploy/switch_upstream.py --target production
+```
+
+This fallback requires the Vultr SSH/proxy host to remain reachable; it covers a
+backend process outage, not a complete Vultr host or Internet outage. Actual
+devices require fresh pairing with the selected backend. If the public host or
+HTTPS/auth gates fail, use the master plan's labeled replay/disconnected demo.
+
+For a deployment rollback, stop the active full proxy and restart the preserved
+health-only bootstrap proxy, retaining its certificate volumes. That disables
+public enrollment, uploads and WSS with 503 while preserving public health TLS.
+For image rollback, restore the previous reviewed immutable reference, validate
+configuration, restart, re-enroll and rerun probes. Do not print secret config.
+
+## Verification and evidence
+
+```sh
+python -m unittest discover -s tests/backend -q
 python scripts/validate_repo.py
-python -m unittest discover -s tests -v
+python -m unittest discover -s tests -q
 python -m backend.demo_replay
 python scripts/render_changelog.py --check
 git diff --check
 ```
 
-Tests generate temporary self-signed certificates and synthetic credentials for
-local fixtures only. OpenSSL is required for the TLS tests. Compose configuration
-tests require the Docker CLI with Compose, but not a running engine. These tests
-do not deploy the application or certify physical hardware.
+On a Docker-enabled Linux host, set `CS_BACKEND_TEST_IMAGE` and
+`CS_CADDY_TEST_IMAGE` to the immutable built/backend and reviewed Caddy references
+to enable real-container integration tests. These exercise startup, missing
+operator refusal, restart, readiness failures, real TLS proxying and replay
+uploads. Temporary local test certificates are fixture-only; the public probe
+uses normal system trust. The latest CS-033 handoff records exact results and
+image identities. Review is not Done; Michael accepts the task by review/merge.
 
-To run the optional real Caddy integration test on Linux, pull a reviewed Caddy
-image, resolve its digest, then set `CS_CADDY_TEST_IMAGE` to that immutable image
-reference when running `python -m unittest discover -s tests/backend -v`. Docker
-Engine access is required (on this host, use sudo with the environment explicitly
-set). The fixture binds only loopback, creates a temporary internal CA, verifies
-HTTPS/WSS and readiness failures, then removes its uniquely named test container.
-This is proxy evidence; it does not establish real backend/session acceptance.
-
-References: [Docker Compose services](https://docs.docker.com/reference/compose-file/services/),
-[Docker Engine installation](https://docs.docker.com/engine/install/),
-[Docker firewall behavior](https://docs.docker.com/engine/network/packet-filtering-firewalls/),
-[Caddy automatic HTTPS](https://caddyserver.com/docs/automatic-https),
-[Caddy reverse proxy](https://caddyserver.com/docs/caddyfile/directives/reverse_proxy).
+References: [Let's Encrypt IP certificates](https://letsencrypt.org/2026/01/15/6day-and-ip-general-availability),
+[Caddy TLS configuration](https://caddyserver.com/docs/caddyfile/directives/tls),
+[Docker Compose services](https://docs.docker.com/reference/compose-file/services/).

@@ -15,9 +15,9 @@
   "trello_url": "https://trello.com/c/4pmisYcE/33-p1-cs-033-deploy-authenticated-backend-on-vultr",
   "suggested_role": "Backend",
   "estimate_hours": 1.0,
-  "elapsed_window": "11–14",
+  "elapsed_window": "11\u00e2\u20ac\u201c14",
   "owner": "gmarcialcalleja",
-  "status": "blocked",
+  "status": "review",
   "branch": "task/CS-033-vultr-deployment",
   "pr_url": "https://github.com/michaelkrymski/CaneSight/pull/11",
   "evidence": [
@@ -29,7 +29,10 @@
     "handoffs/CS-033-20261017-private-ingestion.md",
     "Real CS-028 image built and running on Vultr loopback 18000: health 200, readiness 503, absent/invalid token 401; container restart and laptop SSH tunnel passed. Server: 40 backend/deployment plus 39 shared tests passed; replay upload 202 and duplicate 409.",
     "handoffs/CS-033-20261017-public-https-bootstrap.md",
-    "Public https://64.177.50.116/healthz verified from laptop and server using a trusted Let's Encrypt IP certificate; health 200 and readiness/API 503. Proxy restart preserves certificate. After CS-031 merge, Linux: 74 backend tests, 72 passed and 2 optional image tests skipped; includes real loopback Caddy bootstrap route tests. All 39 shared tests and replay smoke passed."
+    "Public https://64.177.50.116/healthz verified from laptop and server using a trusted Let's Encrypt IP certificate; health 200 and readiness/API 503. Proxy restart preserves certificate. After CS-031 merge, Linux: 74 backend tests, 72 passed and 2 optional image tests skipped; includes real loopback Caddy bootstrap route tests. All 39 shared tests and replay smoke passed.",
+    "handoffs/CS-033-20261017-authenticated-deployment.md",
+    "Authenticated public https://64.177.50.116: verified HTTPS/WSS, role-scoped synthetic JPEG acknowledgment, duplicate/expired credential rejection, disconnect and reconnect sequence protection. Readiness truthfully 503: ingestion configured, model/worker unavailable.",
+    "Windows laptop fallback served the full public HTTPS/WSS/JPEG acceptance probe while the production backend was stopped; production restored and probed again. Proxy restart retained trusted IP certificate. Linux: all 115 backend/deployment tests passed with real backend/Caddy image tests enabled; Windows: 115 discovered, 109 passed, 6 environment-specific skips; 39 shared tests and replay smoke passed on both hosts."
   ],
-  "blocker": "Public health-only HTTPS is live with a trusted IP certificate; no domain is needed for this stage. The private image still runs CS-028 backend.app:app. CS-029 is accepted but paired-service image/secret integration, accepted CS-032 quotas, model/worker readiness, authenticated HTTPS/WSS, real Pi upload and complete laptop fallback acceptance remain pending. All public API routes stay 503 until integration is reviewed."
+  "blocker": null
 }

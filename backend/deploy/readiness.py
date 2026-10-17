@@ -1,9 +1,16 @@
 """Container-local readiness check. Does not log response bodies or errors."""
 import http.client
+import os
 
 
 def ready():
-    connection = http.client.HTTPConnection('127.0.0.1', 8000, timeout=3)
+    try:
+        port = int(os.environ.get('CANESIGHT_INTERNAL_PORT', '8000'))
+        if not 1 <= port <= 65535:
+            return False
+    except ValueError:
+        return False
+    connection = http.client.HTTPConnection('127.0.0.1', port, timeout=3)
     try:
         connection.request('GET', '/readyz')
         return connection.getresponse().status == 200
