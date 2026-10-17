@@ -258,6 +258,14 @@ Add an explicit size/SHA-256-verified pretrained weight loader, pinned optional 
 
 Validation: 11 offline vision tests; 39 shared/governance and 13 edge tests passed. Backend: 115 discovered, 107 passed and 8 environment-specific skips. Actual Windows Python 3.12.5 CPU inference: one warmup and 20 generated 416-square predictions; median 70.290 ms, p95 167.836 ms, max 171.200 ms. Replay smoke health200/readiness503/upload202/duplicate409. Timings are local prediction only, not accuracy, deployed latency or hardware evidence.
 
+## 2026-10-17 — CS-035-CLAIM-GMARCIALCALLEJA-20261017: Claim observation-only inference results for Gavin
+
+Author: Gavin (gmarcialcalleja) · Task: CS-035
+
+Propose gmarcialcalleja as owner of CS-035 with unchanged acceptance, dependencies and allowed paths. CS-031 and CS-034 are merged. Claim only; implementation waits for Michael to merge ownership. No model, backend, deployment or protocol changes.
+
+Validation: 11 existing offline vision tests and all 39 shared Python tests passed. Repository validation passed. Checked publishing verifies generated changelog and whitespace. No real model, live device or hardware tests claimed.
+
 ## 2026-10-17 — CS-041-CLAIM-GMARCIALCALLEJA-20261017: Claim session-health dashboard for Gavin
 
 Author: Gavin (gmarcialcalleja) · Task: CS-041
