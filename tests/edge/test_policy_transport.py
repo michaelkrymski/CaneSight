@@ -18,6 +18,7 @@ from backend.sessions import SessionManager
 from backend.server import server_config
 from edge.receiver import VisionReceiver
 from edge.policy import LocalPolicy, PhoneBinding
+from edge.trace import DecisionTrace
 from edge.haptics import HapticScheduler
 from edge.uploader import Sender, Latest
 
@@ -31,7 +32,7 @@ class PolicyTransportTests(unittest.TestCase):
             listener.bind(('127.0.0.1',0));listener.listen(128);port=listener.getsockname()[1]
             server=uvicorn.Server(server_config(create_app(session_manager=SessionManager(operator)),port=port,ssl_keyfile=str(root/'key.pem'),ssl_certfile=str(root/'cert.pem')))
             thread=threading.Thread(target=server.run,kwargs={'sockets':[listener]},daemon=True);thread.start()
-            receiver=policy=scheduler=None
+            receiver=policy=scheduler=trace=None
             try:
                 end=time.monotonic()+5
                 while not server.started:
@@ -44,7 +45,8 @@ class PolicyTransportTests(unittest.TestCase):
                 receiver=VisionReceiver(session,clock=clock,ca_file=str(root/'ca.pem'),phone_binding=PhoneBinding('phone','phone-boot',0))
                 Sender(Latest(),None,receiver=receiver)
                 scheduler=HapticScheduler(clock=clock).start()
-                policy=LocalPolicy(receiver.gate,'phone',scheduler,clock=clock).start();policy.arm(True)
+                trace=DecisionTrace(root/'private-policy.jsonl')
+                policy=LocalPolicy(receiver.gate,'phone',scheduler,clock=clock,trace=trace).start();policy.arm(True)
                 async def phone():
                     async with connect('wss://127.0.0.1:'+str(port)+'/v1/telemetry',ssl=context,proxy=None,additional_headers={'Authorization':'Bearer '+pair['phone']['token']}) as peer:
                         receiver.start()
@@ -78,6 +80,17 @@ class PolicyTransportTests(unittest.TestCase):
                 self.assertFalse(any(scheduler.snapshot()['outputs'].values()))
             finally:
                 if policy:policy.close()
+                if trace:
+                    self.assertTrue(trace.close()['complete'])
+                    events=[json.loads(line) for line in (root/'private-policy.jsonl').read_text().splitlines()]
+                    self.assertTrue(any(e['accepted'] and e['channels']==['left'] for e in events))
+                    for event in events:
+                        self.assertEqual(event['mode'],'live')
+                        self.assertEqual(event['input_kind'],'enrolled-session')
+                        self.assertEqual(event['output_mode'],'simulation')
+                        self.assertLessEqual(event['capture_age_interval_ms'][1],500)
+                        self.assertNotIn(pair['phone']['token'],json.dumps(event))
+                        self.assertNotIn(pair['pi']['token'],json.dumps(event))
                 if scheduler:scheduler.close()
                 if receiver:receiver.stop()
                 server.should_exit=True;thread.join(5)

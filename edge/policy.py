@@ -53,7 +53,7 @@ class LocalPolicy:
     Side pulses mean an obstacle on that side, never a direction to move.
     Center takes precedence and requests both channels atomically.
     """
-    def __init__(self, gate, phone_id, scheduler, *, clock=clock_ms, watchdog=None):
+    def __init__(self, gate, phone_id, scheduler, *, clock=clock_ms, watchdog=None, trace=None):
         if not isinstance(gate, CaptureAgeGate) or not isinstance(scheduler, HapticScheduler):
             raise ValueError('Use the accepted gate and capped scheduler')
         if not isinstance(scheduler.output, SimulatedOutput):
@@ -64,6 +64,7 @@ class LocalPolicy:
         if phone_id is not None and (phone_id == gate.receiver_id or phone_id not in gate.sequence.active):
             raise ValueError('Explicitly enroll a distinct phone before policy construction')
         self.gate, self.phone_id, self.scheduler, self.clock = gate, phone_id, scheduler, clock
+        self.trace = trace
         self.watchdog = watchdog
         if watchdog is not None and watchdog.clock is not clock:
             raise ValueError('Watchdog must share the policy clock')
@@ -159,13 +160,30 @@ class LocalPolicy:
                     if remaining:
                         self.scheduler.cancel(remaining)
                     self.active = ()
+                accepted = False
+                reason = 'no-recovered-hazard'
                 if not wanted:
                     self.scheduler.set_ready(False)
                 else:
                     self.scheduler.set_ready(True)
-                    if fresh_sequence and self.scheduler.pulse(wanted,100,valid_until_ms=observation.deadline_ms):
-                        self.active = wanted
-                        self.requests += 1
+                    if fresh_sequence:
+                        accepted = self.scheduler.pulse(wanted,100,valid_until_ms=observation.deadline_ms)
+                        reason = 'accepted' if accepted else self.scheduler.last_rejection
+                        if accepted:
+                            self.active = wanted
+                            self.requests += 1
+                if fresh_sequence and self.trace is not None:
+                    observed = number(self.clock())
+                    try:
+                        interval = observation.bound.age_interval(message,observed,self.gate.receiver_boot_id)
+                    except (ValueError,OverflowError,AttributeError):
+                        interval = None
+                    self.trace.record(dict(session_id=message['session_id'],source_id=message['source_id'],
+                        boot_id=message['boot_id'],seq=message['seq'],mode=message['mode'],
+                        capture_monotonic_ms=message['capture_monotonic_ms'],received_ms=observation.received_ms,
+                        capture_deadline_ms=observation.deadline_ms,software_command_observed_ms=observed,
+                        capture_age_interval_ms=interval,hazards=dict(self.hazards),channels=list(wanted),
+                        accepted=accepted,reason=reason))
                 state = self.scheduler.tick()
                 if state['fault']:
                     raise ValueError('Scheduler fault')

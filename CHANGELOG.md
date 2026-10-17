@@ -106,6 +106,14 @@ Share uploader boot, BOOTTIME and bounded original-frame ledger with the accepte
 
 Validation: 26 edge tests passed on Windows and Linux Python 3.12, including real local HTTPS/WSS using synthetic backend observations, idle expiry and fresh-result revocation. Windows backend regression: 128 discovered, 121 passed, seven skips. Shared/repository/changelog/whitespace checks run by checked publisher. Real Pi receiver test remains pending.
 
+## 2026-10-17 — CS-025-BENCH-PREPARATION-20261017-GMARCIALCALLEJA: Prepare repeated depth integration and private capture-age evidence
+
+Author: Gavin (gmarcialcalleja) · Task: CS-025
+
+Synthetic left/center/right runner exercises accepted gate, policy, watchdog and simulated scheduler. Optional private bounded asynchronous trace preserves original capture/receipt/deadline and age interval at software command observation; excludes credentials, GPS and images and reports incomplete logging. Real phone, physical mapping and power/motor acceptance remain blocked.
+
+Validation: Linux 88 edge and 82 shared/dashboard/narration tests passed; Windows 87 edge passed plus one POSIX skip. Synthetic three-round run accepted each stimulus three times, wrote 18 records without drops, and ended off. Native TLS synthetic-phone test validates age logging and credential exclusion. No Pi/camera/GPIO access.
+
 ## 2026-10-17 — CS-025-CLAIM-20261017-GMARCIALCALLEJA: Propose depth-to-motor integration assignment
 
 Author: Gavin (gmarcialcalleja) · Task: CS-025
