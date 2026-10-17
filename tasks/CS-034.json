@@ -19,7 +19,7 @@
   "owner": "aditsangani",
   "status": "review",
   "branch": "task/CS-034-yolov8n-baseline",
-  "pr_url": null,
+  "pr_url": "https://github.com/michaelkrymski/CaneSight/pull/26",
   "evidence": [
     "handoffs/CS-034-yolov8n-baseline-20261017.md",
     "qa/vision/yolov8n-smoke-20261017.json",
