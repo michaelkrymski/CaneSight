@@ -442,6 +442,14 @@ Use verified CS-036 shape prototypes, explicit segment geometry and bounded temp
 
 Validation: 45 vision tests passed including 14 new parser cases. Actual replay processed 12 cases/18 PNG frames; authored countdown ended at observed 11, and generic/ambiguous/track-loss cases stayed unknown. Repository structure and whitespace passed; checked publishing reruns shared tests and exact changelog validation. Prototype fixtures overlap the regression inputs: no held-out accuracy, live timing or hardware evidence.
 
+## 2026-10-17 — CS-038-CLAIM-ADITSANGANI-20261017: Request CS-038 assignment for signal ambiguity and track-loss evaluation
+
+Author: aditsangani (AI-assisted) · Task: CS-038
+
+Claim only. CS-037 implementation PR #46 is merged. Plan to evaluate multiple heads, glare, occlusion, target changes, symbol confusion and countdown exact-match using clearly labeled replay inputs. No training, production integration or hardware validation is included; real-world accuracy remains unverified. Implementation waits for Michael to merge this assignment.
+
+Validation: Checked publishing runs repository validation, shared unit tests, generated changelog consistency and whitespace checks. No implementation or hardware tests are claimed by this assignment.
+
 ## 2026-10-17 — CS-039-BONDMILA-CLAIM-20261017: Propose bondmila assignment for isolated Gemini context service
 
 Author: bondmila (AI-assisted) · Task: CS-039
