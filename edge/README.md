@@ -1,5 +1,9 @@
 # Pi camera upload — CS-022
 
+CS-023's separate software-only pulse scheduler and simulation are documented in
+[HAPTICS.md](HAPTICS.md). It does not activate GPIO or integrate motor policy into
+this uploader.
+
 `python3 -m edge.uploader` captures the configured 640x480 RGB stream,
 letterboxes to 416x416 (416x312 image, 52 black pixels top/bottom), encodes
 quality-75 JPEG in RAM and schedules captures at a nominal 1 Hz. Slow capture

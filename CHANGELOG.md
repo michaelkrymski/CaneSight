@@ -26,6 +26,14 @@ Document $100 Vultr and $1,000 Tiger Data allocations, plus a potential unconfir
 
 Validation: Documentation-only arithmetic: $1,100 reported allocations, $1,400 potential combined face value if the $300 Gemini allocation is confirmed. Repository structure, generated log and whitespace checks before publication; provider redemption, terms and balances not independently verified.
 
+## 2026-10-17 — CS-001-PM-SELF-ASSIGNMENT-20261017: Separate PM self-assignment authorization from implementation merge approval
+
+Author: Michael Krymski (AI-assisted) · Task: CS-001
+
+Propose a narrow verified PM-authored claim PR exception so Michael can start an unclaimed task before that assignment merges, continuing implementation in the same PR. Preserve native independent reviews, all branch settings, protected scope/reassignment checks and accepted-main status. No actual task assignment or production behavior changes.
+
+Validation: 41 shared tests passed, including two PM/teammate/scope/reassignment boundary regressions; repository validation, generated changelog and whitespace checks passed. Branch protection inspected read-only; exact-head PM approval and independent review remain required for this amendment.
+
 ## 2026-10-17 — CS-001-PUBLISHING-RETRY-FIX-20261017: Allow checked-publishing retry after failed validation
 
 Author: michaelkrymski (AI-assisted) · Task: CS-001
@@ -57,6 +65,22 @@ Author: michaelkrymski (AI-assisted) · Task: CS-022
 Add nominal 1Hz 416-square quality75 in-memory capture, conservative original sensor timing, reversible letterbox mapping, one-slot replacement queue, two-entry lineage ledger and verified-HTTPS multipart sender. Reject stale/future pending frames and stop on authentication/order/ACK errors. Document capture-only Pi verification and short-lived live session enrollment without operator credentials on the device.
 
 Validation: 13 local edge tests pass, including blocked-sender replacement, no retry, timing rejection, ACK/epoch identity and actual backend multipart ingestion with synthetic JPEG. No execution of this new module on Pi, live HTTPS upload, WSS, inference, electrical or readiness acceptance. Existing CI does not discover edge test root; explicit execution required.
+
+## 2026-10-17 — CS-023-CLAIM-GMARCIALCALLEJA-20261017: Propose Gavin as capped haptic scheduler owner
+
+Author: Gavin (gmarcialcalleja) · Task: CS-023
+
+Claim only, with acceptance, dependencies and allowed paths preserved. After merged assignment, start two-channel bounded pulse/duty and startup/cleanup-off tests using simulated outputs. Keep CS-009 hardware verification prerequisite; no GPIO/motor activation or electrical claims.
+
+Validation: Checked publisher runs repository validation, all shared tests, generated changelog and whitespace checks. No executable implementation or new hardware test applies to this ownership-only PR.
+
+## 2026-10-17 — CS-023-SIMULATED-SCHEDULER-20261017-GMARCIALCALLEJA: Implement capped two-channel scheduler with simulated outputs
+
+Author: Gavin (gmarcialcalleja) · Task: CS-023
+
+Add independent expiry, no backlog or active-pulse extension, original local eligibility deadlines, per-channel pulse/minimum-off/rolling duty limits, sticky fault shutdown and startup/cleanup off requests. Only simulated outputs are shipped; physical driver integration awaits CS-009. No observation-to-cue policy, GPIO or electrical verification.
+
+Validation: 38 edge tests passed on Windows/Linux Python 3.12 (25 scheduler plus 13 uploader), including five simulated minutes of adversarial requests and independent real worker cleanup. Simulation ends with both outputs off and gpio_used false. Checked publishing runs shared/repository/changelog/whitespace checks.
 
 ## 2026-10-17 — CS-024-CLAIM-GMARCIALCALLEJA-20261017: Propose Gavin as CS-024 local policy and source expiry owner
 
@@ -321,6 +345,14 @@ Author: Gavin (gmarcialcalleja) · Task: CS-035
 Promote accepted source 2af3150 with verified read-only weights, bounded backend runtime and preserved proxy/certificates/rollback. Record only sanitized results; real Pi uploads remain unverified.
 
 Validation: 20 generated public HTTPS/WSS results passed lineage, isolation, authorization, revocation and expiry checks; deployed container healthy. Checked publisher runs repository/shared checks.
+
+## 2026-10-17 — CS-036-CLAIM-ADITSANGANI-20261017: Claim signal fixture preparation for aditsangani
+
+Author: aditsangani (AI-assisted) · Task: CS-036
+
+Propose ownership of CS-036 for labeled replay/test signal fixtures, manual ROI provenance and source/license documentation within existing vision scope. No custom model training, automatic pedestrian recognition, implementation, deployment or task requirement change. Implementation waits for Michael to merge this claim.
+
+Validation: Ownership-only proposal based on accepted main 89e15adab322ea299915f193cb6c9c6626d20739; main task unowned and no competing open CS-036 PR found. Checked publishing runs shared repository tests, structure, generated changelog and whitespace checks. No model/hardware tests apply to this claim.
 
 ## 2026-10-17 — CS-041-CLAIM-GMARCIALCALLEJA-20261017: Claim session-health dashboard for Gavin
 

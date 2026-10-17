@@ -16,10 +16,17 @@
   "suggested_role": "Edge",
   "estimate_hours": 1.0,
   "elapsed_window": "2–5",
-  "owner": null,
-  "status": "backlog",
-  "branch": null,
-  "pr_url": null,
-  "evidence": [],
-  "blocker": ""
+  "owner": "gmarcialcalleja",
+  "status": "blocked",
+  "branch": "task/CS-023-capped-haptic-scheduler",
+  "pr_url": "https://github.com/michaelkrymski/CaneSight/pull/35",
+  "evidence": [
+    "Claim proposal only; implementation waits for Michael to merge assignment. First checkpoint uses simulated outputs for two-channel pulse/duty caps and startup/cleanup-off behavior. CS-009 remains a prerequisite for physical GPIO/motor validation.",
+    "handoffs/CS-023-20261017-simulated-scheduler.md",
+    "tests/edge/evidence/cs023-simulation-20261017.json",
+    "25 scheduler tests plus 13 existing uploader tests passed on Windows/Linux Python 3.12. Simulation accepted two independent pulses and cleaned up both outputs off; no GPIO used. Includes 30,000 virtual 10ms stress steps (five simulated minutes), rolling duty, eligibility, fault/clock, startup/cleanup and independent worker tests.",
+    "handoffs/CS-023-20261017-rolling-duty-review-fix.md",
+    "Michael review reproduced actual 2050ms rolling usage after a delayed 100ms stop despite a 2000ms cap. Fix checks recorded rolling usage on stop/cancel and latches unavailable/both off. 41 edge tests passed on Windows/Linux, including expiry/cancellation overflow regressions and exact 2000ms boundary."
+  ],
+  "blocker": "Software-only scheduler checkpoint implemented and simulated tests pass. Physical driver adapter/bench integration awaits accepted CS-009 off-state/logic/leakage/thermal evidence and its power/wiring prerequisites; no GPIO activation performed."
 }
