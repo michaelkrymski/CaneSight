@@ -82,6 +82,21 @@ class ControllerTests(unittest.TestCase):
         self.assertFalse(self.controller.deliver(t, self.value))
         self.assertEqual(self.sink.spoken, [])
 
+    def test_same_clock_capture_deadline_is_absolute(self):
+        self.ready()
+        self.now = 102
+        ticket = self.controller.begin_capture(capture_monotonic_s=98, consent=True)
+        self.assertEqual(ticket.expires_at, 106)
+        self.now = 106
+        self.assertFalse(self.controller.deliver(ticket, self.value))
+        self.assertEqual(self.sink.spoken, [])
+
+    def test_same_clock_capture_rejects_future_expired_invalid_and_unconsented(self):
+        self.ready()
+        for capture in (101, 92, None, True, math.nan, math.inf, 10 ** 1000):
+            self.assertIsNone(self.controller.begin_capture(capture_monotonic_s=capture, consent=True))
+        self.assertIsNone(self.controller.begin_capture(capture_monotonic_s=100, consent=False))
+
     def test_manual_cancel_blocks_late_result(self):
         self.ready()
         t = self.begin()

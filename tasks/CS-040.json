@@ -26,7 +26,10 @@
   "evidence": [
     "backend/context/narration.py: closed object vocabulary, uncertain <=20-word template, capture-based expiry, single-use request tickets, cancellation and hazard/unavailable priority.",
     "15 isolated context unit tests passed; no Gemini API, physical audio, VoiceOver, GPIO or end-to-end device acceptance claimed.",
-    "Clock timing follow-up: high-water clock validation cancels on reversal, exceptions or invalid readings; 20 narration tests passed including five new regression methods. PR #41 remains draft; actual audio/button/provider integration is unfinished."
+    "Clock timing follow-up: high-water clock validation cancels on reversal, exceptions or invalid readings; 20 narration tests passed including five new regression methods. PR #41 remains draft; actual audio/button/provider integration is unfinished.",
+    "backend/context/consumer.py composes accepted ContextButton/ContextClient with the narration gate on one original capture clock. Independent timer, request binding, priority/consent/engine-health preemption and manual cancellation; begin_capture anchors audio expiry to capture + 8s without age-calculation delay.",
+    "User selected a Bluetooth speaker connected to the Pi. backend/context/pi_speech.py adds opt-in eSpeak NG system-output sink, fixed template-only stdin, one owned process group, bounded kill/reap and engine-failure latch. Speaker pairing/routing and audible behavior remain unverified.",
+    "60 context tests passed, including actual spawned verified-HTTPS request through accepted paired session/context route and fake provider to synthetic speech, plus actual synthetic executable stdin/kill/reap tests. All 132 edge tests passed. No actual speaker, eSpeak NG audio, Gemini API or physical acceptance claimed. See handoffs/CS-040-pi-narration-bridge-bondmila-20261017.md."
   ],
-  "blocker": "Component uses a synthetic speech adapter; actual audio/button/provider integration remains unfinished. Keep PR #41 in draft."
+  "blocker": "Keep PR #41 draft. Local button/client/narration bridge and Pi eSpeak adapter are software-tested, but not installed in the uploader/phone. Actual Pi eSpeak installation, Bluetooth routing/delivery/disconnect and measured audio cancellation/priority remain unverified; accessible controls remain CS-018. No physical audio acceptance."
 }

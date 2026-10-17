@@ -546,6 +546,14 @@ Render only uncertain short descriptions from closed object labels; suppress sta
 
 Validation: 15 isolated context tests passed; repository/shared tests and changelog validation run through checked publishing. No live Gemini/device test claimed.
 
+## 2026-10-17 — CS-040-PI-NARRATION-BRIDGE-BONDMILA-20261017: Compose local context narration and add cancellable Pi speech adapter
+
+Author: bondmila (AI-assisted) · Task: CS-040
+
+Bind accepted button/client replies to same-clock capture-based speech tickets; independent priority/consent/expiry/manual cancellation. Add opt-in eSpeak NG sink for selected Pi system output, bounded template stdin, one owned process group, kill/reap and failure latch. User selected Bluetooth speaker; no automatic routing or activation. Keep PR #41 draft pending installation/device evidence.
+
+Validation: 60 context tests and 132 edge tests passed. Includes real spawned HTTPS delivery to local accepted context route with generated CA/JPEG/fake provider/synthetic sink; actual synthetic executable stdin/replacement/kill/reap and failure tests. Publisher reruns shared checks. No actual eSpeak/audio/Bluetooth, Gemini API or electrical acceptance.
+
 ## 2026-10-17 — CS-041-CLAIM-GMARCIALCALLEJA-20261017: Claim session-health dashboard for Gavin
 
 Author: Gavin (gmarcialcalleja) · Task: CS-041

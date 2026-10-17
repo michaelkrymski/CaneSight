@@ -112,6 +112,22 @@ class NarrationController:
             self._ticket = Ticket(secrets.token_urlsafe(24), now + 8 - capture_age_upper_s)
             return self._ticket
 
+    def begin_capture(self, *, capture_monotonic_s: float, consent: bool) -> Ticket | None:
+        """Same-process capture on this exact clock; never a remote timestamp.
+
+        An absolute capture deadline avoids renewing age between an adapter's
+        age calculation and this controller's own clock read.
+        """
+        with self._lock:
+            self._cancel()
+            now = self._read_clock()
+            if (self._closed or self._blocked or consent is not True or now is None
+                    or not _finite(capture_monotonic_s)
+                    or not 0 <= now - capture_monotonic_s < 8):
+                return None
+            self._ticket = Ticket(secrets.token_urlsafe(24), capture_monotonic_s + 8)
+            return self._ticket
+
     def deliver(self, ticket: Ticket, value: object) -> bool:
         with self._lock:
             now = self._read_clock()

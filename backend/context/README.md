@@ -1,7 +1,9 @@
 # Optional context narration — CS-040
 
-`narration.py` is an independently testable local gate, with a synthetic speech
-adapter in tests. It is not installed in the backend, iOS app, or Pi agent yet.
+`narration.py` is a local speech gate. `consumer.py` now composes the accepted
+Pi button, context client and speech gate on one original capture clock. This is
+a local adapter API with a synthetic speech sink in tests; it is not installed
+in the backend server, iOS app or uploader terminal path yet.
 No context messages are added to the accepted shared observation protocol.
 
 Provider output must have exactly this private shape:
@@ -54,3 +56,89 @@ Run from the repository root:
 ```sh
 python3 -m unittest discover -s tests/context -v
 ```
+
+## Local button/client composition
+
+`ContextNarration` runs in the originating Pi process, never on the cloud server:
+
+```python
+from backend.context.consumer import ContextNarration
+from backend.context.pi_speech import EspeakSink
+from edge.context_client import ContextClient
+from edge.uploader import clock_ms
+
+sink = EspeakSink()  # Opt-in only after testing the selected Pi audio output.
+consumer = ContextNarration(
+    latest_original_frame, ContextClient(private_pi_session), sink,
+    priority=trusted_camera_and_primary_priority,
+    consent=current_explicit_scene_sharing_consent,
+    clock=clock_ms,
+).start()
+try:
+    consumer.sample(raw_pressed)  # Adapter supplies release and press transitions.
+finally:
+    consumer.close()
+    sink.close()
+```
+
+This is an integration API example, not a second camera runner or GPIO setup.
+The frame supplier must return the originating uploader's canonical `Frame` on
+this exact clock/session/boot. The priority callback must include current camera
+readiness/freshness and trusted primary-source state and return `(ready, hazard)`;
+unknown is disabled. Do not infer readiness from Gemini or socket connectivity.
+Consent is a separate current callback; unknown or exceptions disable requests.
+All callbacks and the speech sink must return promptly and must not reenter the
+consumer. Its single independent 10 ms worker drives button debounce, network
+polling, capture expiry and narration priority; it does not also start a separate
+button worker. A stalled frame supplier/priority/sink violates that adapter
+contract; Python threads are not a hard real-time guarantee.
+
+When the debounced button actually starts a request, the consumer binds one
+speech ticket to that request. It uses `begin_capture` with the original local
+capture timestamp in seconds: expiry is capture + 8 s, never a new eight-second
+window at receipt. Client/button validation checks reply lineage and closed
+labels before the speech gate renders it. Failed, cancelled or late jobs cannot
+speak. Cooldown survives cancellation. A new press interrupts active optional
+speech; repeated held samples do not. Hazards, unavailable state and consent loss
+stop local audio before requesting network cancellation. Recovery cannot replay
+a response. The independent timer also stops active speech on expiry or clock
+failure/reversal. Manual `cancel()` stops both paths, and `close()` tears down.
+
+A generated local HTTPS test exercises release/press -> actual spawned Pi HTTP
+client -> accepted paired-session context endpoint -> fake provider -> synthetic
+speech sink, then obstacle preemption. It proves software composition and TLS
+transport, not physical audibility, a real phone/camera, public deployment or
+Gemini accuracy. No external scene/API request is used. PR #41 remains draft:
+the user selected a Bluetooth speaker connected to the Pi. The eSpeak adapter
+is implemented, but uploader installation, speaker routing, accessible controls
+and device priority/cancellation evidence remain unfinished. CS-027 terminal output
+continues to be text only. No out-of-scope uploader/runtime or shared protocol
+changes are included here.
+
+## Pi speech through the selected Bluetooth output
+
+The user selected a Bluetooth speaker connected to the Pi. `pi_speech.EspeakSink`
+uses an installed absolute `/usr/bin/espeak-ng` executable and the system audio
+output selected for the same user running the Pi agent. It does not pair devices,
+change volume/routing or activate itself on import. Configure and audibly verify
+the Bluetooth route before opting in. Do not assume process success proves a
+speaker is connected; automatic fallback to another output is OS-dependent.
+
+The adapter accepts only the renderer's closed uncertainty template or
+`Description unavailable.` (at most 20 words). It passes bounded text on stdin
+with fixed `--stdin`, without a shell, text in command arguments, temporary audio
+files or provider prose. This follows the official [eSpeak NG usage guide](https://github.com/espeak-ng/espeak-ng/blob/master/docs/guide.md).
+One owned process group plays at a time; replacement/cancel/close kills and reaps
+that group within a bounded 200 ms wait. Engine failures latch unhealthy and
+suppress further context until the adapter is replaced. Other cues/processes
+and the audio server are not killed. The controller stops local audio before
+cancelling provider work.
+
+Tests execute a synthetic replacement executable, proving bounded stdin,
+replacement, kill/reap, failure latching and input rejection without audio.
+Actual eSpeak NG, Bluetooth delivery, disconnect/reconnect, startup/off-state,
+obstacle/manual preemption and buffer-flush latency still require the Pi and
+speaker. Bluetooth/OS buffering can outlast process termination; cancellation is
+best effort until measured on that device. Do not claim instant physical silence
+or prevent a higher-priority cue based solely on this software test. No pairing
+credentials, Bluetooth addresses, recordings or images are committed.
