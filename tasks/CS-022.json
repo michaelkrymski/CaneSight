@@ -16,9 +16,9 @@
   "suggested_role": "Edge",
   "estimate_hours": 1.5,
   "elapsed_window": "2–5",
-  "owner": null,
-  "status": "backlog",
-  "branch": null,
+  "owner": "michaelkrymski",
+  "status": "in_progress",
+  "branch": "claim/CS-021-michaelkrymski",
   "pr_url": null,
   "evidence": [],
   "blocker": ""
