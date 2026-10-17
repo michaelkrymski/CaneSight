@@ -266,6 +266,14 @@ Propose gmarcialcalleja as owner of CS-035 with unchanged acceptance, dependenci
 
 Validation: 11 existing offline vision tests and all 39 shared Python tests passed. Repository validation passed. Checked publishing verifies generated changelog and whitespace. No real model, live device or hardware tests claimed.
 
+## 2026-10-17 — CS-035-COMPOSE-CI-PORTABILITY-20261017-GMARCIALCALLEJA: Accept older Compose false-value JSON serialization in native runtime test
+
+Author: Gavin (gmarcialcalleja) · Task: CS-035
+
+Keep the explicit create_host_path false deployment setting and verify it in the source overlay. Allow older Compose normalized JSON to omit that false value while still rejecting true. Runtime and deployment protections are unchanged.
+
+Validation: 13 focused native tests passed, including actual configured model HTTPS/WSS. Checked publisher reruns the 39 shared tests and repository/changelog/whitespace checks. Current-head CI is inspected after publishing.
+
 ## 2026-10-17 — CS-035-NATIVE-RESULT-SCOPE-PM-20261017: Propose narrow service, native-result and deployment scope for CS-035
 
 Author: Michael Krymski (AI-assisted) · Task: CS-035
@@ -273,6 +281,22 @@ Author: Michael Krymski (AI-assisted) · Task: CS-035
 Append backend/server.py, backend/sessions.py, tests/backend/ and backend/deploy/ to CS-035 allowed_paths so Gavin can complete reviewed native observation delivery and runtime integration after this amendment merges. Preserve all other task fields, the master plan, protocol and governance. Record explicit safety, isolation, freshness, readiness and rollback conditions in a new change request.
 
 Validation: Repository structure, all 39 shared/governance tests, generated changelog and whitespace checks passed. Exact task-field comparison confirmed only the four allowed_paths additions. Trusted-base staged-diff inspection found no structural/scope errors and correctly requires exact-head PM GitHub authorization. No runtime, deployment or hardware acceptance claimed.
+
+## 2026-10-17 — CS-035-NATIVE-TRANSPORT-20261017-GMARCIALCALLEJA: Deliver bounded observation results to authenticated native Pi sessions
+
+Author: Gavin (gmarcialcalleja) · Task: CS-035
+
+Integrate merged scope PR #29. Add explicit verified-model factory configuration, latest-frame/grant/socket checks during bounded delivery, reconnect/interruption work disposal, lifecycle regression tests and opt-in CPU image/Compose packaging with verified read-only weights. Candidate tested privately on Vultr and removed afterward. Public service, shared protocol and browser authorization remain unchanged.
+
+Validation: Linux: 128 backend tests, 122 passed/six environment or opt-in skips, 22 vision and 39 shared tests passed. Windows: 13 focused native tests including actual configured model HTTPS/WSS passed. Vultr constrained candidate completed 20 generated HTTPS/WSS results: median122.358/p95 174.652/max197.754 ms; isolated roles/sessions, original lineage, revocation, expiry and restart verified. Runtime source hashes match checkout; candidate credentials/TLS key removed. No production promotion or physical-device/motor/accuracy claim.
+
+## 2026-10-17 — CS-035-OBSERVATION-ADAPTER-20261017-GMARCIALCALLEJA: Adapt pinned YOLO detections to bounded observation-only worker results
+
+Author: Gavin (gmarcialcalleja) · Task: CS-035
+
+Add a picklable verified model factory, bounded JPEG decoder and original-image normalized object mapping. Keep unsupported pedestrian signal unknown and countdown null. Preserve original lineage through the existing worker and capture-age gate. Include actual generated-input worker evidence and a concrete PM scope proposal for native result delivery and deployment; production remains unchanged.
+
+Validation: 22 vision and 39 shared tests passed on isolated Python 3.12.14. Existing Python 3.14 backend suite: 115 discovered, 109 passed, six environment-specific skips. Actual pinned CPU model: 21 completed results including warmup, one model load, zero failures/timeouts; 20-sample local result median47/p95max63 ms. Generated pixels only, not detection accuracy, deployed latency, readiness or hardware evidence.
 
 ## 2026-10-17 — CS-041-CLAIM-GMARCIALCALLEJA-20261017: Claim session-health dashboard for Gavin
 

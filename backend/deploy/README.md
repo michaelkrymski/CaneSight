@@ -134,7 +134,73 @@ send the operator token to a Pi or phone. Restart loses process-local pairs, so
 re-enroll after restart. Current evidence uses synthetic replay inputs; physical
 Pi/iPhone uploads and inference are not claimed.
 
-## Rehearsed laptop fallback
+## Opt-in native inference results (CS-035)
+
+The ordinary image/factory above keeps its no-model default. The separate
+`Dockerfile.vision` packages the pinned CPU runtime and adapter. It includes no
+weights, credentials or images. The operator must provide the exact CS-034 weight
+bytes through a read-only mount; the child checks size/hash/runtime/classes before
+becoming available. Bad/missing weights fail the worker closed, without a download
+or fallback model. The current public deployment is not promoted by this PR.
+
+Build from repository root:
+
+```sh
+sudo docker build -f backend/deploy/Dockerfile.vision -t canesight:cs035-candidate .
+sudo docker image inspect canesight:cs035-candidate --format '{{.Id}}'
+```
+
+After review/merge, record the previous immutable BACKEND_IMAGE and existing
+private configuration locally for rollback. Set BACKEND_IMAGE to the reviewed
+vision digest and CANESIGHT_VISION_HOST_WEIGHTS to an absolute host file path.
+Preserve the operator credential, trusted proxy, certificate volumes and ingress
+quotas. Do not install model packages into an already-running production image.
+
+```sh
+python3 backend/deploy/check_config.py
+cd backend/deploy
+sudo docker compose --env-file .env -f compose.yaml -f compose.vision.yaml config --quiet
+sudo docker compose --env-file .env -f compose.yaml -f compose.vision.yaml up -d backend
+```
+
+The overlay retains UID 10001, the read-only root, 1.5 CPU/2 GiB/256-process limits
+and private upstream. Only a bounded 8 MiB temporary settings directory is added;
+model bytes remain read-only. The operator credential still goes only to the
+backend. Without the overlay, CANESIGHT_VISION_WEIGHTS is unset and no model loads.
+For an explicitly configured non-container service, use an absolute verified
+weight path in CANESIGHT_VISION_WEIGHTS and the pinned isolated Python runtime.
+
+Readiness needs both an enrolled session and actual model/worker availability;
+it is 503 with no active session. Generated replay verification (not device proof):
+
+```sh
+python -m backend.deploy.vision_probe --base https://64.177.50.116 --operator-file backend/deploy/secrets/backend.env --samples 20
+```
+
+Use this inference-aware probe for the configured model; the earlier session
+probe remains the no-model transport check. The vision probe verifies TLS, native
+auth/role/Origin/query restrictions, generated JPEG-to-result lineage, phone and
+other-session isolation, unknown signal fields, revocation and expiry. It revokes
+its temporary sessions and prints no credentials. `--report NEW_PATH` preserves
+new JSON evidence; `--ca-file PATH` adds explicit trust for isolated test TLS while
+keeping hostname verification enabled. It waits briefly for service startup.
+
+The native Pi must connect its own scoped header credential to `/v1/events` before
+submitting new captures. A new Pi socket discards prior work; a phone/Pi transport
+interruption invalidates results and the peer. Pending sends recheck grant/socket
+and latest-frame lineage and cancel on revocation/supersession. Receiving Pi code
+still must use its original frame ledger and capture-age gate; HTTP 202 and a
+returned result do not prove freshness. This task adds no Pi client or browser
+dashboard authorization and makes no motor readiness claim.
+
+Rollback: restore the recorded prior image/configuration, recreate the backend
+using only compose.yaml (omit the vision overlay), and run the original no-model
+session probe. Preserve certificates/operator configuration; reenroll actual
+devices after any restart. Do not use `down -v` or delete certificate volumes.
+The existing laptop fallback is rehearsed for no-model transport only; it does
+not supply an inference model. No public rollout is claimed from candidate tests.
+
+## Rehearsed laptop fallback (no-model transport)
 
 From the operator laptop checkout with backend test requirements installed:
 

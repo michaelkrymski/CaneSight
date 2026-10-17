@@ -9,7 +9,16 @@ def create_session_app():
     token = os.environ.get('CANESIGHT_OPERATOR_TOKEN', '')
     if not token:
         raise RuntimeError('Configure CANESIGHT_OPERATOR_TOKEN before starting paired sessions')
-    return create_app(session_manager=SessionManager(token))
+    worker = None
+    weights = os.environ.get('CANESIGHT_VISION_WEIGHTS', '')
+    if weights:
+        from pathlib import Path
+        if not Path(weights).is_absolute():
+            raise RuntimeError('Configure an absolute operator-controlled vision weight path')
+        from .inference_worker import InferenceWorker
+        from .vision.observations import YoloFactory
+        worker = InferenceWorker(YoloFactory(weights))
+    return create_app(session_manager=SessionManager(token), inference_worker=worker)
 
 
 def server_config(app=None, *, host='127.0.0.1', port=8000,

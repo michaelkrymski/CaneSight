@@ -1,0 +1,77 @@
+{
+  "task": "CS-035",
+  "model_version": "yolov8n-coco-sha256-f59b3d833e2ff32e194b5bb8e08d211dc7c5bdf144b90d2c8412c47ccfc83b36",
+  "artifact_sha256": "f59b3d833e2ff32e194b5bb8e08d211dc7c5bdf144b90d2c8412c47ccfc83b36",
+  "runtime": {
+    "ultralytics": "8.3.221",
+    "torch": "2.7.1+cpu",
+    "torchvision": "0.22.1+cpu",
+    "numpy": "2.2.6",
+    "opencv-python": "4.12.0.88",
+    "Pillow": "12.1.1"
+  },
+  "python": "3.12.14",
+  "platform": "Windows",
+  "machine": "AMD64",
+  "input": "generated black 416x416 JPEG in memory; replay mode",
+  "samples": 20,
+  "warmup_runs": 1,
+  "worker_load_ms": 3578.0,
+  "local_result_ms": {
+    "median": 47.0,
+    "p95_nearest_rank": 63.0,
+    "max": 63.0
+  },
+  "worker_processing_ms": {
+    "median": 47.0,
+    "p95_nearest_rank": 47.0,
+    "max": 63.0
+  },
+  "detections_per_sample": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "worker_metrics": {
+    "submitted": 21,
+    "superseded_pending": 0,
+    "superseded_result": 0,
+    "source_capacity": 0,
+    "unavailable": 0,
+    "expired": 0,
+    "completed": 21,
+    "failed": 0,
+    "timeouts": 0,
+    "shutdown_dropped": 0,
+    "revoked": 0,
+    "model_loads": 1,
+    "sources": 1,
+    "pending": 0,
+    "results": 0,
+    "active": 0
+  },
+  "lineage_preserved": true,
+  "signal_unknown": true,
+  "limits": [
+    "Generated pixels prove execution only; not detection accuracy or clear space.",
+    "Local JPEG/worker timing excludes camera, network and Pi receipt.",
+    "No public result delivery, deployed readiness or motor evidence."
+  ]
+}

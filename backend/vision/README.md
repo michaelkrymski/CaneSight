@@ -5,7 +5,7 @@ The baseline is the publisher's COCO-pretrained `yolov8n.pt`, pinned to the
 Ultralytics assets `v8.3.0` release. `baseline.json` records its exact byte size,
 SHA-256, runtime versions, class list and upstream license references. It is
 separate from the backend application: importing it does not activate inference
-or change service readiness. Worker/result integration belongs to CS-035.
+or change service readiness. The CS-035 worker adapter is documented below.
 
 ## Install and inspect
 
@@ -78,7 +78,8 @@ python -m unittest discover -s tests/vision -v
 ```
 
 The eleven fast tests require only the standard library and use mocked downloads.
-Run this explicit test root: existing repository CI does not discover it or
+Adapter tests additionally require `backend/requirements-test.txt`, but no ML
+packages or downloaded model. Run this explicit root: repository CI does not discover it or
 install the optional ML runtime. No workflow/protected-file change is included.
 
 The smoke command executes the real model on a generated all-black 416-square
@@ -91,3 +92,48 @@ guarantee. No detection-accuracy, pedestrian-signal or hardware claim follows.
 
 Recorded run: [actual model smoke evidence](../../qa/vision/yolov8n-smoke-20261017.json)
 and [observed environment](../../qa/vision/runtime-packages-20261017.txt).
+
+## CS-035 observation adapter
+
+`backend.vision.observations.YoloFactory(weights_path)` is a picklable factory for
+`backend.inference_worker.InferenceWorker`. It invokes the existing verified
+baseline loader once in the spawned process. Importing/constructing the factory
+does not load weights, install dependencies or activate a service. The explicit
+operator download step above remains required. Install backend test requirements
+into the isolated vision environment for worker/adapter testing.
+
+The adapter decodes a bounded JPEG in memory, checks dimensions against original
+metadata, and runs the pinned CPU predictor with at most 32 detections. Original
+uploaded axes are retained; EXIF rotation and cross-camera calibration are not
+inferred. YOLO's original-image pixel boxes are normalized by original width and
+height, preserving letterbox mapping back to the uploaded image. Invalid shape,
+nonfinite output, class drift, invalid confidence or boxes outside the original
+image fail closed rather than being silently clamped.
+
+Only the accepted object labels are returned; other COCO classes map to `other`.
+Generic `traffic light` maps to `traffic_light`. No pedestrian-head classifier is
+available, so `candidate_count` is zero, `symbol` unknown and confidence/countdown
+null even with generic traffic-light boxes. Zero candidates/objects do not prove
+absence or clear space. No movement instruction or permission field is generated.
+
+The existing worker adds measured processing duration and a model version with
+the full artifact hash, while preserving the untouched session/source/boot/frame,
+mode, sequence, image dimensions and capture timestamps. Receipt or processing
+time never replaces capture time. Capture age remains unknown without the
+originating-device ledger and accepted receiver-side gate. Synthetic integration
+tests feed actual worker results to that gate and verify original-deadline expiry.
+
+Optional actual-model execution, using generated black JPEGs only:
+
+```powershell
+.venv/vision/Scripts/python.exe -m pip install -r backend/requirements-test.txt
+.venv/vision/Scripts/python.exe -m backend.vision.observation_smoke --samples 20
+```
+
+`--report NEW_PATH` writes new JSON evidence without overwriting. This smoke uses
+the real spawned worker, default deadlines, one model load, original lineage and
+the accepted schema. It stores no images or credentials. Local timing excludes
+physical capture, network and Pi receipt and proves neither detection accuracy
+nor deployed readiness. Public result delivery and deployment are not enabled
+by importing the adapter. The approved opt-in service/runtime integration is
+documented in [the integration notes](INTEGRATION.md) and `backend/deploy/README.md`.

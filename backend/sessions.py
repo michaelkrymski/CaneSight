@@ -69,6 +69,7 @@ class Connection:
     role: str
     queue: asyncio.Queue = field(default_factory=lambda: asyncio.Queue(maxsize=8), repr=False)
     close_code: int | None = None
+    vision_seq: int = -1
 
 
 @dataclass(eq=False)
@@ -202,6 +203,49 @@ class SessionManager:
             if self._inference_worker is not None:
                 self._inference_worker.submit(grant, metadata, jpeg)
 
+    def _discard_inference(self, session):
+        if self._inference_worker is not None:
+            for grant in session.ingress.grants:
+                if grant.role == 'pi':
+                    self._inference_worker.discard_source(grant)
+
+    def delivery_current(self, session, grant, connection, message=None):
+        """Recheck authenticated lifetime/socket and original latest-frame lineage."""
+        with self.lock:
+            self._current(session)
+            if (grant not in session.ingress.grants or grant.expires_at <= self.clock()
+                    or connection.role != grant.role
+                    or connection.close_code is not None
+                    or session.connections.get(grant.role) is not connection):
+                raise HTTPException(401, 'Connection no longer current')
+            if message is not None and message.get('type') == 'vision_observation':
+                if grant.role != 'pi':
+                    raise ValueError('Pi result role required')
+                with session.ingress.lock:
+                    latest = session.ingress.latest.get((grant.session_id, grant.source_id))
+                    return latest is not None and all(message.get(k) == v
+                        for k, v in latest.metadata.items() if k not in ('type', 'jpeg_bytes'))
+            return True
+
+    def take_vision(self, session, grant, connection):
+        # Called only on the socket loop. No vision relay queue or background
+        # producer: one retained worker result plus one bounded send at most.
+        with self.lock:
+            self.delivery_current(session, grant, connection)
+            if grant.role != 'pi' or self._inference_worker is None:
+                return None
+            message = self._inference_worker.take_result(grant)
+            if message is None:
+                return None
+            raw = json.dumps(message, allow_nan=False, separators=(',', ':')).encode()
+            protocol.parse_wire(raw)
+            if (message['type'] != 'vision_observation'
+                    or message['seq'] <= connection.vision_seq
+                    or not self.delivery_current(session, grant, connection, message)):
+                return None
+            connection.vision_seq = message['seq']
+            return message
+
     def attach(self, session, role):
         with self.lock:
             self._current(session)
@@ -209,6 +253,9 @@ class SessionManager:
                 raise HTTPException(409, 'Role already connected')
             connection = Connection(role)
             session.connections[role] = connection
+            if role == 'pi':
+                # A new socket cannot replay work captured before its admission.
+                self._discard_inference(session)
             return connection
 
     def detach(self, session, connection):
@@ -221,6 +268,7 @@ class SessionManager:
                 # connection attached while this old handler was unwinding.
                 if connection.close_code is not None:
                     return
+                self._discard_inference(session)
                 session.probe = None
                 # A transport interruption must not leave buffered observations
                 # queued on a surviving peer. Reconnect keeps sequence marks.
@@ -272,6 +320,7 @@ class SessionManager:
                 try:
                     peer.queue.put_nowait(copy.deepcopy(message))
                 except asyncio.QueueFull:
+                    self._discard_inference(session)
                     peer.close_code = 1013
                     connection.close_code = 1013
                     session.probe = None
@@ -307,6 +356,27 @@ async def session_body(request):
         return SessionRequest.model_validate(value)
     except (ValueError, TypeError, RecursionError):
         raise HTTPException(422, 'Invalid session request') from None
+
+
+async def send_current(websocket, manager, session, grant, connection, message):
+    if not manager.delivery_current(session, grant, connection, message):
+        return
+    send = asyncio.create_task(websocket.send_json(message))
+    deadline = asyncio.get_running_loop().time() + 1
+    try:
+        while True:
+            done, _ = await asyncio.wait({send}, timeout=.01)
+            if not manager.delivery_current(session, grant, connection, message):
+                return  # A newer frame superseded a send still under backpressure.
+            if send in done:
+                await send
+                return
+            if asyncio.get_running_loop().time() >= deadline:
+                raise TimeoutError('Socket send deadline')
+    finally:
+        if not send.done():
+            send.cancel()
+        await asyncio.gather(send, return_exceptions=True)
 
 
 async def socket_session(websocket, manager, role):
@@ -353,12 +423,16 @@ async def socket_session(websocket, manager, role):
                 if connection.close_code is not None:
                     code = connection.close_code
                     break
-                with anyio.fail_after(1):
-                    await websocket.send_json(outgoing.result())
+                await send_current(websocket, manager, session, grant, connection, outgoing.result())
                 outgoing = asyncio.create_task(connection.queue.get())
                 tasks[1] = outgoing
+            if role == 'pi':
+                vision = manager.take_vision(session, grant, connection)
+                if vision is not None:
+                    await send_current(websocket, manager, session, grant, connection, vision)
     except HTTPException as error:
-        code = {401: 4401, 403: 4403, 409: 4409}.get(error.status_code, 1008)
+        code = (connection.close_code if connection is not None and connection.close_code is not None
+                else {401: 4401, 403: 4403, 409: 4409}.get(error.status_code, 1008))
     except (ValueError, TypeError, ValidationError, RecursionError):
         code = 1008
     except TimeoutError:
