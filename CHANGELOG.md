@@ -106,6 +106,14 @@ Share uploader boot, BOOTTIME and bounded original-frame ledger with the accepte
 
 Validation: 26 edge tests passed on Windows and Linux Python 3.12, including real local HTTPS/WSS using synthetic backend observations, idle expiry and fresh-result revocation. Windows backend regression: 128 discovered, 121 passed, seven skips. Shared/repository/changelog/whitespace checks run by checked publisher. Real Pi receiver test remains pending.
 
+## 2026-10-17 — CS-025-CLAIM-20261017-GMARCIALCALLEJA: Propose depth-to-motor integration assignment
+
+Author: Gavin (gmarcialcalleja) · Task: CS-025
+
+Assignment runtime only. Implementation waits for merged ownership. Prepare repeatable software integration and capture-age evidence with simulated outputs; real phone, orientation/mount and CS-010 power acceptance remain required. No Pi/camera or GPIO access.
+
+Validation: Verified no accepted owner or competing open claim. Checked publishing runs repository/shared/changelog/whitespace checks. No implementation or hardware testing included.
+
 ## 2026-10-17 — CS-026-CLAIM-20261017-GMARCIALCALLEJA: Propose independent watchdog and restart task assignment
 
 Author: Gavin (gmarcialcalleja) · Task: CS-026
@@ -402,6 +410,30 @@ Propose ownership of CS-037 within existing vision scope, using accepted CS-036 
 
 Validation: Ownership-only proposal from accepted main ed85778fa016a023a4ab7a6709140da8880ad707; task unowned with no competing open CS-037 PR. CS-036 implementation PR #37 merged. Checked publishing runs repository/shared tests, generated changelog and whitespace validation; no parser/hardware tests apply to this claim.
 
+## 2026-10-17 — CS-037-REVIEW-LINK-20261017: Record schematic parser implementation review PR
+
+Author: aditsangani (AI-assisted) · Task: CS-037
+
+Link CS-037 to PR #46; code, fixtures, tests and prior execution evidence unchanged. Status remains Review pending Michael acceptance.
+
+Validation: Metadata-only follow-up; previous 46 vision tests and 18-frame replay apply. Checked publishing reruns shared/structure/log/whitespace checks; inspect exact-head CI after pushing.
+
+## 2026-10-17 — CS-037-ROI-RETARGET-20261017: Reset schematic confirmation when a manual ROI is retargeted
+
+Author: aditsangani (AI-assisted) · Task: CS-037
+
+Include manual ROI geometry in the replay selection identity so moving the box clears prior shape/digit/temporal state even if the target ID is reused. Preserve previous evidence/records and add the exact regression.
+
+Validation: New regression reproduced old walk confirmation on a shifted ROI and passed after the fix. Final 46 vision tests (15 parser) and all 18 replay frames passed. No live/real-world/hardware claim; checked publishing reruns repository/shared checks and generated log/whitespace validation.
+
+## 2026-10-17 — CS-037-SCHEMATIC-PARSER-20261017: Add a manual-ROI schematic replay symbol and countdown parser
+
+Author: aditsangani (AI-assisted) · Task: CS-037
+
+Use verified CS-036 shape prototypes, explicit segment geometry and bounded temporal confirmation. Keep uncertain flashing unknown, reject ambiguous digits, preserve sequence/time high-water marks and expire results without polling renewal. Replay-only internal records; no production adapter/protocol, trained model or real-world recognition change.
+
+Validation: 45 vision tests passed including 14 new parser cases. Actual replay processed 12 cases/18 PNG frames; authored countdown ended at observed 11, and generic/ambiguous/track-loss cases stayed unknown. Repository structure and whitespace passed; checked publishing reruns shared tests and exact changelog validation. Prototype fixtures overlap the regression inputs: no held-out accuracy, live timing or hardware evidence.
+
 ## 2026-10-17 — CS-039-BONDMILA-CLAIM-20261017: Propose bondmila assignment for isolated Gemini context service
 
 Author: bondmila (AI-assisted) · Task: CS-039
@@ -417,6 +449,14 @@ Author: bondmila (AI-assisted) · Task: CS-039
 Integrate accepted main and regenerate CHANGELOG.md from immutable fragments. Assignment-only PR still waits for merged ownership; no Gemini implementation or credentials added.
 
 Validation: Prior CI failure confirmed as stale generated changelog; checked publisher reruns structure, root tests, changelog and whitespace checks before pushing.
+
+## 2026-10-17 — CS-039-GEMINI-SERVICE-BONDMILA-20261017: Add isolated opt-in Gemini context service with bounded work and deadlines
+
+Author: bondmila (AI-assisted) · Task: CS-039
+
+Compose accepted paired sessions through backend/context only. Enforce Pi-role HTTPS authentication, explicit consent, source binding, compressed stripped JPEG, one active provider child plus one pending slot, cooldown, eight-second server expiry and cancellation on disconnect/revocation. Strict object output has no motor or observation authority. Existing factories and deployment stay unchanged.
+
+Validation: 23 context tests passed; 128 backend tests ran with nine environment-specific skips and no failures. Real gemini-3.1-flash-lite neutral-image probe passed. Checked publisher reruns root tests/structure/changelog/whitespace checks. No real scene, device, electrical or deployed-context acceptance.
 
 ## 2026-10-17 — CS-040-BONDMILA-CLAIM-20261017: Propose bondmila assignment for restricted and preemptible narration
 
