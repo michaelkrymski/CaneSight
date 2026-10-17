@@ -1,0 +1,9 @@
+{
+  "id": "CS-029-PAIRED-SESSIONS-20261017",
+  "date": "2026-10-17",
+  "author": "aditsangani",
+  "task": "CS-029",
+  "summary": "Add paired authenticated HTTPS and WebSocket sessions",
+  "details": "Add an operator-authenticated session API, separate short-lived phone/Pi bearer credentials, bounded session-isolated WSS relays, explicit revocation/expiry and Pi-token frame upload integration. Require TLS schemes, reject URL credentials/browser origins, preserve original capture metadata and sequence state across reconnects. Add a certificate-verified loopback HTTPS/WSS test. No shared protocol, protected CI, task scope or baseline edits.",
+  "validation": "35 backend tests passed locally, including real TLS pairing, invalid/missing credentials, isolated telemetry, generated JPEG upload, expiry, revocation, replay and bounded queues; legacy HTTP replay also passed. Shared repository checks run through checked publishing. No public deployment, hardware, device clocks, inference or capture-age eligibility claimed."
+}

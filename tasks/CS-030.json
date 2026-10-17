@@ -15,10 +15,14 @@
   "suggested_role": "Backend",
   "estimate_hours": 1.5,
   "elapsed_window": "5–8",
-  "owner": null,
-  "status": "backlog",
-  "branch": null,
+  "owner": "aditsangani",
+  "status": "review",
+  "branch": "task/CS-030-capture-age",
   "pr_url": null,
-  "evidence": [],
+  "evidence": [
+    "backend/freshness.py: stateful final-consumer clock/lineage capture-age gate; fixed observation deadlines, bounded health, nonce consumption, replay/epoch checks and independent local expiry.",
+    "backend/events_client.py: certificate-verified native WSS consumer against accepted CS-029 pairing; defaults to unavailable when joint clock drift is unverified.",
+    "72 backend tests passed locally after integrating accepted CS-031 main dd7c468, including 21 new freshness cases and real WSS calibration/fresh-versus-stale reception. Legacy replay passed. See handoffs/CS-030-capture-age-20261017.md; no actual device drift, hardware or edge-policy integration acceptance claimed."
+  ],
   "blocker": ""
 }
