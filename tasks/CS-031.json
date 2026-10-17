@@ -15,9 +15,9 @@
   "suggested_role": "Backend",
   "estimate_hours": 1.0,
   "elapsed_window": "5–8",
-  "owner": null,
-  "status": "backlog",
-  "branch": null,
+  "owner": "gmarcialcalleja",
+  "status": "in_progress",
+  "branch": "claim/CS-031-gmarcialcalleja",
   "pr_url": null,
   "evidence": [],
   "blocker": ""
