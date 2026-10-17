@@ -19,9 +19,13 @@
   "estimate_hours": 1.0,
   "elapsed_window": "11\u201314",
   "owner": "bondmila",
-  "status": "in_progress",
-  "branch": "claim/CS-039-bondmila",
+  "status": "review",
+  "branch": "task/CS-039-gemini-context",
   "pr_url": null,
-  "evidence": [],
+  "evidence": [
+    "backend/context/: opt-in paired-session context service with server-only key, bounded JPEG reencoding, one active child plus one pending slot, eight-second server deadline, cooldown and cancellation/revocation suppression.",
+    "23 context tests passed with generated JPEG/provider fixtures, including real hung-child termination. Backend regression: 128 tests ran, nine optional/environment-specific skips; remaining tests passed. Root suite and publishing checks recorded in handoff.",
+    "2026-10-17: real gemini-3.1-flash-lite metadata plus structured-image generation verified within the eight-second probe using a generated neutral JPEG. No real scene or credentials retained. No deployed context, real-device speech/button, model accuracy or electrical acceptance claimed."
+  ],
   "blocker": ""
 }

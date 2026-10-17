@@ -1,0 +1,9 @@
+{
+  "id": "CS-025-CLAIM-20261017-GMARCIALCALLEJA",
+  "date": "2026-10-17",
+  "author": "Gavin (gmarcialcalleja)",
+  "task": "CS-025",
+  "summary": "Propose depth-to-motor integration assignment",
+  "details": "Assignment runtime only. Implementation waits for merged ownership. Prepare repeatable software integration and capture-age evidence with simulated outputs; real phone, orientation/mount and CS-010 power acceptance remain required. No Pi/camera or GPIO access.",
+  "validation": "Verified no accepted owner or competing open claim. Checked publishing runs repository/shared/changelog/whitespace checks. No implementation or hardware testing included."
+}

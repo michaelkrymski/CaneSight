@@ -106,6 +106,14 @@ Share uploader boot, BOOTTIME and bounded original-frame ledger with the accepte
 
 Validation: 26 edge tests passed on Windows and Linux Python 3.12, including real local HTTPS/WSS using synthetic backend observations, idle expiry and fresh-result revocation. Windows backend regression: 128 discovered, 121 passed, seven skips. Shared/repository/changelog/whitespace checks run by checked publisher. Real Pi receiver test remains pending.
 
+## 2026-10-17 — CS-025-CLAIM-20261017-GMARCIALCALLEJA: Propose depth-to-motor integration assignment
+
+Author: Gavin (gmarcialcalleja) · Task: CS-025
+
+Assignment runtime only. Implementation waits for merged ownership. Prepare repeatable software integration and capture-age evidence with simulated outputs; real phone, orientation/mount and CS-010 power acceptance remain required. No Pi/camera or GPIO access.
+
+Validation: Verified no accepted owner or competing open claim. Checked publishing runs repository/shared/changelog/whitespace checks. No implementation or hardware testing included.
+
 ## 2026-10-17 — CS-026-CLAIM-20261017-GMARCIALCALLEJA: Propose independent watchdog and restart task assignment
 
 Author: Gavin (gmarcialcalleja) · Task: CS-026
@@ -441,6 +449,14 @@ Author: bondmila (AI-assisted) · Task: CS-039
 Integrate accepted main and regenerate CHANGELOG.md from immutable fragments. Assignment-only PR still waits for merged ownership; no Gemini implementation or credentials added.
 
 Validation: Prior CI failure confirmed as stale generated changelog; checked publisher reruns structure, root tests, changelog and whitespace checks before pushing.
+
+## 2026-10-17 — CS-039-GEMINI-SERVICE-BONDMILA-20261017: Add isolated opt-in Gemini context service with bounded work and deadlines
+
+Author: bondmila (AI-assisted) · Task: CS-039
+
+Compose accepted paired sessions through backend/context only. Enforce Pi-role HTTPS authentication, explicit consent, source binding, compressed stripped JPEG, one active provider child plus one pending slot, cooldown, eight-second server expiry and cancellation on disconnect/revocation. Strict object output has no motor or observation authority. Existing factories and deployment stay unchanged.
+
+Validation: 23 context tests passed; 128 backend tests ran with nine environment-specific skips and no failures. Real gemini-3.1-flash-lite neutral-image probe passed. Checked publisher reruns root tests/structure/changelog/whitespace checks. No real scene, device, electrical or deployed-context acceptance.
 
 ## 2026-10-17 — CS-040-BONDMILA-CLAIM-20261017: Propose bondmila assignment for restricted and preemptible narration
 
