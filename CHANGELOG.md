@@ -130,6 +130,14 @@ Completed policy ticks alone renew a bounded lease. Independent supervisor and s
 
 Validation: 83 edge cases: Linux 83 passed; Windows 82 passed with POSIX SIGTERM skipped. 59 shared/dashboard tests passed on Linux; checked publishing repeats shared/repository/changelog/whitespace validation. Synthetic demo ends off/unarmed at startup, faulted/off after stalled feeds, with no credentials or GPIO.
 
+## 2026-10-17 — CS-027-BONDMILA-CLAIM-20261017: Propose bondmila assignment for the debounced context button
+
+Author: bondmila (AI-assisted) · Task: CS-027
+
+Assignment only, following human authorization to take the next Gemini integration task. Implementation waits for merged ownership. Preserve acceptance, dependencies and allowed paths. No GPIO activation, API credential or implementation included.
+
+Validation: Accepted main owner null and all open PRs checked for competing CS-027 claims; authenticated GitHub login bondmila. Checked publisher runs repository structure, root tests, generated changelog and whitespace checks before commit. No task implementation or hardware tests apply to this assignment-only change.
+
 ## 2026-10-17 — CS-028-CLAIM-ADITSANGANI-20261017: Claim FastAPI skeleton and frame endpoint for Adit
 
 Author: aditsangani · Task: CS-028
