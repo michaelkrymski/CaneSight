@@ -154,6 +154,22 @@ Add opt-in release-to-arm input, one outstanding request, ten-second cooldown/ra
 
 Validation: 28 new button/client tests and 116 full edge tests passed; 82 root tests passed. Includes in-process accepted context endpoint with fake provider and actual child termination/reaping. Checked publisher reruns shared checks and generated changelog validation. No hardware/public service/API acceptance.
 
+## 2026-10-17 — CS-027-MANUAL-PRIORITY-LOCKS-BONDMILA-20261017: Keep manual context cancellation responsive during primary-worker lock contention
+
+Author: bondmila (AI-assisted) · Task: CS-027
+
+Acquire accepted policy, freshness-gate and watchdog RLocks without waiting; contention is unavailable and all acquired locks are released. Link task runtime to PR #55. No protected or electrical changes.
+
+Validation: All 132 edge tests passed, including cross-thread contention on each primary-worker lock. Shared checks rerun by checked publisher. Actual-device/deployment/audio limitations remain unchanged.
+
+## 2026-10-17 — CS-027-MANUAL-UPLOADER-BONDMILA-20261017: Integrate consented manual context input into originating Pi uploader
+
+Author: bondmila (AI-assisted) · Task: CS-027
+
+Add opt-in press/release/cancel/off terminal input with original frame lineage, bounded latest-frame retention, primary-source/hazard preemption, camera freshness, independent timers and cleanup. Require explicit consent, simulated policy and verified phone binding; keep defaults unchanged. Normalize module-entry frames for importable validation/spawn. No GPIO or audio activation.
+
+Validation: 15 new tests passed, including actual spawned HTTPS delivery over generated local CA to accepted context route with fake provider. All 131 edge and 92 root tests passed. No physical device, public service, Gemini API, audio or electrical acceptance; PR #41 remains draft.
+
 ## 2026-10-17 — CS-028-CLAIM-ADITSANGANI-20261017: Claim FastAPI skeleton and frame endpoint for Adit
 
 Author: aditsangani · Task: CS-028
