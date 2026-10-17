@@ -19,7 +19,7 @@
   "owner": "aditsangani",
   "status": "review",
   "branch": "task/CS-036-signal-fixtures",
-  "pr_url": null,
+  "pr_url": "https://github.com/michaelkrymski/CaneSight/pull/37",
   "evidence": [
     "handoffs/CS-036-signal-fixtures-20261017.md",
     "qa/vision/signal-fixtures-validation-20261017.json",
