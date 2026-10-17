@@ -361,6 +361,13 @@ Author: aditsangani (AI-assisted) · Task: CS-036
 Prepare 12 synthetic cases across 18 PNG frames, original CC0-1.0 asset/annotation dedication, source/license records, hashes, authored replay sequences and bounded manual ROI metadata. Add an offline generator/verifier; no parser, model training, automatic pedestrian recognition, live transport or production state change.
 
 Validation: 31 vision tests passed including nine new fixture tests. All decoded pixels/annotations reproduced; committed asset hashes verified. First frames of all 12 cases visually inspected. Checked publishing runs shared tests, repository structure, generated changelog and whitespace validation. No real-scene accuracy or hardware evidence.
+## 2026-10-17 — CS-040-BONDMILA-CLAIM-20261017: Propose bondmila assignment for restricted and preemptible narration
+
+Author: bondmila (AI-assisted) · Task: CS-040
+
+Assignment only. Implementation waits for Michael to merge this claim. Requirements, dependencies and allowed paths are unchanged. No API credentials or implementation included.
+
+Validation: Repository structure, shared unit tests, changelog consistency and whitespace checked by publish_task.py before commit. No hardware or Gemini API tests performed.
 
 ## 2026-10-17 — CS-041-CLAIM-GMARCIALCALLEJA-20261017: Claim session-health dashboard for Gavin
 
@@ -369,4 +376,20 @@ Author: Gavin (gmarcialcalleja) · Task: CS-041
 Propose gmarcialcalleja as owner and set CS-041 in_progress on its claim branch. Preserve acceptance, dependencies and allowed paths. CS-029 is merged; CS-035 remains pending. Implementation waits for Michael to merge this claim; no dashboard or live inference acceptance is claimed.
 
 Validation: Claim metadata only. Repository/shared checks, generated changelog and whitespace validation run through checked publishing; actual results are recorded in the claim PR. No application, device or hardware tests claimed.
+
+## 2026-10-17 — CS-041-FIXTURE-DASHBOARD-20261017-GMARCIALCALLEJA: Build a read-only session-health dashboard with explicit replay and unknown states
+
+Author: Gavin (gmarcialcalleja) · Task: CS-041
+
+Add a dependency-free localhost preview and responsive dashboard with six synthetic replay scenarios. Capture-age budgets remain separate from heartbeat transport health; obsolete distances and boxes disappear, unbounded ages stay unknown, and activity remains bounded. Persistent replay/prototype labels prevent live or crossing-permission claims. Live integration remains blocked on CS-035 and a reviewed restricted read-only data source; production authentication and endpoints are unchanged.
+
+Validation: 10 Node model tests passed. All 43 shared Python tests passed, including four real HTTP tests for loopback binding, allowlisted assets, denied mutation/query/path traversal and restrictive security headers. Browser verified six scenarios and paused-source expiry, responsive widths 320/390/768/1024/1440 without horizontal overflow, and no console warnings/errors. No real-device, model, deployment or hardware acceptance claimed.
+
+## 2026-10-17 — CS-041-PARTIAL-SOURCE-20261017-GMARCIALCALLEJA: Finish fixture dashboard source-failure validation and initial unknown display
+
+Author: Gavin (gmarcialcalleja) · Task: CS-041
+
+Initially hide illustrative boxes until an available synthetic observation is established. Add independent phone/Pi disconnect scenarios with partial transport, retain unknown on age overflow, and show activity relative to scenario start. Live data remains blocked on accepted CS-035 and a reviewed authenticated read-only projection.
+
+Validation: 12 Node model tests and all 44 shared Python tests passed, including five HTTP tests. Chromium verified independent phone/Pi disconnection and continued peer observations. Software fixtures only; no device, inference or hardware readiness claim.
 
