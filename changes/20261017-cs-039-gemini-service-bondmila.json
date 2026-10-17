@@ -1,0 +1,9 @@
+{
+  "id": "CS-039-GEMINI-SERVICE-BONDMILA-20261017",
+  "date": "2026-10-17",
+  "author": "bondmila (AI-assisted)",
+  "task": "CS-039",
+  "summary": "Add isolated opt-in Gemini context service with bounded work and deadlines",
+  "details": "Compose accepted paired sessions through backend/context only. Enforce Pi-role HTTPS authentication, explicit consent, source binding, compressed stripped JPEG, one active provider child plus one pending slot, cooldown, eight-second server expiry and cancellation on disconnect/revocation. Strict object output has no motor or observation authority. Existing factories and deployment stay unchanged.",
+  "validation": "23 context tests passed; 128 backend tests ran with nine environment-specific skips and no failures. Real gemini-3.1-flash-lite neutral-image probe passed. Checked publisher reruns root tests/structure/changelog/whitespace checks. No real scene, device, electrical or deployed-context acceptance."
+}
