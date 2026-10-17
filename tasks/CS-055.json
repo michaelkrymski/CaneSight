@@ -1,0 +1,24 @@
+{
+  "id": "CS-055",
+  "title": "Design hardware timeout and robust enclosure",
+  "category": "Post-hackathon Backlog",
+  "priority": "P2",
+  "acceptance": "Document watchdog/load enable, fault states, protection and mechanical review.",
+  "dependencies": [
+    "CS-043",
+    "CS-047"
+  ],
+  "allowed_paths": [
+    "docs/research/"
+  ],
+  "trello_url": "https://trello.com/c/LMQLNnah/55-p2-cs-055-design-hardware-timeout-and-robust-enclosure",
+  "suggested_role": "Hardware",
+  "estimate_hours": 6.0,
+  "elapsed_window": "After hackathon",
+  "owner": null,
+  "status": "backlog",
+  "branch": null,
+  "pr_url": null,
+  "evidence": [],
+  "blocker": ""
+}

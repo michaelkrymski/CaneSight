@@ -1,0 +1,25 @@
+{
+  "id": "CS-007",
+  "title": "Build protected 5 V motor branch with 3 V fallback",
+  "category": "Hardware & Power",
+  "priority": "P0",
+  "acceptance": "Meter polarity and loaded 5 V branch; document fuse, cable limits, kill switch and common ground; use 3 V fallback if 5 V validation fails.",
+  "dependencies": [
+    "CS-005",
+    "CS-006"
+  ],
+  "allowed_paths": [
+    "hardware/",
+    "qa/"
+  ],
+  "trello_url": "https://trello.com/c/eEeqE5UK/7-p0-cs-007-build-protected-5-v-motor-branch-with-3-v-fallback",
+  "suggested_role": "Hardware",
+  "estimate_hours": 1.0,
+  "elapsed_window": "2–5",
+  "owner": null,
+  "status": "backlog",
+  "branch": null,
+  "pr_url": null,
+  "evidence": [],
+  "blocker": ""
+}

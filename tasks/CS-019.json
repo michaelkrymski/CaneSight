@@ -1,0 +1,24 @@
+{
+  "id": "CS-019",
+  "title": "Add consented coarse GPS telemetry",
+  "category": "iPhone LiDAR & GPS",
+  "priority": "P1",
+  "acceptance": "Include fix age and accuracy; denied/stale fix unavailable; no lane/signal association.",
+  "dependencies": [
+    "CS-016"
+  ],
+  "allowed_paths": [
+    "ios/",
+    "tests/ios/"
+  ],
+  "trello_url": "https://trello.com/c/N3mJ3ITX/19-p1-cs-019-add-consented-coarse-gps-telemetry",
+  "suggested_role": "iOS",
+  "estimate_hours": 1.0,
+  "elapsed_window": "11–14",
+  "owner": null,
+  "status": "backlog",
+  "branch": null,
+  "pr_url": null,
+  "evidence": [],
+  "blocker": ""
+}

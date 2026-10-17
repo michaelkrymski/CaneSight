@@ -1,0 +1,24 @@
+{
+  "id": "CS-018",
+  "title": "Add accessible status and manual audio cancel",
+  "category": "iPhone LiDAR & GPS",
+  "priority": "P0",
+  "acceptance": "VoiceOver labels, large controls, clear unknown/disconnected status.",
+  "dependencies": [
+    "CS-017"
+  ],
+  "allowed_paths": [
+    "ios/",
+    "tests/ios/"
+  ],
+  "trello_url": "https://trello.com/c/N6BjG65v/18-p0-cs-018-add-accessible-status-and-manual-audio-cancel",
+  "suggested_role": "iOS",
+  "estimate_hours": 0.5,
+  "elapsed_window": "8–11",
+  "owner": null,
+  "status": "backlog",
+  "branch": null,
+  "pr_url": null,
+  "evidence": [],
+  "blocker": ""
+}

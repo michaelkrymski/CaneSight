@@ -1,0 +1,24 @@
+{
+  "id": "CS-029",
+  "title": "Create paired authenticated WSS sessions",
+  "category": "Backend & Transport",
+  "priority": "P0",
+  "acceptance": "Phone/Pi roles, isolated session subscriptions, TLS route and scoped credentials.",
+  "dependencies": [
+    "CS-028"
+  ],
+  "allowed_paths": [
+    "backend/",
+    "tests/backend/"
+  ],
+  "trello_url": "https://trello.com/c/JxCQ7ET9/29-p0-cs-029-create-paired-authenticated-wss-sessions",
+  "suggested_role": "Backend",
+  "estimate_hours": 1.5,
+  "elapsed_window": "2–5",
+  "owner": null,
+  "status": "backlog",
+  "branch": null,
+  "pr_url": null,
+  "evidence": [],
+  "blocker": ""
+}

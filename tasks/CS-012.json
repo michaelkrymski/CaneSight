@@ -1,0 +1,24 @@
+{
+  "id": "CS-012",
+  "title": "Evaluate optional ToF and IMU interfaces",
+  "category": "Hardware & Power",
+  "priority": "P1",
+  "acceptance": "Verify breakout levels/timing; MPU-6050 gesture is not absolute heading; omit unsafe or unverified sensors.",
+  "dependencies": [
+    "CS-010"
+  ],
+  "allowed_paths": [
+    "hardware/",
+    "qa/"
+  ],
+  "trello_url": "https://trello.com/c/ITux10Yh/12-p1-cs-012-evaluate-optional-tof-and-imu-interfaces",
+  "suggested_role": "Hardware",
+  "estimate_hours": 1.0,
+  "elapsed_window": "11–14",
+  "owner": null,
+  "status": "backlog",
+  "branch": null,
+  "pr_url": null,
+  "evidence": [],
+  "blocker": ""
+}

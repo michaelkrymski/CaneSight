@@ -1,0 +1,25 @@
+{
+  "id": "CS-049",
+  "title": "Test GPS and Gemini denial/failure paths",
+  "category": "Safety & Testing",
+  "priority": "P1",
+  "acceptance": "No location or description failure changes motor/permission policy; late context suppressed.",
+  "dependencies": [
+    "CS-019",
+    "CS-040"
+  ],
+  "allowed_paths": [
+    "qa/",
+    "tests/"
+  ],
+  "trello_url": "https://trello.com/c/xHNzywoe/49-p1-cs-049-test-gps-and-gemini-denial-failure-paths",
+  "suggested_role": "QA",
+  "estimate_hours": 0.5,
+  "elapsed_window": "14–17",
+  "owner": null,
+  "status": "backlog",
+  "branch": null,
+  "pr_url": null,
+  "evidence": [],
+  "blocker": ""
+}

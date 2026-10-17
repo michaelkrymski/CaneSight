@@ -1,0 +1,26 @@
+{
+  "id": "CS-024",
+  "title": "Implement local policy and source expiry",
+  "category": "Pi Edge & Haptics",
+  "priority": "P0",
+  "acceptance": "Separate health from hazards; stale capture never becomes fresh at receipt.",
+  "dependencies": [
+    "CS-003",
+    "CS-023",
+    "CS-030"
+  ],
+  "allowed_paths": [
+    "edge/",
+    "tests/edge/"
+  ],
+  "trello_url": "https://trello.com/c/H0322pcw/24-p0-cs-024-implement-local-policy-and-source-expiry",
+  "suggested_role": "Edge",
+  "estimate_hours": 1.5,
+  "elapsed_window": "5–8",
+  "owner": null,
+  "status": "backlog",
+  "branch": null,
+  "pr_url": null,
+  "evidence": [],
+  "blocker": ""
+}

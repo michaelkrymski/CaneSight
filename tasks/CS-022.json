@@ -1,0 +1,25 @@
+{
+  "id": "CS-022",
+  "title": "Implement latest-only JPEG upload",
+  "category": "Pi Edge & Haptics",
+  "priority": "P0",
+  "acceptance": "Start 416-square quality-75 at 1 Hz; bound queues and preserve crop/letterbox mapping.",
+  "dependencies": [
+    "CS-021",
+    "CS-028"
+  ],
+  "allowed_paths": [
+    "edge/",
+    "tests/edge/"
+  ],
+  "trello_url": "https://trello.com/c/wzzJvvoo/22-p0-cs-022-implement-latest-only-jpeg-upload",
+  "suggested_role": "Edge",
+  "estimate_hours": 1.5,
+  "elapsed_window": "2–5",
+  "owner": null,
+  "status": "backlog",
+  "branch": null,
+  "pr_url": null,
+  "evidence": [],
+  "blocker": ""
+}

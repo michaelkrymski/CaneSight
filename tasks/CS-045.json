@@ -1,0 +1,25 @@
+{
+  "id": "CS-045",
+  "title": "Measure end-to-end latency and depth error",
+  "category": "Safety & Testing",
+  "priority": "P0",
+  "acceptance": "At least 20 latency samples, median/p95/max, clock uncertainty and distance test results.",
+  "dependencies": [
+    "CS-025",
+    "CS-044"
+  ],
+  "allowed_paths": [
+    "qa/",
+    "tests/"
+  ],
+  "trello_url": "https://trello.com/c/v2SFaNBg/45-p0-cs-045-measure-end-to-end-latency-and-depth-error",
+  "suggested_role": "QA",
+  "estimate_hours": 1.0,
+  "elapsed_window": "14–17",
+  "owner": null,
+  "status": "backlog",
+  "branch": null,
+  "pr_url": null,
+  "evidence": [],
+  "blocker": ""
+}

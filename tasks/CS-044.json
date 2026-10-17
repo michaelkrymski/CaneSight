@@ -1,0 +1,26 @@
+{
+  "id": "CS-044",
+  "title": "Inject disconnect, delay and replay failures",
+  "category": "Safety & Testing",
+  "priority": "P0",
+  "acceptance": "Execute N01–N05; old observations never actuate as fresh; health cannot extend expiry.",
+  "dependencies": [
+    "CS-025",
+    "CS-030",
+    "CS-032"
+  ],
+  "allowed_paths": [
+    "qa/",
+    "tests/"
+  ],
+  "trello_url": "https://trello.com/c/9uxgZkbW/44-p0-cs-044-inject-disconnect-delay-and-replay-failures",
+  "suggested_role": "QA",
+  "estimate_hours": 1.5,
+  "elapsed_window": "8–11",
+  "owner": null,
+  "status": "backlog",
+  "branch": null,
+  "pr_url": null,
+  "evidence": [],
+  "blocker": ""
+}

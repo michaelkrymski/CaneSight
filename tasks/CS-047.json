@@ -1,0 +1,25 @@
+{
+  "id": "CS-047",
+  "title": "Perform representative 15-minute power soak",
+  "category": "Safety & Testing",
+  "priority": "P0",
+  "acceptance": "Log temperature, bank behavior and resets; no endurance claim beyond evidence.",
+  "dependencies": [
+    "CS-010",
+    "CS-043"
+  ],
+  "allowed_paths": [
+    "qa/",
+    "tests/"
+  ],
+  "trello_url": "https://trello.com/c/lI6WzXiv/47-p0-cs-047-perform-representative-15-minute-power-soak",
+  "suggested_role": "QA",
+  "estimate_hours": 0.5,
+  "elapsed_window": "14–17",
+  "owner": null,
+  "status": "backlog",
+  "branch": null,
+  "pr_url": null,
+  "evidence": [],
+  "blocker": ""
+}

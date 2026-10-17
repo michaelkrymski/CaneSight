@@ -1,0 +1,26 @@
+{
+  "id": "CS-010",
+  "title": "Validate dual-motor power under camera load",
+  "category": "Hardware & Power",
+  "priority": "P0",
+  "acceptance": "At selected voltage, record startup/running current, rail minimum and temperature; confirm no Pi reboot or heat fault during both motor startups.",
+  "dependencies": [
+    "CS-008",
+    "CS-009",
+    "CS-021"
+  ],
+  "allowed_paths": [
+    "hardware/",
+    "qa/"
+  ],
+  "trello_url": "https://trello.com/c/Gr4VRnxL/10-p0-cs-010-validate-dual-motor-power-under-camera-load",
+  "suggested_role": "Hardware",
+  "estimate_hours": 0.5,
+  "elapsed_window": "5–8",
+  "owner": null,
+  "status": "backlog",
+  "branch": null,
+  "pr_url": null,
+  "evidence": [],
+  "blocker": ""
+}

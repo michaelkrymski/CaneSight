@@ -1,0 +1,27 @@
+{
+  "id": "CS-039",
+  "title": "Create isolated Gemini context service",
+  "category": "Gemini & Context",
+  "priority": "P1",
+  "acceptance": "Verify model availability; server-only key, compressed frame, separate queue, 8 s starting deadline.",
+  "dependencies": [
+    "CS-029",
+    "CS-035"
+  ],
+  "allowed_paths": [
+    "backend/context/",
+    "ios/",
+    "edge/buttons.py",
+    "tests/context/"
+  ],
+  "trello_url": "https://trello.com/c/q7RYPsF5/39-p1-cs-039-create-isolated-gemini-context-service",
+  "suggested_role": "Backend",
+  "estimate_hours": 1.0,
+  "elapsed_window": "11–14",
+  "owner": null,
+  "status": "backlog",
+  "branch": null,
+  "pr_url": null,
+  "evidence": [],
+  "blocker": ""
+}

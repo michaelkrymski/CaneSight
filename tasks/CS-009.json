@@ -1,0 +1,25 @@
+{
+  "id": "CS-009",
+  "title": "Bench-test driver off states and dummy load",
+  "category": "Hardware & Power",
+  "priority": "P0",
+  "acceptance": "Check trigger high/low, GPIO voltage, leakage and module thermal behavior before Pi integration.",
+  "dependencies": [
+    "CS-006",
+    "CS-007"
+  ],
+  "allowed_paths": [
+    "hardware/",
+    "qa/"
+  ],
+  "trello_url": "https://trello.com/c/D6OL0LcV/9-p0-cs-009-bench-test-driver-off-states-and-dummy-load",
+  "suggested_role": "Hardware",
+  "estimate_hours": 0.5,
+  "elapsed_window": "2–5",
+  "owner": null,
+  "status": "backlog",
+  "branch": null,
+  "pr_url": null,
+  "evidence": [],
+  "blocker": ""
+}

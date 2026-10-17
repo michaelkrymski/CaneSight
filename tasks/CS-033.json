@@ -1,0 +1,25 @@
+{
+  "id": "CS-033",
+  "title": "Deploy authenticated backend on Vultr",
+  "category": "Backend & Transport",
+  "priority": "P1",
+  "acceptance": "Test HTTPS/WSS, startup readiness and secret configuration; laptop remains rehearsed fallback.",
+  "dependencies": [
+    "CS-029",
+    "CS-032"
+  ],
+  "allowed_paths": [
+    "backend/",
+    "tests/backend/"
+  ],
+  "trello_url": "https://trello.com/c/4pmisYcE/33-p1-cs-033-deploy-authenticated-backend-on-vultr",
+  "suggested_role": "Backend",
+  "estimate_hours": 1.0,
+  "elapsed_window": "11–14",
+  "owner": null,
+  "status": "backlog",
+  "branch": null,
+  "pr_url": null,
+  "evidence": [],
+  "blocker": ""
+}

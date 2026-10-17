@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "pm_github": "michaelkrymski",
+  "protected_prefixes": ["docs/master/", "docs/reference/", "shared/", ".github/", "scripts/", "tests/test_governance.py"],
+  "protected_files": ["AGENTS.md", "governance.json", "trello-sync.json"],
+  "task_static_fields": ["id", "title", "category", "priority", "acceptance", "dependencies", "allowed_paths", "trello_url"],
+  "runtime_fields": ["owner", "status", "branch", "pr_url", "evidence", "blocker"],
+  "statuses": ["backlog", "in_progress", "blocked", "review", "done"],
+  "approval_command": "PM-APPROVE-PLAN <full-current-head-sha>",
+  "note": "Bootstrap baseline. Actual GitHub branch/ruleset enforcement must be enabled and verified separately."
+}

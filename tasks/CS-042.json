@@ -1,0 +1,25 @@
+{
+  "id": "CS-042",
+  "title": "Add consented Tiger Data event logging",
+  "category": "Dashboard & Data",
+  "priority": "P2",
+  "acceptance": "Coarse/minimal data, retention/deletion, parameterized writes; DB failure does not block policy.",
+  "dependencies": [
+    "CS-041"
+  ],
+  "allowed_paths": [
+    "dashboard/",
+    "backend/telemetry/",
+    "tests/dashboard/"
+  ],
+  "trello_url": "https://trello.com/c/ft5N1DhS/42-p2-cs-042-add-consented-tiger-data-event-logging",
+  "suggested_role": "Backend",
+  "estimate_hours": 1.0,
+  "elapsed_window": "After hackathon",
+  "owner": null,
+  "status": "backlog",
+  "branch": null,
+  "pr_url": null,
+  "evidence": [],
+  "blocker": ""
+}

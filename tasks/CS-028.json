@@ -1,0 +1,24 @@
+{
+  "id": "CS-028",
+  "title": "Create FastAPI skeleton and frame endpoint",
+  "category": "Backend & Transport",
+  "priority": "P0",
+  "acceptance": "Health/readiness separate; validate JPEG dimensions/body and return frame lineage.",
+  "dependencies": [
+    "CS-003"
+  ],
+  "allowed_paths": [
+    "backend/",
+    "tests/backend/"
+  ],
+  "trello_url": "https://trello.com/c/jmTFj5fC/28-p0-cs-028-create-fastapi-skeleton-and-frame-endpoint",
+  "suggested_role": "Backend",
+  "estimate_hours": 1.0,
+  "elapsed_window": "2–5",
+  "owner": null,
+  "status": "backlog",
+  "branch": null,
+  "pr_url": null,
+  "evidence": [],
+  "blocker": ""
+}

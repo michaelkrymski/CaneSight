@@ -1,0 +1,27 @@
+{
+  "id": "CS-025",
+  "title": "Integrate depth-to-motor vertical slice",
+  "category": "Pi Edge & Haptics",
+  "priority": "P0",
+  "acceptance": "Repeat left/right/center stimulus with real phone data and logged capture age.",
+  "dependencies": [
+    "CS-010",
+    "CS-015",
+    "CS-016",
+    "CS-024"
+  ],
+  "allowed_paths": [
+    "edge/",
+    "tests/edge/"
+  ],
+  "trello_url": "https://trello.com/c/CJETAQdm/25-p0-cs-025-integrate-depth-to-motor-vertical-slice",
+  "suggested_role": "Edge",
+  "estimate_hours": 1.0,
+  "elapsed_window": "5–8",
+  "owner": null,
+  "status": "backlog",
+  "branch": null,
+  "pr_url": null,
+  "evidence": [],
+  "blocker": ""
+}

@@ -1,0 +1,26 @@
+{
+  "id": "CS-046",
+  "title": "Run controlled obstacle and cue trials",
+  "category": "Safety & Testing",
+  "priority": "P0",
+  "acceptance": "Stationary then supervised level-course tests; verify mapping and cue distinguishability.",
+  "dependencies": [
+    "CS-004",
+    "CS-011",
+    "CS-043"
+  ],
+  "allowed_paths": [
+    "qa/",
+    "tests/"
+  ],
+  "trello_url": "https://trello.com/c/s2rpb88c/46-p0-cs-046-run-controlled-obstacle-and-cue-trials",
+  "suggested_role": "QA",
+  "estimate_hours": 1.0,
+  "elapsed_window": "14–17",
+  "owner": null,
+  "status": "backlog",
+  "branch": null,
+  "pr_url": null,
+  "evidence": [],
+  "blocker": ""
+}

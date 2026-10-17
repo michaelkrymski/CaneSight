@@ -1,0 +1,24 @@
+{
+  "id": "CS-015",
+  "title": "Verify camera orientation and mount mapping",
+  "category": "iPhone LiDAR & GPS",
+  "priority": "P0",
+  "acceptance": "Known targets map to physical left/center/right in supported orientations.",
+  "dependencies": [
+    "CS-014"
+  ],
+  "allowed_paths": [
+    "ios/",
+    "tests/ios/"
+  ],
+  "trello_url": "https://trello.com/c/sZle9T7s/15-p0-cs-015-verify-camera-orientation-and-mount-mapping",
+  "suggested_role": "iOS",
+  "estimate_hours": 1.0,
+  "elapsed_window": "5–8",
+  "owner": null,
+  "status": "backlog",
+  "branch": null,
+  "pr_url": null,
+  "evidence": [],
+  "blocker": ""
+}

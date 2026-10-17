@@ -1,0 +1,8 @@
+{
+  "board_short_link": "aH113bQW",
+  "board_url": "https://trello.com/b/aH113bQW/canesight-20-hour-prototype",
+  "repository": "michaelkrymski/CaneSight",
+  "status_label_prefix": "Status: ",
+  "description_marker": "CANESIGHT-REPO-SYNC",
+  "note": "Credentials are GitHub Secrets, never stored here. Set repository variable TRELLO_SYNC_ENABLED=true only after configuration."
+}

@@ -1,0 +1,28 @@
+{
+  "id": "CS-052",
+  "title": "Rehearse four-minute demonstration",
+  "category": "Demo & Delivery",
+  "priority": "P0",
+  "acceptance": "Explain observation role, show haptics and disconnect, report measured limitations.",
+  "dependencies": [
+    "CS-045",
+    "CS-046",
+    "CS-047",
+    "CS-048",
+    "CS-051"
+  ],
+  "allowed_paths": [
+    "docs/operations/",
+    "qa/"
+  ],
+  "trello_url": "https://trello.com/c/4eeuicye/52-p0-cs-052-rehearse-four-minute-demonstration",
+  "suggested_role": "Lead",
+  "estimate_hours": 0.75,
+  "elapsed_window": "17–20",
+  "owner": null,
+  "status": "backlog",
+  "branch": null,
+  "pr_url": null,
+  "evidence": [],
+  "blocker": ""
+}

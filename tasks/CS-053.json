@@ -1,0 +1,24 @@
+{
+  "id": "CS-053",
+  "title": "Package implementation evidence and runbook",
+  "category": "Demo & Delivery",
+  "priority": "P0",
+  "acceptance": "Include actual wiring photos/datasheets, versions/config, results, recovery steps and source attribution.",
+  "dependencies": [
+    "CS-052"
+  ],
+  "allowed_paths": [
+    "docs/operations/",
+    "qa/"
+  ],
+  "trello_url": "https://trello.com/c/yVP4hKce/53-p0-cs-053-package-implementation-evidence-and-runbook",
+  "suggested_role": "Lead",
+  "estimate_hours": 0.75,
+  "elapsed_window": "17–20",
+  "owner": null,
+  "status": "backlog",
+  "branch": null,
+  "pr_url": null,
+  "evidence": [],
+  "blocker": ""
+}

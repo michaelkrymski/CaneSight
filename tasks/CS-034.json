@@ -1,0 +1,25 @@
+{
+  "id": "CS-034",
+  "title": "Load pinned YOLO baseline and inspect classes",
+  "category": "YOLO & Signal Vision",
+  "priority": "P0",
+  "acceptance": "Record model hash/class list/license; distinguish generic traffic light from pedestrian signal.",
+  "dependencies": [
+    "CS-028"
+  ],
+  "allowed_paths": [
+    "backend/vision/",
+    "tests/vision/",
+    "qa/vision/"
+  ],
+  "trello_url": "https://trello.com/c/nzEao34L/34-p0-cs-034-load-pinned-yolo-baseline-and-inspect-classes",
+  "suggested_role": "CV",
+  "estimate_hours": 1.0,
+  "elapsed_window": "2–5",
+  "owner": null,
+  "status": "backlog",
+  "branch": null,
+  "pr_url": null,
+  "evidence": [],
+  "blocker": ""
+}

@@ -1,0 +1,22 @@
+{
+  "id": "CS-002",
+  "title": "Remove crossing-permission language",
+  "category": "Planning & Safety",
+  "priority": "P0",
+  "acceptance": "Review planned UI, API, haptics and script; no go/all-clear/safe-to-cross state.",
+  "dependencies": [],
+  "allowed_paths": [
+    "docs/operations/",
+    "qa/"
+  ],
+  "trello_url": "https://trello.com/c/UuHQFp11/2-p0-cs-002-remove-crossing-permission-language",
+  "suggested_role": "QA",
+  "estimate_hours": 0.5,
+  "elapsed_window": "0–2",
+  "owner": null,
+  "status": "backlog",
+  "branch": null,
+  "pr_url": null,
+  "evidence": [],
+  "blocker": ""
+}

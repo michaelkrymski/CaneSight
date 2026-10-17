@@ -1,0 +1,26 @@
+{
+  "id": "CS-043",
+  "title": "Test power, boot, crash and motor kill",
+  "category": "Safety & Testing",
+  "priority": "P0",
+  "acceptance": "Execute E01–E03; retain measured evidence and fix failures before handling.",
+  "dependencies": [
+    "CS-010",
+    "CS-023",
+    "CS-026"
+  ],
+  "allowed_paths": [
+    "qa/",
+    "tests/"
+  ],
+  "trello_url": "https://trello.com/c/zLO24A9e/43-p0-cs-043-test-power-boot-crash-and-motor-kill",
+  "suggested_role": "QA",
+  "estimate_hours": 1.0,
+  "elapsed_window": "8–11",
+  "owner": null,
+  "status": "backlog",
+  "branch": null,
+  "pr_url": null,
+  "evidence": [],
+  "blocker": ""
+}

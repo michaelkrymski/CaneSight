@@ -1,0 +1,23 @@
+{
+  "id": "CS-054",
+  "title": "Collect and license representative signal dataset",
+  "category": "Post-hackathon Backlog",
+  "priority": "P2",
+  "acceptance": "Split by scene/location; include negatives, diverse lighting and held-out evaluation.",
+  "dependencies": [
+    "CS-038"
+  ],
+  "allowed_paths": [
+    "docs/research/"
+  ],
+  "trello_url": "https://trello.com/c/JRuLhon1/54-p2-cs-054-collect-and-license-representative-signal-dataset",
+  "suggested_role": "CV",
+  "estimate_hours": 8.0,
+  "elapsed_window": "After hackathon",
+  "owner": null,
+  "status": "backlog",
+  "branch": null,
+  "pr_url": null,
+  "evidence": [],
+  "blocker": ""
+}

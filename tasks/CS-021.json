@@ -1,0 +1,24 @@
+{
+  "id": "CS-021",
+  "title": "Boot Pi and validate CSI capture",
+  "category": "Pi Edge & Haptics",
+  "priority": "P0",
+  "acceptance": "Supported OS/Picamera2, correct Zero ribbon and in-memory capture work.",
+  "dependencies": [
+    "CS-001"
+  ],
+  "allowed_paths": [
+    "edge/",
+    "tests/edge/"
+  ],
+  "trello_url": "https://trello.com/c/AZmfxUBN/21-p0-cs-021-boot-pi-and-validate-csi-capture",
+  "suggested_role": "Edge",
+  "estimate_hours": 1.0,
+  "elapsed_window": "0–2",
+  "owner": null,
+  "status": "backlog",
+  "branch": null,
+  "pr_url": null,
+  "evidence": [],
+  "blocker": ""
+}

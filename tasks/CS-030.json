@@ -1,0 +1,24 @@
+{
+  "id": "CS-030",
+  "title": "Implement age bounds and replay rejection",
+  "category": "Backend & Transport",
+  "priority": "P0",
+  "acceptance": "Clock uncertainty or request lineage bounds capture age; reject duplicate/reordered/wrong-session messages.",
+  "dependencies": [
+    "CS-029"
+  ],
+  "allowed_paths": [
+    "backend/",
+    "tests/backend/"
+  ],
+  "trello_url": "https://trello.com/c/wmTZpj4Z/30-p0-cs-030-implement-age-bounds-and-replay-rejection",
+  "suggested_role": "Backend",
+  "estimate_hours": 1.5,
+  "elapsed_window": "5–8",
+  "owner": null,
+  "status": "backlog",
+  "branch": null,
+  "pr_url": null,
+  "evidence": [],
+  "blocker": ""
+}

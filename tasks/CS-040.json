@@ -1,0 +1,28 @@
+{
+  "id": "CS-040",
+  "title": "Restrict and preempt narration",
+  "category": "Gemini & Context",
+  "priority": "P1",
+  "acceptance": "No movement/crossing advice; short uncertain descriptions, cancellation and hazard priority.",
+  "dependencies": [
+    "CS-018",
+    "CS-027",
+    "CS-039"
+  ],
+  "allowed_paths": [
+    "backend/context/",
+    "ios/",
+    "edge/buttons.py",
+    "tests/context/"
+  ],
+  "trello_url": "https://trello.com/c/pWLv96yz/40-p1-cs-040-restrict-and-preempt-narration",
+  "suggested_role": "iOS",
+  "estimate_hours": 0.5,
+  "elapsed_window": "11–14",
+  "owner": null,
+  "status": "backlog",
+  "branch": null,
+  "pr_url": null,
+  "evidence": [],
+  "blocker": ""
+}

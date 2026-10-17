@@ -1,0 +1,25 @@
+{
+  "id": "CS-037",
+  "title": "Implement symbol and countdown parser",
+  "category": "YOLO & Signal Vision",
+  "priority": "P1",
+  "acceptance": "Shape/temporal checks, uncertain flashing and null ambiguous digits; HSV alone insufficient.",
+  "dependencies": [
+    "CS-036"
+  ],
+  "allowed_paths": [
+    "backend/vision/",
+    "tests/vision/",
+    "qa/vision/"
+  ],
+  "trello_url": "https://trello.com/c/ENS7z2FR/37-p1-cs-037-implement-symbol-and-countdown-parser",
+  "suggested_role": "CV",
+  "estimate_hours": 2.0,
+  "elapsed_window": "8–11",
+  "owner": null,
+  "status": "backlog",
+  "branch": null,
+  "pr_url": null,
+  "evidence": [],
+  "blocker": ""
+}

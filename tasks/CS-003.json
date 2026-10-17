@@ -1,0 +1,22 @@
+{
+  "id": "CS-003",
+  "title": "Freeze schema and freshness rules",
+  "category": "Planning & Safety",
+  "priority": "P0",
+  "acceptance": "Agree source/boot/sequence IDs, capture-age bounds, unknown values and clock uncertainty.",
+  "dependencies": [],
+  "allowed_paths": [
+    "shared/",
+    "tests/contracts/"
+  ],
+  "trello_url": "https://trello.com/c/Wyn26qsb/3-p0-cs-003-freeze-schema-and-freshness-rules",
+  "suggested_role": "Backend",
+  "estimate_hours": 1.0,
+  "elapsed_window": "0–2",
+  "owner": null,
+  "status": "backlog",
+  "branch": null,
+  "pr_url": null,
+  "evidence": [],
+  "blocker": ""
+}

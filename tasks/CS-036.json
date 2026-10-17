@@ -1,0 +1,25 @@
+{
+  "id": "CS-036",
+  "title": "Prepare signal fixtures or verified custom weights",
+  "category": "YOLO & Signal Vision",
+  "priority": "P1",
+  "acceptance": "Document source/license; label manual ROI and replay; no claim of automatic pedestrian recognition without evidence.",
+  "dependencies": [
+    "CS-034"
+  ],
+  "allowed_paths": [
+    "backend/vision/",
+    "tests/vision/",
+    "qa/vision/"
+  ],
+  "trello_url": "https://trello.com/c/IfvyKmnX/36-p1-cs-036-prepare-signal-fixtures-or-verified-custom-weights",
+  "suggested_role": "CV",
+  "estimate_hours": 1.0,
+  "elapsed_window": "5–8",
+  "owner": null,
+  "status": "backlog",
+  "branch": null,
+  "pr_url": null,
+  "evidence": [],
+  "blocker": ""
+}

@@ -1,0 +1,23 @@
+{
+  "id": "CS-058",
+  "title": "Investigate independent local phone-to-Pi transport",
+  "category": "Post-hackathon Backlog",
+  "priority": "P2",
+  "acceptance": "Validate hotspot reachability, authentication and source freshness without cloud dependency.",
+  "dependencies": [
+    "CS-044"
+  ],
+  "allowed_paths": [
+    "docs/research/"
+  ],
+  "trello_url": "https://trello.com/c/7vqfxhcO/58-p2-cs-058-investigate-independent-local-phone-to-pi-transport",
+  "suggested_role": "Edge",
+  "estimate_hours": 4.0,
+  "elapsed_window": "After hackathon",
+  "owner": null,
+  "status": "backlog",
+  "branch": null,
+  "pr_url": null,
+  "evidence": [],
+  "blocker": ""
+}

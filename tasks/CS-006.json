@@ -1,0 +1,24 @@
+{
+  "id": "CS-006",
+  "title": "Verify two HW-517 channels and logic compatibility",
+  "category": "Hardware & Power",
+  "priority": "P0",
+  "acceptance": "Confirm assembled-board topology, 3.3 V trigger behavior, 5 V isolation and default-off behavior; choose documented fallback if unresolved.",
+  "dependencies": [
+    "CS-005"
+  ],
+  "allowed_paths": [
+    "hardware/",
+    "qa/"
+  ],
+  "trello_url": "https://trello.com/c/XHiDMXym/6-p0-cs-006-verify-two-hw-517-channels-and-logic-compatibility",
+  "suggested_role": "Hardware",
+  "estimate_hours": 1.0,
+  "elapsed_window": "0–2",
+  "owner": null,
+  "status": "backlog",
+  "branch": null,
+  "pr_url": null,
+  "evidence": [],
+  "blocker": ""
+}

@@ -1,0 +1,25 @@
+{
+  "id": "CS-050",
+  "title": "Freeze optional features at hour 14",
+  "category": "Demo & Delivery",
+  "priority": "P0",
+  "acceptance": "Cut unfinished P1/P2; retain P0 fixes only and document actual scope.",
+  "dependencies": [
+    "CS-025",
+    "CS-044"
+  ],
+  "allowed_paths": [
+    "docs/operations/",
+    "qa/"
+  ],
+  "trello_url": "https://trello.com/c/LIBWspSY/50-p0-cs-050-freeze-optional-features-at-hour-14",
+  "suggested_role": "Lead",
+  "estimate_hours": 0.25,
+  "elapsed_window": "11–14",
+  "owner": null,
+  "status": "backlog",
+  "branch": null,
+  "pr_url": null,
+  "evidence": [],
+  "blocker": ""
+}

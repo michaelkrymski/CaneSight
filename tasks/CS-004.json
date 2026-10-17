@@ -1,0 +1,22 @@
+{
+  "id": "CS-004",
+  "title": "Define safe demo course and stop controls",
+  "category": "Planning & Safety",
+  "priority": "P0",
+  "acceptance": "Indoor level course, soft objects, sighted spotter and reachable motor kill switch.",
+  "dependencies": [],
+  "allowed_paths": [
+    "docs/operations/",
+    "qa/"
+  ],
+  "trello_url": "https://trello.com/c/kai2ylOO/4-p0-cs-004-define-safe-demo-course-and-stop-controls",
+  "suggested_role": "QA",
+  "estimate_hours": 0.5,
+  "elapsed_window": "0–2",
+  "owner": null,
+  "status": "backlog",
+  "branch": null,
+  "pr_url": null,
+  "evidence": [],
+  "blocker": ""
+}

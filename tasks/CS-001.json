@@ -1,0 +1,22 @@
+{
+  "id": "CS-001",
+  "title": "Confirm build inventory and development tools",
+  "category": "Planning & Safety",
+  "priority": "P0",
+  "acceptance": "Record available/missing parts; verify Mac signing, phone depth support, network and Pi boot.",
+  "dependencies": [],
+  "allowed_paths": [
+    "docs/operations/",
+    "qa/"
+  ],
+  "trello_url": "https://trello.com/c/g3y32mVW/1-p0-cs-001-confirm-build-inventory-and-development-tools",
+  "suggested_role": "Lead",
+  "estimate_hours": 0.5,
+  "elapsed_window": "0–2",
+  "owner": null,
+  "status": "backlog",
+  "branch": null,
+  "pr_url": null,
+  "evidence": [],
+  "blocker": ""
+}

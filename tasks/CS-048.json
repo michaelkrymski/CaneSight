@@ -1,0 +1,26 @@
+{
+  "id": "CS-048",
+  "title": "Audit all user-facing permission language",
+  "category": "Safety & Testing",
+  "priority": "P0",
+  "acceptance": "Review final code/UI/audio/script; no crossing authorization or no-detection-as-clear wording.",
+  "dependencies": [
+    "CS-002",
+    "CS-035",
+    "CS-046"
+  ],
+  "allowed_paths": [
+    "qa/",
+    "tests/"
+  ],
+  "trello_url": "https://trello.com/c/CoJiw0ad/48-p0-cs-048-audit-all-user-facing-permission-language",
+  "suggested_role": "QA",
+  "estimate_hours": 0.5,
+  "elapsed_window": "14–17",
+  "owner": null,
+  "status": "backlog",
+  "branch": null,
+  "pr_url": null,
+  "evidence": [],
+  "blocker": ""
+}

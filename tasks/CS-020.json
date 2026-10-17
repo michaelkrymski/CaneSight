@@ -1,0 +1,25 @@
+{
+  "id": "CS-020",
+  "title": "Test challenging LiDAR surfaces",
+  "category": "iPhone LiDAR & GPS",
+  "priority": "P1",
+  "acceptance": "Log glass, dark objects, glare and blocked-view behavior; no missing-depth all-clear.",
+  "dependencies": [
+    "CS-015",
+    "CS-017"
+  ],
+  "allowed_paths": [
+    "ios/",
+    "tests/ios/"
+  ],
+  "trello_url": "https://trello.com/c/BObrY5HC/20-p1-cs-020-test-challenging-lidar-surfaces",
+  "suggested_role": "QA",
+  "estimate_hours": 0.5,
+  "elapsed_window": "11–14",
+  "owner": null,
+  "status": "backlog",
+  "branch": null,
+  "pr_url": null,
+  "evidence": [],
+  "blocker": ""
+}

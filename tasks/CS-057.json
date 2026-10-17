@@ -1,0 +1,23 @@
+{
+  "id": "CS-057",
+  "title": "Conduct specialist-led usability and risk review",
+  "category": "Post-hackathon Backlog",
+  "priority": "P2",
+  "acceptance": "Engage mobility specialists with consented controlled research; no deployment safety claims.",
+  "dependencies": [
+    "CS-053"
+  ],
+  "allowed_paths": [
+    "docs/research/"
+  ],
+  "trello_url": "https://trello.com/c/T9AUrWvu/57-p2-cs-057-conduct-specialist-led-usability-and-risk-review",
+  "suggested_role": "Lead",
+  "estimate_hours": 8.0,
+  "elapsed_window": "After hackathon",
+  "owner": null,
+  "status": "backlog",
+  "branch": null,
+  "pr_url": null,
+  "evidence": [],
+  "blocker": ""
+}

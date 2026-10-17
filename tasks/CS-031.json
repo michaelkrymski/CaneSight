@@ -1,0 +1,24 @@
+{
+  "id": "CS-031",
+  "title": "Add bounded inference worker and latest queue",
+  "category": "Backend & Transport",
+  "priority": "P0",
+  "acceptance": "No event-loop blocking; one model load; per-source latest work; explicit drop metrics.",
+  "dependencies": [
+    "CS-028"
+  ],
+  "allowed_paths": [
+    "backend/",
+    "tests/backend/"
+  ],
+  "trello_url": "https://trello.com/c/EzcgvAf8/31-p0-cs-031-add-bounded-inference-worker-and-latest-queue",
+  "suggested_role": "Backend",
+  "estimate_hours": 1.0,
+  "elapsed_window": "5–8",
+  "owner": null,
+  "status": "backlog",
+  "branch": null,
+  "pr_url": null,
+  "evidence": [],
+  "blocker": ""
+}

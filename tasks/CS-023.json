@@ -1,0 +1,25 @@
+{
+  "id": "CS-023",
+  "title": "Implement capped haptic scheduler",
+  "category": "Pi Edge & Haptics",
+  "priority": "P0",
+  "acceptance": "Two channels, bounded pulse duration/duty, outputs low at startup and cleanup.",
+  "dependencies": [
+    "CS-003",
+    "CS-009"
+  ],
+  "allowed_paths": [
+    "edge/",
+    "tests/edge/"
+  ],
+  "trello_url": "https://trello.com/c/0LUsLeuX/23-p0-cs-023-implement-capped-haptic-scheduler",
+  "suggested_role": "Edge",
+  "estimate_hours": 1.0,
+  "elapsed_window": "2–5",
+  "owner": null,
+  "status": "backlog",
+  "branch": null,
+  "pr_url": null,
+  "evidence": [],
+  "blocker": ""
+}

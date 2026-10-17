@@ -1,0 +1,24 @@
+{
+  "id": "CS-026",
+  "title": "Add independent watchdog and restart behavior",
+  "category": "Pi Edge & Haptics",
+  "priority": "P0",
+  "acceptance": "Network/camera cannot block expiry; boot/crash resets state; disclose frozen-GPIO limit.",
+  "dependencies": [
+    "CS-024"
+  ],
+  "allowed_paths": [
+    "edge/",
+    "tests/edge/"
+  ],
+  "trello_url": "https://trello.com/c/Day1W6yQ/26-p0-cs-026-add-independent-watchdog-and-restart-behavior",
+  "suggested_role": "Edge",
+  "estimate_hours": 1.0,
+  "elapsed_window": "8–11",
+  "owner": null,
+  "status": "backlog",
+  "branch": null,
+  "pr_url": null,
+  "evidence": [],
+  "blocker": ""
+}

@@ -1,0 +1,26 @@
+{
+  "id": "CS-041",
+  "title": "Build session-health dashboard",
+  "category": "Dashboard & Data",
+  "priority": "P1",
+  "acceptance": "Show source ages, unknown, live/replay mode and prototype limitation; no green safe state.",
+  "dependencies": [
+    "CS-029",
+    "CS-035"
+  ],
+  "allowed_paths": [
+    "dashboard/",
+    "backend/telemetry/",
+    "tests/dashboard/"
+  ],
+  "trello_url": "https://trello.com/c/l0ViXAjG/41-p1-cs-041-build-session-health-dashboard",
+  "suggested_role": "Frontend",
+  "estimate_hours": 1.0,
+  "elapsed_window": "11–14",
+  "owner": null,
+  "status": "backlog",
+  "branch": null,
+  "pr_url": null,
+  "evidence": [],
+  "blocker": ""
+}

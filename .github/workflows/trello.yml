@@ -1,0 +1,32 @@
+name: Trello progress sync
+on:
+  push:
+    branches: [main]
+  pull_request_target:
+    types: [opened, synchronize, reopened, closed, ready_for_review, converted_to_draft, edited]
+  workflow_dispatch:
+permissions:
+  contents: read
+  pull-requests: read
+concurrency:
+  group: trello-sync
+  cancel-in-progress: false
+jobs:
+  sync:
+    if: vars.TRELLO_SYNC_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      # Privileged workflow executes trusted main ONLY. Never checkout PR HEAD here.
+      - uses: actions/checkout@v4
+        with:
+          ref: refs/heads/main
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python scripts/trello_sync.py
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TRELLO_API_KEY: ${{ secrets.TRELLO_API_KEY }}
+          TRELLO_TOKEN: ${{ secrets.TRELLO_TOKEN }}
+          TRELLO_SYNC_ENABLED: ${{ vars.TRELLO_SYNC_ENABLED }}

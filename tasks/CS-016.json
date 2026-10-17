@@ -1,0 +1,26 @@
+{
+  "id": "CS-016",
+  "title": "Stream bounded timestamped telemetry",
+  "category": "iPhone LiDAR & GPS",
+  "priority": "P0",
+  "acceptance": "Send 10 Hz starting summaries, session/boot/sequence IDs and reconnect without old queue replay.",
+  "dependencies": [
+    "CS-003",
+    "CS-014",
+    "CS-029"
+  ],
+  "allowed_paths": [
+    "ios/",
+    "tests/ios/"
+  ],
+  "trello_url": "https://trello.com/c/98OCtflP/16-p0-cs-016-stream-bounded-timestamped-telemetry",
+  "suggested_role": "iOS",
+  "estimate_hours": 1.0,
+  "elapsed_window": "5–8",
+  "owner": null,
+  "status": "backlog",
+  "branch": null,
+  "pr_url": null,
+  "evidence": [],
+  "blocker": ""
+}

@@ -1,0 +1,24 @@
+{
+  "id": "CS-005",
+  "title": "Verify motor range and characterize intended 5 V operation",
+  "category": "Hardware & Power",
+  "priority": "P0",
+  "acceptance": "Confirm actual part and stated 1–6 V range; characterize at 3 V, then measure 5 V startup/running current and heat at planned duty; retain 3 V fallback.",
+  "dependencies": [
+    "CS-001"
+  ],
+  "allowed_paths": [
+    "hardware/",
+    "qa/"
+  ],
+  "trello_url": "https://trello.com/c/YOs6Z4fY/5-p0-cs-005-verify-motor-range-and-characterize-intended-5-v-operation",
+  "suggested_role": "Hardware",
+  "estimate_hours": 0.5,
+  "elapsed_window": "0–2",
+  "owner": null,
+  "status": "backlog",
+  "branch": null,
+  "pr_url": null,
+  "evidence": [],
+  "blocker": ""
+}

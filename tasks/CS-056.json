@@ -1,0 +1,23 @@
+{
+  "id": "CS-056",
+  "title": "Evaluate calibrated multi-camera geometry",
+  "category": "Post-hackathon Backlog",
+  "priority": "P2",
+  "acceptance": "Measured extrinsics/time alignment and uncertainty; no pixel-depth association before validation.",
+  "dependencies": [
+    "CS-045"
+  ],
+  "allowed_paths": [
+    "docs/research/"
+  ],
+  "trello_url": "https://trello.com/c/8rYqAsgC/56-p2-cs-056-evaluate-calibrated-multi-camera-geometry",
+  "suggested_role": "CV",
+  "estimate_hours": 8.0,
+  "elapsed_window": "After hackathon",
+  "owner": null,
+  "status": "backlog",
+  "branch": null,
+  "pr_url": null,
+  "evidence": [],
+  "blocker": ""
+}

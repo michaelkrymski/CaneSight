@@ -1,0 +1,24 @@
+{
+  "id": "CS-014",
+  "title": "Implement confidence-aware depth sectors",
+  "category": "iPhone LiDAR & GPS",
+  "priority": "P0",
+  "acceptance": "Finite depth, confidence/coverage filtering, robust percentile, null unknown and source timestamp.",
+  "dependencies": [
+    "CS-013"
+  ],
+  "allowed_paths": [
+    "ios/",
+    "tests/ios/"
+  ],
+  "trello_url": "https://trello.com/c/toaUK5ub/14-p0-cs-014-implement-confidence-aware-depth-sectors",
+  "suggested_role": "iOS",
+  "estimate_hours": 2.0,
+  "elapsed_window": "2–5",
+  "owner": null,
+  "status": "backlog",
+  "branch": null,
+  "pr_url": null,
+  "evidence": [],
+  "blocker": ""
+}

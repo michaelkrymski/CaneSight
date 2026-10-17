@@ -1,0 +1,24 @@
+{
+  "id": "CS-017",
+  "title": "Handle AR interruption and app suspension",
+  "category": "iPhone LiDAR & GPS",
+  "priority": "P0",
+  "acceptance": "No cached depth after interruption; Pi expires observations and recovery needs fresh data.",
+  "dependencies": [
+    "CS-016"
+  ],
+  "allowed_paths": [
+    "ios/",
+    "tests/ios/"
+  ],
+  "trello_url": "https://trello.com/c/JhI1RQbD/17-p0-cs-017-handle-ar-interruption-and-app-suspension",
+  "suggested_role": "iOS",
+  "estimate_hours": 1.0,
+  "elapsed_window": "8–11",
+  "owner": null,
+  "status": "backlog",
+  "branch": null,
+  "pr_url": null,
+  "evidence": [],
+  "blocker": ""
+}

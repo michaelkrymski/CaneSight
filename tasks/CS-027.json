@@ -1,0 +1,25 @@
+{
+  "id": "CS-027",
+  "title": "Add debounced context button",
+  "category": "Pi Edge & Haptics",
+  "priority": "P1",
+  "acceptance": "One outstanding request, cooldown, cancellation and rate limit.",
+  "dependencies": [
+    "CS-023",
+    "CS-039"
+  ],
+  "allowed_paths": [
+    "edge/",
+    "tests/edge/"
+  ],
+  "trello_url": "https://trello.com/c/IMkH3qyh/27-p1-cs-027-add-debounced-context-button",
+  "suggested_role": "Edge",
+  "estimate_hours": 0.5,
+  "elapsed_window": "11–14",
+  "owner": null,
+  "status": "backlog",
+  "branch": null,
+  "pr_url": null,
+  "evidence": [],
+  "blocker": ""
+}

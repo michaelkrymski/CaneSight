@@ -1,0 +1,25 @@
+{
+  "id": "CS-032",
+  "title": "Enforce message validation and rate limits",
+  "category": "Backend & Transport",
+  "priority": "P0",
+  "acceptance": "Reject NaN, oversize input and floods; memory and watchdog remain bounded.",
+  "dependencies": [
+    "CS-029",
+    "CS-031"
+  ],
+  "allowed_paths": [
+    "backend/",
+    "tests/backend/"
+  ],
+  "trello_url": "https://trello.com/c/rjnW3JqB/32-p0-cs-032-enforce-message-validation-and-rate-limits",
+  "suggested_role": "Backend",
+  "estimate_hours": 0.5,
+  "elapsed_window": "8–11",
+  "owner": null,
+  "status": "backlog",
+  "branch": null,
+  "pr_url": null,
+  "evidence": [],
+  "blocker": ""
+}

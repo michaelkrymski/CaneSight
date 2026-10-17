@@ -1,0 +1,26 @@
+{
+  "id": "CS-035",
+  "title": "Return observation-only inference results",
+  "category": "YOLO & Signal Vision",
+  "priority": "P0",
+  "acceptance": "Include model/frame/source/age, nullable signal fields and camera-space boxes; no permission output.",
+  "dependencies": [
+    "CS-031",
+    "CS-034"
+  ],
+  "allowed_paths": [
+    "backend/vision/",
+    "tests/vision/",
+    "qa/vision/"
+  ],
+  "trello_url": "https://trello.com/c/r1LypkHG/35-p0-cs-035-return-observation-only-inference-results",
+  "suggested_role": "CV",
+  "estimate_hours": 1.0,
+  "elapsed_window": "5–8",
+  "owner": null,
+  "status": "backlog",
+  "branch": null,
+  "pr_url": null,
+  "evidence": [],
+  "blocker": ""
+}

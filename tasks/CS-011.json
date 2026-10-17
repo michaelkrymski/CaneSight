@@ -1,0 +1,24 @@
+{
+  "id": "CS-011",
+  "title": "Mount phone, camera and left/right motors",
+  "category": "Hardware & Power",
+  "priority": "P0",
+  "acceptance": "Secure reversible mounts; confirm grip mapping, cable relief and normal cane integrity.",
+  "dependencies": [
+    "CS-010"
+  ],
+  "allowed_paths": [
+    "hardware/",
+    "qa/"
+  ],
+  "trello_url": "https://trello.com/c/ue1WmeVc/11-p0-cs-011-mount-phone-camera-and-left-right-motors",
+  "suggested_role": "Hardware",
+  "estimate_hours": 0.5,
+  "elapsed_window": "11–14",
+  "owner": null,
+  "status": "backlog",
+  "branch": null,
+  "pr_url": null,
+  "evidence": [],
+  "blocker": ""
+}

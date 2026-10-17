@@ -1,0 +1,25 @@
+{
+  "id": "CS-051",
+  "title": "Create honest fallback recording",
+  "category": "Demo & Delivery",
+  "priority": "P0",
+  "acceptance": "Capture controlled demo with mode labels and unavailable behavior; no road crossing.",
+  "dependencies": [
+    "CS-025",
+    "CS-050"
+  ],
+  "allowed_paths": [
+    "docs/operations/",
+    "qa/"
+  ],
+  "trello_url": "https://trello.com/c/OCdVYi1s/51-p0-cs-051-create-honest-fallback-recording",
+  "suggested_role": "Lead",
+  "estimate_hours": 0.75,
+  "elapsed_window": "14–17",
+  "owner": null,
+  "status": "backlog",
+  "branch": null,
+  "pr_url": null,
+  "evidence": [],
+  "blocker": ""
+}

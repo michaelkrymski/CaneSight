@@ -1,0 +1,24 @@
+{
+  "id": "CS-013",
+  "title": "Build and sign app on physical LiDAR phone",
+  "category": "iPhone LiDAR & GPS",
+  "priority": "P0",
+  "acceptance": "Run ARKit support check; unsupported hardware displays unavailable.",
+  "dependencies": [
+    "CS-001"
+  ],
+  "allowed_paths": [
+    "ios/",
+    "tests/ios/"
+  ],
+  "trello_url": "https://trello.com/c/LYtgxAlY/13-p0-cs-013-build-and-sign-app-on-physical-lidar-phone",
+  "suggested_role": "iOS",
+  "estimate_hours": 1.0,
+  "elapsed_window": "0–2",
+  "owner": null,
+  "status": "backlog",
+  "branch": null,
+  "pr_url": null,
+  "evidence": [],
+  "blocker": ""
+}

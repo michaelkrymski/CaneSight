@@ -1,0 +1,25 @@
+{
+  "id": "CS-038",
+  "title": "Evaluate signal ambiguity and track loss",
+  "category": "YOLO & Signal Vision",
+  "priority": "P1",
+  "acceptance": "Multiple heads/glare/occlusion/track change yield unknown; record confusion and OCR accuracy.",
+  "dependencies": [
+    "CS-037"
+  ],
+  "allowed_paths": [
+    "backend/vision/",
+    "tests/vision/",
+    "qa/vision/"
+  ],
+  "trello_url": "https://trello.com/c/iiU7aVfB/38-p1-cs-038-evaluate-signal-ambiguity-and-track-loss",
+  "suggested_role": "QA",
+  "estimate_hours": 1.0,
+  "elapsed_window": "11–14",
+  "owner": null,
+  "status": "backlog",
+  "branch": null,
+  "pr_url": null,
+  "evidence": [],
+  "blocker": ""
+}

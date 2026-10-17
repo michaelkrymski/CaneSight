@@ -1,0 +1,24 @@
+{
+  "id": "CS-008",
+  "title": "Fit separate flyback diodes and secure wiring",
+  "category": "Hardware & Power",
+  "priority": "P0",
+  "acceptance": "One suitable diode per motor: cathode band to motor+, anode to switched motor-; insulate and strain-relieve.",
+  "dependencies": [
+    "CS-007"
+  ],
+  "allowed_paths": [
+    "hardware/",
+    "qa/"
+  ],
+  "trello_url": "https://trello.com/c/r1e8gBfr/8-p0-cs-008-fit-separate-flyback-diodes-and-secure-wiring",
+  "suggested_role": "Hardware",
+  "estimate_hours": 0.5,
+  "elapsed_window": "2–5",
+  "owner": null,
+  "status": "backlog",
+  "branch": null,
+  "pr_url": null,
+  "evidence": [],
+  "blocker": ""
+}
