@@ -34,6 +34,14 @@ Add closed versioned message schema, six replay fixtures, reference validation/c
 
 Validation: 34 repository/contract tests pass, including duplicate/order/epoch/session/mode handling, unknown fields, nonfinite and oversize input, clock bounds, frame lineage and heartbeat-independent expiry. Structural validation, generated log and whitespace checks pass. Current-head GitHub CI is verified separately; PM/collaborator acceptance remains required.
 
+## 2026-10-17 — CS-021-CS-022-MICHAEL-CLAIM-20261017: Assign Pi capture and latest-only uploader work to Michael
+
+Author: michaelkrymski (AI-assisted) · Task: CS-021, CS-022
+
+PM assignment proposes Michael as owner of CS-021 (Picamera2/in-memory CSI validation) and CS-022 (latest-only 416-square quality-75 JPEG upload at 1 Hz). Both were unclaimed. User reports successful SSH and IMX708 wide NoIR still capture; full acceptance is not claimed. Preserve scope/dependencies and all other owners. Separate task implementation branches follow accepted assignment.
+
+Validation: Task structural checks, generated changelog check, scoped assignment guard and whitespace check. Shared/backend CI runs separately. No Picamera2 in-memory loop, uploader, hardware safety or live backend integration acceptance is claimed by this metadata assignment.
+
 ## 2026-10-17 — CS-028-CLAIM-ADITSANGANI-20261017: Claim FastAPI skeleton and frame endpoint for Adit
 
 Author: aditsangani · Task: CS-028
