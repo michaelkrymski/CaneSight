@@ -266,6 +266,14 @@ Propose gmarcialcalleja as owner of CS-035 with unchanged acceptance, dependenci
 
 Validation: 11 existing offline vision tests and all 39 shared Python tests passed. Repository validation passed. Checked publishing verifies generated changelog and whitespace. No real model, live device or hardware tests claimed.
 
+## 2026-10-17 — CS-035-NATIVE-RESULT-SCOPE-PM-20261017: Propose narrow service, native-result and deployment scope for CS-035
+
+Author: Michael Krymski (AI-assisted) · Task: CS-035
+
+Append backend/server.py, backend/sessions.py, tests/backend/ and backend/deploy/ to CS-035 allowed_paths so Gavin can complete reviewed native observation delivery and runtime integration after this amendment merges. Preserve all other task fields, the master plan, protocol and governance. Record explicit safety, isolation, freshness, readiness and rollback conditions in a new change request.
+
+Validation: Repository structure, all 39 shared/governance tests, generated changelog and whitespace checks passed. Exact task-field comparison confirmed only the four allowed_paths additions. Trusted-base staged-diff inspection found no structural/scope errors and correctly requires exact-head PM GitHub authorization. No runtime, deployment or hardware acceptance claimed.
+
 ## 2026-10-17 — CS-035-OBSERVATION-ADAPTER-20261017-GMARCIALCALLEJA: Adapt pinned YOLO detections to bounded observation-only worker results
 
 Author: Gavin (gmarcialcalleja) · Task: CS-035

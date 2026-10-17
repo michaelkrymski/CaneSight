@@ -11,7 +11,11 @@
   "allowed_paths": [
     "backend/vision/",
     "tests/vision/",
-    "qa/vision/"
+    "qa/vision/",
+    "backend/server.py",
+    "backend/sessions.py",
+    "tests/backend/",
+    "backend/deploy/"
   ],
   "trello_url": "https://trello.com/c/r1LypkHG/35-p0-cs-035-return-observation-only-inference-results",
   "suggested_role": "CV",
