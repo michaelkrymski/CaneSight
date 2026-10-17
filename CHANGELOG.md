@@ -138,6 +138,14 @@ Completed policy ticks alone renew a bounded lease. Independent supervisor and s
 
 Validation: 83 edge cases: Linux 83 passed; Windows 82 passed with POSIX SIGTERM skipped. 59 shared/dashboard tests passed on Linux; checked publishing repeats shared/repository/changelog/whitespace validation. Synthetic demo ends off/unarmed at startup, faulted/off after stalled feeds, with no credentials or GPIO.
 
+## 2026-10-17 — CS-027-BONDMILA-CLAIM-20261017: Propose bondmila assignment for the debounced context button
+
+Author: bondmila (AI-assisted) · Task: CS-027
+
+Assignment only, following human authorization to take the next Gemini integration task. Implementation waits for merged ownership. Preserve acceptance, dependencies and allowed paths. No GPIO activation, API credential or implementation included.
+
+Validation: Accepted main owner null and all open PRs checked for competing CS-027 claims; authenticated GitHub login bondmila. Checked publisher runs repository structure, root tests, generated changelog and whitespace checks before commit. No task implementation or hardware tests apply to this assignment-only change.
+
 ## 2026-10-17 — CS-028-CLAIM-ADITSANGANI-20261017: Claim FastAPI skeleton and frame endpoint for Adit
 
 Author: aditsangani · Task: CS-028
@@ -441,6 +449,14 @@ Author: aditsangani (AI-assisted) · Task: CS-037
 Use verified CS-036 shape prototypes, explicit segment geometry and bounded temporal confirmation. Keep uncertain flashing unknown, reject ambiguous digits, preserve sequence/time high-water marks and expire results without polling renewal. Replay-only internal records; no production adapter/protocol, trained model or real-world recognition change.
 
 Validation: 45 vision tests passed including 14 new parser cases. Actual replay processed 12 cases/18 PNG frames; authored countdown ended at observed 11, and generic/ambiguous/track-loss cases stayed unknown. Repository structure and whitespace passed; checked publishing reruns shared tests and exact changelog validation. Prototype fixtures overlap the regression inputs: no held-out accuracy, live timing or hardware evidence.
+
+## 2026-10-17 — CS-038-CLAIM-ADITSANGANI-20261017: Request CS-038 assignment for signal ambiguity and track-loss evaluation
+
+Author: aditsangani (AI-assisted) · Task: CS-038
+
+Claim only. CS-037 implementation PR #46 is merged. Plan to evaluate multiple heads, glare, occlusion, target changes, symbol confusion and countdown exact-match using clearly labeled replay inputs. No training, production integration or hardware validation is included; real-world accuracy remains unverified. Implementation waits for Michael to merge this assignment.
+
+Validation: Checked publishing runs repository validation, shared unit tests, generated changelog consistency and whitespace checks. No implementation or hardware tests are claimed by this assignment.
 
 ## 2026-10-17 — CS-039-BONDMILA-CLAIM-20261017: Propose bondmila assignment for isolated Gemini context service
 
