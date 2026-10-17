@@ -1,0 +1,9 @@
+{
+  "id": "CS-033-CLAIM-20261017-GMARCIALCALLEJA",
+  "date": "2026-10-17",
+  "author": "Gavin (gmarcialcalleja)",
+  "task": "CS-033",
+  "summary": "Propose Gavin's ownership of Vultr backend deployment",
+  "details": "Claim CS-033 for gmarcialcalleja with status in_progress on claim/CS-033-gmarcialcalleja. Implementation waits for Michael to merge this claim and remains dependent on CS-029 and CS-032. Task requirements, master plan and other tasks are unchanged; no deployment or hardware acceptance is claimed.",
+  "validation": "Claim-only metadata change; repository check results are recorded in the claim PR. No Vultr, HTTPS/WSS, secret configuration, laptop fallback or hardware tests performed."
+}
