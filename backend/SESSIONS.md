@@ -114,9 +114,10 @@ its measured t4, drift/uncertainty and capture ages using the accepted protocol.
 No backend receive time replaces source capture time. A valid heartbeat does
 not renew an observation.
 
-Relay admission does **not** establish capture-age eligibility: CS-030 must wire
-clock mappings, source health and independent expiry into consumers. Keep all
-phone-derived haptic guidance unavailable until that integration is tested.
+Relay admission does **not** establish capture-age eligibility. The CS-030
+`PairedEventsClient` and `CaptureAgeGate` implement receiving-side clock mappings,
+source health and local expiry; see `FRESHNESS.md`. Keep phone-derived haptic
+guidance unavailable until actual drift and final edge-policy integration are tested.
 Broader frame/telemetry rate quotas remain CS-032; the connection/session/queue
 bounds here do not replace those quotas.
 
