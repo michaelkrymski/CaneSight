@@ -330,6 +330,14 @@ Promote accepted source 2af3150 with verified read-only weights, bounded backend
 
 Validation: 20 generated public HTTPS/WSS results passed lineage, isolation, authorization, revocation and expiry checks; deployed container healthy. Checked publisher runs repository/shared checks.
 
+## 2026-10-17 — CS-036-CLAIM-ADITSANGANI-20261017: Claim signal fixture preparation for aditsangani
+
+Author: aditsangani (AI-assisted) · Task: CS-036
+
+Propose ownership of CS-036 for labeled replay/test signal fixtures, manual ROI provenance and source/license documentation within existing vision scope. No custom model training, automatic pedestrian recognition, implementation, deployment or task requirement change. Implementation waits for Michael to merge this claim.
+
+Validation: Ownership-only proposal based on accepted main 89e15adab322ea299915f193cb6c9c6626d20739; main task unowned and no competing open CS-036 PR found. Checked publishing runs shared repository tests, structure, generated changelog and whitespace checks. No model/hardware tests apply to this claim.
+
 ## 2026-10-17 — CS-041-CLAIM-GMARCIALCALLEJA-20261017: Claim session-health dashboard for Gavin
 
 Author: Gavin (gmarcialcalleja) · Task: CS-041
