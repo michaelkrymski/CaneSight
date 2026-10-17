@@ -1,9 +1,12 @@
 # CS-033: Vultr deployment package
 
-Status: prepared for integration, **not deployed or accepted**. No Vultr server
-exists yet. CS-029 authentication and CS-032 validation/rate limits are still
-dependencies; the accepted backend currently has no application image. This
-package does not implement those tasks or substitute mock readiness for them.
+Status: host prepared and proxy tested with fixtures, **application not deployed
+or accepted**. The Vultr host has Ubuntu 24.04, 2 vCPUs, 4 GB RAM and 128 GB disk;
+it is CPU-only. Docker Engine and Compose are installed. See the latest CS-033
+handoff for versions and test evidence. CS-029 authentication and CS-032
+validation/rate limits are still dependencies; the accepted backend currently has
+no application image. This package does not implement those tasks or substitute
+fixture readiness for them. A domain has not yet been registered.
 
 ## Inputs needed before deployment
 
@@ -28,6 +31,13 @@ package does not implement those tasks or substitute mock readiness for them.
   Unhealthy status does not restart a hung-but-running container automatically.
 
 ## Prepare the server without exposing the application
+
+On an authorized fresh Ubuntu 24.04 host, `sudo bash prepare_host.sh` installs
+Docker from its official signed apt repository, Compose, Python venv support and
+OpenSSL. Review it first. It does not change SSH, add users to the Docker group,
+modify firewall rules or publish application ports. Use sudo for Docker commands
+unless a separately approved access configuration exists. The currently prepared
+host has only SSH allowed in its active UFW rules.
 
 Use a dedicated checkout of the reviewed commit. From `backend/deploy` on Linux:
 
@@ -131,6 +141,7 @@ use the master plan's labeled replay/disconnected demo. No crossing permission.
 From repository root:
 
 ```sh
+python -m pip install -r tests/contracts/requirements.txt
 python -m unittest discover -s tests/backend -v
 python scripts/validate_repo.py
 python -m unittest discover -s tests -v
@@ -141,7 +152,15 @@ git diff --check
 Tests generate temporary self-signed certificates and synthetic credentials for
 local fixtures only. OpenSSL is required for the TLS tests. Compose configuration
 tests require the Docker CLI with Compose, but not a running engine. These tests
-do not deploy Vultr, run Caddy, or certify physical hardware.
+do not deploy the application or certify physical hardware.
+
+To run the optional real Caddy integration test on Linux, pull a reviewed Caddy
+image, resolve its digest, then set `CS_CADDY_TEST_IMAGE` to that immutable image
+reference when running `python -m unittest discover -s tests/backend -v`. Docker
+Engine access is required (on this host, use sudo with the environment explicitly
+set). The fixture binds only loopback, creates a temporary internal CA, verifies
+HTTPS/WSS and readiness failures, then removes its uniquely named test container.
+This is proxy evidence; it does not establish real backend/session acceptance.
 
 References: [Docker Compose services](https://docs.docker.com/reference/compose-file/services/),
 [Docker Engine installation](https://docs.docker.com/engine/install/),

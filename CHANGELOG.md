@@ -58,3 +58,11 @@ Add Compose/Caddy deployment templates with private backend networking, digest-p
 
 Validation: Local Python 3.14.7: 32 unit tests discovered, 31 passed and one Linux permissions test skipped on Windows. Includes temporary HTTPS/WSS fixtures and Docker Compose configuration validation without an engine. Repository validation, changelog verification and whitespace checks passed. Docker engine/Caddy startup, Vultr deployment, actual backend authentication/secret validity, laptop fallback and hardware were not tested.
 
+## 2026-10-17 — CS-033-HOST-PREPARED-20261017-GMARCIALCALLEJA: Prepare the actual CPU host and verify Caddy on loopback
+
+Author: Gavin (gmarcialcalleja) · Task: CS-033
+
+Confirm the deployed host is Ubuntu 24.04 with two vCPUs, 4 GB RAM and 128 GB disk, without an NVIDIA GPU. Install Docker Engine and Compose from the official repository using an in-scope preparation script. Add an opt-in real Caddy TLS/WebSocket integration test and record successful host results. Public application exposure remains blocked on DNS and accepted backend/auth/rate-limit integration.
+
+Validation: Actual Vultr host: all 56 tests passed with Docker Engine 29.9.1, Compose 5.6.0 and digest-pinned Caddy 2.11.7; production Caddyfile validation passed. Windows: 56 discovered, 54 passed, two platform/opt-in tests skipped. Repository structure, generated changelog and whitespace checks passed. Only SSH remains publicly listening. No live application, public certificate, YOLO, Gemini, Tiger Data, laptop fallback or hardware acceptance claimed.
+
