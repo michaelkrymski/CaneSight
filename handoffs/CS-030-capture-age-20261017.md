@@ -29,3 +29,7 @@ The session relay intentionally keeps original wire observations unchanged. The 
 Also reviewed issue #20 during this session: paired enrollment is available in accepted CS-029, with operator steps in backend/SESSIONS.md. The issue still needs Gavin's verified deployed HTTPS origin/factory/version before a real Pi upload; no live URL or credential was invented or published. This task does not claim real-device upload acceptance.
 
 Status: Review, not Done. Next: Michael reviews policy/clock/lineage evidence and merges through normal checks; final device drift and edge integration remain separate acceptance work. No self-merge.
+
+## Accepted worker integration before publication
+
+Integrated accepted main `dd7c46830d869b24b0d76f490cd086c9ec5b118f` (CS-031 worker PR #19) without history rewriting or dropping accepted records. Ran the combined backend suite again: **72 tests passed**, including all worker/session-lifecycle cases, the 21 freshness cases and real TLS consumer integration. Legacy replay and rendered-log/whitespace checks passed again. The earlier 57-case result records the pre-worker checkpoint; the final combined result is 72. Worker files and accepted shared contracts are unchanged relative to current main.
