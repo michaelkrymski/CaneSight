@@ -53,7 +53,7 @@ class LocalPolicy:
     Side pulses mean an obstacle on that side, never a direction to move.
     Center takes precedence and requests both channels atomically.
     """
-    def __init__(self, gate, phone_id, scheduler, *, clock=clock_ms):
+    def __init__(self, gate, phone_id, scheduler, *, clock=clock_ms, watchdog=None):
         if not isinstance(gate, CaptureAgeGate) or not isinstance(scheduler, HapticScheduler):
             raise ValueError('Use the accepted gate and capped scheduler')
         if not isinstance(scheduler.output, SimulatedOutput):
@@ -64,6 +64,9 @@ class LocalPolicy:
         if phone_id is not None and (phone_id == gate.receiver_id or phone_id not in gate.sequence.active):
             raise ValueError('Explicitly enroll a distinct phone before policy construction')
         self.gate, self.phone_id, self.scheduler, self.clock = gate, phone_id, scheduler, clock
+        self.watchdog = watchdog
+        if watchdog is not None and watchdog.clock is not clock:
+            raise ValueError('Watchdog must share the policy clock')
         self.lock = threading.RLock()
         self.armed = False
         self.closed = False
@@ -95,6 +98,14 @@ class LocalPolicy:
             self._reset()
 
     def tick(self):
+        result = self._tick()
+        # Feed only after the whole policy tick returned. Receipt callbacks,
+        # healthy sockets and camera frames never renew this lease.
+        if self.watchdog is not None and not self.closed and self.fault is None:
+            self.watchdog.feed()
+        return result
+
+    def _tick(self):
         with self.lock:
             try:
                 now = number(self.clock())

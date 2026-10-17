@@ -189,3 +189,9 @@ Zero expirations in continuous fresh input does not independently validate idle 
 See [POLICY.md](POLICY.md) for the opt-in simulated policy, explicit trusted
 phone binding, clock uncertainty gate, expiry tests and remaining physical gates.
 `--simulate-policy` never uses GPIO; existing receiver-only behavior is preserved.
+
+## CS-026 watchdog and restart
+
+See [WATCHDOG.md](WATCHDOG.md) for the independent policy lease, local failure
+demonstration, fresh enrollment after restart and uninstalled service example.
+Software supervision cannot force a frozen GPIO or failed driver low.
