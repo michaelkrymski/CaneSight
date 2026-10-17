@@ -18,11 +18,15 @@
   "estimate_hours": 1.0,
   "elapsed_window": "5–8",
   "owner": "gmarcialcalleja",
-  "status": "in_progress",
-  "branch": "claim/CS-035-gmarcialcalleja",
-  "pr_url": "https://github.com/michaelkrymski/CaneSight/pull/27",
+  "status": "blocked",
+  "branch": "task/CS-035-observation-results",
+  "pr_url": null,
   "evidence": [
-    "Claim proposal only; implementation waits for Michael to merge assignment. CS-031 PR #19 and CS-034 PR #26 are merged."
+    "Claim proposal only; implementation waits for Michael to merge assignment. CS-031 PR #19 and CS-034 PR #26 are merged.",
+    "handoffs/CS-035-20261017-observation-adapter.md",
+    "qa/vision/observation-worker-smoke-20261017.json",
+    "Pinned model through real spawned worker: one warmup plus 20 generated replay JPEGs, one load, 21 schema-valid results, preserved lineage, zero failures/timeouts. Local result median 47 ms, p95/max 63 ms; not camera/network/Pi latency.",
+    "22 vision tests and all 39 shared tests passed in isolated Python 3.12.14. Python 3.14 backend regression: 115 discovered, 109 passed, six environment-specific skips."
   ],
-  "blocker": ""
+  "blocker": "Model adapter and internal worker results are implemented and tested. Authenticated native Pi result delivery, service factory configuration and deployment require PM-approved scope expansion beyond backend/vision/, tests/vision/ and qa/vision/. See backend/vision/INTEGRATION.md; no deployed inference or device/motor readiness claimed."
 }

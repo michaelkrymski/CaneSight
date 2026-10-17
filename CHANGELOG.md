@@ -266,6 +266,14 @@ Propose gmarcialcalleja as owner of CS-035 with unchanged acceptance, dependenci
 
 Validation: 11 existing offline vision tests and all 39 shared Python tests passed. Repository validation passed. Checked publishing verifies generated changelog and whitespace. No real model, live device or hardware tests claimed.
 
+## 2026-10-17 — CS-035-OBSERVATION-ADAPTER-20261017-GMARCIALCALLEJA: Adapt pinned YOLO detections to bounded observation-only worker results
+
+Author: Gavin (gmarcialcalleja) · Task: CS-035
+
+Add a picklable verified model factory, bounded JPEG decoder and original-image normalized object mapping. Keep unsupported pedestrian signal unknown and countdown null. Preserve original lineage through the existing worker and capture-age gate. Include actual generated-input worker evidence and a concrete PM scope proposal for native result delivery and deployment; production remains unchanged.
+
+Validation: 22 vision and 39 shared tests passed on isolated Python 3.12.14. Existing Python 3.14 backend suite: 115 discovered, 109 passed, six environment-specific skips. Actual pinned CPU model: 21 completed results including warmup, one model load, zero failures/timeouts; 20-sample local result median47/p95max63 ms. Generated pixels only, not detection accuracy, deployed latency, readiness or hardware evidence.
+
 ## 2026-10-17 — CS-041-CLAIM-GMARCIALCALLEJA-20261017: Claim session-health dashboard for Gavin
 
 Author: Gavin (gmarcialcalleja) · Task: CS-041
