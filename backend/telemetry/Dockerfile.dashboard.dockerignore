@@ -1,0 +1,14 @@
+**
+!backend/
+!backend/telemetry/
+!backend/telemetry/__init__.py
+!backend/telemetry/live.py
+!backend/telemetry/dashboard.py
+!backend/telemetry/Dockerfile.dashboard
+!backend/telemetry/Dockerfile.dashboard.dockerignore
+!dashboard/
+!dashboard/index.html
+!dashboard/app.js
+!dashboard/model.js
+!dashboard/style.css
+!dashboard/icon.svg

@@ -1,0 +1,9 @@
+{
+  "id": "CS-041-FIXTURE-DASHBOARD-20261017-GMARCIALCALLEJA",
+  "date": "2026-10-17",
+  "author": "Gavin (gmarcialcalleja)",
+  "task": "CS-041",
+  "summary": "Build a read-only session-health dashboard with explicit replay and unknown states",
+  "details": "Add a dependency-free localhost preview and responsive dashboard with six synthetic replay scenarios. Capture-age budgets remain separate from heartbeat transport health; obsolete distances and boxes disappear, unbounded ages stay unknown, and activity remains bounded. Persistent replay/prototype labels prevent live or crossing-permission claims. Live integration remains blocked on CS-035 and a reviewed restricted read-only data source; production authentication and endpoints are unchanged.",
+  "validation": "10 Node model tests passed. All 43 shared Python tests passed, including four real HTTP tests for loopback binding, allowlisted assets, denied mutation/query/path traversal and restrictive security headers. Browser verified six scenarios and paused-source expiry, responsive widths 320/390/768/1024/1440 without horizontal overflow, and no console warnings/errors. No real-device, model, deployment or hardware acceptance claimed."
+}

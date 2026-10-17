@@ -1,0 +1,9 @@
+{
+  "id": "CS-041-PARTIAL-SOURCE-20261017-GMARCIALCALLEJA",
+  "date": "2026-10-17",
+  "author": "Gavin (gmarcialcalleja)",
+  "task": "CS-041",
+  "summary": "Finish fixture dashboard source-failure validation and initial unknown display",
+  "details": "Initially hide illustrative boxes until an available synthetic observation is established. Add independent phone/Pi disconnect scenarios with partial transport, retain unknown on age overflow, and show activity relative to scenario start. Live data remains blocked on accepted CS-035 and a reviewed authenticated read-only projection.",
+  "validation": "12 Node model tests and all 44 shared Python tests passed, including five HTTP tests. Chromium verified independent phone/Pi disconnection and continued peer observations. Software fixtures only; no device, inference or hardware readiness claim."
+}
