@@ -1,0 +1,15 @@
+SPDX-License-Identifier: CC0-1.0
+
+Original generated fixture assets and authored annotations, 2026 CaneSight
+contributors (aditsangani, AI-assisted).
+
+To the extent possible under law, the contributors waive copyright and related
+rights in the original PNGs under images/ and the authored fixture annotations
+in manifest.json under CC0 1.0 Universal. These schematic assets are provided
+without warranty or a claim of real-world signal accuracy.
+
+CC0 legal code: https://creativecommons.org/publicdomain/zero/1.0/legalcode
+CC0 deed: https://creativecommons.org/publicdomain/zero/1.0/
+
+This dedication does not relicense existing project software, third-party model
+weights, dependencies, trademarks or any material outside the fixture assets.
