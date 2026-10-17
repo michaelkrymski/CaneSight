@@ -18,11 +18,22 @@
   "estimate_hours": 1.5,
   "elapsed_window": "5–8",
   "owner": "gmarcialcalleja",
-  "status": "in_progress",
-  "branch": "claim/CS-024-gmarcialcalleja",
-  "pr_url": "https://github.com/michaelkrymski/CaneSight/pull/31",
+  "status": "review",
+  "branch": "task/CS-024-pi-receiver-expiry",
+  "pr_url": "https://github.com/michaelkrymski/CaneSight/pull/32",
   "evidence": [
-    "Claim proposal only; implementation waits for Michael to merge assignment. Receiver/expiry first checkpoint within edge/ and tests/edge/; CS-023 dependency remains outstanding."
+    "Claim proposal only; implementation waits for Michael to merge assignment. Receiver/expiry first checkpoint within edge/ and tests/edge/; CS-023 dependency remains outstanding.",
+    "handoffs/CS-024-20261017-pi-receiver-expiry.md",
+    "26 edge tests passed on Windows and Linux Python 3.12, including actual certificate-verified HTTPS/WSS with synthetic observations, independent idle expiry and revocation while a result is fresh.",
+    "Windows backend regression: 128 discovered, 121 passed and seven environment/opt-in skips. Real Pi receiver execution, phone clock integration and CS-023-dependent local hazard/motor policy remain outstanding.",
+    "handoffs/CS-024-20261017-validation-boundary.md",
+    "handoffs/CS-024-20261017-manual-pi-network-boundary.md",
+    "handoffs/CS-024-20261017-manual-pi-receiver-pass.md",
+    "tests/edge/evidence/pr32-pi-receiver-20261017.json",
+    "Manual Pi test at 17441cee512bb29ae6ad5bd327706a45c0a8f107: Vision accepted=20/rejected=0/expired=0/unavailable on exit; upload accepted=20/stale=0/failed=0/replaced=0. Human-reported setup and summaries; test session revoked.",
+    "handoffs/CS-024-20261017-local-policy-simulation.md",
+    "CS-023 is merged. Added explicit trusted phone binding, native clock/depth reception, independent local policy and original-deadline simulated scheduler integration. No wire-driven enrollment, GPIO, phone/operator token transfer or crossing verdict.",
+    "71 edge tests passed on Windows Python 3.14 and Linux Python 3.12; 41 shared tests passed on both. Includes certificate-verified native WSS synthetic phone -> relay -> receiver -> policy -> simulated pulse, interruption cancellation, independent idle expiry, unknown coverage, original capture deadline, heartbeats-only, recovery, hysteresis and clock/motor fault behavior. Earlier physical Pi vision evidence remains limited to its exact snapshot."
   ],
-  "blocker": ""
+  "blocker": "Software checkpoint ready for Michael review. Real phone depth/calibration with a measured joint drift bound, new-commit Pi policy test, mount/channel calibration and CS-009 electrical/motor checks remain unverified. Simulated outputs only; CS-026 watchdog/restart acceptance separate."
 }
