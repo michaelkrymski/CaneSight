@@ -514,3 +514,11 @@ Initially hide illustrative boxes until an available synthetic observation is es
 
 Validation: 12 Node model tests and all 44 shared Python tests passed, including five HTTP tests. Chromium verified independent phone/Pi disconnection and continued peer observations. Software fixtures only; no device, inference or hardware readiness claim.
 
+## 2026-10-17 — CS-044-CLAIM-20261017-GMARCIALCALLEJA: Propose disconnect delay and replay failure-test assignment
+
+Author: Gavin (gmarcialcalleja) · Task: CS-044
+
+Assignment runtime only. After merged ownership, prepare repeatable N01–N05 software failure evidence with explicit simulated outputs and hardware limits. No Pi/camera/GPIO access; CS-025 physical acceptance remains pending.
+
+Validation: Verified task is unclaimed on accepted main with no competing open claim. Checked publishing runs repository/shared/changelog/whitespace checks. No new failure suite or physical test executed in this claim.
+
