@@ -1,0 +1,35 @@
+{
+  "task": "CS-014",
+  "mode": "replay",
+  "fixture_cases": 7,
+  "fixture_structure": "passed",
+  "python": "3.14.3",
+  "swift_source_files": 7,
+  "authored_xctest_methods": 15,
+  "source_sha256_text_lf": {
+    "ios/DepthSectors/Package.swift": "fe9a53b0049d2489eb896b14c2c6d69765834ac8ecead2e03ed181d98d56e9c2",
+    "ios/DepthSectors/Sources/CaneSightDepth/DepthBytes.swift": "deccbd98e300782f4e2e708f2b5833147760bfea5037f739bea60039da1dd06b",
+    "ios/DepthSectors/Sources/CaneSightDepth/DepthSectors.swift": "4ae12698ab4d1f7bc6cff3e7c72477cabf4802c568ccbdace7c45f45dd8a78b1",
+    "ios/DepthSectors/Sources/CaneSightDepthARKit/ARKitDepthAdapter.swift": "1a83e73d34df1e5255aa5e5864ea76d7af691d7bb3990f963b4af8c4437e26f3",
+    "ios/DepthSectors/Tests/CaneSightDepthTests/DepthBytesTests.swift": "9c02b8e64fa36744bf77140aebcc00749f0be0a187609858a577c3348b53a5bb",
+    "ios/DepthSectors/Tests/CaneSightDepthTests/DepthPixelBufferTests.swift": "db081a0d61ad24be589c81a2da32707d036916d09cd13dc42c358faaee9b7303",
+    "ios/DepthSectors/Tests/CaneSightDepthTests/DepthSectorsTests.swift": "02f44ceab990f8b8a95bfad7a21e17b2b5e5d872c763940e67fcb7e72ab1fc0a",
+    "ios/DepthSectors/Tests/CaneSightDepthTests/Fixtures/replay.json": "6e44527957f5ebc519cb64ae27031c65942a4199b6df31082175fa7dd8b23ea9"
+  },
+  "swift_syntax_parser": {
+    "tree_sitter": "0.26.0",
+    "swift_grammar": "0.7.4",
+    "files": 7,
+    "errors": [],
+    "status": "passed"
+  },
+  "swift_compilation": "not_run_no_toolchain",
+  "xctest_execution": "not_run_no_toolchain",
+  "xcode_ios_build": "not_run_no_mac",
+  "physical_device_checks": "not_run",
+  "limits": [
+    "Structure/provenance/source audit, not execution of depth-processing code.",
+    "Expected fixture outputs are authored requirements, not observed results.",
+    "Syntax parser, when requested, cannot validate types, SDK APIs, linking or runtime behavior."
+  ]
+}

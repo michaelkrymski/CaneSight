@@ -58,6 +58,14 @@ Claim only, from main 18884a5914e8f0476a2877a9c63ff37a24291306. Human requests c
 
 Validation: Checked publishing runs repository validation, shared unit tests, generated changelog consistency and whitespace checks. No Swift build, Xcode, iOS simulator or device tests are claimed by this assignment.
 
+## 2026-10-17 — CS-014-DEPTH-SECTORS-20261017: Prepare confidence-aware Swift depth-sector package and ARKit adapter
+
+Author: aditsangani (AI-assisted) · Task: CS-014
+
+Add a standalone bounded/stateless depth processor, confidence/coverage/sample gates, nearest-rank percentile, nullable unknown values, preserved source time, strided byte decoding and owned CoreVideo/ARFrame extraction. Add seven original replay fixtures and fifteen unrun XCTest methods. Sectors are explicitly depth-image columns with physical mapping unverified. No app/signing, transport/lifecycle integration, shared contract, orientation calibration or deployed behavior changes. Keep draft/blocked pending Swift/Xcode/CS-013 device evidence.
+
+Validation: Windows fixture-structure audit passed for seven cases; Tree-sitter 0.26.0/Swift grammar 0.7.4 parsed seven Swift files without syntax errors. Neither check compiles or executes Swift. Checked publishing runs existing repository tests/validation/log/whitespace checks; no Swift/XCTest/Apple/device pass is claimed.
+
 ## 2026-10-17 — CS-016-CLAIM-BONDMILA-20261017: Request CS-016 bounded phone telemetry assignment
 
 Author: bondmila (AI-assisted) · Task: CS-016

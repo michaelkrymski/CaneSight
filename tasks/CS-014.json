@@ -16,9 +16,14 @@
   "estimate_hours": 2.0,
   "elapsed_window": "2–5",
   "owner": "aditsangani",
-  "status": "in_progress",
-  "branch": "claim/CS-014-aditsangani",
+  "status": "blocked",
+  "branch": "task/CS-014-depth-sectors",
   "pr_url": null,
-  "evidence": [],
-  "blocker": "CS-013 physical-phone support/signing and Xcode/ARKit build/device verification remain pending. Claim requests CS-014 software preparation with synthetic fixtures only; no prerequisite completion or device acceptance is asserted."
+  "evidence": [
+    "ios/DepthSectors/README.md",
+    "tests/ios/cs014-source-audit-20261017.json",
+    "handoffs/CS-014-depth-sectors-20261017.md",
+    "Seven replay fixture structures and seven Swift source grammar parses passed on Windows. Fifteen XCTest methods authored but not executed; no Swift compiler, Xcode/iOS SDK, signing or physical-device results."
+  ],
+  "blocker": "Software preparation complete; Swift compilation/XCTest and iOS ARKit build remain unrun because this host has no Swift toolchain/Mac/Xcode. CS-013 physical support/signing prerequisite remains pending; physical orientation/mount, accuracy and lifecycle acceptance remain separate. Keep implementation PR draft until actual Apple build/test evidence."
 }
