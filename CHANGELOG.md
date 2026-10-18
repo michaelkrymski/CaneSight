@@ -58,6 +58,14 @@ Claim only, from main 18884a5914e8f0476a2877a9c63ff37a24291306. Human requests c
 
 Validation: Checked publishing runs repository validation, shared unit tests, generated changelog consistency and whitespace checks. No Swift build, Xcode, iOS simulator or device tests are claimed by this assignment.
 
+## 2026-10-17 — CS-016-BOUNDED-TELEMETRY-BONDMILA-20261017: Implement bounded timestamped phone telemetry software checkpoint
+
+Author: bondmila (AI-assisted) · Task: CS-016
+
+Add isolated Swift package with latest-only 10 Hz depth transport, original capture timestamps, role-bound native WSS, independent sequence streams, strict clock probes, watchdog cancellation and reconnect without queue replay. Keep task blocked and PR draft pending producer/app integration and deferred iOS device evidence; no shared contract or baseline changes.
+
+Validation: 21 host Swift tests and strict-concurrency build pass; 4 generated Swift replay-to-accepted-backend/schema tests pass. Repository validator and 110 root tests pass; checked publishing reruns shared checks. No iOS app build/signing, physical phone, live WSS or electrical verification claimed.
+
 ## 2026-10-17 — CS-016-CLAIM-BONDMILA-20261017: Request CS-016 bounded phone telemetry assignment
 
 Author: bondmila (AI-assisted) · Task: CS-016

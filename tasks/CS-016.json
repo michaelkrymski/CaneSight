@@ -16,13 +16,14 @@
   "trello_url": "https://trello.com/c/98OCtflP/16-p0-cs-016-stream-bounded-timestamped-telemetry",
   "suggested_role": "iOS",
   "estimate_hours": 1.0,
-  "elapsed_window": "5–8",
+  "elapsed_window": "5\u20138",
   "owner": "bondmila",
-  "status": "in_progress",
-  "branch": "claim/CS-016-bondmila",
+  "status": "blocked",
+  "branch": "task/CS-016-bounded-telemetry",
   "pr_url": null,
   "evidence": [
-    "Assignment proposal only: implementation waits for Michael to merge ownership. CS-016 acceptance is bounded 10 Hz starting phone summaries with session/boot/sequence identity and reconnect without stale queue replay. Initial software work will use clearly identified depth fixtures until CS-014 and real-device evidence are available."
+    "Assignment proposal only: implementation waits for Michael to merge ownership. CS-016 acceptance is bounded 10 Hz starting phone summaries with session/boot/sequence identity and reconnect without stale queue replay. Initial software work will use clearly identified depth fixtures until CS-014 and real-device evidence are available.",
+    "Merged assignment PR #61 accepted on main 1dcead2e4e61396a059985c7d1ac792c733ec3fb. Standalone Swift telemetry package: bounded 10 Hz latest-only summaries, role-bound WSS adapter, original capture age, independent sequences, clock replies, cancellation and reconnect without old queue replay. Local host verification: 21 Swift tests pass; strict-concurrency build passes; 4 Swift-to-accepted-backend/schema tests pass. Synthetic/fake-socket evidence only; no iOS app or physical-phone acceptance. See handoffs/CS-016-bounded-telemetry-bondmila-20261017.md."
   ],
-  "blocker": ""
+  "blocker": "Software checkpoint implemented; pending CS-014 capture adapter and CS-017 app lifecycle integration, verified capture/source-clock mapping, iOS app SDK build/signing and real-phone/native WSS/paired Pi evidence. User authorized deferring Xcode/app/device verification."
 }
