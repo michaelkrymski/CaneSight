@@ -1,0 +1,246 @@
+{
+  "task": "CS-049",
+  "kind": "synthetic-software",
+  "recorded_utc": "2026-10-18T09:37:07.706107+00:00",
+  "python": "3.14.3",
+  "platform": "Windows",
+  "modules": [
+    "tests.denial.test_policy_isolation",
+    "tests.context.test_context_http",
+    "tests.context.test_provider",
+    "tests.context.test_service",
+    "tests.context.test_consumer"
+  ],
+  "tests_run": 43,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "software_pass": true,
+  "source_sha256_utf8_lf": {
+    "backend/context/__init__.py": "04acbe31ab082f570bc3eda204a9618d54fbffeb5df5883a96fd2099a2ba3a91",
+    "backend/context/bluetooth_route.py": "8815c45a2acc43055bae8558815b603a93d0de076821815cb03386f3b472ef01",
+    "backend/context/consumer.py": "5f4e3af832362d8e0e7b5420258f0cac939d274a31115ba38c5abd7bcb7df226",
+    "backend/context/menu_audio.py": "3ffe80c58958394b99b233711d38421f6d38af974a3017004d899a09513c6e66",
+    "backend/context/narration.py": "181fa40783af43f9c250af1e737cc341810c21115af03da535d0f231654ae192",
+    "backend/context/pi_speech.py": "80e9a940dfa3aba06db5be1af85d37da4c42379a11794584782b5a6b0aac34ff",
+    "backend/context/probe.py": "a934d1a27c90514924c5e5c807cd6e28417915ea3e290e361de3495914453526",
+    "backend/context/provider.py": "e5717004374dbb8a71bbaedf430e24358c4468908928b177a39138cf87af2b24",
+    "backend/context/server.py": "cd7772f070b09803d0829f6936939884221d83aaeb15d399ad380c43d9a2630d",
+    "backend/context/service.py": "f6694d867effd6684d193b9edd2754ac55483391e14f2feaf71450087a058392",
+    "backend/context/speaker_bench.py": "a5c68a1ded13652c61f7072952a9067800361a8fb253060d78f6c89c1b40e836",
+    "backend/context/speech_channels.py": "860d17ca64659edb74e0fe33fe6f727496b8f7b1377e4d733004ac4634868812",
+    "backend/freshness.py": "61cccae9693d9b4087862e397783eb16efa98b85bd1acd812f3f6ea236f22cf8",
+    "edge/bench.py": "c66a65645f492bb323240280861381fec5dadcb360490df6195aca4142bb639a",
+    "edge/buttons.py": "5bf82ce7bc516505ecf8f2f500b2581c5f6b67916011234de1ef87ccd1889c38",
+    "edge/context_client.py": "975c11721eaf82e0d265e87c406674118ed7bc64edaeb667df0bafc9f8092a1e",
+    "edge/context_gpio.py": "ae128fe1efb67e6b2f574b3e35a7a690cef74cebaeee1fa2893e83f044b1a5a9",
+    "edge/context_menu.py": "10adaeb93c2086d5b431b1a2d7c71daa6648b349888a24ea845994564675763f",
+    "edge/context_report.py": "7640f5c3b671e0b3bddea784670145532e102011d75841908ea209ca817b40db",
+    "edge/context_runtime.py": "7e1ae4d6a912931b937be58c85c94f635ea1be9c22311f7b6ec988b044565ed0",
+    "edge/haptics.py": "ae64dbbfb3a47f92c629e1b21aa7a813bd3a95490957eaaec67d5d9af05a7241",
+    "edge/menu_bench.py": "dada7029c7b6c530e5c62f1ad1e59a272706d0c58b982c04842c618d0ddce1e1",
+    "edge/policy.py": "6ebbf2e4e85d34bf768975c0673690d6e557200f12b765c422f80cd079b67c63",
+    "edge/receiver.py": "5b154105180afcfec7b78d6d10f9bbc33b083e4dcd94a8944c1bfb17c3ef043d",
+    "edge/trace.py": "9d77a60e34db3f41029fca4ddda85c287d9e134d3ee931e4a32cb84d61a478cc",
+    "edge/uploader.py": "8d693a37bb9ffae6cb382389ab16e2f232d3d57f5ade3031a26ef06668c3af5f",
+    "edge/watchdog.py": "88da94733f8649382ccf98e5f50fe8d6107a31f1a37e2586f99094c06011e94f",
+    "ios/CoarseLocation/Package.swift": "b353549f3c71bd9671f1029ff4ace2e5cc7dd15dbbdcec9e9d4cab20da78eeee",
+    "ios/CoarseLocation/Sources/CaneSightCoarseLocation/LocationContext.swift": "2cf7a6664927770a31f5b50f76121fa93cb2061c4337bf359a5ecde40dbbe9dc",
+    "ios/CoarseLocation/Sources/CaneSightCoreLocation/CoreLocationSource.swift": "55dcd7f400b55635f8cf1e90c93142efa000527681c60cdffc8046f7d7bc74bd",
+    "ios/CoarseLocation/Tests/CoarseLocationTests/LocationContextTests.swift": "3d0a68a6d4cca060d56e920f3dcb033f5fc76d89f23d3ced626d986f0cc381df",
+    "qa/denial_failure_suite.py": "0c09f90c9a6ad99ac423e0e486d2184ba549a51e9b56e2b46edbe22d8c3f4ca1",
+    "shared/protocol/v1/messages.schema.json": "dc3d781a9246152b2e29ce441a4124347debcd83a0c5f06e52ef95888807f1fe",
+    "shared/protocol/v1/reference.py": "f71c7a3560d14a44db978ba0d015453f737beb0c08d8af904789a422e502ee1f",
+    "tests/context/test_consumer.py": "d2cd0604ccf1f8ca5b07cce3012d48515003d90542a5e5c9cfec0268c746052c",
+    "tests/context/test_context_http.py": "e338b598d480b77d98a4835e7ec7bbbb80ce3eecdcc924660f1f2785bcec6152",
+    "tests/context/test_provider.py": "121f9034426b7ed62a778a4da04c75bd76a5fb3a9c4ad1ed8c869fbfeaecc13b",
+    "tests/context/test_service.py": "17d211ecb9f20f91fc2ce9ba2015f10dce47b5e187a6be08573459214f86d6e5",
+    "tests/denial/test_policy_isolation.py": "802f686b01637e7a7a9f4d2a8270ce16f36742543a5032a4186eb0847d933186"
+  },
+  "outcomes": [
+    {
+      "case": "tests.denial.test_policy_isolation.IsolationTests.test_cancel_and_consent_withdrawal_fence_late_result_even_after_recovery",
+      "result": "pass"
+    },
+    {
+      "case": "tests.denial.test_policy_isolation.IsolationTests.test_context_deadline_rejects_reply_even_with_new_healthy_depth",
+      "result": "pass"
+    },
+    {
+      "case": "tests.denial.test_policy_isolation.IsolationTests.test_context_success_does_not_extend_depth_deadline",
+      "result": "pass"
+    },
+    {
+      "case": "tests.denial.test_policy_isolation.IsolationTests.test_hazard_preempts_pending_context_without_cancelling_motor_evidence",
+      "result": "pass"
+    },
+    {
+      "case": "tests.denial.test_policy_isolation.IsolationTests.test_late_result_after_depth_expiry_cannot_restore_health_or_speak",
+      "result": "pass"
+    },
+    {
+      "case": "tests.denial.test_policy_isolation.IsolationTests.test_poll_failure_cannot_revive_or_retrigger_motor_policy",
+      "result": "pass"
+    },
+    {
+      "case": "tests.denial.test_policy_isolation.IsolationTests.test_provider_denial_cannot_mutate_fresh_policy",
+      "result": "pass"
+    },
+    {
+      "case": "tests.denial.test_policy_isolation.IsolationTests.test_request_factory_failure_isolated_for_each_error",
+      "result": "pass"
+    },
+    {
+      "case": "tests.denial.test_policy_isolation.IsolationTests.test_stale_original_frame_cannot_start_provider_or_change_policy",
+      "result": "pass"
+    },
+    {
+      "case": "tests.denial.test_policy_isolation.IsolationTests.test_unreviewed_gps_or_permission_fields_cannot_enter_depth_policy",
+      "result": "pass"
+    },
+    {
+      "case": "tests.context.test_context_http.ContextHTTPTests.test_authenticated_context_preserves_lineage_but_never_claims_capture_age_or_readiness",
+      "result": "pass"
+    },
+    {
+      "case": "tests.context.test_context_http.ContextHTTPTests.test_consent_and_exact_shape_required_before_provider",
+      "result": "pass"
+    },
+    {
+      "case": "tests.context.test_context_http.ContextHTTPTests.test_cooldown_applies_before_body_parsing",
+      "result": "pass"
+    },
+    {
+      "case": "tests.context.test_context_http.ContextHTTPTests.test_cross_session_and_boot_substitution_rejected",
+      "result": "pass"
+    },
+    {
+      "case": "tests.context.test_context_http.ContextHTTPTests.test_invalid_jpeg_cannot_reach_provider",
+      "result": "pass"
+    },
+    {
+      "case": "tests.context.test_context_http.ContextHTTPTests.test_missing_credentials_wrong_role_and_plain_http_are_rejected",
+      "result": "pass"
+    },
+    {
+      "case": "tests.context.test_context_http.ContextHTTPTests.test_provider_failure_is_generic_and_never_echoes_error",
+      "result": "pass"
+    },
+    {
+      "case": "tests.context.test_context_http.ContextHTTPTests.test_revocation_denies_future_context",
+      "result": "pass"
+    },
+    {
+      "case": "tests.context.test_context_http.ContextHTTPTests.test_revocation_during_generation_cannot_deliver",
+      "result": "pass"
+    },
+    {
+      "case": "tests.context.test_context_http.ContextHTTPTests.test_unavailable_model_keeps_transport_alive_and_refuses_context",
+      "result": "pass"
+    },
+    {
+      "case": "tests.context.test_provider.ProviderTests.test_final_text_signature_is_ignored_but_thought_or_other_parts_rejected",
+      "result": "pass"
+    },
+    {
+      "case": "tests.context.test_provider.ProviderTests.test_header_only_key_bounded_jpeg_structured_generation_and_no_prompt_key",
+      "result": "pass"
+    },
+    {
+      "case": "tests.context.test_provider.ProviderTests.test_model_must_be_listed_for_generation",
+      "result": "pass"
+    },
+    {
+      "case": "tests.context.test_provider.ProviderTests.test_model_paths_redirects_and_duplicate_json_rejected",
+      "result": "pass"
+    },
+    {
+      "case": "tests.context.test_provider.ProviderTests.test_prose_and_movement_instructions_fail_closed",
+      "result": "pass"
+    },
+    {
+      "case": "tests.context.test_provider.ProviderTests.test_reencode_strips_exif_and_limits_dimensions",
+      "result": "pass"
+    },
+    {
+      "case": "tests.context.test_provider.ProviderTests.test_safety_block_truncation_empty_and_multiple_candidates_rejected",
+      "result": "pass"
+    },
+    {
+      "case": "tests.context.test_service.ServiceTests.test_actual_spawned_hung_child_is_killed_on_deadline",
+      "result": "pass"
+    },
+    {
+      "case": "tests.context.test_service.ServiceTests.test_cooldown_replay_ids_and_session_cleanup_are_bounded",
+      "result": "pass"
+    },
+    {
+      "case": "tests.context.test_service.ServiceTests.test_expired_pending_request_never_calls_provider",
+      "result": "pass"
+    },
+    {
+      "case": "tests.context.test_service.ServiceTests.test_expiry_and_cancel_do_not_deliver_or_block_other_jobs",
+      "result": "pass"
+    },
+    {
+      "case": "tests.context.test_service.ServiceTests.test_one_active_one_pending_and_no_third_or_duplicate_session",
+      "result": "pass"
+    },
+    {
+      "case": "tests.context.test_service.ServiceTests.test_unknown_model_never_reports_ready",
+      "result": "pass"
+    },
+    {
+      "case": "tests.context.test_consumer.ConsumerTests.test_clock_reversal_stops_audio_and_latches_button_fault",
+      "result": "pass"
+    },
+    {
+      "case": "tests.context.test_consumer.ConsumerTests.test_hazard_unavailable_and_consent_loss_stop_audio_and_never_resume",
+      "result": "pass"
+    },
+    {
+      "case": "tests.context.test_consumer.ConsumerTests.test_independent_worker_preempts_without_new_input_or_network_poll",
+      "result": "pass"
+    },
+    {
+      "case": "tests.context.test_consumer.ConsumerTests.test_invalid_input_and_close_stop_audio",
+      "result": "pass"
+    },
+    {
+      "case": "tests.context.test_consumer.ConsumerTests.test_manual_cancel_and_second_press_preempt_pending_result",
+      "result": "pass"
+    },
+    {
+      "case": "tests.context.test_consumer.ConsumerTests.test_new_press_interrupts_playing_audio_without_bypassing_cooldown",
+      "result": "pass"
+    },
+    {
+      "case": "tests.context.test_consumer.ConsumerTests.test_original_capture_bounds_audio_through_network_time",
+      "result": "pass"
+    },
+    {
+      "case": "tests.context.test_consumer.ConsumerTests.test_retimed_or_injected_reply_never_reaches_speech",
+      "result": "pass"
+    },
+    {
+      "case": "tests.context.test_consumer.ConsumerTests.test_snapshot_exposes_request_counts_without_frame_or_audio_acceptance",
+      "result": "pass"
+    },
+    {
+      "case": "tests.context.test_consumer.ConsumerTests.test_speech_engine_health_blocks_requests_and_preempts_audio",
+      "result": "pass"
+    }
+  ],
+  "gps_swift_tests_run_by_this_command": false,
+  "live_gemini": false,
+  "native_permission_prompts": false,
+  "phone_pi_transport": false,
+  "physical_audio": false,
+  "physical_motors": false,
+  "limits": [
+    "Synthetic provider/client, generated image, same-clock zero-drift inputs.",
+    "FastAPI TestClient HTTP checks do not establish real TLS transport.",
+    "GPS wire contract is absent; unsupported-field rejection is not GPS integration.",
+    "Swift portable GPS run has separate evidence; no Xcode/Core Location/device claim."
+  ]
+}

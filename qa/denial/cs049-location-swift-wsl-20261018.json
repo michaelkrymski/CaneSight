@@ -1,0 +1,25 @@
+{
+  "task": "CS-049",
+  "kind": "portable-swift-synthetic",
+  "base_commit": "3baf4de7e28b20d7fa381d6eb52d2604c313cfaa",
+  "environment": "Swift 6.0.3 Ubuntu 24.04 via WSL",
+  "command": "swift test --package-path ios/CoarseLocation --jobs 2 -Xswiftc -strict-concurrency=complete -Xswiftc -warnings-as-errors",
+  "tests_run": 15,
+  "failures": 0,
+  "skipped": 0,
+  "source_sha256_utf8_lf": {
+    "ios/CoarseLocation/Package.swift": "b353549f3c71bd9671f1029ff4ace2e5cc7dd15dbbdcec9e9d4cab20da78eeee",
+    "ios/CoarseLocation/Sources/CaneSightCoarseLocation/LocationContext.swift": "2cf7a6664927770a31f5b50f76121fa93cb2061c4337bf359a5ecde40dbbe9dc",
+    "ios/CoarseLocation/Sources/CaneSightCoreLocation/CoreLocationSource.swift": "55dcd7f400b55635f8cf1e90c93142efa000527681c60cdffc8046f7d7bc74bd",
+    "ios/CoarseLocation/Tests/CoarseLocationTests/LocationContextTests.swift": "3d0a68a6d4cca060d56e920f3dcb033f5fc76d89f23d3ced626d986f0cc381df"
+  },
+  "native_core_location_bridge_executed": false,
+  "apple_sdk_build": false,
+  "device_permission_prompts": false,
+  "physical_audio": false,
+  "limits": [
+    "Accepted location core tested with synthetic UTC/monotonic clocks and fixes; no live GPS, transport or real coordinates recorded.",
+    "Linux conditional Core Location target does not execute Apple bridge.",
+    "Python motor/narration isolation report is separate; no GPS wire contract or end-to-end GPS integration claim."
+  ]
+}

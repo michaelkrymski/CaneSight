@@ -1,6 +1,6 @@
-"""CS-023 capped local pulse scheduler. Ships simulated outputs only.
+"""CS-023 capped local pulse scheduler. Uses simulated outputs by default.
 
-No network command, perception decision, GPIO adapter or crossing permission.
+No network command, perception decision or crossing permission.
 Software deadlines cannot force a frozen process or a failed driver low.
 """
 import argparse
@@ -49,6 +49,8 @@ class Limits:
 
 class SimulatedOutput:
     """Bounded trace of requested states; never imports a GPIO library."""
+    mode = 'simulation'
+    gpio_used = False
     def __init__(self):
         self.lock = threading.Lock()
         self.states = dict.fromkeys(CHANNELS, False)
@@ -82,7 +84,7 @@ class HapticScheduler:
     deadline on the same clock. It must cancel/disarm when evidence is lost;
     this layer cannot establish source freshness from a motor request alone.
     Call tick manually in deterministic tests or start the independent worker.
-    Output.write must return promptly; no hardware adapter is provided here.
+    Output.write must return promptly. The opt-in GPIO adapter is in haptic_gpio.
     """
     def __init__(self, output=None, *, clock=clock_ms, limits=Limits()):
         if not isinstance(limits, Limits):
@@ -308,7 +310,9 @@ class HapticScheduler:
             return self._snapshot()
 
     def _snapshot(self):
-        return {'mode': 'simulation', 'ready': self.ready, 'closed': self.closed,
+        return {'mode': getattr(self.output, 'mode', 'custom'),
+                'gpio_used': getattr(self.output, 'gpio_used', None),
+                'ready': self.ready, 'closed': self.closed,
                 'fault': self.fault, 'outputs': {name: state.on for name, state in self.channels.items()},
                 'accepted': self.accepted, 'rejected': self.rejected,
                 'last_rejection': self.last_rejection}

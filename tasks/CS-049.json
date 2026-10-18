@@ -16,10 +16,19 @@
   "suggested_role": "QA",
   "estimate_hours": 0.5,
   "elapsed_window": "14–17",
-  "owner": null,
-  "status": "backlog",
-  "branch": null,
+  "owner": "aditsangani",
+  "status": "blocked",
+  "branch": "task/CS-049-denial-failure",
   "pr_url": null,
-  "evidence": [],
-  "blocker": ""
+  "evidence": [
+    "Assignment proposal only; implementation waits for Michael to merge this claim. Planned software-only GPS/Gemini denial, timeout, failure and late-result suppression verification within qa/ and tests/.",
+    "Assignment-only claim record: changes/20261018-cs-049-claim-aditsangani.json. Handoff preserved outside the PR because accepted claim governance allows only own task JSON, new fragments and generated changelog before merged ownership.",
+    "Merged assignment: https://github.com/michaelkrymski/CaneSight/pull/85 at 3baf4de7e28b20d7fa381d6eb52d2604c313cfaa.",
+    "tests/denial/test_policy_isolation.py: 10 new cross-component cases pass using accepted CaptureAgeGate, LocalPolicy, HapticScheduler and ContextNarration with synthetic same-clock/client/output fixtures.",
+    "qa/denial/cs049-software-windows-20261018-rerun.json: 43 fixed provider/service/HTTP/consumer/isolation cases passed; initial report-generation error retained separately.",
+    "qa/denial/cs049-location-swift-wsl-20261018.json: 15 accepted portable CoarseLocation XCTest cases passed on Swift 6.0.3 WSL, strict concurrency complete and warnings as errors. No Core Location/iOS prompt or GPS network claim.",
+    "qa/denial/README.md",
+    "handoffs/CS-049-denial-failure-aditsangani-20261018.md"
+  ],
+  "blocker": "Merged assignment #85 is satisfied. Software QA checkpoint prepared: portable location and synthetic context/policy isolation tested. Full acceptance remains dependent on CS-019 reviewed GPS transport/native permission/provider/lifecycle evidence and CS-040 real phone/Pi/audio integration; no Xcode, demo-phone or physical acceptance claimed. Await independent review of software evidence; not Done."
 }

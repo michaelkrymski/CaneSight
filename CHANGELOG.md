@@ -794,6 +794,22 @@ Integrate accepted main; update README/task runtime and add source-linked readin
 
 Validation: 13 portable depth XCTest cases passed on Swift 6.0.3 WSL with strict concurrency and warnings as errors; 8 normalized source/fixture hashes match the Apple-tested pin. Attributed accepted evidence records 15 Mac tests and depth iOS SDK build, with later signed phone host checks. Shared repository/changelog/whitespace checks are required by checked publishing. No fresh Apple/device or hardware test claimed.
 
+## 2026-10-18 — CS-015-BACKGROUND-COUNTER-RESET-20261018: Verify real nonzero target counter resets after phone backgrounding
+
+Author: michaelkrymski (AI-assisted) · Task: CS-015
+
+Add a separate operator-assisted physical UI check while retaining baseline camera smoke coverage. Real left target recorded through normal controls; confirmed Home Screen background, live depth recovery, reset counters and Stop-to-Unknown. No app/sensor thresholds changed.
+
+Validation: Two separate physical iPhone UI tests passed (one each, zero failures/skips); 11 strict mapping cases and 212 shared tests passed. Earlier target-placement failures and free-signing installation limit documented. Shared checks rerun by publisher. No full-task Done, final mount, timing, accuracy or electrical claim.
+
+## 2026-10-18 — CS-015-BACKGROUND-PUBLISHING-BLOCKER-20261018: Record follow-up PR creation access blocker
+
+Author: michaelkrymski (AI-assisted) · Task: CS-015
+
+Checked task branch pushed successfully. GitHub connector PR creation returned 403 Resource not accessible by integration. No follow-up PR exists; task blocked pending PR creation, not a failed physical check.
+
+Validation: Physical tests, 11 mapping cases and 212 shared tests passed in preceding checkpoint. This runtime-only update is checked by publisher; no merge or PR CI claim.
+
 ## 2026-10-18 — CS-015-BENCH-INSTALL-20261018: Sign, install and launch portrait mapping bench for operator verification
 
 Author: michaelkrymski (AI-assisted) · Task: CS-015
@@ -841,6 +857,30 @@ Author: michaelkrymski (AI-assisted) · Task: CS-015
 Use native ARKit display transform with exact paired depth/confidence rotation and visible ROI, preserving original source time and the pinned CS-014 processor. Add a separate bounded portrait bench, three distinct observations per physical side and fail-closed geometry/lifecycle resets. No #69 or teammate source/task edited; no network/GPS/actuation.
 
 Validation: 11 XCTest cases pass with strict concurrency and warnings as errors. New app/core/native iOS SDK build passes. Physical mapping and signed device bench results remain pending; task blocked/PR draft. Shared checks run through checked publishing.
+
+## 2026-10-18 — CS-015-TERMINAL-PR-PUBLISHING-20261018: Open physical background-reset follow-up PR through terminal Git authentication
+
+Author: michaelkrymski (AI-assisted) · Task: CS-015
+
+User authorized terminal publishing. Existing configured Git credential authenticated as michaelkrymski; GitHub API created PR #88. Clear prior connector-only creation blocker and link actual PR; no credentials persisted or disclosed.
+
+Validation: Runtime-only publishing checkpoint; prior physical baseline/nonzero-counter tests, 11 mapping cases and 212 shared tests retained. Checked publishing reruns repository checks. Independent review remains required; no merge or Done claim.
+
+## 2026-10-18 — CS-016-PR81-MAIN-REFRESH-20261018: Refresh ownership-transfer PR #81 with accepted main
+
+Author: gmarcialcalleja (AI-assisted) · Task: CS-016
+
+Merge accepted main 3769c4bc46b81afb5fcf8d2f475fc0b2d06363fa into the existing proposal without changing its task runtime/static fields or CR. Preserve both histories and regenerate the log. The ownership transfer remains proposed; Michael must renew exact-head authorization after this push.
+
+Validation: Repository structure valid; unittest discovery ran 212 tests successfully with 11 platform/optional skips on Windows. Generated-log and whitespace checks passed. No Swift/device/electrical acceptance was performed in this refresh.
+
+## 2026-10-18 — CS-016-TRANSFER-PROPOSAL-20261018: Propose reviewed telemetry ownership transfer from Mila to Michael
+
+Author: michaelkrymski (AI-assisted) · Task: CS-016
+
+Michael requested CS-016; bondmila published a stopped-work handoff on #64. Accepted main still names bondmila. Propose runtime-only assignment/evidence transfer with new CR; preserve all static requirements and existing implementation history. No new implementation or completion claim.
+
+Validation: 195 repository tests, structure/rendered-log/whitespace checks passed. Existing unchanged telemetry: 21 strict Swift tests, four replay wire/backend tests and unsigned physical-iOS SDK build passed. HTTPS health request to documented origin timed out from this Mac. Ownership amendment requires exact-head PM authorization and normal independent reviewed merge; no new implementation or live paired acceptance claimed.
 
 ## 2026-10-18 — CS-017-CLEANUP-REENTRANCY-20261018: Fence lifecycle cleanup and latch clock-fault notifications
 
@@ -914,6 +954,22 @@ Advance capture barriers before notifying consumers and after provider errors, p
 
 Validation: 15 portable Swift 6.0.3 Linux tests passed with complete strict concurrency and warnings as errors. Core Location/UIKit bodies excluded; contract, host integration and real-device gates remain.
 
+## 2026-10-18 — CS-019-SLEEP-CLOCK-GMARCIALCALLEJA-20261018: Keep GPS freshness time advancing through device sleep
+
+Author: Gavin (gmarcialcalleja) · Task: CS-019
+
+Replace awake-only uptime in Core Location with a ContinuousClock reader and preserve original fix age/recovery barriers. Add simulated sleep, expiry and real UTC-step regressions plus source-hashed evidence. Host dependency pin will select this reviewed fix; GPS protocol/receiver and device acceptance remain outstanding.
+
+Validation: 20 portable Swift XCTest cases passed using Swift 6.0.3 with complete strict concurrency and warnings as errors in local network-disabled Docker. Core Location/UIKit code excluded on Linux; no Apple SDK/device verification claimed. Checked publisher runs repository structure/shared tests/generated log/whitespace checks.
+
+## 2026-10-18 — CS-023-GPIO-ADAPTER-20261018: Add explicit two-channel GPIO output adapter and bounded bench command
+
+Author: gmarcialcalleja (AI-assisted) · Task: CS-023
+
+Implement the remaining CS-023 output adapter using lazily imported GPIO Zero, explicit distinct BCM pins and active-high initial-off devices. Latch write faults, request both off independently and release partial initialization/cleanup resources. Add opt-in off-only/single-pulse bench command and accurate scheduler output-mode reporting. Existing policy remains simulation-only. CS-009 is retained as a physical acceptance dependency; no GPIO or motors used.
+
+Validation: 15 fake-device adapter/CLI tests and 28 existing scheduler tests passed. Full edge discovery ran 220 tests successfully with 8 platform skips on Windows Python 3.14. Simulation CLI and bench help passed. Shared repository checks are run by publish_task before commit/push. No physical, electrical, or real-time acceptance claimed.
+
 ## 2026-10-18 — CS-025-PROVENANCE-RECOVERY-ADITSANGANI-20261018: Recover exact Swift fixture input manifest bytes for PR #75
 
 Author: aditsangani (AI-assisted; PM-delegated PR fix) · Task: CS-025
@@ -938,6 +994,14 @@ Record PR #75 on the task runtime; retain native host/device-clock and physical 
 
 Validation: Implementation publication passed all 132 root tests and seven focused integration tests; Swift Linux compilation/generation passed. Checked publishing reruns shared checks for this task-link and audit-only follow-up.
 
+## 2026-10-18 — CS-027-ACCEPTANCE-RECHECK-20261018: Recheck merged button/menu implementation and identify physical acceptance gates
+
+Author: bondmila (AI-assisted) · Task: CS-027
+
+Record merged PR #78 approval and fresh isolated-environment verification. User will run current-main GPIO21/spoken-menu checks. Keep task blocked pending actual report, PM physical acceptance and separate route/scenario integration; no implementation changes.
+
+Validation: 205 edge, 83 context and 195 shared tests passed with pinned requirements; repository and generated-log checks passed. Initial unpinned-environment failures are disclosed. No new physical pass claimed.
+
 ## 2026-10-18 — CS-027-CROSSING-MENU-BONDMILA-20261018: Implement merged crossing observation gesture component and synthetic bench
 
 Author: bondmila (AI-assisted) · Task: CS-027
@@ -961,6 +1025,14 @@ Author: bondmila (AI-assisted) · Task: CS-027
 Preserve exact pasted report from combined 6dfda42: initially LOW, seven press/release edge pairs, 2965 samples, complete. Keep raw-input observation separate from application request/audio/electrical acceptance; verification flags unchanged.
 
 Validation: Parsed report and checked counts/disabled subsystems; confirmed source commit contains the GPIO adapter. No new implementation or local hardware test. Checked publisher runs shared validation, tests, governance, changelog and whitespace.
+
+## 2026-10-18 — CS-027-MENU-DEVICE-EVIDENCE-20261018: Record Pi button/menu confirmation and qualitative speech cancellation evidence
+
+Author: bondmila (AI-assisted) · Task: CS-027
+
+Preserve initial zero-confirmation snapshot and focused confirmation/activation/cancel snapshot separately. Operator reports exact checkout SHA, clear speech and prompt stop without noticeable tail. Integrate accepted route-monitoring dependency; physical runs did not enable it. Keep full task blocked for PM acceptance and remaining integration.
+
+Validation: Operator-reported GPIO input and no fault on both snapshots; no agent-observed hardware run, measured audible latency, automatic route-loss, live scenario/phone/backend or motor result. Software rerun results recorded in handoff; checked publisher runs shared checks.
 
 ## 2026-10-18 — CS-027-MENU-OPERATOR-CONFIRMATION-20261018: Record operator menu confirmation for software checkpoint review
 
@@ -1009,6 +1081,46 @@ Author: bondmila (AI-assisted) · Task: CS-027
 Synchronize accepted GPS checkpoint from main d1d8eb9 (GPS 94ccaaf plus CS-045 measurement analysis). Regenerate the conflicted log; menu, audio, GPIO, safety contracts and requirements unchanged. Await actual operator menu report without claiming a physical pass.
 
 Validation: 182 edge tests: 171 passed, 11 explicit draft narration/menu-audio dependency skips. Checked publisher runs shared validation, governance, changelog and whitespace checks; final CI inspected by exact head.
+
+## 2026-10-18 — CS-037-CHANGELOG-CONFLICT-ADITSANGANI-20261018: Resolve PR79 generated changelog merge conflict
+
+Author: aditsangani (AI-assisted) · Task: CS-037
+
+Integrate accepted main 3baf4de into the existing CS-037 branch and resolve only CHANGELOG.md by rendering all immutable fragments. No scenario implementation, tests, acceptance, owner or protected paths changed. Full CS-037 live/model/device acceptance remains blocked; this clears the PR integration obstacle only.
+
+Validation: 80 explicit vision tests passed with no failures/skips after merge. No unmerged paths remain; source/test/QA/task bytes unchanged before own handoff/fragment. Checked publishing reruns shared/repository/governance/changelog/whitespace checks and current-head CI is inspected after push.
+
+## 2026-10-18 — CS-037-INTEGRATION-REFRESH-ADITSANGANI-20261018: Refresh PR79 against accepted Pi evidence merge
+
+Author: aditsangani (AI-assisted) · Task: CS-037
+
+Merge accepted main 46b65c3 after concurrent PR83 landed during CI. Only accepted task/evidence/log records arrive; all scenario source and tests remain unchanged. Render union log; preserve history and full live-acceptance blocker.
+
+Validation: Conflict-resolution head d2d7c43 had green repository/governance/security checks, all 80 vision tests passed, and 212 shared tests ran with 201 passed and 11 platform skips. The incoming change contains no implementation edits; checked publication reruns required shared checks and current-head CI is inspected.
+
+## 2026-10-18 — CS-037-MAIN-SYNC-ADITSANGANI-20261018: Integrate accepted main into CS-037 scenario adapter review
+
+Author: aditsangani (AI-assisted) · Task: CS-037
+
+Merge accepted CS-018 main update without editing its files; render union changelog. Scenario implementation, tests, QA source hashes and full-acceptance blocker remain unchanged.
+
+Validation: Prior exact CS-037 head e872dd4 passed repository/governance/security checks and 80 explicit vision tests. Integration adds only accepted iOS files; checked publishing reruns required shared/repository/changelog/governance checks and current-head CI is inspected after push.
+
+## 2026-10-18 — CS-037-SCENARIO-ADAPTERS-ADITSANGANI-20261018: Add isolated synthetic scenario replay adapters and artifact identity inspection
+
+Author: aditsangani (AI-assisted) · Task: CS-037
+
+Explicit pedestrian-signal, pedestrian-yellow-beacon and unsignalized-street selection; preserve schematic pixel parser. Add bounded annotated beacon alternation and vehicle image-displacement prototypes, source/epoch/age/token gates and local custom-artifact hash/provenance checks without loading. Live capabilities remain unavailable; no production/wire/menu or shared-contract change.
+
+Validation: 80 vision tests passed with 27 new scenario/artifact cases; no skips or failures. Original parser/evaluation cases retained. Checked publishing additionally runs repository/shared/changelog/governance/whitespace checks. No model training, real-scene accuracy, night or physical acceptance claimed.
+
+## 2026-10-18 — CS-037-SCENARIO-PR-LINK-ADITSANGANI-20261018: Record CS-037 scenario-adapter follow-up PR #79
+
+Author: aditsangani (AI-assisted) · Task: CS-037
+
+Link the published software checkpoint and actual checks in task runtime evidence. Full task remains blocked; no implementation, scope or ownership changes.
+
+Validation: Before first publication, all 80 vision tests passed and shared suite ran 195 with 188 passed, 7 platform skips, zero failures; repository/governance/changelog/whitespace checks passed. Current-head CI inspected after metadata publication.
 
 ## 2026-10-18 — CS-040-BLUETOOTH-ROUTE-20261018: Monitor configured Bluetooth route and pin optional speech playback
 
@@ -1098,6 +1210,14 @@ Reuse the accepted logger, initialize the existing schema, provision separate ru
 
 Validation: Live database results are separate from mocked/component tests. Dashboard/component suite passed 39 cases; repository checks run through checked publishing. One incomplete development fault run and its cleanup recovery are disclosed. Docker image build, production HTTPS/WSS activation/re-enrollment, exact provider backup/control-plane configuration and PM acceptance remain pending. No physical-device or Done claim.
 
+## 2026-10-18 — CS-043-CLAIM-GMARCIALCALLEJA-20261018: Claim power, boot, crash and motor kill testing for Gavin
+
+Author: Gavin (gmarcialcalleja) · Task: CS-043
+
+Propose gmarcialcalleja ownership and in_progress on a dedicated claim branch. Preserve E01-E03 acceptance, CS-010/023/026 dependencies and qa/tests scope. Wait for Michael to merge assignment before implementation or testing. No GPIO, power, physical kill or hardware acceptance claimed.
+
+Validation: Assignment metadata only. Checked publishing runs repository structure, shared unittest discovery, generated changelog and staged whitespace checks. Actual results reported in the claim PR; no new hardware or task implementation tests claimed.
+
 ## 2026-10-18 — CS-044-CROSSING-CAMPAIGN-20261018: Add pinned crossing-menu and audio failure campaign
 
 Author: Gavin (gmarcialcalleja) · Task: CS-044
@@ -1129,4 +1249,20 @@ Author: Gavin (gmarcialcalleja) · Task: CS-045
 Record PR #72 on the assigned task runtime. Physical timing, clock and measured-distance evidence gates remain explicit; no acceptance or device test claim added.
 
 Validation: Prior implementation publication passed all 128 repository tests and 15 focused tests on Windows/Linux. This update changes only the task link and new audit records; checked publisher reruns shared checks.
+
+## 2026-10-18 — CS-049-CLAIM-ADITSANGANI-20261018: Propose Adit ownership of GPS and Gemini denial/failure QA
+
+Author: Adit (aditsangani, AI-assisted) · Task: CS-049
+
+Assignment-only proposal. Preserve task requirements, dependencies and allowed paths. After merged ownership, prepare synthetic software tests that failures cannot alter motor/permission policy and late context is suppressed. No implementation, live API, device, audio or hardware claims.
+
+Validation: Confirmed accepted main has no owner and no competing open CS-049 claim. Verified static task fields remain identical. Repository and checked-publisher checks run before publication; no task implementation tests exist in this assignment-only diff.
+
+## 2026-10-18 — CS-049-DENIAL-FAILURE-ADITSANGANI-20261018: Verify optional context failures remain isolated from motor and freshness policy
+
+Author: Adit (aditsangani, AI-assisted) · Task: CS-049
+
+Add ten synthetic cross-component isolation cases, a fixed 43-case QA runner with source-pinned actual results, portable GPS rerun evidence and acceptance boundary documentation. Preserve incomplete reporter attempt. No production component, GPS contract, shared protocol, native host or protected workflow changes.
+
+Validation: 43 Python campaign cases and 15 portable GPS Swift tests passed with no skips/failures. Strict Swift concurrency complete and warnings as errors. Checked publishing runs current repository checks. Native device/permission/provider/transport/audio acceptance remains explicitly unverified; task is not Done.
 

@@ -52,8 +52,13 @@ requests nearest-ten-metre provider accuracy to support that gate and never asks
 for temporary full accuracy. Reduced-accuracy permission can remain enabled;
 a fix failing the configured accuracy gate is simply unavailable.
 
-Age includes the fix's original UTC-to-receipt delay, then advances on the local
-monotonic clock. Negative/future, stale, duplicate/out-of-order, nonfinite and
+Age includes the fix's original UTC-to-receipt delay, then advances on Swift's
+`ContinuousClock`, which includes device sleep. `LocationSystemClock` preserves one
+instance-local elapsed-time origin for the lifetime of the provider. Do not replace
+it with awake-only `ProcessInfo.systemUptime`: normal sleep would otherwise look
+like a UTC clock step and permanently disable location after resume. The local
+origin is not an ARFrame clock, source boot timestamp or cross-device calibration.
+Negative/future, stale, duplicate/out-of-order, nonfinite and
 out-of-range fixes are rejected. Wall-clock steps exceeding one second relative
 to monotonic progression, reversed monotonic time or invalid clock values clear
 the fix and latch clockFault; recreate the source after resolving the clock fault.
@@ -75,7 +80,10 @@ cd ios/CoarseLocation
 swift test --jobs 1 -Xswiftc -strict-concurrency=complete -Xswiftc -warnings-as-errors
 ```
 
-15 portable XCTest cases pass with official Swift 6.0.3 on Linux. Linux excludes
+The portable XCTest suite includes deterministic sleep/resume, sleep-time expiry,
+duration conversion and genuine UTC-step rejection regressions. Run it with the
+command above; actual results for this checkpoint are recorded in its handoff.
+Linux excludes
 the Core Location/UIKit source body; this does not establish an Apple SDK build.
 PR #69 reports 13 macOS tests, iOS SDK builds and simulator test-bundle compilation
 for `5d311229a183b35176c10bdf33b6553c0c52fbfd`; no GPS sharing or real permission
@@ -85,11 +93,15 @@ current-head or end-to-end acceptance. See
 On a Mac, update the reviewed dependency pin and build both libraries for the host's iOS target. On an iPhone verify:
 default off/no prompt; opt-in prompt; denied/restricted/reduced/full authorization;
 Settings revocation; stale cached initial fix; indoor poor accuracy; future time;
-background/lock/resume; opt-out purge; and at most one context handoff per second.
+background/lock/resume (including at least 30 seconds of actual device sleep);
+verify a pre-sleep cached fix stays unavailable, a newly captured fix recovers,
+and an actual date/time step still fails closed; opt-out purge; and at most one
+context handoff per second.
 Use synthetic fixtures and counters; do not retain a participant's precise tracks.
 After approval of GPS transport, test delayed/replayed deliveries and revocation
 across the actual consumer before claiming end-to-end telemetry acceptance.
 
 Primary references: [CLLocation](https://developer.apple.com/documentation/corelocation/cllocation),
 [desiredAccuracy](https://developer.apple.com/documentation/corelocation/cllocationmanager/desiredaccuracy),
+[ContinuousClock](https://developer.apple.com/documentation/swift/continuousclock),
 [When In Use authorization](https://developer.apple.com/documentation/corelocation/cllocationmanager/requestwheninuseauthorization()).

@@ -1,0 +1,11 @@
+{
+  "task": "CS-049",
+  "kind": "incomplete-development-report",
+  "tests_run": 43,
+  "test_failures": 0,
+  "test_errors": 0,
+  "software_pass": false,
+  "report_complete": false,
+  "reporter_error": "Initial reporter referenced nonexistent backend/protocol.py after tests finished. Corrected to accepted shared/protocol/v1/reference.py; complete separate rerun report retained.",
+  "superseded_by": "cs049-software-windows-20261018-rerun.json"
+}
