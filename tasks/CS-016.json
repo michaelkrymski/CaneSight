@@ -17,12 +17,13 @@
   "suggested_role": "iOS",
   "estimate_hours": 1.0,
   "elapsed_window": "5–8",
-  "owner": "bondmila",
-  "status": "in_progress",
-  "branch": "claim/CS-016-bondmila",
+  "owner": "michaelkrymski",
+  "status": "blocked",
+  "branch": "task/CS-016-michaelkrymski",
   "pr_url": null,
   "evidence": [
-    "Assignment proposal only: implementation waits for Michael to merge ownership. CS-016 acceptance is bounded 10 Hz starting phone summaries with session/boot/sequence identity and reconnect without stale queue replay. Initial software work will use clearly identified depth fixtures until CS-014 and real-device evidence are available."
+    "Assignment proposal only: implementation waits for Michael to merge ownership. CS-016 acceptance is bounded 10 Hz starting phone summaries with session/boot/sequence identity and reconnect without stale queue replay. Initial software work will use clearly identified depth fixtures until CS-014 and real-device evidence are available.",
+    "Proposed ownership transfer requested by Michael in chat and released by bondmila in PR #64 handoff comment. Existing implementation preserved at 0433fc94af1a1e3edfe2d2bb28925cb3be6df1ee. Acceptance/dependencies/allowed_paths unchanged. Transfer only becomes accepted after exact-head PM authorization and normal reviewed merge. See decisions/CR-CS-016-ownership-transfer-20261018.md."
   ],
-  "blocker": ""
+  "blocker": "Ownership-transfer proposal pending exact-head PM authorization and reviewed merge. No new telemetry implementation before accepted reassignment. Then retain existing PR #64 software history in a PM-authored continuation and close superseded PR only after linking replacement; capture-clock, pairing/native WSS/physical Pi evidence remain open."
 }
