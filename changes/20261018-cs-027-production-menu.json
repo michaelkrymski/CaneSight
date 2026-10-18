@@ -1,0 +1,9 @@
+{
+  "id": "CS-027-PRODUCTION-MENU-20261018",
+  "date": "2026-10-18",
+  "author": "Mila (bondmila, AI-assisted)",
+  "task": "CS-027",
+  "summary": "Connect opt-in uploader gestures to existing context requests and menu speech",
+  "details": "Add opt-in release/hold menu routing to the enrolled runtime, using the sole existing context/narration slot. Preserve consent, cooldown, original capture expiry and primary priority; cancel old jobs before menu speech. Explicit manual route confirmation is required; loss latches and recovery never replays. All scenario capabilities remain unavailable. Depends on separate CS-040 request and speech-channel APIs; no shared protocol or motor changes.",
+  "validation": "204 combined edge tests passed on macOS with CS-040 dependency through external overlay, generated frames/jobs and synthetic speech. No actual Gemini, phone, Pi, Bluetooth or physical acceptance. Standalone dependency skips and checked-publisher results recorded in handoff."
+}

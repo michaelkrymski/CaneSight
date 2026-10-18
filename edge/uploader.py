@@ -252,6 +252,10 @@ def _main(report):
                         help='New private metadata-only JSON outside the checkout; requires context input')
     parser.add_argument('--context-audio', action='store_true',
                         help='Opt in to Pi narration through the selected system audio output; requires context input')
+    parser.add_argument('--context-menu', action='store_true',
+                        help='Opt-in release/hold menu bridge; requires context audio and route confirmation')
+    parser.add_argument('--context-menu-audio-confirmed', action='store_true',
+                        help='Operator confirms current output for a controlled run; no automatic route monitor')
     args = parser.parse_args()
     if args.frames < 0 or not ID.fullmatch(args.source_id):
         parser.error('Use nonnegative frames and a protocol source ID')
@@ -272,6 +276,10 @@ def _main(report):
         parser.error('--context-audio requires a context input source')
     if args.context_report and not context_enabled:
         parser.error('--context-report requires a context input source')
+    if args.context_menu and not (context_enabled and args.context_audio and args.context_menu_audio_confirmed):
+        parser.error('--context-menu requires context input, --context-audio and --context-menu-audio-confirmed')
+    if args.context_menu_audio_confirmed and not args.context_menu:
+        parser.error('--context-menu-audio-confirmed requires --context-menu')
     report.open(args.context_report, audio=args.context_audio, gpio=args.context_gpio21)
     boot_id = uuid.uuid4().hex
     print(f'Source: {args.source_id}; boot: {boot_id}', flush=True)
@@ -330,7 +338,9 @@ def _main(report):
             context_input = ManualContext(session,
                 lambda: policy_priority(policy, receiver, sender, watchdog),
                 consent=args.context_consent, ca_file=args.ca_file, clock=clock_ms,
-                **({'audio': True} if args.context_audio else {}))
+                **({'audio': True} if args.context_audio else {}),
+                **({'menu': True, 'audio_ready': lambda: args.context_menu_audio_confirmed}
+                   if args.context_menu else {}))
             if args.context_gpio21:
                 from .context_gpio import GPIO21Input
                 context_gpio = GPIO21Input()
@@ -340,6 +350,9 @@ def _main(report):
             print(('GPIO21 context input; release before pressing; second press cancels. No motor GPIO. '
                    if args.context_gpio21 else 'Manual context input: release / press / cancel / off. No GPIO. ')
                   + ('Pi audio enabled; delivery unverified. ' if args.context_audio else 'Text output only. ')
+                  + ('Menu enabled: idle short release requests; 3s hold opens menu. '
+                     'Scenarios unavailable. Use cancel/off; terminal audio-off latches route loss. '
+                     'Route confirmation is manual; stop on speaker loss. ' if args.context_menu else '')
                   + 'Unknown primary-source state suppresses requests.', flush=True)
         from picamera2 import Picamera2  # Hardware dependency intentionally lazy.
         camera = Picamera2()
