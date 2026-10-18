@@ -1106,6 +1106,14 @@ Link the published software checkpoint and actual checks in task runtime evidenc
 
 Validation: Before first publication, all 80 vision tests passed and shared suite ran 195 with 188 passed, 7 platform skips, zero failures; repository/governance/changelog/whitespace checks passed. Current-head CI inspected after metadata publication.
 
+## 2026-10-18 — CS-039-DEPLOYMENT-COMPOSITION-20261018: Compose Gemini context with the accepted native dashboard or logging backend
+
+Author: Mila (bondmila, AI-assisted) · Task: CS-039
+
+Add explicit one-base deployment factory reusing its manager, vision worker, native/viewer/logging routes and lifespans. Retain separate context verification/queue; provider failure does not disable native operations. Prepare immutable-parent restricted container layer and concrete deployment-owner image/command/private-config/re-enrollment/rollback procedure. No deploy/shared files, credentials or running services changed.
+
+Validation: 106 context tests passed on macOS/Python 3.13. Backend 128 ran: 119 passed, nine existing optional/environment skips. Synthetic provider/writer/model inputs with actual accepted factory/ASGI HTTP/WSS and lifecycle checks. Docker unavailable: image build, public deployment, actual Gemini account and physical Pi/audio verification remain pending. Shared checks run through checked publisher.
+
 ## 2026-10-18 — CS-040-BLUETOOTH-ROUTE-20261018: Monitor configured Bluetooth route and pin optional speech playback
 
 Author: Mila (bondmila, AI-assisted) · Task: CS-040
