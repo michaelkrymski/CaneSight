@@ -3,7 +3,7 @@
   "title": "Prepare signal fixtures or verified custom weights",
   "category": "YOLO & Signal Vision",
   "priority": "P1",
-  "acceptance": "Document source/license; label manual ROI and replay; no claim of automatic pedestrian recognition without evidence.",
+  "acceptance": "Document source/license; label manual ROI and replay; no claim of automatic pedestrian recognition without evidence. Prepare source/license and verified-artifact records for pedestrian walk/hand/countdown, pedestrian-activated yellow beacon and temporal vehicle inputs; document independent scene splits and unsupported night conditions. Schematic fixtures remain replay-only; do not claim live model support without held-out evidence.",
   "dependencies": [
     "CS-034"
   ],
