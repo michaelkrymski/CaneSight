@@ -54,6 +54,51 @@ class SpeakerBenchTests(unittest.TestCase):
             self.assertFalse(result[key])
         self.assertNotIn('audible_latency_ms', json.dumps(result))
 
+    def test_recovery_requires_operator_observations_and_new_ticket(self):
+        sink = SilentSink()
+        cases = []
+        def observe(case, question):
+            cases.append(case)
+            if case == 'bluetooth_reconnect':
+                self.assertIsNone(sink.current)
+            return True
+        result = speaker_bench.run_bench(sink, observe=observe, emit=lambda *a: None,
+            pause=lambda *a: None, bluetooth_recovery=True)
+        record = result['records'][-1]
+        self.assertEqual(record['case'], 'bluetooth_operator_recovery')
+        self.assertTrue(record['software_pass'])
+        self.assertTrue(record['operator_pass'])
+        self.assertEqual(cases[-3:], ['bluetooth_disconnect', 'bluetooth_reconnect', 'bluetooth_fresh'])
+        self.assertFalse(record['automatic_route_detection'])
+        self.assertFalse(result['bluetooth_disconnect_reconnect_verified'])
+        self.assertFalse(result['physical_audio_accepted'])
+        self.assertIsNone(sink.current)
+
+    def test_unknown_recovery_never_starts_fresh_audio(self):
+        for answer in (None, False):
+            sink = SilentSink()
+            cases = []
+            def observe(case, question):
+                cases.append(case)
+                return answer if case == 'bluetooth_reconnect' else True
+            result = speaker_bench.run_bench(sink, observe=observe, emit=lambda *a: None,
+                pause=lambda *a: None, bluetooth_recovery=True)
+            self.assertNotIn('bluetooth_fresh', cases)
+            self.assertFalse(result['records'][-1]['operator_pass'])
+            self.assertFalse(result['records'][-1]['software_pass'])
+            self.assertFalse(result['software_checks_passed'])
+            self.assertIsNone(sink.current)
+
+    def test_recovery_interruption_closes_current_narration(self):
+        sink = SilentSink()
+        def observe(case, question):
+            if case == 'bluetooth_reconnect': raise EOFError()
+            return True
+        with self.assertRaises(EOFError):
+            speaker_bench.run_bench(sink, observe=observe, emit=lambda *a: None,
+                pause=lambda *a: None, bluetooth_recovery=True)
+        self.assertIsNone(sink.current)
+
     def test_no_or_unknown_observation_never_becomes_a_pass(self):
         for answer in (False, None):
             with self.subTest(answer=answer):

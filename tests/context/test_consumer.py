@@ -74,6 +74,18 @@ class ConsumerTests(unittest.TestCase):
         self.handles[-1].value = self.handles[-1].reply
         self.consumer.tick()
 
+    def test_snapshot_exposes_request_counts_without_frame_or_audio_acceptance(self):
+        self.press()
+        status = self.consumer.snapshot()
+        self.assertEqual(status['button']['requests'], 1)
+        self.assertTrue(status['button']['requesting'])
+        self.assertFalse(status['audio_delivery_verified'])
+        self.assertNotIn('frame', json.dumps(status))
+        self.deliver()
+        self.assertTrue(self.consumer.snapshot()['result_delivered'])
+        self.consumer.cancel()
+        self.assertFalse(self.consumer.snapshot()['result_delivered'])
+
     def test_original_capture_bounds_audio_through_network_time(self):
         self.press()
         self.now = 5000

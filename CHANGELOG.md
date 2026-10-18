@@ -682,3 +682,11 @@ Assignment runtime only. After merged ownership, prepare bounded validation/stat
 
 Validation: Verified accepted task unclaimed and no competing open claim. Checked publishing runs repository/shared/changelog/whitespace checks. No measurement implementation or real-device evidence included.
 
+## 2026-10-18 — CS-040-SPEAKER-RECOVERY-BONDMILA-20261018: Prepare operator-guided Bluetooth cancellation and fresh-request recovery test
+
+Author: bondmila (AI-assisted) · Task: CS-040
+
+Extend opt-in speaker bench with disconnect, unavailable cancellation, reconnect silence and fresh-ticket observations. Expose sanitized consumer request counts for CS-027 runtime reports; preserve draft status and prior operator evidence.
+
+Validation: 71 context tests pass, including silent recovery/no-or-unknown/interrupted input regressions and consumer diagnostics. No actual Bluetooth recovery or full phone/backend run claimed; checked publisher runs shared checks.
+

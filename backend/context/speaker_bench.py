@@ -37,7 +37,7 @@ class ObservedSink:
 
 def run_bench(sink, *, observe, emit=print, clock=time.monotonic,
               pause=lambda seconds: threading.Event().wait(seconds),
-              interrupt_after=1.0, repetitions=1):
+              interrupt_after=1.0, repetitions=1, bluetooth_recovery=False):
     """Synthetic priority/capture inputs; observations are human, not inferred.
 
     The caller owns the sink. The independent timer remains active while the
@@ -115,6 +115,36 @@ def run_bench(sink, *, observe, emit=print, clock=time.monotonic,
             records.append(dict(repetition=repetition, case='late_result',
                 software_pass=bool(ticket is not None and rejected and current == count and sink.healthy()),
                 operator_pass=answer))
+        if bluetooth_recovery:
+            emit('RECOVERY: keep a way to stop the Pi locally. This test does not change Bluetooth routing.')
+            emit('Disconnect the speaker while this fresh synthetic sentence is audible, then answer.')
+            ticket = begin()
+            delivered = ticket is not None and controller.deliver(ticket, DESCRIPTION)
+            disconnected = observe('bluetooth_disconnect',
+                'Was the sentence audible before you disconnected the speaker during playback?')
+            # Explicit operator-reported loss, not inferred Bluetooth health.
+            controller.set_priority(hazard=False, unavailable=True)
+            count, _ = observed.snapshot()
+            emit('Narration cancelled. Reconnect/select the speaker using the Pi audio controls; do not restart this bench.')
+            reconnected = observe('bluetooth_reconnect',
+                'After reconnecting, did the speaker remain silent with no old sentence resuming?')
+            controller.set_priority(hazard=False, unavailable=False)
+            replay_blocked = not controller.deliver(ticket, DESCRIPTION)
+            unchanged, _ = observed.snapshot()
+            fresh = heard = False
+            # Unknown/no never authorizes the fresh recovery speech step.
+            if disconnected is True and reconnected is True and sink.healthy():
+                fresh_ticket = begin()
+                fresh = fresh_ticket is not None and controller.deliver(fresh_ticket, DESCRIPTION)
+                heard = observe('bluetooth_fresh',
+                    'Did only this newly requested sentence play through the reconnected speaker?')
+            controller.cancel()
+            records.append(dict(repetition=1, case='bluetooth_operator_recovery',
+                software_pass=bool(delivered and replay_blocked and unchanged == count and fresh and sink.healthy()),
+                operator_pass=disconnected is True and reconnected is True and heard is True,
+                disconnect_observed=disconnected, reconnect_silence_observed=reconnected,
+                fresh_audio_observed=heard, automatic_route_detection=False))
+            summary['bluetooth_recovery_attempted'] = True
         summary['complete'] = True
     finally:
         stop.set()
@@ -162,6 +192,8 @@ def revision():
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--speak', action='store_true', help='Explicitly enable actual Pi speech for synthetic tests')
+    parser.add_argument('--bluetooth-recovery', action='store_true',
+                        help='Guided operator disconnect/reconnect and fresh-request test; no automatic routing')
     parser.add_argument('--repetitions', type=int, default=1)
     parser.add_argument('--interrupt-after', type=float, default=1.0)
     parser.add_argument('--output', type=Path, help='New JSON in an existing private directory outside Git')
@@ -176,7 +208,7 @@ def main(argv=None):
             report = open_report(args.output)
         sink = EspeakSink()
         summary = run_bench(sink, observe=ask, repetitions=args.repetitions,
-                            interrupt_after=args.interrupt_after)
+                            interrupt_after=args.interrupt_after, bluetooth_recovery=args.bluetooth_recovery)
         status = 0 if summary['software_checks_passed'] and summary['operator_reported_all_passed'] else 2
     except (KeyboardInterrupt, EOFError):
         summary['error'] = 'Bench interrupted; incomplete evidence'
