@@ -74,7 +74,7 @@ class FixedMenuAudio:
         self._epoch = epoch if valid_epoch else None
         self._ready = ready and not self._fault
         self.tick()
-        return self._ready
+        return self._ready and not self._fault
 
     def speak(self, kind, *, generation, epoch, scenario=None):
         now = self._now()
