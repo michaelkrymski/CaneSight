@@ -227,7 +227,7 @@ def load_session(path, source_id, boot_id):
     return session
 
 
-def main():
+def _main(report):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--capture-only', action='store_true')
     parser.add_argument('--frames', type=int, default=10, help='0 runs until Ctrl+C')
@@ -241,10 +241,17 @@ def main():
     parser.add_argument('--phone-binding-file', type=Path,
                         help='Trusted phone source/boot/drift file; never a phone/operator token')
     parser.add_argument('--policy-trace',type=Path,help='New private metadata JSONL outside checkout; simulated policy only')
-    parser.add_argument('--context-stdin', action='store_true',
-                        help='Manual terminal context button; no GPIO/audio; requires verified primary-source policy')
+    context_source = parser.add_mutually_exclusive_group()
+    context_source.add_argument('--context-gpio21', action='store_true',
+                        help='Opt in to issue #68 active-high BCM21 input, no internal pull; no motor GPIO')
+    context_source.add_argument('--context-stdin', action='store_true',
+                        help='Manual terminal context button; requires verified primary-source policy')
     parser.add_argument('--context-consent', action='store_true',
                         help='Explicit consent to send requested scene frames to the context provider')
+    parser.add_argument('--context-report', type=Path,
+                        help='New private metadata-only JSON outside the checkout; requires context input')
+    parser.add_argument('--context-audio', action='store_true',
+                        help='Opt in to Pi narration through the selected system audio output; requires context input')
     args = parser.parse_args()
     if args.frames < 0 or not ID.fullmatch(args.source_id):
         parser.error('Use nonnegative frames and a protocol source ID')
@@ -256,16 +263,22 @@ def main():
         parser.error('Policy/phone binding requires --receive-vision')
     if args.policy_trace and not args.simulate_policy:
         parser.error('--policy-trace requires --simulate-policy')
-    if args.context_stdin and not (args.context_consent and args.simulate_policy and args.phone_binding_file):
-        parser.error('--context-stdin requires --context-consent, --simulate-policy and --phone-binding-file')
-    if args.context_consent and not args.context_stdin:
-        parser.error('--context-consent requires --context-stdin')
+    context_enabled = args.context_stdin or args.context_gpio21
+    if context_enabled and not (args.context_consent and args.simulate_policy and args.phone_binding_file):
+        parser.error('Context input requires --context-consent, --simulate-policy and --phone-binding-file')
+    if args.context_consent and not context_enabled:
+        parser.error('--context-consent requires a context input source')
+    if args.context_audio and not context_enabled:
+        parser.error('--context-audio requires a context input source')
+    if args.context_report and not context_enabled:
+        parser.error('--context-report requires a context input source')
+    report.open(args.context_report, audio=args.context_audio, gpio=args.context_gpio21)
     boot_id = uuid.uuid4().hex
     print(f'Source: {args.source_id}; boot: {boot_id}', flush=True)
     session_id = 'capture-only'
     latest, sender, worker, receiver = Latest(), None, None, None
     policy, scheduler, watchdog, trace = None, None, None, None
-    context_input = None
+    context_input = context_gpio = None
     if not args.capture_only:
         print('Enroll this identity; waiting up to 300s for matching private session file.', flush=True)
         deadline = time.monotonic() + 300
@@ -311,15 +324,23 @@ def main():
                 scheduler,clock=clock_ms,watchdog=watchdog,trace=trace)
             policy.arm(True)
             policy.start()
-        if args.context_stdin:
+        if context_enabled:
             import sys
             from .context_runtime import ManualContext, policy_priority
             context_input = ManualContext(session,
                 lambda: policy_priority(policy, receiver, sender, watchdog),
-                consent=args.context_consent, ca_file=args.ca_file, clock=clock_ms)
-            context_input.start(sys.stdin)
-            print('Manual context input: release / press / cancel / off. No GPIO or audio. '
-                  'Unknown primary-source state suppresses requests.', flush=True)
+                consent=args.context_consent, ca_file=args.ca_file, clock=clock_ms,
+                **({'audio': True} if args.context_audio else {}))
+            if args.context_gpio21:
+                from .context_gpio import GPIO21Input
+                context_gpio = GPIO21Input()
+                context_input.start(gpio_input=context_gpio)
+            else:
+                context_input.start(sys.stdin)
+            print(('GPIO21 context input; release before pressing; second press cancels. No motor GPIO. '
+                   if args.context_gpio21 else 'Manual context input: release / press / cancel / off. No GPIO. ')
+                  + ('Pi audio enabled; delivery unverified. ' if args.context_audio else 'Text output only. ')
+                  + 'Unknown primary-source state suppresses requests.', flush=True)
         from picamera2 import Picamera2  # Hardware dependency intentionally lazy.
         camera = Picamera2()
         camera.configure(camera.create_video_configuration(
@@ -364,6 +385,13 @@ def main():
         if context_input:
             context_input.close()
             print('Context ' + json.dumps(context_input.snapshot(), sort_keys=True))
+            report.capture(context_input)
+        if context_gpio is not None:
+            try:
+                context_gpio.close()
+            except Exception:
+                report.data['input_cleanup_failed'] = True
+                print('GPIO21 cleanup unavailable; inspect device')
         if policy:
             policy.close()
         if trace:
@@ -397,6 +425,19 @@ def main():
                 raise SystemExit(sender.error)
         if receiver and receiver.error:
             raise SystemExit(receiver.error)
+
+
+def main():
+    from .context_report import ContextRunReport
+    report = ContextRunReport()
+    try:
+        _main(report)
+        report.data.update(complete=True, outcome='finished')
+    except KeyboardInterrupt:
+        report.data['outcome'] = 'interrupted'
+        raise
+    finally:
+        report.finish()
 
 
 if __name__ == '__main__':

@@ -1,0 +1,9 @@
+{
+  "id": "CS-045-MEASUREMENT-ANALYSIS-20261018",
+  "date": "2026-10-18",
+  "author": "Gavin (gmarcialcalleja)",
+  "task": "CS-045",
+  "summary": "Prepare offline bounded latency and depth-error analysis",
+  "details": "Add strict private measurement input, conservative latency bounds with median/p95/max, explicit failed-trial counts, sector/distance error and availability summaries, synthetic example and bench collection guide. Keep software command separate from measured physical onset; clock/provenance and physical acceptance remain independent review gates.",
+  "validation": "15 focused unit/CLI tests passed on Windows and network-disabled local Linux Python 3.12 Docker. Included example is deliberately synthetic and below the 20-observation requirement. No device, camera, GPIO or motor tests performed."
+}

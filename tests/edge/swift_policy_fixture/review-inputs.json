@@ -1,0 +1,39 @@
+{
+  "notice": "Unmerged PR #64 input, copied unmodified only into temporary local build workspace. Synthetic wire generation is not native transport or real-phone acceptance.",
+  "pr": 64,
+  "commit": "0433fc94af1a1e3edfe2d2bb28925cb3be6df1ee",
+  "files": [
+    {
+      "path": "ios/CaneSightTelemetry/Package.swift",
+      "sha256": "474f860935824fbd0741bbbd06c758be9485948b9cd6c5c64419b878dee3e2c9"
+    },
+    {
+      "path": "ios/CaneSightTelemetry/Sources/CaneSightTelemetry/NativeWebSocket.swift",
+      "sha256": "70e7f1d25329887707c5aed7aa3f867daaa341e2a263799ea0763b0c90c13edc"
+    },
+    {
+      "path": "ios/CaneSightTelemetry/Sources/CaneSightTelemetry/TelemetryClient.swift",
+      "sha256": "2706e8d18faa67b210fa9acaf601e644f025b98bde3fd5fbe61e47e1a245748a"
+    },
+    {
+      "path": "ios/CaneSightTelemetry/Sources/CaneSightTelemetry/TelemetryCore.swift",
+      "sha256": "6b91e0b501f2b36dfaee7a271637cee50f227e2d39a4141d388734f4d816300d"
+    },
+    {
+      "path": "ios/CaneSightTelemetry/Sources/CaneSightTelemetry/Wire.swift",
+      "sha256": "fefac72a19d86ce8eee716dbfaf960402cfb9d6fa13a1a9539f926abee7dca5f"
+    },
+    {
+      "path": "ios/CaneSightTelemetry/Sources/TelemetryFixtures/main.swift",
+      "sha256": "0dcf0d980d9f260617e0eb02ca8e6ae59caa7478ef964c321de74b8ba604567e"
+    },
+    {
+      "path": "ios/CaneSightTelemetry/Tests/CaneSightTelemetryTests/ClientTests.swift",
+      "sha256": "afeb626a0c62bda1be615e9a24dae8421493c124128c812ad6df685ea3c26768"
+    },
+    {
+      "path": "ios/CaneSightTelemetry/Tests/CaneSightTelemetryTests/CoreTests.swift",
+      "sha256": "9da5d24bb415bbcadd12f461d7ee9eee240ca30b2473e0029284949aaee3636c"
+    }
+  ]
+}

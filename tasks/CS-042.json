@@ -17,14 +17,19 @@
   "estimate_hours": 1.0,
   "elapsed_window": "After hackathon",
   "owner": "aditsangani",
-  "status": "review",
+  "status": "blocked",
   "branch": "task/CS-042-event-logging",
-  "pr_url": "https://github.com/michaelkrymski/CaneSight/pull/57",
+  "pr_url": null,
   "evidence": [
     "handoffs/CS-042-event-logging-20261017.md",
     "backend/telemetry/EVENT_LOGGING.md",
     "18 new logging tests passed, including real spawned blocked/failed database workers; 35-test dashboard suite passed before final HTTP frame/vision regression. Optional Psycopg 3.3.6 runtime installed/imported. No live database, deployed logging or hardware acceptance.",
-    "All 110 root-discovered tests passed, including the final 18 logging tests; see handoffs/CS-042-review-link-20261017.md. Software review PR #57; live database setup/acceptance remains unverified."
+    "All 110 root-discovered tests passed, including the final 18 logging tests; see handoffs/CS-042-review-link-20261017.md. Software review PR #57; live database setup/acceptance remains unverified.",
+    "handoffs/CS-042-live-tiger-provisioning-20261018.md",
+    "backend/telemetry/TIGER_DATA_ROLLOUT.md",
+    "tests/dashboard/cs042-live-tiger-20261018.json",
+    "tests/dashboard/cs042-live-tiger-failed-20261018.json",
+    "Provisioned separate least-privilege runtime/analytics logins and existing schema; actual PostgreSQL 18/TimescaleDB and verify-full TLS 1.3 connection. Synthetic persistence/consent/deletion/expiry/fault evidence is separate from component tests. One incomplete development run and private cleanup recovery are retained; current report governs success."
   ],
-  "blocker": ""
+  "blocker": "Real Tiger Data synthetic storage checks prepared; pending Michael/deployment-owner image/factory/mount review, actual image build, coordinated production activation/re-enrollment and deployed event_control HTTPS/WSS verification. Provider service plan/backup/deletion settings remain unverified; no Done or device claim."
 }
