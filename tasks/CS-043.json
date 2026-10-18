@@ -17,10 +17,12 @@
   "suggested_role": "QA",
   "estimate_hours": 1.0,
   "elapsed_window": "8–11",
-  "owner": null,
-  "status": "backlog",
-  "branch": null,
-  "pr_url": null,
-  "evidence": [],
+  "owner": "gmarcialcalleja",
+  "status": "in_progress",
+  "branch": "claim/CS-043-gmarcialcalleja",
+  "pr_url": "https://github.com/michaelkrymski/CaneSight/pull/82",
+  "evidence": [
+    "Assignment proposal only; implementation waits for Michael to merge this claim. Acceptance is measured E01-E03 power/rail, dual-motor camera-load and boot/shutdown/crash/restart/physical-kill evidence. CS-010, CS-023 and CS-026 prerequisites remain unchanged; simulation or manual bench observations do not establish electrical acceptance."
+  ],
   "blocker": ""
 }

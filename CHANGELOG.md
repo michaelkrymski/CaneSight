@@ -1002,6 +1002,14 @@ Synchronize accepted GPS checkpoint from main d1d8eb9 (GPS 94ccaaf plus CS-045 m
 
 Validation: 182 edge tests: 171 passed, 11 explicit draft narration/menu-audio dependency skips. Checked publisher runs shared validation, governance, changelog and whitespace checks; final CI inspected by exact head.
 
+## 2026-10-18 — CS-040-BLUETOOTH-ROUTE-20261018: Monitor configured Bluetooth route and pin optional speech playback
+
+Author: Mila (bondmila, AI-assisted) · Task: CS-040
+
+Add opt-in Linux PulseAudio/PipeWire and BlueZ read-only observations with bounded commands/output, start-anchored freshness and independent watchdog. Validate matching target, mute/volume and active stream binding; observed loss/fault latches and stops only owned paplay/eSpeak groups. Reconnection requires a fresh adapter/run. Add private-configuration documentation and sanitized read-only diagnostic; unconfigured audio behavior remains unchanged.
+
+Validation: 100 context cases and 205 edge cases passed on macOS/Python 3.13. Synthetic device/OS observations, real bounded helper and owned playback/generator fixture processes; no actual BlueZ/PulseAudio/paplay, Pi, Gemini, phone or audible acceptance. Shared checks run through checked publisher. Polling gaps, query budget and physical buffering limits documented.
+
 ## 2026-10-18 — CS-040-FIXED-MENU-AUDIO-BONDMILA-20261018: Implement fixed menu speech with readiness and stale-event preemption
 
 Author: bondmila (AI-assisted) · Task: CS-040
@@ -1081,6 +1089,14 @@ Author: Adit (aditsangani, AI-assisted) · Task: CS-042
 Reuse the accepted logger, initialize the existing schema, provision separate runtime/analytics logins and verify real TLS, privileges, consent, persistence, deletion, expiry and fault isolation using synthetic inputs. Add a sanitized live probe/report, failure-recovery record, restricted image recipe and deployment proposal. Credentials and test receipts stay private; existing deployment/protected files and logger behavior are unchanged.
 
 Validation: Live database results are separate from mocked/component tests. Dashboard/component suite passed 39 cases; repository checks run through checked publishing. One incomplete development fault run and its cleanup recovery are disclosed. Docker image build, production HTTPS/WSS activation/re-enrollment, exact provider backup/control-plane configuration and PM acceptance remain pending. No physical-device or Done claim.
+
+## 2026-10-18 — CS-043-CLAIM-GMARCIALCALLEJA-20261018: Claim power, boot, crash and motor kill testing for Gavin
+
+Author: Gavin (gmarcialcalleja) · Task: CS-043
+
+Propose gmarcialcalleja ownership and in_progress on a dedicated claim branch. Preserve E01-E03 acceptance, CS-010/023/026 dependencies and qa/tests scope. Wait for Michael to merge assignment before implementation or testing. No GPIO, power, physical kill or hardware acceptance claimed.
+
+Validation: Assignment metadata only. Checked publishing runs repository structure, shared unittest discovery, generated changelog and staged whitespace checks. Actual results reported in the claim PR; no new hardware or task implementation tests claimed.
 
 ## 2026-10-18 — CS-044-CROSSING-CAMPAIGN-20261018: Add pinned crossing-menu and audio failure campaign
 

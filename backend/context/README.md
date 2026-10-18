@@ -292,3 +292,79 @@ component; the existing uploader remains its previous one-shot path. Preserve
 old speaker reports as different builds; new menu speech clarity/stop buffering
 and full lifecycle need current-head Pi evidence. Keep #41/#58 draft. No live
 signal/beacon/vehicle adapters, wire fields, model training or road-use claim.
+
+## Opt-in automatic Bluetooth route guard (CS-040 follow-up)
+
+`EspeakSink` can monitor the explicitly selected Linux `bluez_output` sink using
+read-only `/usr/bin/pactl` JSON and `/usr/bin/busctl` BlueZ observations. It checks
+that the matching Bluetooth device reports connected, the sink exists exactly
+once, is a BlueZ sink, is not muted, and has nonzero per-channel volume. IDLE and
+SUSPENDED are normal connected idle states, not proof of disconnection. Ambiguous,
+malformed, failed or oversized observations fail closed. Existing OS-selected
+speech remains unchanged when neither new setting is present. Setting only one,
+a mismatched address or an unsupported host refuses monitored startup.
+
+Configure both values privately as the normal audio user, using the actual
+existing sink and device path (the addresses below are synthetic placeholders):
+
+```sh
+export CANESIGHT_BLUETOOTH_SINK='bluez_output.AA_BB_CC_DD_EE_FF.1'
+export CANESIGHT_BLUEZ_DEVICE='/org/bluez/hci0/dev_AA_BB_CC_DD_EE_FF'
+python3 -m backend.context.bluetooth_route --check
+```
+
+The check performs one read-only observation. It emits only closed JSON status,
+not sink/device identities, command output or arbitrary exception details; it
+plays no audio and starts no background monitor. A positive check is not an
+audible-delivery pass. Do not copy private device configuration into Git.
+
+The Pi must have `espeak-ng`, `paplay`, JSON-capable `pactl` and `busctl` installed
+at the documented absolute paths, with its existing per-user PulseAudio/PipeWire
+session and BlueZ system-bus access. This checkpoint does not install packages,
+services, pair/connect devices, set profiles, change global defaults or use sudo.
+Missing/older unsupported tools stay unavailable; there is no silent fallback.
+
+With both settings present, existing explicit `--context-audio` opt-in creates
+the guard automatically. The monitored sink generates WAV through eSpeak stdout
+and pipes it to owned `paplay --device=CONFIGURED_SINK`, rather than relying on
+where eSpeak's platform audio backend happens to route direct playback. A unique
+local stream tag lets the guard check that a live stream stays on that sink.
+The tag and other applications' metadata are never logged. Stream registration/
+completion has a bounded 200 ms missing-stream grace; an observed move or duplicate
+binding is unavailable. Neither this nor BlueZ Connected proves physical sound.
+
+An initial bounded observation must succeed before the adapter is returned to
+menu/narration controllers. The monitor polls after 100 ms between observations;
+its independent 10 ms watchdog expires cached observations at 350 ms from query
+**start**, never completion. Each helper has a 100 ms read/exit budget and 64 KiB
+output cap. These are local software limits, not measured or guaranteed audible
+stop times; query latency/CPU scheduling and speaker/server buffering need Pi
+measurement. Short outages between observations can escape a polling monitor.
+No depth/vision/capture-expiry budget is extended by these settings.
+
+Observed loss, query failure/stall, stale cache, stream movement or clock fault
+latches the adapter unavailable and stops its playback process before its speech
+generator. The independent guard can stop owned audio even if the input/network
+worker makes no progress. Existing controller health gates cancel the pending
+request/ticket on their next tick; a late reply cannot speak through the faulted
+sink. Reconnection never clears this latch or automatically restarts playback.
+Stop the run, check/reconnect the speaker using the existing operator setup, and
+start a fresh controller/run requiring stable release and a new gesture.
+
+The opt-in uploader menu still requires its explicit menu/audio confirmation
+flags. That confirmation alone cannot override a failed automatic guard. Until a
+separate change replaces those UI flags, keep both the guard configuration and
+the existing controlled-run acknowledgement. Unconfigured audio remains the
+previous manually verified OS-selected mode; do not call it monitored.
+
+For a controlled speech/cancellation run, the existing `speaker_bench --speak
+--manual-only` inherits these settings. Do not combine this latched mode with the
+old `--bluetooth-recovery` bench: that older bench intentionally reuses its sink
+for a fresh sentence, whereas this guard requires replacing the adapter after
+observed loss. Physical testing must separately record whether playback stops,
+any buffered tail, silence after reconnect and a new sentence only after a fresh
+run. No actual Pi/BlueZ/paplay or audible verification was performed here.
+
+Implementation references: [BlueZ Device Connected property](https://github.com/bluez/bluez/blob/master/doc/org.bluez.Device.rst),
+[busctl property reads](https://www.freedesktop.org/software/systemd/man/257/busctl.html),
+and [eSpeak WAV stdout](https://espeak.sourceforge.net/commands.html).
