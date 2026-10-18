@@ -1,0 +1,9 @@
+{
+  "id": "CS-040-SYNTHETIC-SPEAKER-BENCH-BONDMILA-20261017",
+  "date": "2026-10-17",
+  "author": "bondmila (AI-assisted)",
+  "task": "CS-040",
+  "summary": "Add explicit synthetic Pi speaker and cancellation bench",
+  "details": "Exercise actual eSpeak sink and narration gate with synthetic labels, priorities and capture deadlines. Record human audible observations separately from software stop timing in exclusive private report; no network/phone/camera/Gemini/GPIO or physical acceptance inference. Operator reported speaker playback; remaining device/full-integration gates remain explicit. Prepare isolated test-only combination with #58, without merging either PR to main.",
+  "validation": "Seven new bench tests include full CLI with real adapter and silent executable, actual kill/reap, independent expiry, failed/unknown observations, interruption cleanup and private report rules. Context/root checks run before checked publishing; combined checkout separately tested. No audible Pi or device acceptance claimed."
+}

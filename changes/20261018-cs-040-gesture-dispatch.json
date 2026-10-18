@@ -1,0 +1,9 @@
+{
+  "id": "CS-040-GESTURE-DISPATCH-20261018",
+  "date": "2026-10-18",
+  "author": "Mila (bondmila, AI-assisted)",
+  "task": "CS-040",
+  "summary": "Accept completed context gestures and isolate optional speech ownership",
+  "details": "Expose completed-gesture dispatch through the existing button/narration slot without fabricated input timestamps; preserve cooldown, original capture expiry and consent/priority. Add two bounded local speech channels so idle context/menu cancellation affects only its own speech; global stop remains explicit. No audio queue or default activation.",
+  "validation": "83 context tests passed on macOS with generated frames and synthetic speech. No real Gemini, Bluetooth, phone, GPIO or physical-audio acceptance. Shared checked-publisher checks run before push."
+}

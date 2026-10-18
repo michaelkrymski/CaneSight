@@ -1,0 +1,9 @@
+{
+  "id": "CS-027-PRIVATE-RUN-REPORT-BONDMILA-20261018",
+  "date": "2026-10-18",
+  "author": "bondmila (AI-assisted)",
+  "task": "CS-027",
+  "summary": "Save private context run diagnostics for Pi verification",
+  "details": "Add optional exclusive metadata-only run report and allowlisted terminal status with sole narration-button counters when available. Preserve original readiness, consent and audio gates; do not infer physical delivery or phone/backend acceptance.",
+  "validation": "152 edge tests pass with updated CS-040 modules via external overlay, no skips. Report tests cover allowlisting, private/exclusive files, symlink refusal, startup failure, normal completion and status without a press. Checked publisher runs shared checks; actual Pi integration pending."
+}

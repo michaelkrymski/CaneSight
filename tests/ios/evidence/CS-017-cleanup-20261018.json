@@ -1,0 +1,39 @@
+{
+  "task": "CS-017",
+  "date": "2026-10-18",
+  "accepted_main": "5dbb6adc6f7c8984e1beb624fc7c8fe1a4cdfafa",
+  "swift_environment": {
+    "image": "swift:6.0.3",
+    "digest": "sha256:f19aea3f9a889df5884e1186e60be74869613477d99656b598c115a4b91af8a1",
+    "platform": "Linux via local Docker Desktop",
+    "command": "swift test --jobs 1 -Xswiftc -strict-concurrency=complete -Xswiftc -warnings-as-errors"
+  },
+  "portable_xctest": {
+    "passed": 12,
+    "failed": 0
+  },
+  "python_receiver_tests": {
+    "command": "python -m unittest tests.ios.test_lifecycle_receiver -v",
+    "passed": 3,
+    "failed": 0
+  },
+  "source_sha256": {
+    "ios/Lifecycle/Sources/CaneSightLifecycle/DepthLifecycle.swift": "d391d4ab76e1e5b5934a4997aea00c86862bac593e18600dfd5d500561bd7205",
+    "ios/Lifecycle/Sources/CaneSightARLifecycle/ARLifecycleBridge.swift": "a3b461f03fc9331c85fbc8c46d879c8dbafe792eca86b3d5c0556533fcb458a3",
+    "ios/Lifecycle/Tests/CaneSightLifecycleTests/DepthLifecycleTests.swift": "213c2797e014def4e1a929f88613c26c003fd09c6fa4a4dcd50103bc172d7f4d",
+    "tests/ios/test_lifecycle_receiver.py": "563972565a3b3578fcffc5d4aa91c17ef3747b45e59765e9c6f9c6ebda3c4bc0"
+  },
+  "earlier_native_evidence": {
+    "pr": 69,
+    "head": "af55732f8fbe0423b8f66a4f73e584c5906802f8",
+    "evidence": "tests/ios/evidence/CS-013-apple-builds-20261018.json",
+    "pinned_lifecycle_commit": "0edb2229977b93eae00df6842286d87d4870aea4",
+    "attribution": "Michael-authored draft PR; not rerun locally; simulator bundle compilation only"
+  },
+  "limits": [
+    "No current-head Apple SDK build or native bridge test execution",
+    "No CS-016 live host wiring or verified capture-clock mapping",
+    "No paired phone/Pi interruption or suspension timing acceptance",
+    "No Pi, camera, GPIO or motor access"
+  ]
+}

@@ -3,7 +3,7 @@
   "title": "Restrict and preempt narration",
   "category": "Gemini & Context",
   "priority": "P1",
-  "acceptance": "No movement/crossing advice; short uncertain descriptions, cancellation and hazard priority.",
+  "acceptance": "No movement/crossing advice; short uncertain descriptions, cancellation and hazard priority. Add fixed spoken menu/selection/cancellation phrases and audio-readiness gating for the CS-027 three-scenario interaction. Preempt immediately on cancel, hazard, stale/unavailable sources, expiry or disconnect; Bluetooth reconnect must not replay old narration. No silent scenario activation, permissive crossing phrases or blanket stopped/yielded claims; record physical cancellation buffering and delay.",
   "dependencies": [
     "CS-018",
     "CS-027",
@@ -20,9 +20,28 @@
   "estimate_hours": 0.5,
   "elapsed_window": "11\u201314",
   "owner": "bondmila",
-  "status": "in_progress",
-  "branch": "claim/CS-040-bondmila",
-  "pr_url": null,
-  "evidence": [],
-  "blocker": ""
+  "status": "blocked",
+  "branch": "task/CS-040-gesture-dispatch",
+  "pr_url": "https://github.com/michaelkrymski/CaneSight/pull/77",
+  "evidence": [
+    "backend/context/narration.py: closed object vocabulary, uncertain <=20-word template, capture-based expiry, single-use request tickets, cancellation and hazard/unavailable priority.",
+    "15 isolated context unit tests passed; no Gemini API, physical audio, VoiceOver, GPIO or end-to-end device acceptance claimed.",
+    "Clock timing follow-up: high-water clock validation cancels on reversal, exceptions or invalid readings; 20 narration tests passed including five new regression methods. PR #41 remains draft; actual audio/button/provider integration is unfinished.",
+    "backend/context/consumer.py composes accepted ContextButton/ContextClient with the narration gate on one original capture clock. Independent timer, request binding, priority/consent/engine-health preemption and manual cancellation; begin_capture anchors audio expiry to capture + 8s without age-calculation delay.",
+    "User selected a Bluetooth speaker connected to the Pi. backend/context/pi_speech.py adds opt-in eSpeak NG system-output sink, fixed template-only stdin, one owned process group, bounded kill/reap and engine-failure latch. Speaker pairing/routing and audible behavior remain unverified.",
+    "60 context tests passed, including actual spawned verified-HTTPS request through accepted paired session/context route and fake provider to synthetic speech, plus actual synthetic executable stdin/kill/reap tests. All 132 edge tests passed. No actual speaker, eSpeak NG audio, Gemini API or physical acceptance claimed. See handoffs/CS-040-pi-narration-bridge-bondmila-20261017.md.",
+    "Operator reports Bluetooth speaker playback through eSpeak NG on the Pi as the intended user. Added backend/context/speaker_bench.py: opt-in real speaker with synthetic labels/priority/capture timing, manual/hazard/unavailable cancellation, independent expiry and late suppression, explicit human observations and private new report with commit. No phone/backend/Gemini/GPIO; no local audible test claimed.",
+    "Operator supplied Pi speaker bench reports for combined commit 9607f76c9fb6f250c133848d611eae56910c4be1: one incomplete attempt (cause unrecorded), followed by a complete three-round/15-case run, all software and operator observations passed, timer_fault false. Manual/hazard/unavailable cancellation, expiry and late-result suppression passed on reported Bluetooth audio setup. See tests/context/evidence/CS-040-pi-speaker-operator-report-20261017.json. Software stop calls 3.547..3.878ms; expiry overshoot 2.647/9.499/4.728ms. These are not measured audible latency, and physical_audio_accepted remains false pending PM review.",
+    "2026-10-18 follow-up: guided --bluetooth-recovery bench cancels on explicit operator-reported speaker loss, tests silence/no stale replay on reconnection and requires affirmative observations before a fresh ticket. Added sanitized request-count snapshot for CS-027 diagnostics. All 71 context tests pass with synthetic/silent fixtures; actual recovery observations pending.",
+    "2026-10-18: read Michael-authored hardware issue #68. Physical active-high GPIO21, prior camera uploads, standalone speaker playback and manual motor operation are reported available; phone depth remains not ready. This updates the earlier no-button assumption without claiming new narration cancellation/recovery evidence. CS-027 GPIO input adapter feeds the existing sole narration controller; motor and accessible-control work remain separate owners.",
+    "2026-10-18: retained two distinct operator recovery payloads at combined 6dfda42 (identical pasted copies deduplicated per payload). Earlier recovery reconnect observation unknown and fresh phase skipped; later recovery software and all three operator observations passed. Manual cancellation software passed but operator negative in both; operator clarified inaudible manual sentence in the earlier attempt. No audible-latency or full acceptance claim. See tests/context/evidence/CS-040-speaker-recovery-operator-reports-20261018.json.",
+    "Focused --manual-only bench added to isolate remaining audibility/cancellation case without repeating recovery. Reports identify subset selection; default full bench unchanged, no warmup/retry or production speech change. All 73 context tests pass, including subset selection, no/unknown observations and incompatible CLI flag rejection.",
+    "2026-10-18 focused manual-only operator report at combined beb0d9dc716b8f87ca8234c3ef410284919e4a21: one manual_cancel case, software_pass true, operator_pass true, timer_fault false; software stop call 3.788ms, not measured audible latency. Preserved once despite duplicate paste. Earlier negative/unknown runs remain separate. User previously reported mumbled speech; this cancellation observation does not establish intelligibility or full phone/backend integration. See tests/context/evidence/CS-040-manual-cancel-operator-report-20261018.json.",
+    "Merged PR #71 acceptance fetched from main 5dbb6ad. Added FixedMenuAudio closed entry/three-label/confirmation/cancel/unavailable phrases with explicit readiness/priority, epoch/generation fences, no replay on recovery, 15s optional speech expiry and clock/engine failure latch. EspeakSink permits only these exact menu phrases in addition to existing object templates. All 78 context tests pass; silent fixtures only. CS-027 synthetic bench composes the APIs; production menu/request bridge and automatic route monitoring are not installed.",
+    "Menu readiness follow-up: clock failure during the expiry tick inside update now returns unavailable immediately, not a previously computed ready value. Regression and all 79 context tests pass; no device test or behavior acceptance claim.",
+    "Review preparation sync: merged accepted main d1d8eb9 (including GPS 94ccaaf and CS-045 measurement analysis), resolved generated CHANGELOG with renderer, no menu/speech implementation edits. 79 context tests passed. Combined verification and current-head CI inspected after publishing. Operator says new menu run completed; actual report still pending, no new physical pass claimed.",
+    "Operator confirmed the requested new GPIO21 spoken-menu sequence was run and stated \"skip paste. it worked\". Recorded as broad operator-reported working behavior, not invented per-case JSON, timing, exact device-build or full acceptance. In-scope menu code is unchanged from prepared 04f660b. User authorized completing review preparation; ready-for-review is a software checkpoint, not task Done. See tests/context/evidence/CS-040-menu-operator-confirmation-20261018.json.",
+    "Completed-gesture request API and two bounded optional-speech channels prepared for the CS-027 production menu bridge. 83 context tests passed on macOS, including one-slot/cooldown/expiry/priority and independent speech-owner stop tests. See handoffs/CS-040-gesture-dispatch-20261018.md."
+  ],
+  "blocker": "Software checkpoint prepared for independent review after operator menu confirmation. Full task acceptance still requires production menu/request integration, trusted automatic audio-route readiness, evaluated observation adapters and real paired phone/backend freshness. Broad operator confirmation has no supplied JSON, measured audible latency or detailed clarity assessment; retain prior negative/unknown evidence and PM physical-acceptance review."
 }

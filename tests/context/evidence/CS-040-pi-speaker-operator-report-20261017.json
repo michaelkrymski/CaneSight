@@ -1,0 +1,133 @@
+{
+  "task": "CS-040",
+  "reported_date": "2026-10-17",
+  "provenance": "Two JSON reports pasted by the human operator from the Pi; no agent SSH/audio observation.",
+  "agent_observed_audio": false,
+  "initial_incomplete_report": {
+    "mode": "synthetic-speaker-bench",
+    "complete": false,
+    "physical_audio_accepted": false,
+    "error": "Bench unavailable; inspect installation/output and rerun",
+    "build_commit": "9607f76c9fb6f250c133848d611eae56910c4be1"
+  },
+  "completed_report": {
+    "mode": "synthetic-speaker-bench",
+    "priority_input": "synthetic",
+    "capture_input": "synthetic",
+    "phone_used": false,
+    "backend_used": false,
+    "gemini_used": false,
+    "gpio_used": false,
+    "physical_audio_accepted": false,
+    "bluetooth_disconnect_reconnect_verified": false,
+    "complete": true,
+    "records": [
+      {
+        "repetition": 1,
+        "case": "manual_cancel",
+        "software_pass": true,
+        "stop_call_ms": 3.878,
+        "operator_pass": true
+      },
+      {
+        "repetition": 1,
+        "case": "hazard",
+        "software_pass": true,
+        "stop_call_ms": 3.64,
+        "operator_pass": true
+      },
+      {
+        "repetition": 1,
+        "case": "unavailable",
+        "software_pass": true,
+        "stop_call_ms": 3.673,
+        "operator_pass": true
+      },
+      {
+        "repetition": 1,
+        "case": "expiry",
+        "software_pass": true,
+        "timer_stop_after_deadline_ms": 2.647,
+        "operator_pass": true
+      },
+      {
+        "repetition": 1,
+        "case": "late_result",
+        "software_pass": true,
+        "operator_pass": true
+      },
+      {
+        "repetition": 2,
+        "case": "manual_cancel",
+        "software_pass": true,
+        "stop_call_ms": 3.567,
+        "operator_pass": true
+      },
+      {
+        "repetition": 2,
+        "case": "hazard",
+        "software_pass": true,
+        "stop_call_ms": 3.547,
+        "operator_pass": true
+      },
+      {
+        "repetition": 2,
+        "case": "unavailable",
+        "software_pass": true,
+        "stop_call_ms": 3.622,
+        "operator_pass": true
+      },
+      {
+        "repetition": 2,
+        "case": "expiry",
+        "software_pass": true,
+        "timer_stop_after_deadline_ms": 9.499,
+        "operator_pass": true
+      },
+      {
+        "repetition": 2,
+        "case": "late_result",
+        "software_pass": true,
+        "operator_pass": true
+      },
+      {
+        "repetition": 3,
+        "case": "manual_cancel",
+        "software_pass": true,
+        "stop_call_ms": 3.56,
+        "operator_pass": true
+      },
+      {
+        "repetition": 3,
+        "case": "hazard",
+        "software_pass": true,
+        "stop_call_ms": 3.569,
+        "operator_pass": true
+      },
+      {
+        "repetition": 3,
+        "case": "unavailable",
+        "software_pass": true,
+        "stop_call_ms": 3.55,
+        "operator_pass": true
+      },
+      {
+        "repetition": 3,
+        "case": "expiry",
+        "software_pass": true,
+        "timer_stop_after_deadline_ms": 4.728,
+        "operator_pass": true
+      },
+      {
+        "repetition": 3,
+        "case": "late_result",
+        "software_pass": true,
+        "operator_pass": true
+      }
+    ],
+    "timer_fault": false,
+    "software_checks_passed": true,
+    "operator_reported_all_passed": true,
+    "build_commit": "9607f76c9fb6f250c133848d611eae56910c4be1"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "id": "CS-040-FIXED-MENU-AUDIO-BONDMILA-20261018",
+  "date": "2026-10-18",
+  "author": "bondmila (AI-assisted)",
+  "task": "CS-040",
+  "summary": "Implement fixed menu speech with readiness and stale-event preemption",
+  "details": "Follow merged PR #71 with closed disclaimer/selection/confirmation/cancellation phrases, explicit route readiness/priority, epoch/generation binding, expiry and fault latch. Keep production request/route integration and physical evidence open; no provider prose, traffic inference or stale replay.",
+  "validation": "78 context tests pass, including five new fixed phrase/readiness/epoch/expiry/fault tests. Combined synthetic bench tests are reported by CS-027. Checked publishing runs shared checks; no new actual audio or device test performed."
+}
