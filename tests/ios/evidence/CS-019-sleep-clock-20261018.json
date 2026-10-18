@@ -1,0 +1,28 @@
+{
+  "task": "CS-019",
+  "date": "2026-10-18",
+  "base_commit": "46b65c3cb539717301bc9b5c1502405d3ef6286e",
+  "test_environment": "Local Docker official Swift 6.0.3, network none, 1 CPU, 2 GiB, read-only source mount",
+  "image_digest": "sha256:f19aea3f9a889df5884e1186e60be74869613477d99656b598c115a4b91af8a1",
+  "command": "swift test --package-path /code/ios/CoarseLocation --scratch-path /tmp/cs019-tests --jobs 1 -Xswiftc -strict-concurrency=complete -Xswiftc -warnings-as-errors",
+  "tests_run": 20,
+  "failures": 0,
+  "new_regressions": [
+    "Duration conversion preserves fractions and signs",
+    "System clock produces finite nondecreasing readings",
+    "30-second simulated sleep clears old fix and permits a fresh post-resume fix",
+    "Elapsed sleep expires a fix even without inactive callback",
+    "Real UTC discontinuity across sleep remains terminal"
+  ],
+  "apple_sdk_compiled": false,
+  "physical_device_tested": false,
+  "gps_network_publisher_enabled": false,
+  "source_sha256": {
+    "ios/CoarseLocation/Package.swift": "523e9af62f3965c39a6c4d418d879a143dbf6e5c3a49dc89563ddb3da025fa44",
+    "ios/CoarseLocation/Sources/CaneSightCoarseLocation/LocationContext.swift": "2cf7a6664927770a31f5b50f76121fa93cb2061c4337bf359a5ecde40dbbe9dc",
+    "ios/CoarseLocation/Sources/CaneSightCoarseLocation/LocationSystemClock.swift": "74be22779740f7a26abfaf0f401ac501144d80ec32c696f11d23305cc8b8475d",
+    "ios/CoarseLocation/Sources/CaneSightCoreLocation/CoreLocationSource.swift": "c810788b0c4103a90de5fe29da21eb6ee1348b760c89be8d7cc0037751a06612",
+    "ios/CoarseLocation/Tests/CoarseLocationTests/LocationContextTests.swift": "3d0a68a6d4cca060d56e920f3dcb033f5fc76d89f23d3ced626d986f0cc381df",
+    "ios/CoarseLocation/Tests/CoarseLocationTests/LocationSystemClockTests.swift": "b37625f3555c598ffdf70e060e50e7b13df806638ce07688fcda8e9048c994e2"
+  }
+}
