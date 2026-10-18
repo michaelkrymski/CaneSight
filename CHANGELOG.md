@@ -58,6 +58,22 @@ Claim only, from main 18884a5914e8f0476a2877a9c63ff37a24291306. Human requests c
 
 Validation: Checked publishing runs repository validation, shared unit tests, generated changelog consistency and whitespace checks. No Swift build, Xcode, iOS simulator or device tests are claimed by this assignment.
 
+## 2026-10-17 — CS-014-DEPTH-SECTORS-20261017: Prepare confidence-aware Swift depth-sector package and ARKit adapter
+
+Author: aditsangani (AI-assisted) · Task: CS-014
+
+Add a standalone bounded/stateless depth processor, confidence/coverage/sample gates, nearest-rank percentile, nullable unknown values, preserved source time, strided byte decoding and owned CoreVideo/ARFrame extraction. Add seven original replay fixtures and fifteen unrun XCTest methods. Sectors are explicitly depth-image columns with physical mapping unverified. No app/signing, transport/lifecycle integration, shared contract, orientation calibration or deployed behavior changes. Keep draft/blocked pending Swift/Xcode/CS-013 device evidence.
+
+Validation: Windows fixture-structure audit passed for seven cases; Tree-sitter 0.26.0/Swift grammar 0.7.4 parsed seven Swift files without syntax errors. Neither check compiles or executes Swift. Checked publishing runs existing repository tests/validation/log/whitespace checks; no Swift/XCTest/Apple/device pass is claimed.
+
+## 2026-10-17 — CS-014-DRAFT-LINK-20261017: Record CS-014 draft source checkpoint and verification boundary
+
+Author: aditsangani (AI-assisted) · Task: CS-014
+
+Link task to draft PR #62. Existing 110 root Python tests passed; seven fixture structures and seven Swift grammar parses passed. Fifteen XCTest methods remain authored but unrun. Task remains blocked for Swift/Xcode and CS-013 device evidence; no source implementation or prior audit/handoff is changed.
+
+Validation: Metadata-only checked publishing reruns existing shared/repository/log/whitespace checks. These do not compile Swift or run XCTest; inspect current-head CI after push.
+
 ## 2026-10-17 — CS-016-CLAIM-BONDMILA-20261017: Request CS-016 bounded phone telemetry assignment
 
 Author: bondmila (AI-assisted) · Task: CS-016
@@ -761,6 +777,22 @@ Author: michaelkrymski (AI-assisted) · Task: CS-013
 New SwiftUI iOS16+ host checks scene-depth support, requests camera permission and displays bounded local image-column depth. Epoch barriers, interruption invalidation and receipt-time UI expiry preserve unknowns. Pinned ignored review dependencies preserve draft PR source without modifying teammate tasks. Network/GPS/motors stay off. Initial PM claim PR #69 was author/diff verified before implementation.
 
 Validation: 59 package macOS XCTest cases, five host gate cases and four Swift/backend wire cases passed. Four package physical-iOS SDK builds and four iOS Simulator test-bundle builds passed. Unsigned host physical-iOS build passed. Simulator tests and physical phone/signing/clock/mapping/WSS acceptance remain pending; task blocked and PR draft. Checked publisher runs shared checks.
+
+## 2026-10-18 — CS-014-PM-ENCODING-REPAIR-20261018: Restore accepted task window to resolve unintended governance change
+
+Author: michaelkrymski (AI-assisted) · Task: CS-014
+
+Restore elapsed_window verbatim from accepted main after an encoding corruption. No task requirement, scope, ownership, Swift implementation, test or fixture change. Preserve readiness reconciliation and historical records.
+
+Validation: All static task fields match accepted main; all eight normalized implementation/package/test/fixture hashes match readiness evidence and the Apple-tested pin. Seven fixture structures pass. All 195 shared cases complete with seven platform skips and no failures. Fresh Apple/Swift execution not performed; optional syntax audit unavailable because tree_sitter is absent.
+
+## 2026-10-18 — CS-014-READINESS-ADITSANGANI-20261018: Reconcile depth-sector readiness with accepted Apple and phone evidence
+
+Author: aditsangani (AI-assisted) · Task: CS-014
+
+Integrate accepted main; update README/task runtime and add source-linked readiness evidence. Preserve original historical audits/handoffs. Swift implementation, package, tests and fixtures remain unchanged from the exact PR62 pin tested by Michael in accepted PR69. Submit for independent review; retain separate accuracy/mapping/transport limits.
+
+Validation: 13 portable depth XCTest cases passed on Swift 6.0.3 WSL with strict concurrency and warnings as errors; 8 normalized source/fixture hashes match the Apple-tested pin. Attributed accepted evidence records 15 Mac tests and depth iOS SDK build, with later signed phone host checks. Shared repository/changelog/whitespace checks are required by checked publishing. No fresh Apple/device or hardware test claimed.
 
 ## 2026-10-18 — CS-015-BENCH-INSTALL-20261018: Sign, install and launch portrait mapping bench for operator verification
 
