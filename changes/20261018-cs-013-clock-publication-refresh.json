@@ -1,0 +1,9 @@
+{
+  "id": "CS-013-clock-publication-refresh-20261018",
+  "date": "2026-10-18",
+  "author": "michaelkrymski",
+  "task": "CS-013",
+  "summary": "Preserve concurrent PM refresh and make lock test opt-in",
+  "details": "Normal merge retains both remote accepted-main refresh and local lifecycle/clock work after rejected non-fast-forward push. Assisted lock test requires explicit runner flag so unattended suites do not wait for operator.",
+  "validation": "First clock checkpoint passed 250 shared tests; actual prior lock result retained and attributed before selection guard. Fresh checked publication required."
+}

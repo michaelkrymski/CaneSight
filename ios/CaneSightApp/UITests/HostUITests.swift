@@ -3,6 +3,9 @@ import XCTest
 /// Real controls/sensor only; no injected capture, progress, enrollment or consent.
 final class HostUITests: XCTestCase {
     @MainActor func testOperatorLockAndFreshDepthRecovery() throws {
+        guard ProcessInfo.processInfo.environment["CANESIGHT_OPERATOR_LOCK_TEST"] == "1" else {
+            throw XCTSkip("Operator lock test requires explicit runner opt-in")
+        }
         continueAfterFailure = false
         let app = XCUIApplication()
         app.launchArguments += ["--depth-demo", "--lifecycle-probe"]

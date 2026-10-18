@@ -37,3 +37,8 @@ do not write it. Actual operator-assisted lock test verifies background state,
 real depth recovery and Stop Unknown; inspect the separate device count record
 to confirm clearing occurred before recovery. This is local host verification,
 not paired receiver expiry, kernel deep-sleep or CS-017/CS-030 task takeover.
+
+The assisted lock test opts in using CANESIGHT_OPERATOR_LOCK_TEST=1 in the UI
+runner test environment (xctestrun EnvironmentVariables). Normal full suites skip
+this manual test instead of waiting for an operator. The actual recorded lock run
+preceded this selection guard; its tested source hash is retained in evidence.

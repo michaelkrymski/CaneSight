@@ -738,6 +738,14 @@ Add a targeted master-plan subsection, implementation brief and CR for 3-second 
 
 Validation: Planning-only change. Repository validation, generated changelog consistency, whitespace and shared unit suite are checked before publication. No button/audio/vision implementation, training, live traffic, GPIO or physical acceptance claimed. Protected plan/task amendments require exact-head GitHub approval.
 
+## 2026-10-18 — CS-013-clock-publication-refresh-20261018: Preserve concurrent PM refresh and make lock test opt-in
+
+Author: michaelkrymski · Task: CS-013
+
+Normal merge retains both remote accepted-main refresh and local lifecycle/clock work after rejected non-fast-forward push. Assisted lock test requires explicit runner flag so unattended suites do not wait for operator.
+
+Validation: First clock checkpoint passed 250 shared tests; actual prior lock result retained and attributed before selection guard. Fresh checked publication required.
+
 ## 2026-10-18 — CS-013-depth-demo-20261018: Demonstrate real LiDAR with simulated three-column responses
 
 Author: michaelkrymski · Task: CS-013
