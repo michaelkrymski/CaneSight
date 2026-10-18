@@ -762,6 +762,14 @@ PM-authorized host integration uses exact unchanged module inputs. Add portrait 
 
 Validation: Signed app and actual phone suite: 5 passed/0 skipped; Simulator UI: 2 passed; strict Mac cases: 60 passed; current lifecycle native Simulator: 14 passed. One-time local GPS fix and opt-out observed without coordinates in evidence. Corrected real button hit-area bug, Debug simulator architecture, and test-only free-profile/knob targeting setup. Current shared checks run by publisher. Review only, no full-system or measured timing/accuracy claims.
 
+## 2026-10-18 — CS-013-lifecycle-clock-prep-20261018: Verify phone lifecycle and prepare measured clock characterization
+
+Author: michaelkrymski · Task: CS-013
+
+Actual background and operator lock recovery tests plus bounded state-clear evidence. Add causal affine rate model with separate holdout and conditional receiver-age diagnostics; no hardware drift guarantee or production gate activation.
+
+Validation: Three actual phone UI tests passed without skips; signed clock-test build succeeded. Six characterization tests and six Pi helper tests passed. Actual clock enrollment/run pending.
+
 ## 2026-10-18 — CS-013-PHONE-CHECKS-20261018: Record operator phone checks and prepare iPhone host for review
 
 Author: michaelkrymski (AI-assisted) · Task: CS-013

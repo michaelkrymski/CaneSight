@@ -67,7 +67,7 @@ private final class DepthPairRecord: @unchecked Sendable {
                 throw TelemetryError.invalidControl
             }
             counts[kind, default: 0] += 1
-            guard counts[kind, default: 0] <= 600 else { throw TelemetryError.invalidControl }
+            guard counts[kind, default: 0] <= 900 else { throw TelemetryError.invalidControl }
             if kind == "clock_reply" { return }
             let seq = try XCTUnwrap(value["seq"] as? UInt64)
             guard lastSequences[kind].map({ seq > $0 }) ?? true else { throw TelemetryError.invalidControl }
@@ -170,6 +170,68 @@ final class LiveDepthPairTests: XCTestCase {
             try await Task.sleep(nanoseconds: 300_000_000)
         }
         print("CS016_LOCAL_REBASED processed_frames=\(collector.processed) network_started=false")
+        #endif
+    }
+
+    @MainActor func testClockCharacterizationDepth() async throws {
+        #if targetEnvironment(simulator)
+        throw XCTSkip("Physical supported iPhone required")
+        #else
+        guard ARKitDepthAdapter.supportsSceneDepth,
+              AVCaptureDevice.authorizationStatus(for: .video) == .authorized else {
+            throw XCTSkip("Real scene depth and camera consent required")
+        }
+        let file = try XCTUnwrap(FileManager.default.urls(for: .documentDirectory,
+            in: .userDomainMask).first).appendingPathComponent("cs013-clock-pair.json")
+        guard FileManager.default.fileExists(atPath: file.path) else { throw XCTSkip("Fresh private phone role required") }
+        let data = try Data(contentsOf: file); try FileManager.default.removeItem(at: file)
+        let value = try XCTUnwrap(JSONSerialization.jsonObject(with: data) as? [String: Any])
+        let phone = try XCTUnwrap(value["phone"] as? [String: String])
+        let pi = try XCTUnwrap(value["pi"] as? [String: String])
+        guard Set(value.keys) == ["origin", "session_id", "mode", "phone", "pi"],
+              Set(phone.keys) == ["source_id", "boot_id", "token"], Set(pi.keys) == ["source_id", "boot_id"],
+              value["origin"] as? String == "https://64.177.50.116", value["mode"] as? String == "live" else {
+            throw TelemetryError.configuration
+        }
+        let grant = try PhoneSession(origin: URL(string: "https://64.177.50.116")!,
+            sessionID: XCTUnwrap(value["session_id"] as? String), sourceID: XCTUnwrap(phone["source_id"]),
+            bootID: XCTUnwrap(phone["boot_id"]), receiverID: XCTUnwrap(pi["source_id"]),
+            receiverBootID: XCTUnwrap(pi["boot_id"]), mode: .live, phoneToken: XCTUnwrap(phone["token"]))
+        let clock = BenchSourceClock(), record = DepthPairRecord()
+        let client = TelemetryClient(session: grant, clock: { try clock.now() }, socketFactory: {
+            let socket = try await NativeWebSocket.connect($0); record.opened()
+            return DepthPairSocket(native: socket, record: record)
+        })
+        let collector = LiveDepthCollector(clock: clock, client: client)
+        let session = ARSession()
+        session.delegateQueue = DispatchQueue(label: "CaneSight.clock-characterization")
+        session.delegate = collector
+        let config = ARWorldTrackingConfiguration(); config.frameSemantics.insert(.sceneDepth)
+        await client.start()
+        do {
+            for _ in 0..<300 {
+                if await client.status().phase == .connected { break }
+                try await Task.sleep(nanoseconds: 50_000_000)
+            }
+            guard await client.status().phase == .connected else { throw TelemetryError.connection }
+            collector.enable(true); session.run(config, options: [.resetTracking, .removeExistingAnchors])
+            for _ in 0..<300 {
+                if collector.processed > 0 || collector.hasFailed { break }
+                try await Task.sleep(nanoseconds: 50_000_000)
+            }
+            guard collector.processed > 0, !collector.hasFailed else { throw TelemetryError.clock }
+            await client.setProducerState(.ready)
+            let start = ContinuousClock.now
+            while start.duration(to: ContinuousClock.now) < .seconds(65) {
+                guard !collector.hasFailed, await client.status().phase == .connected else { throw TelemetryError.connection }
+                try await Task.sleep(nanoseconds: 100_000_000)
+            }
+            guard record.depthCount >= 400 else { throw TelemetryError.connection }
+            print("CS013_CLOCK_CHARACTERIZATION depth_sent=\(record.depthCount) connections=\(record.connections) processed_frames=\(collector.processed) duration_seconds=65")
+        } catch {
+            collector.enable(false); session.pause(); session.delegate = nil; await client.close(); throw error
+        }
+        collector.enable(false); session.pause(); session.delegate = nil; await client.close()
         #endif
     }
 
