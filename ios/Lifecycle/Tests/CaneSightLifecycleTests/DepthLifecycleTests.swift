@@ -34,6 +34,63 @@ import XCTest
 }
 
 final class DepthLifecycleTests: XCTestCase {
+    func testClockFaultNotifiesOnceEvenWhenUnknownHookReadsGuard() async {
+        await MainActor.run {
+            var time = 1000.0
+            var notifications = 0
+            var lifecycle: DepthLifecycle<String>!
+            lifecycle = DepthLifecycle(nowMilliseconds: { time }, hooks: LifecycleHooks(
+                cancelAndDisconnect: {}, discardPendingTelemetry: {}, invalidateClockMapping: {},
+                depthBecameUnknown: {
+                    notifications += 1
+                    XCTAssertNil(lifecycle.beginCapture())
+                }))
+            lifecycle.setApplicationActive(true)
+            lifecycle.setTrackingNormal(true)
+            let lease = lifecycle.beginConnection()!
+            XCTAssertTrue(lifecycle.connectionReady(lease))
+            XCTAssertTrue(lifecycle.clockMappingReady(lease))
+            let before = notifications
+            time = .nan
+            XCTAssertNil(lifecycle.beginCapture())
+            XCTAssertEqual(notifications, before + 1)
+            XCTAssertNil(lifecycle.takeForImmediateSend())
+            XCTAssertNil(lifecycle.beginConnection())
+            XCTAssertEqual(notifications, before + 1)
+            XCTAssertTrue(lifecycle.requiresReenrollment)
+        }
+    }
+
+    func testCleanupCannotReconnectFromSynchronousTransportHook() async {
+        await MainActor.run {
+            var lifecycle: DepthLifecycle<String>!
+            var disconnects = 0
+            lifecycle = DepthLifecycle(nowMilliseconds: { 1000 }, hooks: LifecycleHooks(
+                cancelAndDisconnect: {
+                    disconnects += 1
+                    // A host may synchronously report transport close while it
+                    // clears a socket, or attempt reconnect from that callback.
+                    lifecycle.disconnected()
+                    XCTAssertNil(lifecycle.beginConnection())
+                }, discardPendingTelemetry: {}, invalidateClockMapping: {}, depthBecameUnknown: {}))
+            lifecycle.setApplicationActive(true)
+            lifecycle.setTrackingNormal(true)
+            let lease = lifecycle.beginConnection()!
+            XCTAssertTrue(lifecycle.connectionReady(lease))
+            XCTAssertTrue(lifecycle.clockMappingReady(lease))
+            let before = disconnects
+            lifecycle.disconnected()
+            XCTAssertEqual(disconnects, before + 1)
+            XCTAssertNil(lifecycle.beginCapture())
+            XCTAssertFalse(lifecycle.connectionReady(lease))
+            // Recovery outside cleanup still requires a new lease and mapping.
+            let fresh = lifecycle.beginConnection()!
+            XCTAssertTrue(lifecycle.connectionReady(fresh))
+            XCTAssertTrue(lifecycle.clockMappingReady(fresh))
+            XCTAssertNotNil(lifecycle.beginCapture())
+        }
+    }
+
     func testStartsUnknownAndNeedsActiveTrackingConnectionAndMapping() async {
         await MainActor.run {
             let r = Rig()

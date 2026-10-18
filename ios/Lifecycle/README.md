@@ -1,8 +1,9 @@
 # CS-017: depth lifecycle guard
 
 Software implementation for interruption, suspension and reconnect. This is a
-standalone Swift package for the CS-014/016 host app; no host app/Xcode project is
-present on the implementation base. It does not implement depth extraction,
+standalone Swift package for the CS-014/016 host app. The draft CS-013 host in
+PR #69 now pins this package as a review dependency; that preview does not wire
+this guard into a live telemetry transport. It does not implement depth extraction,
 telemetry serialization, enrollment, haptic policy or clock calibration.
 
 ## Integration with CS-014/016
@@ -66,6 +67,11 @@ checks prevent queued work from growing stale. No heartbeat API can renew depth.
 The guard does not validate depth sectors: CS-014/016 must honor v1 null distances
 for non-normal tracking and preserve the shared message schema.
 
+Cleanup hooks may synchronously report socket closure or read unknown UI state.
+The guard fences admission throughout cleanup and suppresses nested invalidation;
+do not attempt to reconnect from a cleanup callback. Once a clock fault requires
+reenrollment, reads remain unknown without repeatedly notifying the host.
+
 ## Tests and remaining device checks
 
 Portable core tests (Swift 5.9+; tested using official Swift 6.0.3 Linux image):
@@ -81,8 +87,16 @@ Receiver regressions, using the repository backend/contract test dependencies:
 python -m unittest tests.ios.test_lifecycle_receiver -v
 ```
 
-Linux excludes the conditional ARKit/UIKit bridge body. It **does not validate an
-iOS build**. On a Mac build both products for the app's iOS target, then use a
+The latest local run passed 12 portable tests with strict concurrency and warnings
+as errors, plus the three Python Pi-consumer regressions. Linux excludes the
+conditional ARKit/UIKit bridge body. It **does not validate an iOS build**.
+Michael's PR #69 reports macOS tests, iOS SDK builds and simulator test-bundle
+compilation for the earlier pinned commit
+`0edb2229977b93eae00df6842286d87d4870aea4`; those are useful native compilation
+evidence, not a build of subsequent changes or execution of native bridge tests.
+Its phone preview lock/background report is not a paired telemetry expiry test.
+See `tests/ios/evidence/CS-017-cleanup-20261018.json` for exact scope and hashes.
+On a Mac update the reviewed dependency pin, build both products, then use a
 supported LiDAR phone and the enrolled Pi to record this matrix. No private images,
 credentials or precise GPS traces should be retained as test evidence.
 

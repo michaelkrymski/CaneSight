@@ -74,6 +74,7 @@ public struct DepthSample<Payload: Sendable>: Sendable {
     private var lastSequence: UInt64?
     private var lastSourceTime: Double?
     private var pending: DepthSample<Payload>?
+    private var invalidating = false
     public private(set) var requiresReenrollment = false
 
     public init(nowMilliseconds: @escaping () -> Double, hooks: LifecycleHooks) {
@@ -82,10 +83,15 @@ public struct DepthSample<Payload: Sendable>: Sendable {
     }
 
     private var captureAvailable: Bool {
-        active && !interrupted && trackingNormal && !failed && !requiresReenrollment
+        active && !interrupted && trackingNormal && !failed && !requiresReenrollment && !invalidating
     }
 
     private func invalidate() {
+        // Host purge/disconnect/UI hooks may synchronously call back into this
+        // guard. Fence admission for the entire cleanup and notify only once.
+        guard !invalidating else { return }
+        invalidating = true
+        defer { invalidating = false }
         generation = UUID()
         connected = false
         mapped = false
@@ -97,6 +103,9 @@ public struct DepthSample<Payload: Sendable>: Sendable {
     }
 
     private func clock() -> Double? {
+        // A fault is terminal for this enrolled guard. Reentrant UI reads must
+        // not trigger another purge or recurse through the unknown hook.
+        guard !requiresReenrollment else { return nil }
         let value = now()
         guard value.isFinite, value >= 0,
               lastNow.map({ value >= $0 }) ?? true else {
