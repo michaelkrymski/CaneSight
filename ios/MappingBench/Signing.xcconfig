@@ -1,0 +1,2 @@
+// Optional local signing team; no account identifiers in Git.
+#include? "Signing.local.xcconfig"
