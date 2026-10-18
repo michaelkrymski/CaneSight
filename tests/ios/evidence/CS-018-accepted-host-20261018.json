@@ -1,0 +1,78 @@
+{
+  "task": "CS-018",
+  "base_commit": "185aa3afaca1bdd6ba5380ba0e7113917f86b2df",
+  "status_pin": {
+    "name": "AccessibleStatus",
+    "pr": 73,
+    "commit": "6ddb7fc4166eda69db5153025d29ceea164b315e",
+    "path": "ios/AccessibleStatus"
+  },
+  "attributed_apple_evidence": "tests/ios/evidence/CS-013-integrated-app-20261018.json",
+  "native_tests_rerun_here": false,
+  "source_sha256_utf8_lf": {
+    "ios/AccessibleStatus/Package.swift": "e9f5ea32471cd92644115c7d7d643fe146c58a313ce4efe22f79c5f1bbe263f9",
+    "ios/AccessibleStatus/Sources/CaneSightStatus/StatusController.swift": "234acd942da2ad430e66fb2f8ea23ca661e7f01b30e8a1291224e93ccfaf4a42",
+    "ios/AccessibleStatus/Sources/CaneSightStatusUI/AccessibleStatusView.swift": "5da5d09a7732a464ecb1698f0752bb41641b695415ed16467058651e5baaa1e2",
+    "ios/AccessibleStatus/Tests/CaneSightStatusTests/StatusControllerTests.swift": "7716ad30b7393afdf1f18dc621cb28d8a6c462612c76bd135c0c78aca4dfc737"
+  },
+  "host_hashes_match": true,
+  "attributed_results": {
+    "phone_ui": {
+      "result": "Passed",
+      "totalTestCount": 5,
+      "passedTests": 5,
+      "failedTests": 0,
+      "skippedTests": 0
+    },
+    "simulator_ui": {
+      "result": "Passed",
+      "totalTestCount": 2,
+      "passedTests": 2,
+      "failedTests": 0,
+      "skippedTests": 0
+    },
+    "accessible_status_mac_tests": 17,
+    "current_lifecycle_simulator": {
+      "result": "Passed",
+      "totalTestCount": 14,
+      "passedTests": 14,
+      "failedTests": 0,
+      "skippedTests": 0
+    },
+    "audio_observation": {
+      "fixed_status_requested": true,
+      "local_cancel_hook_observed": true,
+      "sink_failure_result_propagated": true,
+      "audible_stop_latency_measured": false,
+      "voiceover_listening_verified": false
+    }
+  },
+  "remaining_gates": [
+    "Exact installed-build association and separate VoiceOver Escape gesture check; labels/Unknown/Cancel are operator-reported accessible on an unidentified build.",
+    "Measured audible speaker/Bluetooth cancellation delay.",
+    "CS-040/Pi scene narration and provider/request cancellation integration.",
+    "Full small-screen/landscape/light-dark layout matrix; paired transport/capture clock are separate."
+  ],
+  "portable_rerun": {
+    "environment": "Swift 6.0.3 Ubuntu 24.04 via WSL",
+    "strict_concurrency": "complete",
+    "warnings_as_errors": true,
+    "status_tests": 17,
+    "lifecycle_integration_tests": 2,
+    "failures": 0,
+    "swiftui_body_executed": false
+  },
+  "operator_observation": {
+    "build_commit": null,
+    "device_model": null,
+    "os_version": null,
+    "output_route": null,
+    "feature_match": "Camera/Status/Location tabs, Read status and Cancel audio controls confirmed",
+    "latest_report": "Speech is audible and cancels with the cancel audio button",
+    "earlier_no_audio_report_corrected": true,
+    "audible_stop_delay_measured": false,
+    "voiceover_test": "Operator reports meaningful labels, spoken Unknown values and reachable/activatable Cancel audio.",
+    "evidence_scope": "Human report on unidentified installed build; no exact-head or Bluetooth acceptance.",
+    "voiceover_escape_tested": false
+  }
+}
