@@ -946,6 +946,14 @@ PM-authorized assignment only. Accepted-main task is unowned; no competing open 
 
 Validation: Assignment runtime fields only plus this new changelog/handoff and generated log. Shared checks run by checked publisher. No implementation or physical results asserted.
 
+## 2026-10-18 — CS-020-SURFACE-PREPARATION-20261018: Prepare real-phone difficult-surface checks and pause for CS-016 phone use
+
+Author: michaelkrymski (AI-assisted) · Task: CS-020
+
+Verified PM assignment PR #90 and initial claim. Add four separately selected operator-assisted UI observations, finite-or-Unknown and permissive-wording assertions, Stop-to-Unknown checks, and a truthful surface-test procedure. No sensor thresholds changed. Michael paused physical testing for the higher-priority CS-016 chat.
+
+Validation: Signed physical-iOS test build passed, not executed; 15 depth and 11 mapping cases passed on Mac. Shared checks run by publisher. All four material cases remain not tested; no physical result or Done claim.
+
 ## 2026-10-18 — CS-025-PROVENANCE-RECOVERY-ADITSANGANI-20261018: Recover exact Swift fixture input manifest bytes for PR #75
 
 Author: aditsangani (AI-assisted; PM-delegated PR fix) · Task: CS-025
