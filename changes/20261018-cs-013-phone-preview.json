@@ -1,0 +1,9 @@
+{
+  "id": "CS-013-PHONE-PREVIEW-20261018",
+  "date": "2026-10-18",
+  "author": "michaelkrymski (AI-assisted)",
+  "task": "CS-013",
+  "summary": "Record first physical iPhone local depth preview and successful launch",
+  "details": "After developer-app trust, Michael reported the live local preview status from the native depth-processing path on iPhone 17 Pro Max / iOS 26.6.2. A subsequent devicectl launch succeeded. First-launch trust is resolved. Numeric, stop and background/recovery checks are requested separately; no accuracy, clock, mapping, live telemetry or Done claim.",
+  "validation": "Signed build, strict code-signature check, installation and subsequent launch succeeded. Operator-reported UI status retained in sanitized evidence. No source behavior changed; prior 64 Swift and four backend conformance tests remain valid. Checked publishing runs shared checks."
+}
