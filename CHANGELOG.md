@@ -690,6 +690,14 @@ Record installed GPIO21 button, reported camera and speaker availability while p
 
 Validation: Read issue #68 and author identity via GitHub. Existing 71 context tests passed for current code; documentation/runtime update only. Checked publisher runs shared checks; no new hardware or audible test claimed.
 
+## 2026-10-18 — CS-040-MANUAL-CANCEL-OPERATOR-EVIDENCE-BONDMILA-20261018: Record passing focused Pi manual cancellation observation
+
+Author: bondmila (AI-assisted) · Task: CS-040
+
+Preserve the manual-only report at combined beb0d9d: software and operator checks passed, 3.788ms software stop call. Keep prior mixed runs intact, distinguish subset success from full acceptance, and retain speech clarity and phone/backend gates.
+
+Validation: Parsed exact supplied report and checked subset identity, positive results and disabled subsystem/acceptance flags; verified source commit exists. No new implementation or agent hardware/audio test. Checked publisher runs shared checks.
+
 ## 2026-10-18 — CS-040-RECOVERY-REPORTS-MANUAL-DIAGNOSTIC-BONDMILA-20261018: Preserve mixed Pi recovery evidence and isolate manual audibility test
 
 Author: bondmila (AI-assisted) · Task: CS-040
