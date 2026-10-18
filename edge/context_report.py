@@ -18,8 +18,9 @@ def revision():
 def bounded_status(snapshot):
     """Closed metadata only, even if a future adapter adds sensitive fields."""
     result = {}
-    for key in ('audio_enabled', 'audio_delivery_verified', 'consent', 'input_closed', 'closed'):
+    for key in ('audio_enabled', 'audio_delivery_verified', 'consent', 'input_closed', 'closed', 'gpio_used'):
         result[key] = snapshot.get(key) if type(snapshot.get(key)) is bool else None
+    result['input_mode'] = snapshot.get('input_mode') if snapshot.get('input_mode') in ('manual-terminal', 'gpio21') else None
     result['fault_present'] = snapshot.get('fault') is not None
     result['shown'] = snapshot.get('shown') if type(snapshot.get('shown')) is int and 0 <= snapshot['shown'] <= 2**53-1 else None
     button = snapshot.get('button')
@@ -39,11 +40,11 @@ def bounded_status(snapshot):
 class ContextRunReport:
     def __init__(self):
         self.file = None
-        self.data = {'mode': 'manual-context-run', 'complete': False,
+        self.data = {'mode': 'context-run', 'complete': False,
                      'physical_audio_accepted': False, 'phone_backend_verified': False,
-                     'gpio_used': False, 'build_commit': revision(), 'outcome': 'unavailable'}
+                     'gpio_used': False, 'motor_gpio_used': False, 'build_commit': None, 'outcome': 'unavailable'}
 
-    def open(self, path, *, audio):
+    def open(self, path, *, audio, gpio=False):
         if path is None:
             return
         # Do not follow a report symlink or overwrite an earlier run.
@@ -54,12 +55,16 @@ class ContextRunReport:
             raise ValueError('Choose a private report directory outside the checkout')
         fd = os.open(parent/path.name, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
         self.file = os.fdopen(fd, 'w', encoding='utf-8')
+        self.data['build_commit'] = revision()
         self.data['audio_enabled'] = audio is True
+        self.data['gpio_input_requested'] = gpio is True
+        self.data['gpio_used'] = None if gpio else False
 
     def capture(self, runtime):
         if self.file is not None and runtime is not None:
             try:
                 self.data['context'] = bounded_status(runtime.snapshot())
+                self.data['gpio_used'] = self.data['context']['gpio_used']
             except Exception:
                 self.data['snapshot_unavailable'] = True
 

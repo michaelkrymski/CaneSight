@@ -1,6 +1,6 @@
-"""CS-027 opt-in same-process uploader integration with manual terminal input.
+"""CS-027 opt-in same-process uploader terminal or GPIO21 input.
 
-No GPIO. Audio requires explicit opt-in. Local primary-source unknown/hazard state preempts
+Input-only GPIO and audio each require opt-in. Primary-source unknown/hazard state preempts
 context. Each worker owns its locks; never hold the frame lock across button,
 policy, network, input or output calls.
 """
@@ -49,8 +49,8 @@ def policy_priority(policy, receiver, sender, watchdog):
 class ManualContext:
     """Bounded latest frame, explicit consent, separate timer and input workers.
 
-    This is a terminal-operated bench adapter, not a physical switch or phone
-    narrator. start/read/emit injection exists for generated offline fixtures.
+    Terminal input is default; GPIO21 requires an explicit input adapter at start.
+    start/read/emit injection exists for generated offline fixtures.
     """
     def __init__(self, session, priority, *, consent, ca_file=None, clock=clock_ms,
                  client=None, emit=print, audio=False, speech_sink=None, narration_factory=None):
@@ -66,6 +66,8 @@ class ManualContext:
         self._lock = threading.Lock()
         self._frame = None
         self._camera = False
+        self._gpio = False
+        self._last_input_at = None
         self._consent = True
         self._level = False  # Explicit synthetic release for terminal mode only.
         self._closed = self._input_closed = False
@@ -143,12 +145,14 @@ class ManualContext:
         with self._lock:
             frame, camera, consent, level = self._frame, self._camera, self._consent, self._level
             closed = self._closed or self._input_closed or self._fault is not None
+            gpio, input_at = self._gpio, self._last_input_at
         try:
             now = number(self._clock())
             age = now - frame.metadata['capture_monotonic_ms'] if frame is not None else None
             ready, hazard = self._priority()
+            input_fresh = not gpio or (input_at is not None and 0 <= now-input_at <= 100)
             ready = bool(not closed and camera and age is not None and 0 <= age <= 1500
-                         and ready is True)
+                         and input_fresh and ready is True)
             return ready, consent, hazard, level
         except Exception:
             return False, False, True, False
@@ -170,7 +174,8 @@ class ManualContext:
             if not ready or consent is not True or hazard is not False or not 0 <= age < 8000:
                 return
             labels = value['description']['objects']
-            message = ('Context (manual input; AI; uncertain): possible ' + ', '.join(labels) + '.'
+            mode = 'GPIO21 input' if self._gpio else 'manual input'
+            message = ('Context (' + mode + '; AI; uncertain): possible ' + ', '.join(labels) + '.'
                        if labels else 'Description unavailable.')
             self._emit(message)  # Closed labels only; never provider prose/frame/key.
             with self._lock:
@@ -219,10 +224,24 @@ class ManualContext:
             self.button.set_state(ready=False, consent=False, hazard=True)
         self._stop_request()
 
-    def start(self, stream):
+    def start(self, stream=None, *, gpio_input=None):
         with self._lock:
             if self._thread is not None or self._closed:
-                raise ValueError('Start manual context once')
+                raise ValueError('Start context input once')
+        if (stream is None) == (gpio_input is None):
+            raise ValueError('Select exactly one terminal or GPIO input source')
+        if gpio_input is not None:
+            try:
+                level = gpio_input.read()
+                at = number(self._clock())
+                if type(level) is not bool:
+                    raise ValueError()
+                with self._lock:
+                    self._gpio = True
+                    self._level, self._last_input_at = level, at
+            except Exception:
+                self.withdraw()
+                raise RuntimeError('GPIO21 input unavailable') from None
         if self._narration is not None:
             self._narration.start()
         else:
@@ -253,15 +272,31 @@ class ManualContext:
                 pass  # Never echo input, credential-like paste or exception data.
             finally:
                 self.withdraw()
+        def read_gpio():
+            try:
+                while not self._stop.wait(.01):
+                    level = gpio_input.read()
+                    at = number(self._clock())
+                    if type(level) is not bool:
+                        raise ValueError()
+                    with self._lock:
+                        if self._closed or self._input_closed:
+                            return
+                        self._level, self._last_input_at = level, at
+            except Exception:
+                with self._lock:
+                    self._fault = 'Context input unavailable'
+            finally:
+                self.withdraw()
         self._thread = threading.Thread(target=monitor, daemon=True)
-        self._input_thread = threading.Thread(target=read, daemon=True)
+        self._input_thread = threading.Thread(target=read_gpio if gpio_input is not None else read, daemon=True)
         self._thread.start()
         self._input_thread.start()
         return self
 
     def snapshot(self):
         with self._lock:
-            result = {'input_mode': 'manual-terminal', 'gpio_used': False,
+            result = {'input_mode': 'gpio21' if self._gpio else 'manual-terminal', 'gpio_used': self._gpio,
                       'audio_enabled': self._audio, 'audio_used': None if self._audio else False,
                       'audio_delivery_verified': False,
                       'consent': self._consent, 'input_closed': self._input_closed,

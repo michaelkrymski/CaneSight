@@ -229,7 +229,7 @@ class PriorityTests(unittest.TestCase):
 
 
 class UploaderContextTests(unittest.TestCase):
-    def run_uploader(self, *, context_enabled=True, camera_error=False, audio=False, runtime_error=False):
+    def run_uploader(self, *, context_enabled=True, camera_error=False, audio=False, runtime_error=False, gpio=False):
         frame_request = Mock()
         frame_request.get_metadata.return_value = {'SensorTimestamp': 1000000000, 'ExposureTime': 1000}
         frame_request.make_image.return_value = Image.new('RGB', (640, 480), 'gray')
@@ -251,7 +251,7 @@ class UploaderContextTests(unittest.TestCase):
         args = ['uploader', '--frames', '1', '--session-file', '/private/synthetic-session']
         if context_enabled:
             args += ['--receive-vision', '--simulate-policy', '--phone-binding-file', '/private/synthetic-binding',
-                     '--context-stdin', '--context-consent']
+                     '--context-gpio21' if gpio else '--context-stdin', '--context-consent']
         if audio:
             args += ['--context-audio']
         with ExitStack() as stack:
@@ -266,6 +266,7 @@ class UploaderContextTests(unittest.TestCase):
             stack.enter_context(patch('edge.haptics.HapticScheduler', return_value=scheduler))
             stack.enter_context(patch('edge.watchdog.PolicyWatchdog', return_value=watchdog))
             stack.enter_context(patch('edge.policy.LocalPolicy', return_value=policy))
+            gpio_factory = stack.enter_context(patch('edge.context_gpio.GPIO21Input'))
             factory = stack.enter_context(patch('edge.context_runtime.ManualContext', return_value=runtime))
             if runtime_error:
                 factory.side_effect = RuntimeError('synthetic audio startup failure')
@@ -275,6 +276,11 @@ class UploaderContextTests(unittest.TestCase):
                     uploader.main()
             else:
                 uploader.main()
+        if gpio and not runtime_error:
+            runtime.start.assert_called_once_with(gpio_input=gpio_factory.return_value)
+            gpio_factory.return_value.close.assert_called_once()
+        else:
+            gpio_factory.assert_not_called()
         if runtime_error:
             policy.close.assert_called_once()
             scheduler.close.assert_called_once()
@@ -304,7 +310,8 @@ class UploaderContextTests(unittest.TestCase):
 
     def test_context_flags_require_explicit_consent_policy_and_phone_binding(self):
         for extra in (['--context-consent'], ['--context-stdin'],
-                      ['--context-stdin', '--context-consent'], ['--context-audio']):
+                      ['--context-stdin', '--context-consent'], ['--context-audio'],
+                      ['--context-gpio21'], ['--context-gpio21', '--context-consent']):
             with patch('sys.argv', ['uploader', '--session-file', '/private/session'] + extra), redirect_stderr(io.StringIO()):
                 with self.assertRaises(SystemExit) as error: uploader.main()
                 self.assertEqual(error.exception.code, 2)
@@ -316,6 +323,16 @@ class UploaderContextTests(unittest.TestCase):
         runtime.close.assert_called_once()
         _, factory, _ = self.run_uploader()
         self.assertNotIn('audio', factory.call_args.kwargs)
+
+    def test_gpio_flag_uses_only_input_adapter_and_closes_it_on_camera_failure(self):
+        self.run_uploader(gpio=True)
+        self.run_uploader(gpio=True, camera_error=True)
+
+    def test_context_input_sources_are_mutually_exclusive_before_hardware(self):
+        args = ['uploader', '--session-file', '/private/session', '--context-stdin', '--context-gpio21']
+        with patch('sys.argv', args), redirect_stderr(io.StringIO()), patch('edge.context_gpio.GPIO21Input') as factory:
+            with self.assertRaises(SystemExit): uploader.main()
+            factory.assert_not_called()
 
     def test_failed_audio_startup_unwinds_primary_components_before_camera(self):
         runtime, factory, camera = self.run_uploader(audio=True, runtime_error=True)

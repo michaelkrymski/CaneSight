@@ -2,9 +2,9 @@
 
 `edge.buttons.ContextButton` is an opt-in software coordinator with injected input,
 latest-frame and request adapters. `edge.context_client.ContextClient` supplies a
-Pi-role HTTPS adapter for the accepted CS-039 context service. No GPIO driver
-or motor output is armed. The originating uploader has a manual terminal adapter
-with text output by default and a separate explicit audio opt-in.
+Pi-role HTTPS adapter for the accepted CS-039 context service. The originating
+uploader has mutually exclusive terminal and optional GPIO21 input adapters,
+text output by default and a separate audio opt-in. No motor GPIO is armed.
 
 ## Behavior
 
@@ -44,8 +44,9 @@ with text output by default and a separate explicit audio opt-in.
 
 ## Integrating in the originating Pi process
 
-The user confirmed that no physical button is installed. Use the uploader's
-manual terminal mode with explicit scene-sharing consent:
+The earlier no-button assumption is superseded by Michael's
+[hardware handoff #68](https://github.com/michaelkrymski/CaneSight/issues/68).
+Terminal mode remains available with explicit scene-sharing consent:
 
 ```sh
 python -m edge.uploader --receive-vision --simulate-policy \
@@ -94,8 +95,7 @@ the retained frame. A blocked daemon stdin reader may remain until input/EOF;
 cleanup never closes caller-owned stdin and the reader cannot dispatch after
 close. Python scheduling is not a hard real-time guarantee.
 
-The injected `ContextButton` API remains available for a future reviewed hardware
-adapter. Use the application's `if __name__ == '__main__':` entry guard for
+The injected `ContextButton` API is shared by terminal and GPIO21 input. Use the application's `if __name__ == '__main__':` entry guard for
 multiprocessing spawn. Do not launch a second camera process, reuse a prior boot,
 fabricate capture timestamps or substitute a server clock. Replay fixtures must
 keep `mode=replay`. On a new epoch, close the old runtime/client and reenroll.
@@ -119,8 +119,8 @@ external request already made.
 
 After narration dependency PR #41 is accepted and installed with the Pi checkout,
 append `--context-audio` to the manual invocation above. The flag requires
-`--context-stdin`, which already requires explicit `--context-consent`, trusted
-phone binding and simulated local policy. No speech module is loaded in default
+either `--context-stdin` or `--context-gpio21`; both require explicit
+`--context-consent`, trusted phone binding and simulated local policy. No speech module is loaded in default
 text mode. Missing narration modules or an unavailable eSpeak NG installation
 refuse audio startup with a sanitized error; there is no silent text fallback.
 This integration PR stays draft while #41 is draft/unmerged.
@@ -155,10 +155,10 @@ OS/speaker buffering, disconnect/reconnect and audible priority need device test
 
 ## What remains
 
-Physical button pin selection, voltage/pull-up/debounce behavior, boot/off-state
-checks, camera scheduling and full Pi run evidence require their actual devices
-and the accepted electrical prerequisites. No physical GPIO activation was
-performed. The manual uploader adapter is software-tested; its actual Pi/phone
+Issue #68 reports installed active-high GPIO21 wiring and standalone raw input
+operation. The new application adapter still needs its own Pi run. No physical
+GPIO activation was performed by this local coding session. Camera scheduling
+and combined phone/context runs still require actual-device evidence. The manual uploader adapter is software-tested; its actual Pi/phone
 run still needs device evidence and coordination with CS-025. The service must
 be packaged/deployed through its deployment
 owner; this change does not activate `/v1/context` on the existing Vultr service.
@@ -191,7 +191,7 @@ are explicitly recorded locally; no workflow/protection was changed here.
 ## Private run report (CS-027)
 
 For the next real Pi run, create a private result directory outside Git and add
-`--context-report "$results_dir/context.json"` to the enrolled manual uploader
+`--context-report "$results_dir/context.json"` to the enrolled context uploader
 command (with `--context-audio` for speaker testing):
 
 ```sh
@@ -205,7 +205,7 @@ cat "$results_dir/context.json"
 The file is created exclusively with mode 0600 and refuses checkout/public
 folders or existing files/symlinks. It is written on normal exit or failure,
 including enrollment/startup failures after argument validation. It contains
-only build commit, run outcome, opt-in/consent/closed/fault flags and request
+only build commit, run outcome, input mode/selection, opt-in/consent/closed/fault flags and request
 counters from the runtime. No images, precise positions/times, grant/session/
 source/boot IDs, endpoint, paths or arbitrary exception text are recorded.
 `complete` means the process returned normally, not that a request succeeded.
@@ -214,3 +214,53 @@ are evidence for inspection, never automatic acceptance. An abrupt power loss or
 SIGKILL can leave an empty report; rerun to a new filename after inspection.
 The report never supplies readiness or bypasses missing phone/clock/backend
 prerequisites. Pairing a speaker alone does not unblock context requests.
+
+
+## Installed GPIO21 input — issue #68
+
+Michael reports OUT on BCM21 (physical pin 40), VCC at 3.3 V (pin 1), ground on
+pin 39, HIGH pressed and LOW released. `edge.context_gpio.GPIO21Input` opens only
+`DigitalInputDevice(21, pull_up=None, active_state=True, bounce_time=None)`, matching
+that installed active-drive configuration. It never configures GPIO18/19 or any
+output. No internal pull is enabled: the circuit must drive a stable input, as
+explained in the [GPIO Zero input documentation](https://gpiozero.readthedocs.io/en/stable/api_input.html).
+The issue records actual wiring separately from the master plan's proposed pin;
+this opt-in adapter does not amend that protected baseline or adopt the unshared
+local motor bench package.
+
+For an input-only observation on the refreshed combined checkout, as the Pi user
+whose GPIO Zero installation already worked:
+
+```sh
+results_dir=$(mktemp -d "$HOME/canesight-button-results.XXXXXX")
+python3 -m edge.context_gpio --observe --seconds 30 --output "$results_dir/input.json"
+cat "$results_dir/input.json"
+```
+
+Release, press, hold, then release while it runs. This observer uses only the
+standard library plus GPIO Zero; it does not import camera/backend dependencies,
+activate audio/motors, or send context requests. It records raw edge counts, not
+application debounce or electrical acceptance. Reports remain explicitly unverified
+for PM inspection; no endpoint or device identity is saved. GPIO selection is recorded separately from successful reads; startup failure
+keeps `gpio_used` unknown. `motor_gpio_used` remains false. GPIO Zero is an
+optional Pi system dependency, never imported by default terminal operation.
+
+Once real phone/session/backend prerequisites are established, replace
+`--context-stdin` with `--context-gpio21` in the existing enrolled uploader command;
+keep consent, receiver, binding and simulated-policy flags. `--context-audio` and
+`--context-report` work with either input. The flags are mutually exclusive.
+The initial real level is read before timers start: a held button cannot benefit
+from the terminal adapter's synthetic released state. Release-to-arm, 30 ms debounce,
+10 s cooldown and a second press cancelling pending work remain the same. A long
+hold does not repeat. GPIO reads are polled every 10 ms; read failures withdraw
+consent and cancel. The independent runtime checks input age and suppresses/cancels
+if no successful read arrived for over 100 ms, even while the GPIO reader stalls.
+This is best effort Python scheduling, not instrument-measured response time.
+Cleanup closes only this input device and owned runtime resources. Ctrl+C/SIGTERM
+stops the uploader; physical-button mode does not read terminal commands.
+
+Issue #68 confirms earlier real camera uploads and reported motor operation; it
+explicitly says phone depth streaming is not ready. A working button or speaker
+therefore cannot satisfy the live readiness gate. Keep the context/audio PRs draft
+until current-head Pi input/audio evidence and the actual enrolled path are reviewed.
+CS-023/CS-025 motor work and CS-018 accessible controls remain with their owners.
