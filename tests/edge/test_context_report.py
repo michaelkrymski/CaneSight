@@ -7,7 +7,7 @@ import tempfile
 import unittest
 from unittest.mock import Mock, patch
 
-from edge.context_report import ContextRunReport, bounded_status
+from edge.context_report import ContextRunReport, UnsupportedReportPlatform, bounded_status
 from edge import uploader
 from edge.context_runtime import ManualContext
 from test_buttons import fixture_frame
@@ -15,6 +15,26 @@ from test_context_client import configuration
 
 
 class ReportTests(unittest.TestCase):
+    def test_unsupported_platform_refuses_before_path_or_file_access(self):
+        report = ContextRunReport()
+        with patch('edge.context_report.REPORT_FILES_SUPPORTED', False), \
+             patch('edge.context_report.Path') as path, \
+             patch('edge.context_report.os.open') as opened, \
+             patch('edge.context_report.revision') as revision:
+            with self.assertRaisesRegex(UnsupportedReportPlatform, 'require a POSIX host'):
+                report.open('unused/run.json', audio=True)
+            path.assert_not_called()
+            opened.assert_not_called()
+            revision.assert_not_called()
+        self.assertIsNone(report.file)
+
+    def test_optional_report_remains_disabled_on_unsupported_platform(self):
+        with patch('edge.context_report.REPORT_FILES_SUPPORTED', False):
+            report = ContextRunReport()
+            report.open(None, audio=False)
+            report.finish()
+            self.assertIsNone(report.file)
+
     def test_allowlist_drops_credentials_images_device_ids_and_arbitrary_errors(self):
         status = bounded_status(dict(token='private', frame='image', session_id='private',
             fault='private exception', audio_enabled=True, button=dict(requests=3, token='private',
@@ -50,6 +70,7 @@ class ReportTests(unittest.TestCase):
             with self.assertRaises(ValueError): ContextRunReport().open(Path(folder)/'run', audio=True)
         with self.assertRaises(ValueError): ContextRunReport().open(Path(uploader.__file__).with_name('run.json'), audio=True)
 
+    @unittest.skipUnless(os.name == 'posix', 'Private report files require POSIX permissions; Windows ACL support is not implemented')
     def test_main_writes_incomplete_sanitized_report_after_startup_failure(self):
         with tempfile.TemporaryDirectory() as folder:
             path = Path(folder)/'run.json'
@@ -63,6 +84,7 @@ class ReportTests(unittest.TestCase):
             self.assertEqual(data['outcome'], 'unavailable')
             self.assertNotIn('private', path.read_text())
 
+    @unittest.skipUnless(os.name == 'posix', 'Private report files require POSIX permissions; Windows ACL support is not implemented')
     def test_main_marks_normal_return_separately_from_acceptance(self):
         with tempfile.TemporaryDirectory() as folder:
             path = Path(folder)/'run.json'

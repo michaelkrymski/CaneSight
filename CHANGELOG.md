@@ -818,6 +818,14 @@ Operator reported the new GPIO21 spoken-menu sequence worked and explicitly decl
 
 Validation: Verified in-scope implementation matches last prepared 04f660b; preceding branch/combined test evidence remains separate. Checked publisher runs shared checks and exact-head CI is inspected before ready-for-review.
 
+## 2026-10-18 — CS-027-POSIX-REPORTS-20261018: Scope private context reports to POSIX and fail closed elsewhere
+
+Author: Mila (bondmila, AI-assisted) · Task: CS-027
+
+Address Michael’s PR #58 changes request without weakening privacy: unsupported hosts reject report output before filesystem or GPIO/audio access; retain exclusive 0600/private-directory guards on POSIX. Mark five report-success tests POSIX-only, add portable rejection/no-side-effect tests, and document platform limits. Integrate accepted main including narration #41.
+
+Validation: 186 combined edge tests passed on macOS before accepted-main sync; native dependency and shared repository checks recorded in the handoff. Windows paths are simulated in portable regression tests, not actual Windows-host validation. No new hardware or deployment acceptance.
+
 ## 2026-10-18 — CS-027-PRIVATE-RUN-REPORT-BONDMILA-20261018: Save private context run diagnostics for Pi verification
 
 Author: bondmila (AI-assisted) · Task: CS-027

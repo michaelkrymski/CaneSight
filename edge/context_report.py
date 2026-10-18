@@ -6,6 +6,13 @@ import stat
 import subprocess
 
 
+REPORT_FILES_SUPPORTED = os.name == 'posix'
+
+
+class UnsupportedReportPlatform(ValueError):
+    """No private-file permission strategy is implemented for this host."""
+
+
 def revision():
     try:
         value = subprocess.run(['git', 'rev-parse', 'HEAD'], cwd=Path(__file__).resolve().parents[1],
@@ -47,6 +54,9 @@ class ContextRunReport:
     def open(self, path, *, audio, gpio=False):
         if path is None:
             return
+        if not REPORT_FILES_SUPPORTED:
+            raise UnsupportedReportPlatform(
+                'Private report files require a POSIX host; Windows ACL support is not implemented')
         # Do not follow a report symlink or overwrite an earlier run.
         path = Path(path).expanduser().absolute()
         parent = path.parent.resolve()

@@ -11,7 +11,7 @@ import threading
 import time
 
 from .context_menu import CrossingMenu, SCENARIOS
-from .context_report import ContextRunReport
+from .context_report import ContextRunReport, UnsupportedReportPlatform
 
 
 class SilentMenuSink:
@@ -174,6 +174,8 @@ def main(argv=None):
         code = 2 if bench.fault else 0
     except (KeyboardInterrupt, EOFError):
         report.data['outcome'] = 'interrupted'; code = 130
+    except UnsupportedReportPlatform as error:
+        print(str(error), flush=True)
     except Exception:
         print('Menu bench unavailable; inspect dependencies or device setup', flush=True)
     finally:

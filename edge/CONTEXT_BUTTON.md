@@ -202,6 +202,15 @@ results_dir=$(mktemp -d "$HOME/canesight-context-results.XXXXXX")
 cat "$results_dir/context.json"
 ```
 
+Private report files are supported only on POSIX hosts (including Raspberry Pi
+OS/Linux and macOS). Windows ACL verification is not implemented: requesting a
+report on Windows fails before opening any output or starting GPIO/audio. The
+GPIO observer and menu bench require a report and therefore require POSIX;
+report-free uploader and pure gesture/state tests remain available on Windows.
+Report-file success tests are explicitly POSIX-only; portable tests verify
+unsupported-platform refusal without filesystem access. Earlier 182-case combined
+passes were on macOS/POSIX, not Windows validation.
+
 The file is created exclusively with mode 0600 and refuses checkout/public
 folders or existing files/symlinks. It is written on normal exit or failure,
 including enrollment/startup failures after argument validation. It contains

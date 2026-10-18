@@ -2,6 +2,7 @@
 import io
 import importlib.util
 import json
+import os
 from pathlib import Path
 import tempfile
 import threading
@@ -123,11 +124,23 @@ class GPIOTests(unittest.TestCase):
         self.assertIsNone(runtime._thread)
         self.assertFalse(runtime.snapshot()['consent'])
 
+    def test_unsupported_report_platform_never_opens_gpio_or_creates_output(self):
+        with tempfile.TemporaryDirectory() as folder:
+            output = Path(folder)/'input.json'
+            with patch('edge.context_report.REPORT_FILES_SUPPORTED', False), \
+                 patch('edge.context_gpio.GPIO21Input') as factory, \
+                 patch('sys.stdout', new_callable=io.StringIO) as stdout:
+                self.assertEqual(main(['--observe', '--output', str(output)]), 1)
+            factory.assert_not_called()
+            self.assertFalse(output.exists())
+            self.assertIn('require a POSIX host', stdout.getvalue())
+
     def test_observer_requires_opt_in_before_constructing_device(self):
         with patch('edge.context_gpio.GPIO21Input') as factory, patch('sys.stderr', io.StringIO()):
             with self.assertRaises(SystemExit): main(['--output', '/unused/report'])
             factory.assert_not_called()
 
+    @unittest.skipUnless(os.name == 'posix', 'Private report files require POSIX permissions; Windows ACL support is not implemented')
     def test_observation_report_is_incomplete_on_driver_failure_and_contains_no_exception(self):
         with tempfile.TemporaryDirectory() as folder:
             path = Path(folder)/'input.json'
@@ -159,6 +172,7 @@ class GPIOTests(unittest.TestCase):
         runtime.close()
         self.assertTrue(sink.closed)
 
+    @unittest.skipUnless(os.name == 'posix', 'Private report files require POSIX permissions; Windows ACL support is not implemented')
     def test_exact_observer_cli_records_raw_edges_and_closes_input_without_acceptance(self):
         with tempfile.TemporaryDirectory() as folder:
             path = Path(folder)/'input.json'

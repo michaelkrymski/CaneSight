@@ -43,7 +43,7 @@ def main(argv=None):
     import math
     from pathlib import Path
     import time
-    from .context_report import ContextRunReport
+    from .context_report import ContextRunReport, UnsupportedReportPlatform
     parser = argparse.ArgumentParser(description=main.__doc__)
     parser.add_argument('--observe', action='store_true', help='Explicitly open only BCM21 as an input')
     parser.add_argument('--seconds', type=float, default=30)
@@ -80,6 +80,8 @@ def main(argv=None):
     except KeyboardInterrupt:
         report.data['outcome'] = 'interrupted'
         status = 130
+    except UnsupportedReportPlatform as error:
+        print(str(error), flush=True)
     except Exception:
         report.data['outcome'] = 'unavailable'
         print('GPIO21 observation unavailable; inspect installation, permissions and wiring')

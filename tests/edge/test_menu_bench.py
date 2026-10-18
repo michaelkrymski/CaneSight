@@ -2,6 +2,7 @@
 import importlib.util
 import io
 import json
+import os
 from pathlib import Path
 import tempfile
 from unittest.mock import patch
@@ -49,6 +50,7 @@ class BenchTests(unittest.TestCase):
         self.assertEqual(sink.current, 'Crossing observations unavailable.')
         self.assertNotEqual(bench.core.state, 'active')
 
+    @unittest.skipUnless(os.name == 'posix', 'Private report files require POSIX permissions; Windows ACL support is not implemented')
     def test_exact_silent_cli_writes_private_synthetic_report_without_requests(self):
         from edge.menu_bench import main
         with tempfile.TemporaryDirectory() as folder:
@@ -84,3 +86,22 @@ class BenchTests(unittest.TestCase):
         self.assertEqual(bench.core.state, 'closed')
         self.assertIsNone(sink.current)
         self.assertEqual(bench.counts['entry'], 0)
+
+
+class ReportPlatformTests(unittest.TestCase):
+    def test_unsupported_report_platform_never_starts_bench_audio_or_gpio(self):
+        from edge.menu_bench import main
+        with tempfile.TemporaryDirectory() as folder:
+            output = Path(folder)/'report.json'
+            with patch('edge.context_report.REPORT_FILES_SUPPORTED', False), \
+                 patch('edge.menu_bench.MenuBench') as bench, \
+                 patch('edge.menu_bench.SilentMenuSink') as sink, \
+                 patch('edge.context_gpio.GPIO21Input') as gpio, \
+                 patch('sys.stdout', new_callable=io.StringIO) as stdout:
+                self.assertEqual(main(['--simulate-audio', '--consent', '--gpio21',
+                                       '--output', str(output)]), 1)
+            bench.assert_not_called()
+            sink.assert_not_called()
+            gpio.assert_not_called()
+            self.assertFalse(output.exists())
+            self.assertIn('require a POSIX host', stdout.getvalue())
