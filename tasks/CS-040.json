@@ -22,7 +22,7 @@
   "owner": "bondmila",
   "status": "blocked",
   "branch": "task/CS-040-bluetooth-route",
-  "pr_url": null,
+  "pr_url": "https://github.com/michaelkrymski/CaneSight/pull/92",
   "evidence": [
     "backend/context/narration.py: closed object vocabulary, uncertain <=20-word template, capture-based expiry, single-use request tickets, cancellation and hazard/unavailable priority.",
     "15 isolated context unit tests passed; no Gemini API, physical audio, VoiceOver, GPIO or end-to-end device acceptance claimed.",
