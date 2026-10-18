@@ -1,0 +1,17 @@
+# Opt-in overlay after review. Keep compose.yaml and compose.vision.yaml for
+# existing loopback/TLS/resource limits and verified read-only model mount.
+services:
+  backend:
+    command: [python, -m, backend.context.deployment, --host, '127.0.0.1', --port, '18083', --forwarded-allow-ips, '127.0.0.1']
+    env_file:
+      - path: ./secrets/application.env
+        format: raw
+    volumes:
+      # This empty private directory can be mounted with logging disabled.
+      # Install private DB configuration there only for explicit logging opt-in.
+      - type: bind
+        source: ./secrets/application
+        target: /run/canesight-application
+        read_only: true
+        bind:
+          create_host_path: false

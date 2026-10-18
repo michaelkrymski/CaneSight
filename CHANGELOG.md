@@ -1146,6 +1146,30 @@ Synchronize accepted GPS checkpoint from main d1d8eb9 (GPS 94ccaaf plus CS-045 m
 
 Validation: 182 edge tests: 171 passed, 11 explicit draft narration/menu-audio dependency skips. Checked publisher runs shared validation, governance, changelog and whitespace checks; final CI inspected by exact head.
 
+## 2026-10-18 — CS-033-APPLICATION-PREPARATION-20261018: Package accepted Gemini composition with native vision, dashboard and consented logging
+
+Author: gmarcialcalleja (AI-assisted) · Task: CS-033
+
+Adopt accepted CS-039 PR #94 composition rather than introducing a second factory. Add an allowlisted application image containing accepted context/telemetry modules and dashboard assets, private Compose configuration and exact-local-base build helper. Preserve the native operator environment, TLS/resource/model settings and active deployment. User requested task-by-task preparation while CS-016 completes; no provider/DB activation or new wire contract.
+
+Validation: Three packaging/build/Compose tests passed; all six accepted context deployment-composition tests passed with fake provider/writer/model. Final application image b9a4679 built on Vultr with successful runtime imports over the exact vision image. No container started or public service changed. Full backend/shared results recorded in handoff.
+
+## 2026-10-18 — CS-033-COMPOSE-FIXTURE-PORTABILITY-20261018: Make application Compose verification portable to CI tooling
+
+Author: gmarcialcalleja (AI-assisted) · Task: CS-033
+
+CI configuration verification failed on the no-env-resolution invocation supported by the development Compose version. Use isolated temporary copies and explicit synthetic native/application env files with ordinary config JSON resolution. Verify both settings survive and neither reaches the proxy. No private config is read, and runtime image/Compose settings are unchanged.
+
+Validation: All three packaging/provenance/Compose tests passed locally after the fixture change. Checked publishing reruns shared checks; current-head CI is inspected after push. No service activation or physical claim.
+
+## 2026-10-18 — CS-033-CURRENT-BACKEND-VERIFICATION-20261018: Verify current deployed backend against accepted runtime and public inference/session probes
+
+Author: gmarcialcalleja (AI-assisted) · Task: CS-033
+
+User requested deployment and live verification. Uploaded accepted source a239e22 to a dedicated Vultr release directory and built its vision image. Current deployed runtime, shared contract and readiness source hashes already match accepted main, so no replacement activation or restart was necessary. Existing model/worker passed verified public HTTPS/WSS generated JPEG inference and session lifecycle probes. Preserve operator credentials, certificate volumes and current device enrollment configuration.
+
+Validation: 20 generated JPEG-to-native-result samples passed with original lineage, role/session isolation, expiry and revocation. Separate session probe passed readiness while enrolled, acknowledgment, duplicate/expired credential rejection and peer disconnect/reconnect replay rejection. Server backend suite: 128 tests, OK with 6 optional skips. Candidate launch was rejected by automatic approval review; candidate not activated. No real-device/detection-accuracy/hardware acceptance.
+
 ## 2026-10-18 — CS-037-CHANGELOG-CONFLICT-ADITSANGANI-20261018: Resolve PR79 generated changelog merge conflict
 
 Author: aditsangani (AI-assisted) · Task: CS-037

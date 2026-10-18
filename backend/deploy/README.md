@@ -200,6 +200,69 @@ devices after any restart. Do not use `down -v` or delete certificate volumes.
 The existing laptop fallback is rehearsed for no-model transport only; it does
 not supply an inference model. No public rollout is claimed from candidate tests.
 
+## Prepared combined application (CS-033 integration)
+
+The separate application image packages the accepted
+`backend.context.deployment.create_deployment_app` factory from CS-039 PR #94,
+including all accepted native/vision, dashboard and consented event-logging
+modules/assets. It adds no parallel composition implementation or wire contract.
+Existing standalone factories and the active deployment remain unchanged.
+
+Build the allowlisted layer over an exact installed reviewed vision image ID:
+
+```sh
+sudo python3 backend/deploy/build_application.py \
+  --base-image sha256:REVIEWED_LOCAL_VISION_IMAGE_ID --log NEW_BUILD_LOG
+sudo docker image inspect canesight:application-candidate --format '{{.Id}}'
+```
+
+The helper verifies the complete installed image ID, prepares a content-named
+local base tag, and checks it before/after building. Docker cannot use a bare
+local sha256 ID directly in FROM. For a registry base, the Dockerfile can instead
+receive a reviewed registry/image@sha256 reference directly. The helper never
+starts a container or changes the deployment. The layer copies required accepted
+context/telemetry modules and static assets, installs the accepted pinned optional
+DB adapter, checks runtime imports and retains UID 10001. No model, image, private
+configuration or credential enters the build context.
+
+For reviewed activation, privately install application.env.example as
+secrets/application.env, mode 0600, keeping secrets/backend.env unchanged. The
+overlay appends application configuration only to the backend; Caddy receives
+neither private file. Explicitly choose the accepted composition mode:
+
+| CANESIGHT_CONTEXT_BASE | Required configuration | Included services |
+|---|---|---|
+| sessions | Server-only GEMINI_API_KEY and independently verified CANESIGHT_GEMINI_MODEL | Native sessions/vision plus context. |
+| dashboard | Above plus exact HTTPS CANESIGHT_DASHBOARD_ORIGIN | Native sessions/vision, scoped viewer UI/auth and context. |
+| logging | Above plus absolute CANESIGHT_EVENT_DB_CONFIG under /run/canesight-application | All preceding services plus accepted consented event logging. |
+
+Invalid selection or missing provider configuration fails before constructing the
+base app. A provider verification failure disables context while retaining the
+selected native services. Per-session event logging consent remains default-off.
+Never place keys/database credentials into Compose arguments, Git or chat.
+The read-only secrets/application directory must exist before using the overlay;
+it can be empty for sessions/dashboard. For logging, install private DB config
+readable only by runtime UID/GID 10001 (directory 0700, file 0600) and review
+CS-042 storage/retention configuration first.
+
+Record previous immutable image/config for rollback, select the built immutable
+application image in BACKEND_IMAGE, and validate all three overlays quietly:
+
+```sh
+sudo docker compose --env-file .env -f compose.yaml -f compose.vision.yaml \
+  -f compose.application.yaml config --quiet
+```
+
+The overlay preserves loopback 18083, TLS proxy/certificate volumes, native
+operator environment, 2 GiB/1.5 CPU bounds, read-only root and verified model mount.
+After review, activation uses those same files with up -d backend. This replaces
+in-memory sessions: reenroll phone/Pi and issue distinct viewer grants. Run the
+native vision/session and feature-specific context/dashboard/event-control probes;
+health alone cannot prove provider/database availability. Rollback restores the
+recorded image and overlay list, retains credentials/certificates, and reenrolls.
+This checkpoint prepares/builds packaging only, with no public activation.
+See backend/context/DEPLOYMENT.md for the accepted composition behavior/tests.
+
 ## Rehearsed laptop fallback (no-model transport)
 
 From the operator laptop checkout with backend test requirements installed:

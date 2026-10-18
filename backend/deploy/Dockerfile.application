@@ -1,0 +1,13 @@
+# Build only from a reviewed immutable vision runtime image. No model or secret.
+ARG BASE_IMAGE
+FROM ${BASE_IMAGE}
+USER root
+COPY backend/telemetry/requirements-events.txt /tmp/canesight-events-requirements.txt
+RUN python -m pip install --no-cache-dir -r /tmp/canesight-events-requirements.txt
+COPY backend/context/__init__.py backend/context/provider.py backend/context/service.py backend/context/server.py backend/context/deployment.py /opt/canesight/backend/context/
+COPY backend/telemetry/__init__.py backend/telemetry/live.py backend/telemetry/dashboard.py backend/telemetry/event_store.py backend/telemetry/event_writer.py backend/telemetry/logging_app.py backend/telemetry/event_schema.sql /opt/canesight/backend/telemetry/
+COPY dashboard/index.html dashboard/app.js dashboard/model.js dashboard/style.css dashboard/icon.svg /opt/canesight/dashboard/
+RUN python -c "import backend.context.deployment, backend.context.server, backend.telemetry.live, backend.telemetry.logging_app"
+ENV CANESIGHT_INTERNAL_PORT=18083
+USER 10001:10001
+CMD ["python", "-m", "backend.context.deployment", "--host", "127.0.0.1", "--port", "18083", "--forwarded-allow-ips", "127.0.0.1"]

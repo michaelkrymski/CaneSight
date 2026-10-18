@@ -1,0 +1,34 @@
+{
+  "task": "CS-033",
+  "date": "2026-10-18",
+  "accepted_source": "5234f04135270eedcfd65f520fd179a49af40ab5",
+  "base_image": "sha256:07c9d75f045b1eee9c31fc549c9e6cacdd07db0ce951cb61f91845415408f94a",
+  "application_image": "sha256:b9a4679c8422564b9388116bc0ed04776bf9aec5e4431313e65f5b802008f3c9",
+  "image_build_exit": 0,
+  "runtime_import_smoke_passed": true,
+  "candidate_container_started": false,
+  "production_activated": false,
+  "packaging_tests": {
+    "run": 3,
+    "result": "OK"
+  },
+  "accepted_composition_tests": {
+    "run": 6,
+    "result": "OK"
+  },
+  "source_sha256": {
+    "backend/deploy/build_application.py": "63a15901b1ed74b7cf7da9f3502e2f299674125a5e5c4e6bb3322a7db7846e8e",
+    "backend/deploy/Dockerfile.application": "d643d682d3e2c5e0bca8efbf183d0d43ee5d22637b2bda0ea2fab51a80a0cacc",
+    "backend/deploy/Dockerfile.application.dockerignore": "6aaab86c6786a8df5d23267f1ca8192e15afd085c874a3798e41061c5e7e0c9b",
+    "backend/deploy/compose.application.yaml": "9d75d117c402cfc1764785d3d538f7d0b48cf41c5655dedd68afc83ab7a64a6e",
+    "backend/deploy/application.env.example": "7196643f9ee58d6c979e16ef2a2f76e15524d818b1694b5d7e4984481c62bfb0",
+    "tests/backend/test_application_composition.py": "a18b47d09a8c84d0db4b99e8f3873ac9b46b81877468f31e6b14b3145dab748e",
+    "backend/context/deployment.py": "0ca776818662a8ba41b208bd2b561fc1065ffd9ec254684a9be313e5fe97a91e",
+    "backend/context/server.py": "1a7a553a277bdd3508ed5ab8249b9e8f2bc52e54313bf4e8dca6611300a2e852"
+  },
+  "limits": [
+    "Synthetic generated pixels and fake provider/writer/model in accepted composition tests.",
+    "No actual Gemini/Tiger Data/dashboard rollout or physical phone/Pi/speaker/motor test.",
+    "Native deployed service unchanged."
+  ]
+}
