@@ -650,6 +650,14 @@ Developer Mode enabled and Apple account sign-in completed by the user. Personal
 
 Validation: Signed iOS build and strict deep codesign verification passed; devicectl installation succeeded on iPhone 17 Pro Max / iOS 26.6.2. Published implementation checkpoint 3e9e781 had green repository/governance checks. Signing-only follow-up receives SDK build and checked publishing. Prior 64 Swift and four backend conformance tests are unchanged.
 
+## 2026-10-18 — CS-013-PHONE-CHECKS-20261018: Record operator phone checks and prepare iPhone host for review
+
+Author: michaelkrymski (AI-assisted) · Task: CS-013
+
+Michael confirmed all three image-column distances updating except very close objects, then separately confirmed Stop clears values to Unknown and lock/background recovery waits for new frames. Local host ready for independent review; exact draft dependency inputs must be reviewed/accepted before main integration. Other task statuses, protected files and full-system gates unchanged.
+
+Validation: Human-reported observations retained in sanitized phone evidence. Prior signed build/install/launch and software tests remain valid for unchanged application code. Checked publisher reruns required shared checks. No measured sensor accuracy/timing, physical-side mapping, live telemetry or Done claim.
+
 ## 2026-10-18 — CS-013-PHONE-PREVIEW-20261018: Record first physical iPhone local depth preview and successful launch
 
 Author: michaelkrymski (AI-assisted) · Task: CS-013

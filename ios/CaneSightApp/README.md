@@ -21,8 +21,8 @@ open ios/CaneSightApp/CaneSight.xcodeproj
 materializes source into ignored `ReviewDependencies/`, and refuses to overwrite
 changed files. All package source hashes are checked on a subsequent invocation.
 It never modifies a teammate's source, task or branch. These inputs are explicitly
-**unmerged review dependencies**. This PR must remain draft until dependencies
-are accepted or the PM agrees a reviewed integration order. Pins are not silently
+**unmerged review dependencies**. Review/accept those dependencies and the host's
+integration order before merging the host into main. Pins are not silently
 advanced when a teammate pushes new code.
 
 To build without a signing account:
@@ -108,3 +108,9 @@ sensor timing and physical mapping unverified.”** A subsequent devicectl launc
 succeeded. This establishes app launch and a reported processed local depth frame,
 not measured depth accuracy, calibrated timing, physical-side mapping or telemetry.
 Numeric changes and Stop/background/recovery observations were requested separately.
+
+Michael then confirmed changing values in all three image columns (except very
+close objects) and reported **both** Stop-clears-to-Unknown and lock/background
+fresh-frame recovery checks passing. These are operator observations, not measured
+timing or accuracy tests. The local host is ready for independent review; live
+telemetry, physical mapping and the remaining package acceptance gates stay separate.

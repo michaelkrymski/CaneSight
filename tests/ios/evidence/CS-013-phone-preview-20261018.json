@@ -14,9 +14,9 @@
   "operator_observation": "live local preview; sensor timing and physical mapping unverified.",
   "observation_scope": "Reported on-phone local processed-depth status. No measured depth accuracy, source clock, spatial mapping or live network acceptance.",
   "requested_checks": {
-    "changing_numeric_values": "pending_operator_response",
-    "stop_clears_unknown": "pending_operator_response",
-    "background_lock_recovery": "pending_operator_response"
+    "changing_numeric_values": "operator_reported_all_three_columns_change_except_very_close_objects",
+    "stop_clears_unknown": "operator_reported_pass",
+    "background_lock_recovery": "operator_reported_pass"
   },
   "raw_images_retained": false,
   "live_telemetry_enabled": false,
@@ -24,5 +24,7 @@
     "ios/CaneSightApp/Sources/CameraController.swift": "651a0f5635d08403e611afe5c12b659e0d70540671fce692ba32737af4edf116",
     "ios/CaneSightApp/Sources/CaneSightApp.swift": "352813f30b0ce182cc6fb56be5ed14f70a795b52fa2a87db7020fb861c14b449",
     "ios/CaneSightApp/Sources/ContentView.swift": "483e4856c25a2e5f40d599be85b3e80b24a3346629a56a95eb5060dad1e37673"
-  }
+  },
+  "operator_control_response": "Both checks pass",
+  "measurement_limits": "No recorded video, depth accuracy, calibrated clock bounds, physical-side mapping or measured transition latency supplied."
 }
