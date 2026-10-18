@@ -64,3 +64,7 @@ live-observation adapters and paired-provider freshness belong to separate work.
 Before publication, accepted main advanced to dddbd4b (CS-018 merged).
 Fast-forwarded accepted source while preserving owned edits, and regenerated
 the disposable changelog. No implementation collision or protected edits.
+
+Review PR: https://github.com/michaelkrymski/CaneSight/pull/80.
+Checked publication passed all 212 shared/root tests plus repository/governance/
+generated-log checks. Current-head CI is inspected after the final metadata push.

@@ -1,6 +1,6 @@
 """Opt-in Pi eSpeak NG sink, optionally with monitored/pinned Bluetooth output.
 
-No pairing/routing, shell, raw provider prose or audio files. Process termination
+No pairing/global route changes, shell, raw provider prose or audio files. Process termination
 cannot prove a Bluetooth speaker has flushed buffered audio; verify on device.
 """
 import os
