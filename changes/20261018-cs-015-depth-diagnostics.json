@@ -1,0 +1,9 @@
+{
+  "id": "CS-015-DEPTH-DIAGNOSTICS-20261018",
+  "date": "2026-10-18",
+  "author": "michaelkrymski (AI-assisted)",
+  "task": "CS-015",
+  "summary": "Expose per-column depth evidence to investigate intermittent Unknown readings",
+  "details": "Record operator rotation/Stop passes and unresolved left-column Unknown report. Add coverage/reason beneath each distance using existing CS-014 sector evidence; preserve every confidence, freshness and mapping rule. Signed diagnostic app installed/launched; background reset and diagnostic result pending.",
+  "validation": "Signed iOS build, strict deep signature check, install and launch passed. Core mapping/dependencies unchanged; prior 11 mapping and 61 Simulator cases remain applicable. Shared checks run through checked publisher; no sensor fix or new physical pass claimed."
+}

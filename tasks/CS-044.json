@@ -3,7 +3,7 @@
   "title": "Inject disconnect, delay and replay failures",
   "category": "Safety & Testing",
   "priority": "P0",
-  "acceptance": "Execute N01–N05; old observations never actuate as fresh; health cannot extend expiry.",
+  "acceptance": "Execute N01–N05; old observations never actuate as fresh; health cannot extend expiry. Add crossing-menu threshold/release-barrier tests, idle context compatibility, no-default/timeout behavior, audio/source/epoch loss, stale results after scenario change, consent withdrawal and Bluetooth reconnect non-replay. Keep depth 500 ms and vision 1500 ms original capture budgets; controlled bench evidence only, no road crossing or physical-off guarantee.",
   "dependencies": [
     "CS-025",
     "CS-030",
@@ -18,15 +18,19 @@
   "estimate_hours": 1.5,
   "elapsed_window": "8–11",
   "owner": "gmarcialcalleja",
-  "status": "review",
-  "branch": "task/CS-044-failure-injection",
-  "pr_url": null,
+  "status": "blocked",
+  "branch": "task/CS-044-crossing-failures",
+  "pr_url": "https://github.com/michaelkrymski/CaneSight/pull/74",
   "evidence": [
     "Assignment proposal only; implementation waits for Michael to merge ownership. Accepted CS-025 software preparation is merged in #48. Plan N01–N05 software failure injection against the accepted relay, consumer gate, policy and simulated scheduler; retain explicit real-device/physical evidence limits.",
     "handoffs/CS-044-20261017-software-failure-campaign.md",
     "qa/failures/cs044-windows-20261017.json",
     "qa/failures/cs044-linux-20261017.json",
-    "25 selected software campaign cases passed in all N01–N05 groups on Windows Python 3.14 and Linux Python 3.12, including native verified TLS/WSS, delayed/replayed source attacks, spawned slow inference/flood bounds and independent policy watchdog. All 92 shared checks passed on both. Source manifests preserve tested bytes; Windows worktree is explicitly dirty and Linux archive has no invented Git metadata. No Pi/camera/GPIO access."
+    "25 selected software campaign cases passed in all N01–N05 groups on Windows Python 3.14 and Linux Python 3.12, including native verified TLS/WSS, delayed/replayed source attacks, spawned slow inference/flood bounds and independent policy watchdog. All 92 shared checks passed on both. Source manifests preserve tested bytes; Windows worktree is explicitly dirty and Linux archive has no invented Git metadata. No Pi/camera/GPIO access.",
+    "handoffs/CS-044-crossing-campaign-20261018.md",
+    "qa/failures/cs044-crossing-windows-20261018.json",
+    "qa/failures/cs044-crossing-linux-20261018.json",
+    "19 synthetic menu/audio composition cases passed on Windows and local network-disabled Linux Python 3.12 against exact unmodified PR #58 8f4d521 and PR #41 ca88cd2 source snapshots; 4 source/report-integrity tests passed. Pins and hashes recorded; no production or physical acceptance inferred."
   ],
-  "blocker": "Software N01–N05 campaign passed. Real Wi-Fi/phone/Pi/physical-output failure evidence remains pending CS-025 phone, mount and power prerequisites; no physical acceptance or GPIO-off guarantee is claimed."
+  "blocker": "Synthetic crossing interaction tests pass. Production menu/request/result bridge, real scenario-switch correlation, trusted Bluetooth/source monitoring and controlled phone/Pi/button/audio failure/timing evidence remain pending; original CS-025 mount/power/physical-output prerequisites still apply. No physical acceptance or GPIO-off guarantee."
 }

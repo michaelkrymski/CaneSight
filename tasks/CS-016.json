@@ -16,14 +16,14 @@
   "trello_url": "https://trello.com/c/98OCtflP/16-p0-cs-016-stream-bounded-timestamped-telemetry",
   "suggested_role": "iOS",
   "estimate_hours": 1.0,
-  "elapsed_window": "5\u20138",
-  "owner": "bondmila",
+  "elapsed_window": "5–8",
+  "owner": "michaelkrymski",
   "status": "blocked",
-  "branch": "task/CS-016-bounded-telemetry",
-  "pr_url": "https://github.com/michaelkrymski/CaneSight/pull/64",
+  "branch": "task/CS-016-michaelkrymski",
+  "pr_url": null,
   "evidence": [
     "Assignment proposal only: implementation waits for Michael to merge ownership. CS-016 acceptance is bounded 10 Hz starting phone summaries with session/boot/sequence identity and reconnect without stale queue replay. Initial software work will use clearly identified depth fixtures until CS-014 and real-device evidence are available.",
-    "Merged assignment PR #61 accepted on main 1dcead2e4e61396a059985c7d1ac792c733ec3fb. Standalone Swift telemetry package: bounded 10 Hz latest-only summaries, role-bound WSS adapter, original capture age, independent sequences, clock replies, cancellation and reconnect without old queue replay. Local host verification: 21 Swift tests pass; strict-concurrency build passes; 4 Swift-to-accepted-backend/schema tests pass. Synthetic/fake-socket evidence only; no iOS app or physical-phone acceptance. See handoffs/CS-016-bounded-telemetry-bondmila-20261017.md."
+    "Proposed ownership transfer requested by Michael in chat and released by bondmila in PR #64 handoff comment. Existing implementation preserved at 0433fc94af1a1e3edfe2d2bb28925cb3be6df1ee. Acceptance/dependencies/allowed_paths unchanged. Transfer only becomes accepted after exact-head PM authorization and normal reviewed merge. See decisions/CR-CS-016-ownership-transfer-20261018.md."
   ],
-  "blocker": "Software checkpoint implemented; pending CS-014 capture adapter and CS-017 app lifecycle integration, verified capture/source-clock mapping, iOS app SDK build/signing and real-phone/native WSS/paired Pi evidence. User authorized deferring Xcode/app/device verification."
+  "blocker": "Ownership-transfer proposal pending exact-head PM authorization and reviewed merge. No new telemetry implementation before accepted reassignment. Then retain existing PR #64 software history in a PM-authored continuation and close superseded PR only after linking replacement; capture-clock, pairing/native WSS/physical Pi evidence remain open."
 }

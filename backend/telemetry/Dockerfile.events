@@ -1,0 +1,11 @@
+# Build from repository root over the reviewed, immutable dashboard/vision image.
+# No service, proxy, model, or deployment configuration is changed by this recipe.
+ARG BASE_IMAGE
+FROM ${BASE_IMAGE}
+USER root
+COPY backend/telemetry/requirements-events.txt /tmp/canesight-events-requirements.txt
+RUN python -m pip install --no-cache-dir -r /tmp/canesight-events-requirements.txt
+COPY backend/telemetry/event_store.py backend/telemetry/event_writer.py backend/telemetry/logging_app.py backend/telemetry/event_schema.sql /opt/canesight/backend/telemetry/
+ENV CANESIGHT_INTERNAL_PORT=18083
+USER 10001:10001
+CMD ["python", "-m", "backend.telemetry.logging_app", "--port", "18083"]

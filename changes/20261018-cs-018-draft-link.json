@@ -1,0 +1,9 @@
+{
+  "id": "CS-018-DRAFT-LINK-20261018",
+  "date": "2026-10-18",
+  "author": "aditsangani (AI-assisted)",
+  "task": "CS-018",
+  "summary": "Link CS-018 draft review and preserve explicit native validation limits",
+  "details": "Record draft PR #73 in task runtime. Use synthesized ObservableObject revision notifications while reading status directly from the controller, preserving no duplicate UI cache. No core/lifecycle algorithm change. Refresh source audit hashes; keep Apple build, accessibility/device and actual host/speech adapter checks pending.",
+  "validation": "17 portable Swift and 2 accepted lifecycle integration tests passed for unchanged core/test source. Updated conditional UI syntax passed grammar parsing; its body is not compiled on Linux. Prior checked publisher passed 113 shared Python tests plus repository/changelog/whitespace checks; checked publishing repeats shared checks for this checkpoint."
+}

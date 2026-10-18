@@ -1,0 +1,6 @@
+ReviewDependencies/
+build/
+DerivedData/
+xcuserdata/
+*.xcuserstate
+Signing.local.xcconfig

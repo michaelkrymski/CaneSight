@@ -1,0 +1,9 @@
+{
+  "id": "CS-025-SWIFT-REVIEW-LINK-20261018",
+  "date": "2026-10-18",
+  "author": "Gavin (gmarcialcalleja)",
+  "task": "CS-025",
+  "summary": "Link Swift replay policy integration PR",
+  "details": "Record PR #75 on the task runtime; retain native host/device-clock and physical acceptance blockers. No fixture or implementation change.",
+  "validation": "Implementation publication passed all 132 root tests and seven focused integration tests; Swift Linux compilation/generation passed. Checked publishing reruns shared checks for this task-link and audit-only follow-up."
+}

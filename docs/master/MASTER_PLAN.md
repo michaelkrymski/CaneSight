@@ -343,6 +343,42 @@ The button sends one bounded compressed frame with request ID and capture time. 
 
 Expire late descriptions and suppress narration during a higher-priority obstacle/unavailable cue. Gemini must never change signal state, motor direction, freshness, or permissions. On failure say “Description unavailable.” Obtain consent before sending surroundings to external services; do not retain images by default. Context narration is P1 and can be removed without harming the P0 slice.
 
+### 6.8 Proposed user-selected crossing observation modes (18 October 2026)
+
+This amendment adds an on-demand three-scenario observation workflow; it does
+not replace the P0 depth/haptic slice or authorize crossing. The normative
+interaction, rollout and acceptance matrix are in
+`docs/operations/CROSSING_ASSISTANCE.md`, proposed by
+`decisions/CR-CS-001-crossing-assistance-20261018.md`.
+
+After stable release, hold the button for 3 seconds to open a spoken menu with
+no default scenario. Short menu presses cycle pedestrian walk/hand signal,
+pedestrian-activated flashing yellow beacon, and street without a crossing
+signal. A new 1-second hold confirms the spoken selection; release barriers
+prevent the entry hold from confirming or confirmation from cancelling. A new
+press while active cancels immediately. Close an idle menu after 15 seconds;
+no audio means no activation. Cancel on required-source loss, original-capture
+expiry, session change, consent withdrawal or audio disconnect. Recovery needs
+fresh explicit activation. Preserve consented short-release context in idle,
+separate provider queues, bounded jobs and higher-priority depth/fault cues.
+
+Use verified custom YOLO signal observations and supported countdown parsing
+for the first scenario. Beacon flashing and vehicle motion require separately
+validated temporal adapters; a single frame, generic traffic-light box, unchanged
+box or current Gemini object list cannot prove flashing, stationary traffic,
+yielding or applicable crossing identity. For unsignalized scenes, optional
+Gemini remains restricted uncertain object description. Unsupported adapters and
+conditions remain unknown/unavailable. Do not infer that a crosswalk is absent
+from a user-selected mode. Preserve source/track identity, original capture age
+and existing budgets. No automatic scenario selection or wire-schema change is
+introduced here. Model training/evaluation and temporal tracking are new work,
+not capabilities established by the accepted schematic replay tests.
+
+No mode reports safe/go/all-clear, assures all cars stopped/yielded, controls
+movement through Gemini, or permits road-use testing. Roll out the menu with
+labeled synthetic adapters first, then opt into supported real observations only
+after independent evaluation and controlled device/audio/button tests.
+
 ## 7. Local policy, feedback and degraded behavior
 
 Represent health per source, observed hazards, and requested audio separately. Do not reduce everything to a misleading green “safe” state.

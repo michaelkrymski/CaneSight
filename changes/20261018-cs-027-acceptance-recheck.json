@@ -1,0 +1,9 @@
+{
+  "id": "CS-027-ACCEPTANCE-RECHECK-20261018",
+  "date": "2026-10-18",
+  "author": "bondmila (AI-assisted)",
+  "task": "CS-027",
+  "summary": "Recheck merged button/menu implementation and identify physical acceptance gates",
+  "details": "Record merged PR #78 approval and fresh isolated-environment verification. User will run current-main GPIO21/spoken-menu checks. Keep task blocked pending actual report, PM physical acceptance and separate route/scenario integration; no implementation changes.",
+  "validation": "205 edge, 83 context and 195 shared tests passed with pinned requirements; repository and generated-log checks passed. Initial unpinned-environment failures are disclosed. No new physical pass claimed."
+}

@@ -1,5 +1,6 @@
 """Manual input -> real spawned HTTPS client -> local service, fake provider."""
 import multiprocessing
+import importlib.util
 from pathlib import Path
 import secrets
 import socket
@@ -25,6 +26,14 @@ from test_context_runtime import Stream
 
 class ManualTLSTests(unittest.TestCase):
     def test_manual_request_delivers_original_generated_image_over_verified_tls(self):
+        self.run_request()
+
+    @unittest.skipUnless(importlib.util.find_spec('backend.context.consumer') is not None,
+                         'Requires unmerged narration dependency PR #41')
+    def test_manual_audio_routes_original_frame_then_preempts_speech(self):
+        self.run_request(audio=True)
+
+    def run_request(self, audio=False):
         operator = secrets.token_urlsafe(40)
         calls, messages = [], []
         delivered = threading.Event()
@@ -75,7 +84,8 @@ class ManualTLSTests(unittest.TestCase):
                 frame = fixture_frame(clock())
                 frame.metadata.update(**{k: session[k] for k in ('session_id', 'source_id', 'boot_id', 'mode')})
                 runtime = ManualContext(session, lambda: (True, False), consent=True,
-                    ca_file=str(root/'ca.pem'), clock=clock, emit=emit)
+                    ca_file=str(root/'ca.pem'), clock=clock, emit=emit,
+                    **self.audio_options(audio, emit))
                 runtime.set_camera_ready(True)
                 runtime.offer(frame)
                 runtime.start(stream)
@@ -83,8 +93,14 @@ class ManualTLSTests(unittest.TestCase):
                 time.sleep(.1)  # Observe the initial stable released level.
                 stream.queue.put('press\n')
                 self.assertTrue(delivered.wait(5), runtime.snapshot())
-                self.assertEqual(messages, ['Context (manual input; AI; uncertain): possible chair.'])
+                self.assertEqual(messages, [('AI description, uncertain: Possible chair.' if audio
+                    else 'Context (manual input; AI; uncertain): possible chair.')])
                 self.assertEqual(calls, [frame.jpeg])
+                if audio:
+                    sink = runtime._speech
+                    runtime.command('cancel')
+                    self.assertIsNone(sink.current)
+                    self.assertEqual(len(messages), 1)
             finally:
                 if runtime:
                     runtime.close()
@@ -93,3 +109,16 @@ class ManualTLSTests(unittest.TestCase):
                 thread.join(5)
                 self.assertFalse(thread.is_alive())
         self.assertEqual({p.pid for p in multiprocessing.active_children()}, before)
+
+    def audio_options(self, audio, emit):
+        if not audio:
+            return {}
+        from backend.context.consumer import ContextNarration
+        class Speech:
+            current = None
+            def speak(self, text):
+                self.current = text
+                emit(text)
+            def stop(self): self.current = None
+            def close(self): self.stop()
+        return dict(audio=True, speech_sink=Speech(), narration_factory=ContextNarration)

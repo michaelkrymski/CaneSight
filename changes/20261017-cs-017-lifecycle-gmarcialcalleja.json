@@ -1,0 +1,9 @@
+{
+  "id": "CS-017-LIFECYCLE-GMARCIALCALLEJA-20261017",
+  "date": "2026-10-17",
+  "author": "Gavin (gmarcialcalleja)",
+  "task": "CS-017",
+  "summary": "Add interruption and suspension guard with fresh-capture recovery",
+  "details": "Implement a standalone Swift package with generation barriers, bounded pending depth, transport/cache/clock purge hooks, source sequence preservation and conservative capture-age checks. Add ARKit/UIKit bridge and deferred Apple tests, consumer expiry regressions and CS-016 integration guide. Host integration and Xcode/device acceptance remain pending; no shared protocol or master plan changes.",
+  "validation": "10 Swift XCTest core cases passed using official Swift 6.0.3 Linux image with complete strict concurrency and warnings as errors; Apple SDK source/tests excluded. Root unittest discovery: 113 passed including 3 new receiver regressions. Checked publishing additionally runs structure, generated-log and whitespace checks. No physical device/electrical validation claimed."
+}

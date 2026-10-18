@@ -1,0 +1,70 @@
+{
+  "task": "CS-014",
+  "date": "2026-10-18",
+  "status": "review",
+  "base_commit": "185aa3afaca1bdd6ba5380ba0e7113917f86b2df",
+  "original_pr_head": "5f73dbf33ba9b2395f27b429c22344d41fb6162a",
+  "source_identity": {
+    "algorithm_adapter_package_tests_and_fixtures_unchanged": true,
+    "sha256_text_lf": {
+      "ios/DepthSectors/Package.swift": "fe9a53b0049d2489eb896b14c2c6d69765834ac8ecead2e03ed181d98d56e9c2",
+      "ios/DepthSectors/Sources/CaneSightDepth/DepthBytes.swift": "deccbd98e300782f4e2e708f2b5833147760bfea5037f739bea60039da1dd06b",
+      "ios/DepthSectors/Sources/CaneSightDepth/DepthSectors.swift": "4ae12698ab4d1f7bc6cff3e7c72477cabf4802c568ccbdace7c45f45dd8a78b1",
+      "ios/DepthSectors/Sources/CaneSightDepthARKit/ARKitDepthAdapter.swift": "1a83e73d34df1e5255aa5e5864ea76d7af691d7bb3990f963b4af8c4437e26f3",
+      "ios/DepthSectors/Tests/CaneSightDepthTests/DepthBytesTests.swift": "9c02b8e64fa36744bf77140aebcc00749f0be0a187609858a577c3348b53a5bb",
+      "ios/DepthSectors/Tests/CaneSightDepthTests/DepthPixelBufferTests.swift": "db081a0d61ad24be589c81a2da32707d036916d09cd13dc42c358faaee9b7303",
+      "ios/DepthSectors/Tests/CaneSightDepthTests/DepthSectorsTests.swift": "02f44ceab990f8b8a95bfad7a21e17b2b5e5d872c763940e67fcb7e72ab1fc0a",
+      "ios/DepthSectors/Tests/CaneSightDepthTests/Fixtures/replay.json": "6e44527957f5ebc519cb64ae27031c65942a4199b6df31082175fa7dd8b23ea9"
+    }
+  },
+  "pm_review": "https://github.com/michaelkrymski/CaneSight/pull/62#pullrequestreview-5561885995",
+  "acceptance_evidence": {
+    "finite_depth": "DepthSectorsTests.testNonfiniteZeroAndNegativeSamplesStayOutOfPercentileAndCoverage",
+    "confidence_coverage": "DepthSectorsTests.testLowAndUnrecognizedConfidenceNeverCountAsHighConfidence and testCoverageAndMinimumSampleGatesAreIndependentAndSectorLocal",
+    "robust_percentile": "DepthSectorsTests.testNearestRankPercentileIsNotMinimumOrAverage",
+    "null_unknown": "DepthSectorsTests.testBadTimestampTrackingOrMissingFrameCannotCarryPriorDistance",
+    "source_timestamp": "DepthSectorsTests.testColumnsTimestampModeAndUnverifiedPhysicalMapping"
+  },
+  "attributed_accepted_apple_evidence": {
+    "pr": "https://github.com/michaelkrymski/CaneSight/pull/69",
+    "records": [
+      "tests/ios/evidence/CS-013-apple-builds-20261018.json",
+      "tests/ios/evidence/CS-013-integrated-app-20261018.json",
+      "handoffs/CS-013-20261018-integrated-app.md"
+    ],
+    "depth_source_pin": "5f73dbf33ba9b2395f27b429c22344d41fb6162a",
+    "depth_macos_xctest": {
+      "passed": 15,
+      "failures": 0,
+      "includes_corevideo_tests": true
+    },
+    "xcode": "27.1 (27A9275)",
+    "ios_sdk": "27.1",
+    "depth_physical_ios_sdk_build": "passed",
+    "depth_simulator_test_bundle": "compiled_only_not_executed",
+    "integrated_host": {
+      "signed_phone_build_install_launch": "passed",
+      "phone": "iPhone 17 Pro Max / iOS 26.6.2",
+      "phone_ui_passed": 5,
+      "simulator_ui_passed": 2,
+      "scope": "Host suite includes live depth, Stop clearing values to Unknown and Home Screen/restart recovery; not all depth tests executed on iOS."
+    },
+    "rerun_on_this_windows_host": false
+  },
+  "local_verification": {
+    "swift": "6.0.3",
+    "platform": "Ubuntu 24.04 x86_64 under WSL on Windows",
+    "command": "swift test --package-path ios/DepthSectors --scratch-path <external-build-directory> --jobs 2 -Xswiftc -strict-concurrency=complete -Xswiftc -warnings-as-errors",
+    "xctest_passed": 13,
+    "failures": 0,
+    "apple_only_test_methods_excluded": 2,
+    "source_identity_checked": 8
+  },
+  "limits": [
+    "Review, not Done: independent PM acceptance/merge remains required.",
+    "No new Apple SDK or device tests were run locally; Apple results are attributed accepted repository evidence.",
+    "No measured depth range/surface accuracy, final cane/grip/motor mapping, cross-device capture-clock calibration, transport latency, electrical verification or road-use result.",
+    "The module reports depth-image columns with physicalMappingVerified=false; unknown remains unknown.",
+    "Original audit and handoffs are immutable historical checkpoints; this report supersedes their no-tests-run readiness statement."
+  ]
+}

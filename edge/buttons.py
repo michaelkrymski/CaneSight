@@ -144,6 +144,25 @@ class ContextButton:
             return False
         if now < self._next_allowed:
             return False
+        return self._dispatch(now)
+
+    def request(self):
+        """Dispatch one completed trusted gesture without synthesizing input/time.
+
+        Caller owns gesture debounce/release barriers. This retains the same
+        request slot, cooldown, capture binding/expiry and fail-closed state.
+        It never replaces or queues an outstanding request/result.
+        """
+        with self._lock:
+            now = self._now()
+            if (now is None or not self._enabled or self._closed or self._fault is not None
+                    or self._pending is not None or self._result is not None
+                    or now < self._next_allowed):
+                return False
+            self._reset_input()
+            return self._dispatch(now)
+
+    def _dispatch(self, now):
         try:
             frame = self._frame_supplier()
             metadata = validate_frame(frame)

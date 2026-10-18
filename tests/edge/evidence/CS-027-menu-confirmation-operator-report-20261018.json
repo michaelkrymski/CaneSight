@@ -1,0 +1,56 @@
+{
+  "task": "CS-027",
+  "reported_date": "2026-10-18",
+  "provenance": "Operator pasted a second console snapshot after the focused confirmation/activation/cancellation instructions. The complete saved report and exact source SHA were not supplied.",
+  "reported_build_commit": null,
+  "agent_observed_hardware": false,
+  "reported_snapshot": {
+    "automatic_audio_route_detection": false,
+    "backend_used": false,
+    "context_gesture_events": 0,
+    "context_requests_used": false,
+    "event_counts": {
+      "activate": 1,
+      "cancel": 1,
+      "choose": 0,
+      "confirmation": 1,
+      "context": 0,
+      "entry": 1,
+      "selection": 1,
+      "unavailable": 0
+    },
+    "fault": false,
+    "gemini_used": false,
+    "generation": 3,
+    "gpio_used": true,
+    "last_event": {
+      "kind": "cancel",
+      "reason": "manual",
+      "scenario": "pedestrian_signal"
+    },
+    "live_observations_implemented": false,
+    "motor_gpio_used": false,
+    "phone_used": false,
+    "physical_audio_accepted": false,
+    "scenario_capabilities": "synthetic interaction only",
+    "selected": null,
+    "state": "closed"
+  },
+  "human_speech_clarity": null,
+  "human_audible_cancel_tail": null,
+  "physical_audio_accepted": false,
+  "limitations": [
+    "Counter evidence supports one menu entry, selection, confirmation, activation and manual cancellation without a reported fault; exact gesture timing is not measured.",
+    "Manual cancellation reason does not establish hardware-button versus terminal cancel input or audible cancellation latency.",
+    "The earlier zero-confirmation run remains a separate record; this run does not retrospectively change it.",
+    "Synthetic interaction capabilities only; no production analysis job, phone/backend/Gemini or motor evidence."
+  ],
+  "operator_followup": {
+    "reported_checkout_commit": "f2a6dca6df87ffe1daf0a9f265590ca9ba6a393e",
+    "binding": "Operator supplied git rev-parse HEAD from the same checkout after both snapshots; agent did not observe the device or run.",
+    "statement": "Clear speech; stopped promptly",
+    "speech_clear": true,
+    "cancellation_prompt_without_noticeable_tail": true,
+    "audible_latency_measured": false
+  }
+}

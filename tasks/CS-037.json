@@ -3,7 +3,7 @@
   "title": "Implement symbol and countdown parser",
   "category": "YOLO & Signal Vision",
   "priority": "P1",
-  "acceptance": "Shape/temporal checks, uncertain flashing and null ambiguous digits; HSV alone insufficient.",
+  "acceptance": "Shape/temporal checks, uncertain flashing and null ambiguous digits; HSV alone insufficient. Extend through isolated, explicitly selected pedestrian-signal, pedestrian-yellow-beacon and unsignalized-street observation adapters. Verify custom YOLO signal artifacts; beacon flashing and vehicle motion require bounded temporal evidence and camera-motion/occlusion handling. Existing schematic parser stays replay-only. Unsupported live adapters stay unknown/unavailable. No Gemini signal/stop verdict or crossing permission; wire extensions need a separate shared-contract CR.",
   "dependencies": [
     "CS-036"
   ],

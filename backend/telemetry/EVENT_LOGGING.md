@@ -1,5 +1,11 @@
 # CS-042: consented minimal event logging
 
+Live provisioning follow-up (18 October 2026): see
+[TIGER_DATA_ROLLOUT.md](TIGER_DATA_ROLLOUT.md) for verified database results,
+separate-role grants, the explicit synthetic live probe, recovery receipts and
+the proposed image/deployment procedure. The initial implementation's unrun
+checks below describe its original checkpoint, not later live acceptance.
+
 Optional software implementation for PostgreSQL/Tiger Data. Logging is off in
 the existing backend and dashboard factories. Nothing is deployed or connected
 to a live database by this change. Michael reviews the new factory and its

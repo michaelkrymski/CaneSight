@@ -1,0 +1,9 @@
+{
+  "id": "CS-027-UPLOADER-AUDIO-BONDMILA-20261017",
+  "date": "2026-10-17",
+  "author": "bondmila (AI-assisted)",
+  "task": "CS-027",
+  "summary": "Wire explicit Pi narration opt-in into manual uploader",
+  "details": "Add --context-audio gated by consented manual input. Use the CS-040 narration bridge instead of a second button/request loop; share original frame/session/clock and trusted camera/primary readiness. Cancel and close speech on manual/off/EOF/camera loss/shutdown. Text default never imports audio; missing dependency refuses activation. Draft depends on PR #41, which stays draft.",
+  "validation": "145 edge tests ran on main-based checkout: 140 passed and five narration-dependency skips. All 145 passed with exact draft #41 modules via external guarded runner; no dependency code copied. Generated HTTPS/provider/speech fixtures only; no Bluetooth, eSpeak audio, Gemini API or device acceptance. Checked publisher reruns shared checks."
+}
