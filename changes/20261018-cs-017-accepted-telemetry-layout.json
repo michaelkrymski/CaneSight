@@ -1,0 +1,9 @@
+{
+  "id": "CS-017-ACCEPTED-TELEMETRY-LAYOUT-20261018",
+  "date": "2026-10-18",
+  "author": "gmarcialcalleja (AI-assisted)",
+  "task": "CS-017",
+  "summary": "Integrate accepted CS-016 host package layout and verify lifecycle coordinator",
+  "details": "Merge accepted CS-016/main 86a8783 into lifecycle PR #84. Preserve lifecycle source entries alongside accepted transport device targets and sibling telemetry package; keep accepted privacy text and remove conflict markers. Default harness resolves the accepted sibling package without the old review pin. Update runtime blockers to reflect CS-016 acceptance while retaining actual clock/device gates.",
+  "validation": "All 13 strict-concurrency Swift coordinator/actor tests passed using the actual merged HEAD package and network-disabled pinned Linux image. Top-level Xcode object IDs unique and staged whitespace check passed. Windows full shared suite exposes the accepted Pi private-file fixture's POSIX requirement; Linux checked publication is used without weakening the reader. No Apple SDK or physical device/motor acceptance."
+}
