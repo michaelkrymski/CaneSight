@@ -1058,6 +1058,46 @@ Synchronize accepted GPS checkpoint from main d1d8eb9 (GPS 94ccaaf plus CS-045 m
 
 Validation: 182 edge tests: 171 passed, 11 explicit draft narration/menu-audio dependency skips. Checked publisher runs shared validation, governance, changelog and whitespace checks; final CI inspected by exact head.
 
+## 2026-10-18 — CS-037-CHANGELOG-CONFLICT-ADITSANGANI-20261018: Resolve PR79 generated changelog merge conflict
+
+Author: aditsangani (AI-assisted) · Task: CS-037
+
+Integrate accepted main 3baf4de into the existing CS-037 branch and resolve only CHANGELOG.md by rendering all immutable fragments. No scenario implementation, tests, acceptance, owner or protected paths changed. Full CS-037 live/model/device acceptance remains blocked; this clears the PR integration obstacle only.
+
+Validation: 80 explicit vision tests passed with no failures/skips after merge. No unmerged paths remain; source/test/QA/task bytes unchanged before own handoff/fragment. Checked publishing reruns shared/repository/governance/changelog/whitespace checks and current-head CI is inspected after push.
+
+## 2026-10-18 — CS-037-INTEGRATION-REFRESH-ADITSANGANI-20261018: Refresh PR79 against accepted Pi evidence merge
+
+Author: aditsangani (AI-assisted) · Task: CS-037
+
+Merge accepted main 46b65c3 after concurrent PR83 landed during CI. Only accepted task/evidence/log records arrive; all scenario source and tests remain unchanged. Render union log; preserve history and full live-acceptance blocker.
+
+Validation: Conflict-resolution head d2d7c43 had green repository/governance/security checks, all 80 vision tests passed, and 212 shared tests ran with 201 passed and 11 platform skips. The incoming change contains no implementation edits; checked publication reruns required shared checks and current-head CI is inspected.
+
+## 2026-10-18 — CS-037-MAIN-SYNC-ADITSANGANI-20261018: Integrate accepted main into CS-037 scenario adapter review
+
+Author: aditsangani (AI-assisted) · Task: CS-037
+
+Merge accepted CS-018 main update without editing its files; render union changelog. Scenario implementation, tests, QA source hashes and full-acceptance blocker remain unchanged.
+
+Validation: Prior exact CS-037 head e872dd4 passed repository/governance/security checks and 80 explicit vision tests. Integration adds only accepted iOS files; checked publishing reruns required shared/repository/changelog/governance checks and current-head CI is inspected after push.
+
+## 2026-10-18 — CS-037-SCENARIO-ADAPTERS-ADITSANGANI-20261018: Add isolated synthetic scenario replay adapters and artifact identity inspection
+
+Author: aditsangani (AI-assisted) · Task: CS-037
+
+Explicit pedestrian-signal, pedestrian-yellow-beacon and unsignalized-street selection; preserve schematic pixel parser. Add bounded annotated beacon alternation and vehicle image-displacement prototypes, source/epoch/age/token gates and local custom-artifact hash/provenance checks without loading. Live capabilities remain unavailable; no production/wire/menu or shared-contract change.
+
+Validation: 80 vision tests passed with 27 new scenario/artifact cases; no skips or failures. Original parser/evaluation cases retained. Checked publishing additionally runs repository/shared/changelog/governance/whitespace checks. No model training, real-scene accuracy, night or physical acceptance claimed.
+
+## 2026-10-18 — CS-037-SCENARIO-PR-LINK-ADITSANGANI-20261018: Record CS-037 scenario-adapter follow-up PR #79
+
+Author: aditsangani (AI-assisted) · Task: CS-037
+
+Link the published software checkpoint and actual checks in task runtime evidence. Full task remains blocked; no implementation, scope or ownership changes.
+
+Validation: Before first publication, all 80 vision tests passed and shared suite ran 195 with 188 passed, 7 platform skips, zero failures; repository/governance/changelog/whitespace checks passed. Current-head CI inspected after metadata publication.
+
 ## 2026-10-18 — CS-040-BLUETOOTH-ROUTE-20261018: Monitor configured Bluetooth route and pin optional speech playback
 
 Author: Mila (bondmila, AI-assisted) · Task: CS-040

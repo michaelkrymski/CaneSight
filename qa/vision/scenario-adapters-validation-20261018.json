@@ -1,0 +1,48 @@
+{
+  "task": "CS-037",
+  "date": "2026-10-18",
+  "base_commit": "20d69c9f43a3a19a3aa102ca04933f9d0e379284",
+  "branch": "task/CS-037-signal-parser",
+  "mode": "replay",
+  "origin": "authored_synthetic_annotations_and_existing_CC0_schematic_pixels",
+  "training_run": false,
+  "model_loaded": false,
+  "production_enabled": false,
+  "live_capabilities": {
+    "pedestrian_signal": false,
+    "pedestrian_yellow_beacon": false,
+    "unsignalized_street": false
+  },
+  "verification": {
+    "command": "python -m unittest discover -s tests/vision -q",
+    "python": "3.14.3",
+    "platform": "Windows",
+    "tests_run": 80,
+    "passed": 80,
+    "failures": 0,
+    "skipped": 0,
+    "new_scenario_tests": 22,
+    "new_artifact_tests": 5,
+    "source_sha256_text_lf": {
+      "backend/vision/scenario_adapters.py": "bad1445d64ebd4ac7c804c487d5145c56e46dcd298d063fbac7f7867996bf24e",
+      "backend/vision/signal_artifacts.py": "3f13f5350fbc97a430ee8772753631f9be5200d81498d972e669acf72b974bde",
+      "tests/vision/test_scenario_adapters.py": "ca2b26927f646b8c09ee1d55a4e2a7b667f744c893d677d87dd8355c828a5f53",
+      "tests/vision/test_signal_artifacts.py": "b02e24fc427cb2e6c5556353134cde6265011ab7508cd9de103babe04d588d1c"
+    }
+  },
+  "coverage": [
+    "Original schematic image/countdown processing through explicit scenario selection",
+    "Scenario/epoch isolation, old-token suppression, cancellation, duplicate/reordered/expired/future frames and clock-fault latch",
+    "Beacon target/region/kind confusion, single/sparse/rapid-flash samples and bounded annotated alternation",
+    "Vehicle visible-image displacement, unchanged/hidden/lost/retargeted IDs, sparse samples and bounded tracks",
+    "Camera motion/occlusion and unsupported night cancel; unknown is never clearance",
+    "Inert artifact size/hash/class/provenance checks; no deserialization or live activation"
+  ],
+  "limits": [
+    "Replay invariants, not held-out recognition accuracy or a real-world confusion matrix.",
+    "Beacon phase and vehicle boxes/IDs/camera stability are authored annotations, not detected or independently verified facts.",
+    "Artifact checks attest byte identity with a separately operator-trusted record only; references are not reviewed evaluations or audited licenses.",
+    "No custom weights, evaluated live detector/tracker, night support, device clock, Pi benchmark, audio/button/job integration or physical acceptance.",
+    "New local result records are not a wire schema; no changes to production inference, shared contracts, menus, protocols or other ownership."
+  ]
+}
