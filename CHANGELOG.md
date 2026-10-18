@@ -698,6 +698,14 @@ Add optional exclusive metadata-only run report and allowlisted terminal status 
 
 Validation: 152 edge tests pass with updated CS-040 modules via external overlay, no skips. Report tests cover allowlisting, private/exclusive files, symlink refusal, startup failure, normal completion and status without a press. Checked publisher runs shared checks; actual Pi integration pending.
 
+## 2026-10-18 — CS-040-HARDWARE-68-HANDOFF-BONDMILA-20261018: Reconcile narration readiness with Michael hardware handoff #68
+
+Author: bondmila (AI-assisted) · Task: CS-040
+
+Record installed GPIO21 button, reported camera and speaker availability while preserving prior synthetic speaker evidence. Keep full context/audio and phone-depth gates open; motor integration and accessible controls remain with their owners. No protected baseline changes.
+
+Validation: Read issue #68 and author identity via GitHub. Existing 71 context tests passed for current code; documentation/runtime update only. Checked publisher runs shared checks; no new hardware or audible test claimed.
+
 ## 2026-10-18 — CS-040-SPEAKER-RECOVERY-BONDMILA-20261018: Prepare operator-guided Bluetooth cancellation and fresh-request recovery test
 
 Author: bondmila (AI-assisted) · Task: CS-040
