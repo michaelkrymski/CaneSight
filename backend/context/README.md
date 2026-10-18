@@ -265,3 +265,30 @@ one-second case. Do not combine `--manual-only` with `--bluetooth-recovery`.
 The selector skips unrelated cases; subset success never establishes full bench,
 physical speaker acceptance or phone/backend integration. No warmup, hidden retry
 or automatic Bluetooth routing is added to make the first attempt appear to pass.
+
+
+## Merged CS-040 crossing-menu speech component
+
+Accepted main `5dbb6ad`/PR #71 adds the crossing-observation menu brief.
+`menu_audio.FixedMenuAudio` renders a closed fixed set: disclaimer/menu entry,
+three selected labels, confirmation, cancellation and unavailable. Only those
+exact phrases are added to EspeakSink's allowed text. Existing uncertain object
+rendering and its 20-word limit are unchanged; provider prose never enters menu
+speech. No traffic evidence or permissions are generated.
+
+The caller must supply trusted audio availability, higher-priority state and the
+same local epoch/generation as CS-027's state machine. Engine success alone is
+not Bluetooth readiness. Loss/preemption clears speech eligibility; recovery
+requires a newer explicit entry. Clock/engine faults latch, wrong epochs/stale
+generations are refused, and a 15-second independent tick expiry bounds optional
+speech. No pending speech FIFO or silent confirmation is introduced. Call update
+and tick from an independent worker and cancel before network/analysis teardown.
+
+CS-027's `edge.menu_bench` composes these APIs in an explicitly synthetic
+interaction-only bench, optionally with the reported GPIO21 and real speaker.
+See edge/CONTEXT_BUTTON.md on the combined checkout for commands and observations.
+Production adapters and automatic OS output monitoring are not supplied by this
+component; the existing uploader remains its previous one-shot path. Preserve
+old speaker reports as different builds; new menu speech clarity/stop buffering
+and full lifecycle need current-head Pi evidence. Keep #41/#58 draft. No live
+signal/beacon/vehicle adapters, wire fields, model training or road-use claim.

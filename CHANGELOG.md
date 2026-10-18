@@ -690,6 +690,14 @@ Add a targeted master-plan subsection, implementation brief and CR for 3-second 
 
 Validation: Planning-only change. Repository validation, generated changelog consistency, whitespace and shared unit suite are checked before publication. No button/audio/vision implementation, training, live traffic, GPIO or physical acceptance claimed. Protected plan/task amendments require exact-head GitHub approval.
 
+## 2026-10-18 — CS-040-FIXED-MENU-AUDIO-BONDMILA-20261018: Implement fixed menu speech with readiness and stale-event preemption
+
+Author: bondmila (AI-assisted) · Task: CS-040
+
+Follow merged PR #71 with closed disclaimer/selection/confirmation/cancellation phrases, explicit route readiness/priority, epoch/generation binding, expiry and fault latch. Keep production request/route integration and physical evidence open; no provider prose, traffic inference or stale replay.
+
+Validation: 78 context tests pass, including five new fixed phrase/readiness/epoch/expiry/fault tests. Combined synthetic bench tests are reported by CS-027. Checked publishing runs shared checks; no new actual audio or device test performed.
+
 ## 2026-10-18 — CS-040-HARDWARE-68-HANDOFF-BONDMILA-20261018: Reconcile narration readiness with Michael hardware handoff #68
 
 Author: bondmila (AI-assisted) · Task: CS-040

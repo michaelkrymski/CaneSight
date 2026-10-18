@@ -10,9 +10,12 @@ import subprocess
 import threading
 
 from .narration import UNAVAILABLE, render_description
+from .menu_audio import ALL_PHRASES
 
 
 def permitted_text(text):
+    if type(text) is str and text in ALL_PHRASES:
+        return True
     if type(text) is not str or len(text) > 160 or len(text.split()) > 20:
         return False
     if text == UNAVAILABLE:
