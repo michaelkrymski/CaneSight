@@ -54,6 +54,11 @@
     "repository": {
       "passed": 217,
       "failed": 0
+    },
+    "checked_publication_repository": {
+      "passed": 227,
+      "failed": 0,
+      "note": "After incorporating accepted CS-049 main refresh."
     }
   },
   "limits": [
@@ -63,5 +68,6 @@
     "No phone control, signing, installation, screenshots or live ARKit test in this checkpoint.",
     "App remains local preview; no default clock, telemetry consent, enrollment or network activation added."
   ],
-  "publication_refresh_base": "f6af886f01979d48dbdf6664c54320ba7cfa0b8d"
+  "publication_refresh_base": "f6af886f01979d48dbdf6664c54320ba7cfa0b8d",
+  "continuation_pr": "https://github.com/michaelkrymski/CaneSight/pull/89"
 }
