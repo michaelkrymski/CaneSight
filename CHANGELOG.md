@@ -794,6 +794,14 @@ Integrate accepted main; update README/task runtime and add source-linked readin
 
 Validation: 13 portable depth XCTest cases passed on Swift 6.0.3 WSL with strict concurrency and warnings as errors; 8 normalized source/fixture hashes match the Apple-tested pin. Attributed accepted evidence records 15 Mac tests and depth iOS SDK build, with later signed phone host checks. Shared repository/changelog/whitespace checks are required by checked publishing. No fresh Apple/device or hardware test claimed.
 
+## 2026-10-18 — CS-015-BACKGROUND-COUNTER-RESET-20261018: Verify real nonzero target counter resets after phone backgrounding
+
+Author: michaelkrymski (AI-assisted) · Task: CS-015
+
+Add a separate operator-assisted physical UI check while retaining baseline camera smoke coverage. Real left target recorded through normal controls; confirmed Home Screen background, live depth recovery, reset counters and Stop-to-Unknown. No app/sensor thresholds changed.
+
+Validation: Two separate physical iPhone UI tests passed (one each, zero failures/skips); 11 strict mapping cases and 212 shared tests passed. Earlier target-placement failures and free-signing installation limit documented. Shared checks rerun by publisher. No full-task Done, final mount, timing, accuracy or electrical claim.
+
 ## 2026-10-18 — CS-015-BENCH-INSTALL-20261018: Sign, install and launch portrait mapping bench for operator verification
 
 Author: michaelkrymski (AI-assisted) · Task: CS-015

@@ -4,6 +4,16 @@ import XCTest
 /// forced orientation or changed confidence/freshness thresholds.
 final class BenchUITests: XCTestCase {
     @MainActor func testCameraStopAndBackgroundRecovery() throws {
+        try checkCameraStopAndBackgroundRecovery(requireRecordedTarget: false)
+    }
+
+    /// Requires an operator-positioned left target. A failed prerequisite is not
+    /// evidence that a nonzero counter was cleared by backgrounding.
+    @MainActor func testRecordedTargetResetsAfterBackground() throws {
+        try checkCameraStopAndBackgroundRecovery(requireRecordedTarget: true)
+    }
+
+    @MainActor private func checkCameraStopAndBackgroundRecovery(requireRecordedTarget: Bool) throws {
         continueAfterFailure = false
         let app = XCUIApplication()
         app.launch()
@@ -37,6 +47,30 @@ final class BenchUITests: XCTestCase {
 
         toggle.tap()
         XCTAssertTrue(waitForMeasurement(app, timeout: 25), "Need new measured depth before background test")
+        if requireRecordedTarget {
+            // Operator places a real target on physical left; no seeded progress.
+            let record = app.buttons["Record target on physical left"]
+            reveal(record, in: app)
+            XCTAssertTrue(record.waitForExistence(timeout: 5))
+            XCTAssertTrue(record.isEnabled)
+            // Wait for the existing app's separation requirement, without changing it.
+            let separated = NSPredicate { _, _ in
+                let values = (0..<3).compactMap { index -> Double? in
+                    let label = app.staticTexts["distance\(index)"].label
+                    guard label.hasSuffix(" m") else { return nil }
+                    return label.split(separator: " ").dropLast().last.flatMap { Double($0) }
+                }
+                return values.count == 3 && values[0] + 0.2 <= values[1] && values[0] + 0.2 <= values[2]
+            }
+            XCTAssertEqual(XCTWaiter.wait(for: [XCTNSPredicateExpectation(predicate: separated, object: app)], timeout: 30), .completed,
+                           "Physical left target must be at least 0.2 m nearer than center/right; keep phone upright.")
+            record.tap()
+            let counts = app.staticTexts["mountCounts"]
+            let nonzero = NSPredicate { _, _ in counts.label == "Left 1/3 · Center 0/3 · Right 0/3" }
+            XCTAssertEqual(XCTWaiter.wait(for: [XCTNSPredicateExpectation(predicate: nonzero, object: counts)], timeout: 5), .completed,
+                           "Need a real recorded left target before background; no reset acceptance from zero counters.")
+            print("BEFORE_BACKGROUND_COUNTS=\(counts.label)")
+        }
         XCUIApplication(bundleIdentifier: "com.apple.springboard").activate()
         let background = NSPredicate { _, _ in
             let state = app.state
@@ -48,10 +82,26 @@ final class BenchUITests: XCTestCase {
         // Recovery must provide a new live measurement. Detailed source-age /
         // epoch fencing is exercised by core tests, not inferred from a UI label.
         XCTAssertTrue(waitForMeasurement(app, timeout: 25), "No live recovery after foreground")
+        let counts = app.staticTexts["mountCounts"]
+        reveal(counts, in: app)
+        XCTAssertEqual(counts.label, "Left 0/3 · Center 0/3 · Right 0/3")
+        XCTAssertTrue(app.buttons["Record target on physical left"].exists)
+        print("AFTER_BACKGROUND_COUNTS=\(counts.label)")
         // Always leave the camera stopped after a successful automation run.
-        if !toggle.isHittable { app.swipeUp() }
+        reveal(toggle, in: app)
         toggle.tap()
         assertUnknown(app)
+    }
+
+    @MainActor private func reveal(_ element: XCUIElement, in app: XCUIApplication) {
+        for _ in 0..<5 {
+            if element.exists && element.isHittable { return }
+            app.swipeUp()
+        }
+        for _ in 0..<5 {
+            if element.exists && element.isHittable { return }
+            app.swipeDown()
+        }
     }
 
     @MainActor private func waitForMeasurement(_ app: XCUIApplication, timeout: TimeInterval) -> Bool {
