@@ -4,6 +4,13 @@ Open `CaneSight.xcodeproj`, scheme **CaneSight**. The app targets iOS 16+;
 its native UI test runner targets iOS 17+. Local signing remains in ignored
 `Signing.local.xcconfig`. No team identifiers or credentials belong in Git.
 
+Scheme **CaneSightTransport** hosts CS-016 tests inside the signed app on iOS 17+.
+It compiles the existing core/client test files and the depth adapter source
+directly; `DeviceTests/TelemetryDeviceTests.swift` adds real ARKit capture sampling
+and a public HTTPS reachability probe. It does not enable streaming in the app.
+Run this scheme on the connected physical phone using Xcode's normal signing.
+The product-only Swift package scheme cannot run tool-hosted tests on a phone.
+
 ## Current features
 
 - Camera tab: explicit Start/Stop, scene-depth support/permission handling,
@@ -53,9 +60,10 @@ git fetch origin
 python3 ios/CaneSightApp/prepare_review_dependencies.py
 ```
 
-`ReviewDependencies.json` records six immutable Git inputs: accepted lifecycle
-and coarse-location source from #63/#67; review depth #62, telemetry #64,
-accessible status #73 and portrait mapping #70. Preparation uses Git archives,
+`ReviewDependencies.json` records five immutable Git inputs: accepted lifecycle
+and coarse-location source from #63/#87; review depth #62, accessible status #73
+and portrait mapping #70. CS-016 telemetry resolves directly to the sibling
+`../CaneSightTelemetry` package on this continuation branch. Preparation uses Git archives,
 verifies every source hash on reuse and refuses to overwrite changed inputs.
 Move/preserve an older prepared directory before switching manifests. It never
 edits teammate source/task/branch or executes their scripts.
@@ -79,9 +87,14 @@ after its configured socket and clock gate become ready. The default preview
 does not configure that transport. Unknown values never mean an empty path.
 
 `PrivacyInfo.xcprivacy` declares on-device elapsed-time/timer use of system boot
-APIs under 35F9.1. No boot-time-derived information leaves the default preview.
-Privacy/clock review is required before supplying the opt-in transport config;
-see [Apple required-reason API documentation](https://developer.apple.com/documentation/bundleresources/app-privacy-configuration/nsprivacyaccessedapitypes/nsprivacyaccessedapitype).
+APIs under 35F9.1. The normal app sends no boot-time-derived information. The opt-in CS-016
+paired test sends elapsed intervals from one fixed test-start event; it keeps
+the raw media-clock origin on device. Clock/capture values share that origin,
+so rebasing preserves original age and does not replace capture with receipt.
+Runtime checks reject clock jumps and captures outside the local 500 ms bound;
+these observations do not prove general source-clock equivalence or sleep behavior.
+Apple 35F9.1 allows elapsed intervals between in-app events to leave the device;
+this remains an engineering interpretation, not App Store acceptance. See see [Apple required-reason API documentation](https://developer.apple.com/documentation/bundleresources/app-privacy-configuration/nsprivacyaccessedapitypes/nsprivacyaccessedapitype).
 
 ## CS-017 transport checkpoint
 
@@ -101,9 +114,9 @@ python tests/ios/run_lifecycle_transport.py --telemetry-ref FULL_CS016_COMMIT --
 ```
 
 The harness resolves an exact commit, archives only its telemetry package, and
-records all source hashes. Once CS-016 removes the duplicate telemetry review
-pin in favor of its accepted sibling package, the default harness archives the
-current HEAD package instead. Missing packages fail before running a container.
+records all source hashes. CS-016 has removed the duplicate telemetry review
+pin in favor of its accepted sibling package. The default harness archives the
+current HEAD package. Missing packages fail before running a container.
 On 18 October, all 13 coordinator/actor tests also passed against CS-016 review
 commit 8a6c7b2 with strict concurrency and warnings as errors. This verifies actor
 API compatibility and fake-socket lifecycle behavior, not an Apple host build.
@@ -138,3 +151,18 @@ by tapping its actual switch end. No safety thresholds/checks were weakened.
 
 Evidence: `tests/ios/evidence/CS-013-integrated-app-20261018.json`.
 Handoff: `handoffs/CS-013-20261018-integrated-app.md`.
+
+## CS-016 physical transport host checkpoint
+
+On the iPhone 17 Pro Max / iOS 26.6.2, the hosted scheme passed 21 existing
+transport core/client tests and one real depth/timing test. The public HTTPS
+probe failed to connect (the earlier run timed out) and was explicitly skipped, so no native live WSS acceptance is
+claimed. Fake-socket transport tests remain synthetic even when run on a phone.
+
+The real test collects at most 30 source/receipt pairs per run, with at least
+100 ms between processing attempts, and repeats after pausing/restarting ARKit.
+No image or raw timestamp is saved or sent. The summary-to-telemetry adapter
+preserves capture seconds multiplied by 1000. Only elapsed candidate timestamp
+deltas are printed, never absolute uptime. Two short runs do not prove the source
+clock's epoch, sensor accuracy, sleep/background behavior, a clock drift bound or
+phone-to-Pi latency. Keep live networking disabled pending those gates.

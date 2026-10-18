@@ -1,0 +1,9 @@
+{
+  "id": "CS-016-NATIVE-PAIR-PREP-20261018",
+  "date": "2026-10-18",
+  "author": "michaelkrymski (AI-assisted)",
+  "task": "CS-016",
+  "summary": "Prepare private-grant native phone and manual Pi transport probes",
+  "details": "Backend HTTPS recovered and actual phone health test passed. Add hosted phone starting-heartbeat/reconnect test using a one-use private phone-role file and elapsed in-app clock. Add a manual Pi receiver under tests/ios with fresh process identities, strict private role-file binding, bounded observation/reconnect, and no camera/GPIO/clock eligibility. Real Pi replaces the unconnected bench plan.",
+  "validation": "Signed physical-iOS build-for-testing succeeded; native authenticated test awaits fresh credentials and is not claimed passed. Five helper tests passed using synthetic packets/fake sockets, including reconnect sequence retention. Prior physical core/camera evidence stays separate. No automated Pi SSH runner or physical Pi test performed."
+}

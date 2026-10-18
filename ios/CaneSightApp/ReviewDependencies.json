@@ -1,5 +1,5 @@
 {
-  "notice": "Exact review inputs. Lifecycle/location are accepted main source; depth, telemetry, status and mapping remain separate review inputs. No teammate source is modified.",
+  "notice": "Five exact host review inputs; telemetry resolves directly to sibling ../CaneSightTelemetry for CS-016.",
   "packages": [
     {
       "name": "MappingBench/ReviewDependencies/DepthSectors",
@@ -12,12 +12,6 @@
       "pr": 63,
       "commit": "0a2e161ed399c7a850cd8ffcf6ed211ce4f2cbca",
       "path": "ios/Lifecycle"
-    },
-    {
-      "name": "CaneSightTelemetry",
-      "pr": 64,
-      "commit": "0433fc94af1a1e3edfe2d2bb28925cb3be6df1ee",
-      "path": "ios/CaneSightTelemetry"
     },
     {
       "name": "CoarseLocation",
