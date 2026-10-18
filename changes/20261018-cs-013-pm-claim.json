@@ -1,0 +1,9 @@
+{
+  "id": "CS-013-PM-CLAIM-20261018",
+  "date": "2026-10-18",
+  "author": "michaelkrymski (AI-assisted)",
+  "task": "CS-013",
+  "summary": "Assign iPhone app build and support verification to Michael",
+  "details": "Assignment-only PM claim from accepted main 5dd5fa37009402b7eb7c9dbed3d20eacd4346c90. User authorized creating the Xcode host and resuming deferred Apple verification. Requirements, dependencies and allowed paths are unchanged. Implementation begins only after verifying the PM-authored claim PR.",
+  "validation": "Assignment only; no app, signing, device, LiDAR or hardware acceptance claimed. Shared checks run by checked publishing."
+}
