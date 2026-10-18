@@ -27,7 +27,7 @@ class DeploymentTests(unittest.TestCase):
             'GEMINI_API_KEY': 'synthetic-key-never-used', 'CANESIGHT_GEMINI_MODEL': 'gemini-fixture',
             'CANESIGHT_DASHBOARD_ORIGIN': ORIGIN,
             'CANESIGHT_EVENT_DB_CONFIG': str(Path(folder)/'private-runtime.json'),
-            'CANESIGHT_VISION_WEIGHTS': '/private/synthetic-model.pt' if inference else '',
+            'CANESIGHT_VISION_WEIGHTS': str(Path(folder)/'synthetic-model.pt') if inference else '',
         }, clear=True))
         calls = []
         async def runner(model, jpeg):
@@ -120,7 +120,7 @@ class DeploymentTests(unittest.TestCase):
     def test_existing_vision_factory_and_worker_lifecycle_are_preserved(self):
         app, client, pair, _, writer, worker, yolo, _ = self.setup_app('logging', inference=True)
         self.assertIs(app.state.inference_worker,worker)
-        yolo.assert_called_once_with('/private/synthetic-model.pt')
+        yolo.assert_called_once_with(os.environ['CANESIGHT_VISION_WEIGHTS'])
         worker.start.assert_called_once()
         self.assertEqual(client.get('/readyz').status_code,200)
         result = self.request(client,pair)

@@ -1114,6 +1114,14 @@ Add explicit one-base deployment factory reusing its manager, vision worker, nat
 
 Validation: 106 context tests passed on macOS/Python 3.13. Backend 128 ran: 119 passed, nine existing optional/environment skips. Synthetic provider/writer/model inputs with actual accepted factory/ASGI HTTP/WSS and lifecycle checks. Docker unavailable: image build, public deployment, actual Gemini account and physical Pi/audio verification remain pending. Shared checks run through checked publisher.
 
+## 2026-10-18 — CS-039-PM-PORTABLE-FIXTURE-20261018: Use native absolute model fixture paths in composition tests
+
+Author: michaelkrymski (AI-assisted) · Task: CS-039
+
+Replace POSIX-only synthetic weight path with a path under the existing temporary directory and assert the configured path reaches the model factory. No runtime validation, factories, deployment or credentials changed.
+
+Validation: Reproduced two Windows context/root errors before repair; after repair all 106 context cases complete with eleven platform skips and all 228 shared cases complete with eleven skips, no failures. Unchanged backend suite: 128 cases, nineteen skips, no failures. No Docker build, cloud or device test.
+
 ## 2026-10-18 — CS-040-BLUETOOTH-ROUTE-20261018: Monitor configured Bluetooth route and pin optional speech playback
 
 Author: Mila (bondmila, AI-assisted) · Task: CS-040
