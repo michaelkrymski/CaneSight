@@ -1,0 +1,330 @@
+{
+  "version": 1,
+  "mode": "replay",
+  "origin": "original_synthetic_depth_arrays",
+  "license": "CC0-1.0",
+  "author": "CaneSight contributors (AI-assisted)",
+  "limits": [
+    "Authored numeric arrays, not captured LiDAR or representative accuracy data.",
+    "Input timestamp is authored source-clock seconds, not wall time or a capture-age bound.",
+    "Expected outputs are annotations for unrun Swift tests, not recorded parser results."
+  ],
+  "cases": [
+    {
+      "id": "balanced_columns",
+      "width": 6,
+      "height": 2,
+      "metres": [
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3
+      ],
+      "confidence": [
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "timestamp": 12.5,
+      "tracking": "normal",
+      "expectedDistances": [
+        1,
+        2,
+        3
+      ],
+      "expectedFractions": [
+        1,
+        1,
+        1
+      ],
+      "expectedTimestamp": 12.5,
+      "expectedReason": "processedFrame"
+    },
+    {
+      "id": "rejected_confidence",
+      "width": 6,
+      "height": 2,
+      "metres": [
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3
+      ],
+      "confidence": [
+        0,
+        0,
+        2,
+        2,
+        255,
+        255,
+        0,
+        0,
+        2,
+        2,
+        255,
+        255
+      ],
+      "timestamp": 12.5,
+      "tracking": "normal",
+      "expectedDistances": [
+        null,
+        2,
+        null
+      ],
+      "expectedFractions": [
+        0,
+        1,
+        0
+      ],
+      "expectedTimestamp": 12.5,
+      "expectedReason": "processedFrame"
+    },
+    {
+      "id": "missing_confidence",
+      "width": 6,
+      "height": 2,
+      "metres": [
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3
+      ],
+      "confidence": null,
+      "timestamp": 12.5,
+      "tracking": "normal",
+      "expectedDistances": [
+        null,
+        null,
+        null
+      ],
+      "expectedFractions": [
+        null,
+        null,
+        null
+      ],
+      "expectedTimestamp": 12.5,
+      "expectedReason": "missingConfidence"
+    },
+    {
+      "id": "nonfinite_and_nonpositive",
+      "width": 6,
+      "height": 2,
+      "metres": [
+        "nan",
+        "+inf",
+        2,
+        2,
+        3,
+        3,
+        0,
+        -1,
+        2,
+        2,
+        3,
+        3
+      ],
+      "confidence": [
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "timestamp": 12.5,
+      "tracking": "normal",
+      "expectedDistances": [
+        null,
+        2,
+        3
+      ],
+      "expectedFractions": [
+        0,
+        1,
+        1
+      ],
+      "expectedTimestamp": 12.5,
+      "expectedReason": "processedFrame"
+    },
+    {
+      "id": "limited_tracking",
+      "width": 6,
+      "height": 2,
+      "metres": [
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3
+      ],
+      "confidence": [
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "timestamp": 12.5,
+      "tracking": "limited",
+      "expectedDistances": [
+        null,
+        null,
+        null
+      ],
+      "expectedFractions": [
+        null,
+        null,
+        null
+      ],
+      "expectedTimestamp": 12.5,
+      "expectedReason": "trackingUnavailable"
+    },
+    {
+      "id": "invalid_timestamp",
+      "width": 6,
+      "height": 2,
+      "metres": [
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3
+      ],
+      "confidence": [
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "timestamp": "nan",
+      "tracking": "normal",
+      "expectedDistances": [
+        null,
+        null,
+        null
+      ],
+      "expectedFractions": [
+        null,
+        null,
+        null
+      ],
+      "expectedTimestamp": null,
+      "expectedReason": "invalidTimestamp"
+    },
+    {
+      "id": "partial_coverage",
+      "width": 6,
+      "height": 2,
+      "metres": [
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3
+      ],
+      "confidence": [
+        2,
+        0,
+        2,
+        2,
+        2,
+        0,
+        0,
+        0,
+        2,
+        0,
+        2,
+        0
+      ],
+      "timestamp": 12.5,
+      "tracking": "normal",
+      "expectedDistances": [
+        null,
+        2,
+        3
+      ],
+      "expectedFractions": [
+        0.25,
+        0.75,
+        0.5
+      ],
+      "expectedTimestamp": 12.5,
+      "expectedReason": "processedFrame"
+    }
+  ]
+}
