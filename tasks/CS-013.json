@@ -29,7 +29,10 @@
     "tests/ios/evidence/CS-013-phone-preview-20261018.json",
     "Operator reported native Live local preview status on iPhone 17 Pro Max / iOS 26.6.2; subsequent devicectl launch succeeded. Depth accuracy, sensor timing and physical mapping are not measured.",
     "handoffs/CS-013-20261018-phone-checks.md",
-    "Michael reported all three image-column values updating except very close objects, Stop clearing every value to Unknown, and lock/background recovery waiting for fresh frames. Operator observations only; no timing/accuracy/mapping measurement. Host ready for independent review; pinned draft dependency acceptance and full telemetry remain separate gates."
+    "Michael reported all three image-column values updating except very close objects, Stop clearing every value to Unknown, and lock/background recovery waiting for fresh frames. Operator observations only; no timing/accuracy/mapping measurement. Host ready for independent review; pinned draft dependency acceptance and full telemetry remain separate gates.",
+    "handoffs/CS-013-20261018-integrated-app.md",
+    "tests/ios/evidence/CS-013-integrated-app-20261018.json",
+    "PM requested broader iOS host integration. Portrait camera/confidence/side-check, accessible status, fixed local status speech/cancel and foreground opt-in local coarse GPS integrated using unchanged pinned modules. Five actual phone UI tests, two Simulator UI tests, 60 strict Mac cases and 14 current lifecycle iOS Simulator cases passed. Physical coarse fix observed, opt-out clears quality. No network GPS, transport readiness, source-clock calibration or full-system Done claim."
   ],
   "blocker": ""
 }

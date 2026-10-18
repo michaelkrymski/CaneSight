@@ -1,9 +1,41 @@
 {
-  "notice": "Unmerged review inputs, not accepted main. No teammate source is modified.",
+  "notice": "Exact review inputs. Lifecycle/location are accepted main source; depth, telemetry, status and mapping remain separate review inputs. No teammate source is modified.",
   "packages": [
-    {"name": "DepthSectors", "pr": 62, "commit": "5f73dbf33ba9b2395f27b429c22344d41fb6162a", "path": "ios/DepthSectors"},
-    {"name": "Lifecycle", "pr": 63, "commit": "0edb2229977b93eae00df6842286d87d4870aea4", "path": "ios/Lifecycle"},
-    {"name": "CaneSightTelemetry", "pr": 64, "commit": "0433fc94af1a1e3edfe2d2bb28925cb3be6df1ee", "path": "ios/CaneSightTelemetry"},
-    {"name": "CoarseLocation", "pr": 67, "commit": "5d311229a183b35176c10bdf33b6553c0c52fbfd", "path": "ios/CoarseLocation"}
+    {
+      "name": "MappingBench/ReviewDependencies/DepthSectors",
+      "pr": 62,
+      "commit": "5f73dbf33ba9b2395f27b429c22344d41fb6162a",
+      "path": "ios/DepthSectors"
+    },
+    {
+      "name": "Lifecycle",
+      "pr": 63,
+      "commit": "0a2e161ed399c7a850cd8ffcf6ed211ce4f2cbca",
+      "path": "ios/Lifecycle"
+    },
+    {
+      "name": "CaneSightTelemetry",
+      "pr": 64,
+      "commit": "0433fc94af1a1e3edfe2d2bb28925cb3be6df1ee",
+      "path": "ios/CaneSightTelemetry"
+    },
+    {
+      "name": "CoarseLocation",
+      "pr": 67,
+      "commit": "6f0266dea8d7326b7541e28d0a8b817a19689142",
+      "path": "ios/CoarseLocation"
+    },
+    {
+      "name": "AccessibleStatus",
+      "pr": 73,
+      "commit": "6ddb7fc4166eda69db5153025d29ceea164b315e",
+      "path": "ios/AccessibleStatus"
+    },
+    {
+      "name": "MountMapping",
+      "pr": 70,
+      "commit": "7538be25b53823f54e8992f2955a78759085d391",
+      "path": "ios/MountMapping"
+    }
   ]
 }

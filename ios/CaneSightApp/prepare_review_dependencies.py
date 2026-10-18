@@ -53,7 +53,7 @@ def prepare():
     finally:
         if staging.exists():
             shutil.rmtree(staging)
-    print('Prepared', len(archives), 'files from four pinned draft PRs; no network or credentials used.')
+    print('Prepared', len(archives), 'files from', len(manifest['packages']), 'pinned inputs; no network or credentials used.')
 
 
 if __name__ == '__main__':

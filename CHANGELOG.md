@@ -674,6 +674,14 @@ Developer Mode enabled and Apple account sign-in completed by the user. Personal
 
 Validation: Signed iOS build and strict deep codesign verification passed; devicectl installation succeeded on iPhone 17 Pro Max / iOS 26.6.2. Published implementation checkpoint 3e9e781 had green repository/governance checks. Signing-only follow-up receives SDK build and checked publishing. Prior 64 Swift and four backend conformance tests are unchanged.
 
+## 2026-10-18 — CS-013-INTEGRATED-APP-20261018: Integrate portrait camera, accessible status, local speech and opt-in local GPS
+
+Author: michaelkrymski (AI-assisted) · Task: CS-013
+
+PM-authorized host integration uses exact unchanged module inputs. Add portrait image/depth/confidence and session side checks; captured display epochs; accessible large controls; one fixed local status utterance with synchronous cancellation; foreground-only coarse location off each launch and opt-out purge. No telemetry or GPS network path enabled.
+
+Validation: Signed app and actual phone suite: 5 passed/0 skipped; Simulator UI: 2 passed; strict Mac cases: 60 passed; current lifecycle native Simulator: 14 passed. One-time local GPS fix and opt-out observed without coordinates in evidence. Corrected real button hit-area bug, Debug simulator architecture, and test-only free-profile/knob targeting setup. Current shared checks run by publisher. Review only, no full-system or measured timing/accuracy claims.
+
 ## 2026-10-18 — CS-013-PHONE-CHECKS-20261018: Record operator phone checks and prepare iPhone host for review
 
 Author: michaelkrymski (AI-assisted) · Task: CS-013
