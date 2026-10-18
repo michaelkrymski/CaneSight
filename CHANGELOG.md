@@ -658,6 +658,14 @@ Assignment runtime only. After merged ownership, prepare bounded validation/stat
 
 Validation: Verified accepted task unclaimed and no competing open claim. Checked publishing runs repository/shared/changelog/whitespace checks. No measurement implementation or real-device evidence included.
 
+## 2026-10-18 — CS-001-CROSSING-ASSISTANCE-20261018: Propose user-selected crossing observation menu and revised task acceptance
+
+Author: michaelkrymski (AI-assisted) · Task: CS-001
+
+Add a targeted master-plan subsection, implementation brief and CR for 3-second entry, spoken scenario cycling, 1-second confirmation, immediate active cancellation and three observation-only modes. Expand CS-027/036/037/038/039/040/044 acceptance without changing owners, runtime status, old evidence, protocols or deployed code. Vehicle temporal analysis remains new unverified work; Gemini remains restricted object description.
+
+Validation: Planning-only change. Repository validation, generated changelog consistency, whitespace and shared unit suite are checked before publication. No button/audio/vision implementation, training, live traffic, GPIO or physical acceptance claimed. Protected plan/task amendments require exact-head GitHub approval.
+
 ## 2026-10-18 — CS-013-DEVICE-INSTALL-20261018: Sign and install iPhone host while keeping team configuration local
 
 Author: michaelkrymski (AI-assisted) · Task: CS-013
@@ -697,13 +705,6 @@ Author: michaelkrymski (AI-assisted) · Task: CS-013
 New SwiftUI iOS16+ host checks scene-depth support, requests camera permission and displays bounded local image-column depth. Epoch barriers, interruption invalidation and receipt-time UI expiry preserve unknowns. Pinned ignored review dependencies preserve draft PR source without modifying teammate tasks. Network/GPS/motors stay off. Initial PM claim PR #69 was author/diff verified before implementation.
 
 Validation: 59 package macOS XCTest cases, five host gate cases and four Swift/backend wire cases passed. Four package physical-iOS SDK builds and four iOS Simulator test-bundle builds passed. Unsigned host physical-iOS build passed. Simulator tests and physical phone/signing/clock/mapping/WSS acceptance remain pending; task blocked and PR draft. Checked publisher runs shared checks.
-## 2026-10-18 — CS-001-CROSSING-ASSISTANCE-20261018: Propose user-selected crossing observation menu and revised task acceptance
-
-Author: michaelkrymski (AI-assisted) · Task: CS-001
-
-Add a targeted master-plan subsection, implementation brief and CR for 3-second entry, spoken scenario cycling, 1-second confirmation, immediate active cancellation and three observation-only modes. Expand CS-027/036/037/038/039/040/044 acceptance without changing owners, runtime status, old evidence, protocols or deployed code. Vehicle temporal analysis remains new unverified work; Gemini remains restricted object description.
-
-Validation: Planning-only change. Repository validation, generated changelog consistency, whitespace and shared unit suite are checked before publication. No button/audio/vision implementation, training, live traffic, GPIO or physical acceptance claimed. Protected plan/task amendments require exact-head GitHub approval.
 
 ## 2026-10-18 — CS-017-CLEANUP-REENTRANCY-20261018: Fence lifecycle cleanup and latch clock-fault notifications
 
