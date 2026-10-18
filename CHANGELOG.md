@@ -170,6 +170,14 @@ Add opt-in press/release/cancel/off terminal input with original frame lineage, 
 
 Validation: 15 new tests passed, including actual spawned HTTPS delivery over generated local CA to accepted context route with fake provider. All 131 edge and 92 root tests passed. No physical device, public service, Gemini API, audio or electrical acceptance; PR #41 remains draft.
 
+## 2026-10-17 — CS-027-UPLOADER-AUDIO-BONDMILA-20261017: Wire explicit Pi narration opt-in into manual uploader
+
+Author: bondmila (AI-assisted) · Task: CS-027
+
+Add --context-audio gated by consented manual input. Use the CS-040 narration bridge instead of a second button/request loop; share original frame/session/clock and trusted camera/primary readiness. Cancel and close speech on manual/off/EOF/camera loss/shutdown. Text default never imports audio; missing dependency refuses activation. Draft depends on PR #41, which stays draft.
+
+Validation: 145 edge tests ran on main-based checkout: 140 passed and five narration-dependency skips. All 145 passed with exact draft #41 modules via external guarded runner; no dependency code copied. Generated HTTPS/provider/speech fixtures only; no Bluetooth, eSpeak audio, Gemini API or device acceptance. Checked publisher reruns shared checks.
+
 ## 2026-10-17 — CS-028-CLAIM-ADITSANGANI-20261017: Claim FastAPI skeleton and frame endpoint for Adit
 
 Author: aditsangani · Task: CS-028

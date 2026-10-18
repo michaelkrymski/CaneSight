@@ -1,6 +1,6 @@
 """CS-027 opt-in same-process uploader integration with manual terminal input.
 
-No GPIO or audio output. Local primary-source unknown/hazard state preempts
+No GPIO. Audio requires explicit opt-in. Local primary-source unknown/hazard state preempts
 context. Each worker owns its locks; never hold the frame lock across button,
 policy, network, input or output calls.
 """
@@ -52,9 +52,11 @@ class ManualContext:
     narrator. start/read/emit injection exists for generated offline fixtures.
     """
     def __init__(self, session, priority, *, consent, ca_file=None, clock=clock_ms,
-                 client=None, emit=print):
+                 client=None, emit=print, audio=False, speech_sink=None, narration_factory=None):
         if consent is not True:
             raise ValueError('Explicit scene-sharing consent required')
+        if type(audio) is not bool or (not audio and (speech_sink is not None or narration_factory is not None)):
+            raise ValueError('Audio adapters require explicit audio opt-in')
         self._binding = {key: session[key] for key in ('session_id', 'source_id', 'boot_id', 'mode')}
         self._client = client if client is not None else ContextClient(session, ca_file=ca_file)
         self._priority = priority
@@ -70,7 +72,43 @@ class ManualContext:
         self._shown = 0
         self._stop = threading.Event()
         self._thread = self._input_thread = None
-        self.button = ContextButton(self.latest, self._client.start, clock=clock)
+        self._audio = audio
+        self._narration = self._speech = None
+        self.button = None
+        if audio:
+            try:
+                if narration_factory is None:
+                    from backend.context.consumer import ContextNarration
+                    narration_factory = ContextNarration
+                if speech_sink is None:
+                    from backend.context.pi_speech import EspeakSink
+                    speech_sink = EspeakSink()
+                self._speech = speech_sink
+                self._narration = narration_factory(self.latest, self._client, speech_sink,
+                    priority=self._audio_priority, consent=self._audio_consent, clock=clock)
+            except Exception:
+                if speech_sink is not None:
+                    try:
+                        speech_sink.close()
+                    except Exception:
+                        pass
+                raise RuntimeError('Context audio unavailable; check narration installation and Pi speech setup') from None
+        else:
+            self.button = ContextButton(self.latest, self._client.start, clock=clock)
+
+    def _audio_priority(self):
+        ready, _, hazard, _ = self._state()
+        return ready, hazard
+
+    def _audio_consent(self):
+        with self._lock:
+            return self._consent and not (self._closed or self._input_closed)
+
+    def _stop_request(self):
+        if self._narration is not None:
+            self._narration.cancel()  # Stops speech before network cancellation.
+        else:
+            self.button.cancel()
 
     def latest(self):
         with self._lock:
@@ -95,7 +133,10 @@ class ManualContext:
             if not self._camera:
                 self._frame = None
         if ready is not True:
-            self.button.set_state(ready=False, consent=False, hazard=True)
+            if self._narration is not None:
+                self._stop_request()
+            else:
+                self.button.set_state(ready=False, consent=False, hazard=True)
 
     def _state(self):
         with self._lock:
@@ -113,6 +154,9 @@ class ManualContext:
 
     def tick(self):
         ready, consent, hazard, level = self._state()
+        if self._narration is not None:
+            self._narration.sample(level)
+            return  # The narration bridge owns the sole request/button slot.
         self.button.set_state(ready=ready, consent=consent, hazard=hazard)
         self.button.sample(level)
         value = self.button.take_result()
@@ -158,7 +202,7 @@ class ManualContext:
     def cancel(self):
         with self._lock:
             self._level = False
-        self.button.cancel()
+        self._stop_request()
 
     def withdraw(self):
         with self._lock:
@@ -166,14 +210,18 @@ class ManualContext:
             self._input_closed = True
             self._level = False
             self._frame = None
-        self.button.set_state(ready=False, consent=False, hazard=True)
-        self.button.cancel()
+        if self.button is not None:
+            self.button.set_state(ready=False, consent=False, hazard=True)
+        self._stop_request()
 
     def start(self, stream):
         with self._lock:
             if self._thread is not None or self._closed:
                 raise ValueError('Start manual context once')
-        self.button.start()
+        if self._narration is not None:
+            self._narration.start()
+        else:
+            self.button.start()
         def monitor():
             try:
                 while not self._stop.wait(.02):
@@ -208,10 +256,12 @@ class ManualContext:
 
     def snapshot(self):
         with self._lock:
-            result = {'input_mode': 'manual-terminal', 'gpio_used': False, 'audio_used': False,
+            result = {'input_mode': 'manual-terminal', 'gpio_used': False,
+                      'audio_enabled': self._audio, 'audio_used': None if self._audio else False,
+                      'audio_delivery_verified': False,
                       'consent': self._consent, 'input_closed': self._input_closed,
                       'closed': self._closed, 'fault': self._fault, 'shown': self._shown}
-        result['button'] = self.button.snapshot()
+        result['button'] = self.button.snapshot() if self.button is not None else None
         return result
 
     def close(self):
@@ -220,7 +270,20 @@ class ManualContext:
             self._frame = None
             self._consent = False
             self._stop.set()
-        self.button.close()
+        if self._narration is not None:
+            try:
+                self._narration.close()
+            except Exception:
+                with self._lock:
+                    self._fault = 'Audio stop unavailable; inspect device'
+            finally:
+                try:
+                    self._speech.close()
+                except Exception:
+                    with self._lock:
+                        self._fault = 'Audio stop unavailable; inspect device'
+        else:
+            self.button.close()
         for thread in (self._thread, self._input_thread):
             if thread is not None and thread is not threading.current_thread():
                 thread.join(timeout=.1)
