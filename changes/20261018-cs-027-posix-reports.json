@@ -1,0 +1,9 @@
+{
+  "id": "CS-027-POSIX-REPORTS-20261018",
+  "date": "2026-10-18",
+  "author": "Mila (bondmila, AI-assisted)",
+  "task": "CS-027",
+  "summary": "Scope private context reports to POSIX and fail closed elsewhere",
+  "details": "Address Michael’s PR #58 changes request without weakening privacy: unsupported hosts reject report output before filesystem or GPIO/audio access; retain exclusive 0600/private-directory guards on POSIX. Mark five report-success tests POSIX-only, add portable rejection/no-side-effect tests, and document platform limits. Integrate accepted main including narration #41.",
+  "validation": "186 combined edge tests passed on macOS before accepted-main sync; native dependency and shared repository checks recorded in the handoff. Windows paths are simulated in portable regression tests, not actual Windows-host validation. No new hardware or deployment acceptance."
+}

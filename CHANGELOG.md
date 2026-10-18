@@ -226,6 +226,14 @@ Add opt-in press/release/cancel/off terminal input with original frame lineage, 
 
 Validation: 15 new tests passed, including actual spawned HTTPS delivery over generated local CA to accepted context route with fake provider. All 131 edge and 92 root tests passed. No physical device, public service, Gemini API, audio or electrical acceptance; PR #41 remains draft.
 
+## 2026-10-17 — CS-027-UPLOADER-AUDIO-BONDMILA-20261017: Wire explicit Pi narration opt-in into manual uploader
+
+Author: bondmila (AI-assisted) · Task: CS-027
+
+Add --context-audio gated by consented manual input. Use the CS-040 narration bridge instead of a second button/request loop; share original frame/session/clock and trusted camera/primary readiness. Cancel and close speech on manual/off/EOF/camera loss/shutdown. Text default never imports audio; missing dependency refuses activation. Draft depends on PR #41, which stays draft.
+
+Validation: 145 edge tests ran on main-based checkout: 140 passed and five narration-dependency skips. All 145 passed with exact draft #41 modules via external guarded runner; no dependency code copied. Generated HTTPS/provider/speech fixtures only; no Bluetooth, eSpeak audio, Gemini API or device acceptance. Checked publisher reruns shared checks.
+
 ## 2026-10-17 — CS-028-CLAIM-ADITSANGANI-20261017: Claim FastAPI skeleton and frame endpoint for Adit
 
 Author: aditsangani · Task: CS-028
@@ -825,6 +833,62 @@ Author: Gavin (gmarcialcalleja) · Task: CS-019
 Advance capture barriers before notifying consumers and after provider errors, preventing delayed pre-recovery fixes from restoring context. Record attributed earlier Apple builds without claiming current-head device or approved GPS transport acceptance.
 
 Validation: 15 portable Swift 6.0.3 Linux tests passed with complete strict concurrency and warnings as errors. Core Location/UIKit bodies excluded; contract, host integration and real-device gates remain.
+
+## 2026-10-18 — CS-027-CROSSING-MENU-BONDMILA-20261018: Implement merged crossing observation gesture component and synthetic bench
+
+Author: bondmila (AI-assisted) · Task: CS-027
+
+Follow accepted PR #71: deterministic thresholds/release barriers, no default/three-mode menu, cancel/expiry/source/epoch gates. Add explicit synthetic terminal/GPIO21 and silent/real-speech bench; no traffic observations, model requests or motor outputs. Existing uploader stays unchanged pending production bridge and trusted readiness.
+
+Validation: Virtual clock threshold/expiry/fault tests plus combined edge regressions and exact private-report silent CLI. Checked publishing runs shared checks. No new physical menu/audio or road-use test performed; see handoff for actual counts.
+
+## 2026-10-18 — CS-027-GPIO21-INPUT-BONDMILA-20261018: Connect reported GPIO21 button to gated context runtime
+
+Author: bondmila (AI-assisted) · Task: CS-027
+
+Use issue #68 active-high BCM21/no-pull wiring in explicit input-only opt-in. Preserve release-to-arm debounce, single request, cooldown and narration cancellation; fail closed on read error or stalled input. Add private raw input observation command and truthful input-use metadata; no motor GPIO or protected pin-map change.
+
+Validation: 164 combined edge tests pass with draft CS-040 modules, simulated GPIO and speech. Covers startup-held input, pending and speaking cancellation, stalled/failed reads, input cleanup, mutually exclusive CLI modes and private observer reports. No real GPIO or audio activated locally; checked publisher runs shared checks.
+
+## 2026-10-18 — CS-027-GPIO21-OPERATOR-EVIDENCE-BONDMILA-20261018: Record completed operator Pi GPIO21 input observation
+
+Author: bondmila (AI-assisted) · Task: CS-027
+
+Preserve exact pasted report from combined 6dfda42: initially LOW, seven press/release edge pairs, 2965 samples, complete. Keep raw-input observation separate from application request/audio/electrical acceptance; verification flags unchanged.
+
+Validation: Parsed report and checked counts/disabled subsystems; confirmed source commit contains the GPIO adapter. No new implementation or local hardware test. Checked publisher runs shared validation, tests, governance, changelog and whitespace.
+
+## 2026-10-18 — CS-027-MENU-OPERATOR-CONFIRMATION-20261018: Record operator menu confirmation for software checkpoint review
+
+Author: bondmila (AI-assisted) · Task: CS-027
+
+Operator reported the new GPIO21 spoken-menu sequence worked and explicitly declined pasting JSON. Preserve that provenance without inventing counters/timings/build SHA or additional case passes. Keep full integration and final acceptance gates explicit.
+
+Validation: Verified in-scope implementation matches last prepared 04f660b; preceding branch/combined test evidence remains separate. Checked publisher runs shared checks and exact-head CI is inspected before ready-for-review.
+
+## 2026-10-18 — CS-027-POSIX-REPORTS-20261018: Scope private context reports to POSIX and fail closed elsewhere
+
+Author: Mila (bondmila, AI-assisted) · Task: CS-027
+
+Address Michael’s PR #58 changes request without weakening privacy: unsupported hosts reject report output before filesystem or GPIO/audio access; retain exclusive 0600/private-directory guards on POSIX. Mark five report-success tests POSIX-only, add portable rejection/no-side-effect tests, and document platform limits. Integrate accepted main including narration #41.
+
+Validation: 186 combined edge tests passed on macOS before accepted-main sync; native dependency and shared repository checks recorded in the handoff. Windows paths are simulated in portable regression tests, not actual Windows-host validation. No new hardware or deployment acceptance.
+
+## 2026-10-18 — CS-027-PRIVATE-RUN-REPORT-BONDMILA-20261018: Save private context run diagnostics for Pi verification
+
+Author: bondmila (AI-assisted) · Task: CS-027
+
+Add optional exclusive metadata-only run report and allowlisted terminal status with sole narration-button counters when available. Preserve original readiness, consent and audio gates; do not infer physical delivery or phone/backend acceptance.
+
+Validation: 152 edge tests pass with updated CS-040 modules via external overlay, no skips. Report tests cover allowlisting, private/exclusive files, symlink refusal, startup failure, normal completion and status without a press. Checked publisher runs shared checks; actual Pi integration pending.
+
+## 2026-10-18 — CS-027-REVIEW-SYNC-20261018: Resolve generated changelog conflict before software checkpoint review
+
+Author: bondmila (AI-assisted) · Task: CS-027
+
+Synchronize accepted GPS checkpoint from main d1d8eb9 (GPS 94ccaaf plus CS-045 measurement analysis). Regenerate the conflicted log; menu, audio, GPIO, safety contracts and requirements unchanged. Await actual operator menu report without claiming a physical pass.
+
+Validation: 182 edge tests: 171 passed, 11 explicit draft narration/menu-audio dependency skips. Checked publisher runs shared validation, governance, changelog and whitespace checks; final CI inspected by exact head.
 
 ## 2026-10-18 — CS-040-FIXED-MENU-AUDIO-BONDMILA-20261018: Implement fixed menu speech with readiness and stale-event preemption
 
