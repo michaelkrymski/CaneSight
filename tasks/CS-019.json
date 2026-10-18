@@ -18,7 +18,7 @@
   "owner": "gmarcialcalleja",
   "status": "blocked",
   "branch": "task/CS-019-coarse-location",
-  "pr_url": null,
+  "pr_url": "https://github.com/michaelkrymski/CaneSight/pull/67",
   "evidence": [
     "Merged claim: https://github.com/michaelkrymski/CaneSight/pull/65",
     "ios/CoarseLocation: consent/authorization/foreground gate, rounded-only cache, original fix age and accuracy, <=1 Hz local context handoff, and Core Location adapter. 13 portable Swift tests passed with complete strict concurrency and warnings as errors using Swift 6.0.3 Linux.",
