@@ -898,6 +898,14 @@ Backend HTTPS recovered and actual phone health test passed. Add hosted phone st
 
 Validation: Signed physical-iOS build-for-testing succeeded; native authenticated test awaits fresh credentials and is not claimed passed. Five helper tests passed using synthetic packets/fake sockets, including reconnect sequence retention. Prior physical core/camera evidence stays separate. No automated Pi SSH runner or physical Pi test performed.
 
+## 2026-10-18 — CS-016-native-paired-20261018: Record real phone and Pi starting-heartbeat transport success
+
+Author: michaelkrymski · Task: CS-016
+
+Five starting heartbeats crossed two native WSS connections; real Pi operator reported all five in strict sequence order. Capture-age eligibility stays unknown; no camera, GPIO or guidance verification. Keep real-depth gates explicit.
+
+Validation: Physical iPhone native test: 1 passed, 0 failed/skipped. Pi final summary operator-reported; no independent SSH inspection. Shared checks run by checked publisher.
+
 ## 2026-10-18 — CS-016-PHONE-HOST-20261018: Host telemetry tests on the physical iPhone and sample live depth timestamps
 
 Author: michaelkrymski (AI-assisted) · Task: CS-016
