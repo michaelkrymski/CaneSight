@@ -164,9 +164,10 @@ with GPIOOutput(left_bcm=verified_left, right_bcm=verified_right, active_high=Tr
         pass
 ```
 
-The current CS-024 policy intentionally rejects nonsimulated outputs. Live
-phone-policy-to-GPIO wiring belongs to the separate CS-025 integration task;
-this adapter/bench command does not enable it implicitly.
+The CS-025 policy integration accepts this adapter only with explicit GPIO
+opt-in, a live enrolled phone binding, configured drift bound and the attached
+same-clock watchdog. See [POLICY.md](POLICY.md). This adapter/bench command does
+not enable that integration implicitly.
 
 Developer checks (no GPIO package or Pi required):
 
