@@ -19,7 +19,7 @@
   "owner": "aditsangani",
   "status": "blocked",
   "branch": "task/CS-037-signal-parser",
-  "pr_url": null,
+  "pr_url": "https://github.com/michaelkrymski/CaneSight/pull/79",
   "evidence": [
     "handoffs/CS-037-schematic-parser-20261017.md",
     "qa/vision/signal-parser-replay-20261017.json",
@@ -29,7 +29,8 @@
     "qa/vision/scenario-adapters-validation-20261018.json",
     "Explicit isolated local replay adapters for pedestrian signal, yellow beacon and unsignalized street; original pixel parser preserved. Bounded annotation-only alternation/image displacement, epoch/selection/clock/age fencing and fail-closed night/motion/occlusion handling. Live capabilities all false.",
     "80 vision tests passed on Windows/Python 3.14.3, including 22 scenario and 5 inert-artifact regressions. Artifact hash/provenance inspection does not deserialize models, validate referenced evaluations or enable live inference.",
-    "handoffs/CS-037-scenario-adapters-aditsangani-20261018.md"
+    "handoffs/CS-037-scenario-adapters-aditsangani-20261018.md",
+    "Software follow-up PR #79: 7b2189df99bd7d6a3b86568cbd690b009a6e645c; 80 explicit vision tests passed, shared 195 ran with 188 passed and 7 platform skips. Ready for independent checkpoint review; full task Blocked."
   ],
   "blocker": "Scenario replay adapters and local artifact identity inspector prepared for software review. Full acceptance requires CS-036 licensed real-scene data/trusted custom artifacts and CS-038 held-out evaluation, real detector/digit/beacon/vehicle adapters with verified source timing and camera-motion handling, and separately reviewed menu/provider integration. All live capabilities remain unavailable; no training, model loading, production activation or physical acceptance claimed."
 }

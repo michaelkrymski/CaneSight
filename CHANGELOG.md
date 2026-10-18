@@ -970,6 +970,14 @@ Explicit pedestrian-signal, pedestrian-yellow-beacon and unsignalized-street sel
 
 Validation: 80 vision tests passed with 27 new scenario/artifact cases; no skips or failures. Original parser/evaluation cases retained. Checked publishing additionally runs repository/shared/changelog/governance/whitespace checks. No model training, real-scene accuracy, night or physical acceptance claimed.
 
+## 2026-10-18 — CS-037-SCENARIO-PR-LINK-ADITSANGANI-20261018: Record CS-037 scenario-adapter follow-up PR #79
+
+Author: aditsangani (AI-assisted) · Task: CS-037
+
+Link the published software checkpoint and actual checks in task runtime evidence. Full task remains blocked; no implementation, scope or ownership changes.
+
+Validation: Before first publication, all 80 vision tests passed and shared suite ran 195 with 188 passed, 7 platform skips, zero failures; repository/governance/changelog/whitespace checks passed. Current-head CI inspected after metadata publication.
+
 ## 2026-10-18 — CS-040-FIXED-MENU-AUDIO-BONDMILA-20261018: Implement fixed menu speech with readiness and stale-event preemption
 
 Author: bondmila (AI-assisted) · Task: CS-040
