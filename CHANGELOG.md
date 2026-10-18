@@ -586,6 +586,46 @@ Assignment only. Implementation waits for Michael to merge this claim. Requireme
 
 Validation: Repository structure, shared unit tests, changelog consistency and whitespace checked by publish_task.py before commit. No hardware or Gemini API tests performed.
 
+## 2026-10-17 — CS-040-CLOCK-REVERSAL-BONDMILA-20261017: Cancel narration on clock reversal or clock failure
+
+Author: bondmila (AI-assisted) · Task: CS-040
+
+Track the highest clock reading across begin/delivery/tick and cancellation. Stop audio and invalidate pending tickets on backward, failed, nonfinite or invalid clock reads. Recovery cannot revive old tickets. PR #41 remains draft with synthetic speech adapter and unfinished integration.
+
+Validation: Five new regression methods reproduced failures on the original implementation; all 20 narration tests pass after the fix. Checked publisher reruns repository/root tests/changelog/whitespace checks. No physical audio or device acceptance.
+
+## 2026-10-17 — CS-040-NARRATION-GATE-BONDMILA-20261017: Add restricted narration and local cancellation/priority gate
+
+Author: bondmila (AI-assisted) · Task: CS-040
+
+Render only uncertain short descriptions from closed object labels; suppress stale, cancelled, superseded and duplicate responses. Hazard/unavailable policy preempts audio. Component-only checkpoint; provider, button and accessible audio integration remain dependencies. No shared protocol, hardware or permission policy changes.
+
+Validation: 15 isolated context tests passed; repository/shared tests and changelog validation run through checked publishing. No live Gemini/device test claimed.
+
+## 2026-10-17 — CS-040-PI-NARRATION-BRIDGE-BONDMILA-20261017: Compose local context narration and add cancellable Pi speech adapter
+
+Author: bondmila (AI-assisted) · Task: CS-040
+
+Bind accepted button/client replies to same-clock capture-based speech tickets; independent priority/consent/expiry/manual cancellation. Add opt-in eSpeak NG sink for selected Pi system output, bounded template stdin, one owned process group, kill/reap and failure latch. User selected Bluetooth speaker; no automatic routing or activation. Keep PR #41 draft pending installation/device evidence.
+
+Validation: 60 context tests and 132 edge tests passed. Includes real spawned HTTPS delivery to local accepted context route with generated CA/JPEG/fake provider/synthetic sink; actual synthetic executable stdin/replacement/kill/reap and failure tests. Publisher reruns shared checks. No actual eSpeak/audio/Bluetooth, Gemini API or electrical acceptance.
+
+## 2026-10-17 — CS-040-PI-SPEAKER-OPERATOR-EVIDENCE-BONDMILA-20261017: Record operator-reported Pi speaker cancellation bench results
+
+Author: bondmila (AI-assisted), operator-supplied evidence · Task: CS-040
+
+Preserve one incomplete and one completed report at pinned combined #41/#58 commit 9607f76. All 15 synthetic speaker cases passed software and operator observations with no timer fault. Update runtime blocker to remaining PM review, Bluetooth disconnect/reconnect and full phone/backend integration. Preserve false physical acceptance and no Done claim.
+
+Validation: Parsed report structure and verified 15 unique cases, three repetitions of each expected case, all software/operator passes and explicit synthetic/no phone/backend/Gemini/GPIO flags. Checked publisher reruns shared repository checks. Agent did not access Pi audio; software stop timing is not audible latency.
+
+## 2026-10-17 — CS-040-SYNTHETIC-SPEAKER-BENCH-BONDMILA-20261017: Add explicit synthetic Pi speaker and cancellation bench
+
+Author: bondmila (AI-assisted) · Task: CS-040
+
+Exercise actual eSpeak sink and narration gate with synthetic labels, priorities and capture deadlines. Record human audible observations separately from software stop timing in exclusive private report; no network/phone/camera/Gemini/GPIO or physical acceptance inference. Operator reported speaker playback; remaining device/full-integration gates remain explicit. Prepare isolated test-only combination with #58, without merging either PR to main.
+
+Validation: Seven new bench tests include full CLI with real adapter and silent executable, actual kill/reap, independent expiry, failed/unknown observations, interruption cleanup and private report rules. Context/root checks run before checked publishing; combined checkout separately tested. No audible Pi or device acceptance claimed.
+
 ## 2026-10-17 — CS-041-CLAIM-GMARCIALCALLEJA-20261017: Claim session-health dashboard for Gavin
 
 Author: Gavin (gmarcialcalleja) · Task: CS-041
@@ -737,6 +777,70 @@ Author: Gavin (gmarcialcalleja) · Task: CS-019
 Advance capture barriers before notifying consumers and after provider errors, preventing delayed pre-recovery fixes from restoring context. Record attributed earlier Apple builds without claiming current-head device or approved GPS transport acceptance.
 
 Validation: 15 portable Swift 6.0.3 Linux tests passed with complete strict concurrency and warnings as errors. Core Location/UIKit bodies excluded; contract, host integration and real-device gates remain.
+
+## 2026-10-18 — CS-040-FIXED-MENU-AUDIO-BONDMILA-20261018: Implement fixed menu speech with readiness and stale-event preemption
+
+Author: bondmila (AI-assisted) · Task: CS-040
+
+Follow merged PR #71 with closed disclaimer/selection/confirmation/cancellation phrases, explicit route readiness/priority, epoch/generation binding, expiry and fault latch. Keep production request/route integration and physical evidence open; no provider prose, traffic inference or stale replay.
+
+Validation: 78 context tests pass, including five new fixed phrase/readiness/epoch/expiry/fault tests. Combined synthetic bench tests are reported by CS-027. Checked publishing runs shared checks; no new actual audio or device test performed.
+
+## 2026-10-18 — CS-040-HARDWARE-68-HANDOFF-BONDMILA-20261018: Reconcile narration readiness with Michael hardware handoff #68
+
+Author: bondmila (AI-assisted) · Task: CS-040
+
+Record installed GPIO21 button, reported camera and speaker availability while preserving prior synthetic speaker evidence. Keep full context/audio and phone-depth gates open; motor integration and accessible controls remain with their owners. No protected baseline changes.
+
+Validation: Read issue #68 and author identity via GitHub. Existing 71 context tests passed for current code; documentation/runtime update only. Checked publisher runs shared checks; no new hardware or audible test claimed.
+
+## 2026-10-18 — CS-040-MANUAL-CANCEL-OPERATOR-EVIDENCE-BONDMILA-20261018: Record passing focused Pi manual cancellation observation
+
+Author: bondmila (AI-assisted) · Task: CS-040
+
+Preserve the manual-only report at combined beb0d9d: software and operator checks passed, 3.788ms software stop call. Keep prior mixed runs intact, distinguish subset success from full acceptance, and retain speech clarity and phone/backend gates.
+
+Validation: Parsed exact supplied report and checked subset identity, positive results and disabled subsystem/acceptance flags; verified source commit exists. No new implementation or agent hardware/audio test. Checked publisher runs shared checks.
+
+## 2026-10-18 — CS-040-MENU-CLOCK-READINESS-BONDMILA-20261018: Return unavailable immediately for menu update clock failure
+
+Author: bondmila (AI-assisted) · Task: CS-040
+
+Include the fault latched by the internal expiry tick in the readiness return. Preserve the existing failure latch and reject entry after failure.
+
+Validation: Regression injects a clock exception between the initial update read and internal tick; all 79 context tests pass. No actual audio or hardware test.
+
+## 2026-10-18 — CS-040-MENU-OPERATOR-CONFIRMATION-20261018: Record operator menu confirmation for software checkpoint review
+
+Author: bondmila (AI-assisted) · Task: CS-040
+
+Operator reported the new GPIO21 spoken-menu sequence worked and explicitly declined pasting JSON. Preserve that provenance without inventing counters/timings/build SHA or additional case passes. Keep full integration and final acceptance gates explicit.
+
+Validation: Verified in-scope implementation matches last prepared 04f660b; preceding branch/combined test evidence remains separate. Checked publisher runs shared checks and exact-head CI is inspected before ready-for-review.
+
+## 2026-10-18 — CS-040-RECOVERY-REPORTS-MANUAL-DIAGNOSTIC-BONDMILA-20261018: Preserve mixed Pi recovery evidence and isolate manual audibility test
+
+Author: bondmila (AI-assisted) · Task: CS-040
+
+Record two distinct operator report payloads without changing negative/unknown results: later reconnect silence and fresh speech passed, manual case remains negative. Add explicit manual-only diagnostic subset without production changes or hidden warmup/retry. Keep PR draft and physical acceptance flags false.
+
+Validation: 73 context tests pass, including manual subset and no/unknown observations plus incompatible flag rejection. Parsed supplied reports and confirmed original build identity; no agent audio/SSH observation. Checked publisher runs shared validation and tests.
+
+## 2026-10-18 — CS-040-REVIEW-SYNC-20261018: Resolve generated changelog conflict before software checkpoint review
+
+Author: bondmila (AI-assisted) · Task: CS-040
+
+Synchronize accepted GPS checkpoint from main d1d8eb9 (GPS 94ccaaf plus CS-045 measurement analysis). Regenerate the conflicted log; menu, audio, GPIO, safety contracts and requirements unchanged. Await actual operator menu report without claiming a physical pass.
+
+Validation: 79 context tests passed. Checked publisher runs shared validation, governance, changelog and whitespace checks; final CI inspected by exact head.
+
+## 2026-10-18 — CS-040-SPEAKER-RECOVERY-BONDMILA-20261018: Prepare operator-guided Bluetooth cancellation and fresh-request recovery test
+
+Author: bondmila (AI-assisted) · Task: CS-040
+
+Extend opt-in speaker bench with disconnect, unavailable cancellation, reconnect silence and fresh-ticket observations. Expose sanitized consumer request counts for CS-027 runtime reports; preserve draft status and prior operator evidence.
+
+Validation: 71 context tests pass, including silent recovery/no-or-unknown/interrupted input regressions and consumer diagnostics. No actual Bluetooth recovery or full phone/backend run claimed; checked publisher runs shared checks.
 
 ## 2026-10-18 — CS-042-LIVE-TIGER-PROVISIONING-20261018: Provision real Tiger Data event storage and prepare reviewed rollout
 

@@ -1,0 +1,24 @@
+{
+  "task": "CS-040",
+  "reported_date": "2026-10-18",
+  "provenance": "Human operator confirmed the requested new GPIO21 spoken-menu sequence was run, then instructed: skip paste. it worked.",
+  "operator_statement": "skip paste. it worked",
+  "operator_reported_working": true,
+  "scope_of_prompt": [
+    "three-second menu entry",
+    "short press cycling",
+    "one-second confirmation",
+    "new press cancellation"
+  ],
+  "per_case_results": null,
+  "reported_build_commit": null,
+  "json_report_supplied": false,
+  "audible_timing_measured": false,
+  "agent_observed_hardware": false,
+  "physical_audio_accepted": false,
+  "limitations": [
+    "No per-case counters, timing measurements, exact tested SHA or independent clarity assessment supplied.",
+    "No pass claimed for additional timeout, loss/reconnect, road-use, model accuracy or full phone/backend cases.",
+    "In-scope menu implementation matches last prepared combined checkout 04f660b; no rerun requested for log-only synchronization."
+  ]
+}
