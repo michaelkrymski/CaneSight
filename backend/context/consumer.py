@@ -123,6 +123,12 @@ class ContextNarration:
             self._thread.start()
         return self
 
+    def snapshot(self):
+        """Sanitized software diagnostics only; never evidence of audible output."""
+        with self._lock:
+            return {'closed': self._closed, 'result_delivered': self._delivered,
+                    'audio_delivery_verified': False, 'button': self._button.snapshot()}
+
     def close(self):
         with self._lock:
             self._closed = True

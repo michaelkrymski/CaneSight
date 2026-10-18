@@ -184,3 +184,35 @@ software; this is not a main/PR merge or release. The speaker bench itself check
 full phone/backend integration remain unverified; neither is fabricated as a
 pass by this command. Record separate speaker disconnect/reconnect observations
 before claiming that case. No speaker identities or credentials are written.
+
+
+## Pi Bluetooth recovery follow-up (CS-040)
+
+The earlier three-round operator run at combined commit `9607f76` passed 15
+synthetic speaker cases; it did not test disconnect/reconnect. With the updated
+combined test checkout and speaker selected as the same Pi user, run:
+
+```sh
+results_dir=$(mktemp -d "$HOME/canesight-speaker-recovery.XXXXXX")
+python3 -m backend.context.speaker_bench --speak --repetitions 1 \
+  --interrupt-after 1 --bluetooth-recovery --output "$results_dir/run.json"
+cat "$results_dir/run.json"
+```
+
+First complete the five existing cancellation/expiry cases. For recovery, follow
+the prompts: disconnect during an audible sentence, report the observation, then
+reconnect/select the output using the Pi audio controls. The controller marks
+output unavailable and cancels before waiting for reconnection. Confirm silence
+with no old sentence returning. Only affirmative observations allow a new ticket
+and fresh sentence. Answer `n` or `u` if unsure; no/unknown never passes. Ctrl+C or
+EOF stops owned speech and writes an incomplete report. No pairing, routing or
+volume changes are made by the script. Keep a local means of stopping playback.
+
+The report records operator observations separately from software checks.
+`bluetooth_disconnect_reconnect_verified` and `physical_audio_accepted` remain
+false for PM review; software cannot detect the actual Bluetooth route or measure
+an audible buffered tail. The explicit operator-reported unavailable transition
+is not automatic OS route-loss detection. If eSpeak fails, restart only after
+inspection; the sink intentionally does not clear a fault or replay old speech.
+This uses synthetic labels/capture/priority, with no camera, phone, network,
+backend request, Gemini or GPIO. Full phone/backend verification remains open.

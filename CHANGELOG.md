@@ -50,6 +50,46 @@ Add closed versioned message schema, six replay fixtures, reference validation/c
 
 Validation: 34 repository/contract tests pass, including duplicate/order/epoch/session/mode handling, unknown fields, nonfinite and oversize input, clock bounds, frame lineage and heartbeat-independent expiry. Structural validation, generated log and whitespace checks pass. Current-head GitHub CI is verified separately; PM/collaborator acceptance remains required.
 
+## 2026-10-17 — CS-014-CLAIM-ADITSANGANI-20261017: Request CS-014 assignment for depth-sector software preparation
+
+Author: aditsangani (AI-assisted) · Task: CS-014
+
+Claim only, from main 18884a5914e8f0476a2877a9c63ff37a24291306. Human requests coding confidence-aware depth sectors now and deferring Xcode/Mac/device verification. Scope is CS-014 numerical filtering, confidence/coverage, percentile aggregation, unknown values, source timestamps and synthetic test inputs within ios/ and tests/ios/. CS-013 remains an unchanged prerequisite; physical support/signing, ARKit build, orientation/mount acceptance and real-device accuracy are not claimed. Implementation waits for Michael to merge this assignment.
+
+Validation: Checked publishing runs repository validation, shared unit tests, generated changelog consistency and whitespace checks. No Swift build, Xcode, iOS simulator or device tests are claimed by this assignment.
+
+## 2026-10-17 — CS-016-CLAIM-BONDMILA-20261017: Request CS-016 bounded phone telemetry assignment
+
+Author: bondmila (AI-assisted) · Task: CS-016
+
+Assignment-only proposal after confirming accepted main has no owner and no matching open claim PR. Preserve task requirements/dependencies/allowed paths. Implementation waits for merged ownership; depth producer CS-014 and physical phone evidence are pending. No telemetry or device completion claim.
+
+Validation: Checked publishing runs repository validation, root tests, governance, generated changelog and whitespace checks. No task implementation or physical-phone test performed.
+
+## 2026-10-17 — CS-017-CLAIM-GMARCIALCALLEJA-20261017: Claim AR interruption and app suspension handling for Gavin
+
+Author: Gavin (gmarcialcalleja) · Task: CS-017
+
+Propose gmarcialcalleja as owner of CS-017, preserving its requirements, CS-016 dependency and ios/tests-ios scope. Implementation waits for Michael to merge this claim. After assignment, software implementation and fixture tests can proceed while Xcode build, ARKit integration and physical-device verification remain explicitly pending. CS-016 is not yet implemented; no iOS, Pi or hardware acceptance is claimed.
+
+Validation: Claim metadata only. Checked publishing runs repository structure validation, shared tests, generated changelog validation and staged whitespace checks; actual results are recorded in the claim PR. No Xcode, Swift, ARKit or device tests claimed.
+
+## 2026-10-17 — CS-018-CLAIM-ADITSANGANI-20261017: Request CS-018 assignment for accessible status and manual audio cancel
+
+Author: aditsangani (AI-assisted) · Task: CS-018
+
+Claim only, from main ae449acb1bea251c360833a0863ec014d1f7feff. Human authorized CS-018 software preparation: explicit unknown/disconnected status, large accessible controls, VoiceOver labels and manual audio cancellation within ios/ and tests/ios/. CS-017 remains an unchanged prerequisite; coordinate integration with its owner. Cancellation UI will expose an integration action without taking over CS-040 narration implementation. Xcode builds, XCTest execution, VoiceOver and physical-device verification remain pending access to a Mac and phone. Implementation waits for Michael to merge this assignment.
+
+Validation: Checked publishing runs repository validation, shared unit tests, generated changelog consistency and whitespace checks. This assignment contains no implementation and claims no Swift, simulator, VoiceOver or device test results.
+
+## 2026-10-17 — CS-019-CLAIM-GMARCIALCALLEJA-20261017: Claim consented coarse GPS telemetry for Gavin
+
+Author: Gavin (gmarcialcalleja) · Task: CS-019
+
+Propose gmarcialcalleja ownership and in_progress on a dedicated claim branch. Preserve acceptance, CS-016 dependency and ios/tests-ios scope. Implementation waits for Michael to merge ownership. No GPS implementation, Xcode/device verification or precise location data included.
+
+Validation: Assignment metadata only; checked publishing runs repository structure, shared unittest discovery, generated changelog and staged whitespace checks. Actual results are reported in the claim PR; no GPS/device tests claimed.
+
 ## 2026-10-17 — CS-021-CS-022-MICHAEL-CLAIM-20261017: Assign Pi capture and latest-only uploader work to Michael
 
 Author: michaelkrymski (AI-assisted) · Task: CS-021, CS-022
@@ -562,6 +602,14 @@ Bind accepted button/client replies to same-clock capture-based speech tickets; 
 
 Validation: 60 context tests and 132 edge tests passed. Includes real spawned HTTPS delivery to local accepted context route with generated CA/JPEG/fake provider/synthetic sink; actual synthetic executable stdin/replacement/kill/reap and failure tests. Publisher reruns shared checks. No actual eSpeak/audio/Bluetooth, Gemini API or electrical acceptance.
 
+## 2026-10-17 — CS-040-PI-SPEAKER-OPERATOR-EVIDENCE-BONDMILA-20261017: Record operator-reported Pi speaker cancellation bench results
+
+Author: bondmila (AI-assisted), operator-supplied evidence · Task: CS-040
+
+Preserve one incomplete and one completed report at pinned combined #41/#58 commit 9607f76. All 15 synthetic speaker cases passed software and operator observations with no timer fault. Update runtime blocker to remaining PM review, Bluetooth disconnect/reconnect and full phone/backend integration. Preserve false physical acceptance and no Done claim.
+
+Validation: Parsed report structure and verified 15 unique cases, three repetitions of each expected case, all software/operator passes and explicit synthetic/no phone/backend/Gemini/GPIO flags. Checked publisher reruns shared repository checks. Agent did not access Pi audio; software stop timing is not audible latency.
+
 ## 2026-10-17 — CS-040-SYNTHETIC-SPEAKER-BENCH-BONDMILA-20261017: Add explicit synthetic Pi speaker and cancellation bench
 
 Author: bondmila (AI-assisted) · Task: CS-040
@@ -641,4 +689,12 @@ Author: Gavin (gmarcialcalleja) · Task: CS-045
 Assignment runtime only. After merged ownership, prepare bounded validation/statistics tools with explicit clock uncertainty, provenance and sample-count gates. Synthetic values do not count as real latency/distance acceptance; no Pi/camera/GPIO access.
 
 Validation: Verified accepted task unclaimed and no competing open claim. Checked publishing runs repository/shared/changelog/whitespace checks. No measurement implementation or real-device evidence included.
+
+## 2026-10-18 — CS-040-SPEAKER-RECOVERY-BONDMILA-20261018: Prepare operator-guided Bluetooth cancellation and fresh-request recovery test
+
+Author: bondmila (AI-assisted) · Task: CS-040
+
+Extend opt-in speaker bench with disconnect, unavailable cancellation, reconnect silence and fresh-ticket observations. Expose sanitized consumer request counts for CS-027 runtime reports; preserve draft status and prior operator evidence.
+
+Validation: 71 context tests pass, including silent recovery/no-or-unknown/interrupted input regressions and consumer diagnostics. No actual Bluetooth recovery or full phone/backend run claimed; checked publisher runs shared checks.
 
