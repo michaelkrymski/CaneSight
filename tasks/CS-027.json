@@ -3,7 +3,7 @@
   "title": "Add debounced context button",
   "category": "Pi Edge & Haptics",
   "priority": "P1",
-  "acceptance": "One outstanding request, cooldown, cancellation and rate limit.",
+  "acceptance": "One outstanding request, cooldown, cancellation and rate limit. Preserve the consented short-release context request in idle. Hold 3000 ms opens a spoken three-scenario menu once; menu short-release cycles, a new 1000 ms hold confirms, and release barriers prevent double dispatch. No default selection; 15 s inactivity closes. In active mode a new debounced press cancels immediately. Audio/source loss and epoch change cancel without automatic recovery. Follow docs/operations/CROSSING_ASSISTANCE.md.",
   "dependencies": [
     "CS-023",
     "CS-039"
@@ -15,7 +15,7 @@
   "trello_url": "https://trello.com/c/IMkH3qyh/27-p1-cs-027-add-debounced-context-button",
   "suggested_role": "Edge",
   "estimate_hours": 0.5,
-  "elapsed_window": "11\u201314",
+  "elapsed_window": "11–14",
   "owner": "bondmila",
   "status": "blocked",
   "branch": "task/CS-027-context-button",

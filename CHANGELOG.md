@@ -82,6 +82,22 @@ Implement a standalone Swift package with generation barriers, bounded pending d
 
 Validation: 10 Swift XCTest core cases passed using official Swift 6.0.3 Linux image with complete strict concurrency and warnings as errors; Apple SDK source/tests excluded. Root unittest discovery: 113 passed including 3 new receiver regressions. Checked publishing additionally runs structure, generated-log and whitespace checks. No physical device/electrical validation claimed.
 
+## 2026-10-17 — CS-018-CLAIM-ADITSANGANI-20261017: Request CS-018 assignment for accessible status and manual audio cancel
+
+Author: aditsangani (AI-assisted) · Task: CS-018
+
+Claim only, from main ae449acb1bea251c360833a0863ec014d1f7feff. Human authorized CS-018 software preparation: explicit unknown/disconnected status, large accessible controls, VoiceOver labels and manual audio cancellation within ios/ and tests/ios/. CS-017 remains an unchanged prerequisite; coordinate integration with its owner. Cancellation UI will expose an integration action without taking over CS-040 narration implementation. Xcode builds, XCTest execution, VoiceOver and physical-device verification remain pending access to a Mac and phone. Implementation waits for Michael to merge this assignment.
+
+Validation: Checked publishing runs repository validation, shared unit tests, generated changelog consistency and whitespace checks. This assignment contains no implementation and claims no Swift, simulator, VoiceOver or device test results.
+
+## 2026-10-17 — CS-019-CLAIM-GMARCIALCALLEJA-20261017: Claim consented coarse GPS telemetry for Gavin
+
+Author: Gavin (gmarcialcalleja) · Task: CS-019
+
+Propose gmarcialcalleja ownership and in_progress on a dedicated claim branch. Preserve acceptance, CS-016 dependency and ios/tests-ios scope. Implementation waits for Michael to merge ownership. No GPS implementation, Xcode/device verification or precise location data included.
+
+Validation: Assignment metadata only; checked publishing runs repository structure, shared unittest discovery, generated changelog and staged whitespace checks. Actual results are reported in the claim PR; no GPS/device tests claimed.
+
 ## 2026-10-17 — CS-021-CS-022-MICHAEL-CLAIM-20261017: Assign Pi capture and latest-only uploader work to Michael
 
 Author: michaelkrymski (AI-assisted) · Task: CS-021, CS-022
@@ -633,4 +649,12 @@ Author: Gavin (gmarcialcalleja) · Task: CS-045
 Assignment runtime only. After merged ownership, prepare bounded validation/statistics tools with explicit clock uncertainty, provenance and sample-count gates. Synthetic values do not count as real latency/distance acceptance; no Pi/camera/GPIO access.
 
 Validation: Verified accepted task unclaimed and no competing open claim. Checked publishing runs repository/shared/changelog/whitespace checks. No measurement implementation or real-device evidence included.
+
+## 2026-10-18 — CS-001-CROSSING-ASSISTANCE-20261018: Propose user-selected crossing observation menu and revised task acceptance
+
+Author: michaelkrymski (AI-assisted) · Task: CS-001
+
+Add a targeted master-plan subsection, implementation brief and CR for 3-second entry, spoken scenario cycling, 1-second confirmation, immediate active cancellation and three observation-only modes. Expand CS-027/036/037/038/039/040/044 acceptance without changing owners, runtime status, old evidence, protocols or deployed code. Vehicle temporal analysis remains new unverified work; Gemini remains restricted object description.
+
+Validation: Planning-only change. Repository validation, generated changelog consistency, whitespace and shared unit suite are checked before publication. No button/audio/vision implementation, training, live traffic, GPIO or physical acceptance claimed. Protected plan/task amendments require exact-head GitHub approval.
 
