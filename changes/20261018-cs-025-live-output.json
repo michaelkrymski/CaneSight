@@ -1,0 +1,9 @@
+{
+  "id": "CS-025-LIVE-OUTPUT-20261018",
+  "date": "2026-10-18",
+  "author": "gmarcialcalleja (AI-assisted)",
+  "task": "CS-025",
+  "summary": "Prepare live phone receiver-to-GPIO policy wiring for CS-016 integration",
+  "details": "Add explicit GPIO policy mode to the existing uploader with reviewed pins/polarity and a trusted phone/drift binding. Wire accepted receiver, capture-age gate, policy, scheduler, independent watchdog and GPIO adapter on one clock. Stop outputs before slow cleanup, preserve simulated defaults, and label traces with actual configured output mode. Existing context consent/priority remains compatible. No change to backend, wire contract, automatic deployment or physical readiness requirements.",
+  "validation": "9 synthetic/fake-pin GPIO policy/uploader cases passed; both verified-TLS phone-to-policy tests passed including real GPIO adapter with fake devices. Full edge suite ran 230 tests, OK with 8 Windows/platform skips. No hardware was accessed. CS-016 real phone integration and measured mapping/power/clock acceptance remain pending."
+}
