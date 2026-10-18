@@ -706,6 +706,54 @@ Add a targeted master-plan subsection, implementation brief and CR for 3-second 
 
 Validation: Planning-only change. Repository validation, generated changelog consistency, whitespace and shared unit suite are checked before publication. No button/audio/vision implementation, training, live traffic, GPIO or physical acceptance claimed. Protected plan/task amendments require exact-head GitHub approval.
 
+## 2026-10-18 — CS-013-DEVICE-INSTALL-20261018: Sign and install iPhone host while keeping team configuration local
+
+Author: michaelkrymski (AI-assisted) · Task: CS-013
+
+Developer Mode enabled and Apple account sign-in completed by the user. Personal Team signed build and physical phone installation succeeded. Optional ignored signing configuration keeps account/team metadata out of shared settings. First launch remains gated by explicit developer-app trust; no LiDAR/runtime completion is claimed.
+
+Validation: Signed iOS build and strict deep codesign verification passed; devicectl installation succeeded on iPhone 17 Pro Max / iOS 26.6.2. Published implementation checkpoint 3e9e781 had green repository/governance checks. Signing-only follow-up receives SDK build and checked publishing. Prior 64 Swift and four backend conformance tests are unchanged.
+
+## 2026-10-18 — CS-013-INTEGRATED-APP-20261018: Integrate portrait camera, accessible status, local speech and opt-in local GPS
+
+Author: michaelkrymski (AI-assisted) · Task: CS-013
+
+PM-authorized host integration uses exact unchanged module inputs. Add portrait image/depth/confidence and session side checks; captured display epochs; accessible large controls; one fixed local status utterance with synchronous cancellation; foreground-only coarse location off each launch and opt-out purge. No telemetry or GPS network path enabled.
+
+Validation: Signed app and actual phone suite: 5 passed/0 skipped; Simulator UI: 2 passed; strict Mac cases: 60 passed; current lifecycle native Simulator: 14 passed. One-time local GPS fix and opt-out observed without coordinates in evidence. Corrected real button hit-area bug, Debug simulator architecture, and test-only free-profile/knob targeting setup. Current shared checks run by publisher. Review only, no full-system or measured timing/accuracy claims.
+
+## 2026-10-18 — CS-013-PHONE-CHECKS-20261018: Record operator phone checks and prepare iPhone host for review
+
+Author: michaelkrymski (AI-assisted) · Task: CS-013
+
+Michael confirmed all three image-column distances updating except very close objects, then separately confirmed Stop clears values to Unknown and lock/background recovery waits for new frames. Local host ready for independent review; exact draft dependency inputs must be reviewed/accepted before main integration. Other task statuses, protected files and full-system gates unchanged.
+
+Validation: Human-reported observations retained in sanitized phone evidence. Prior signed build/install/launch and software tests remain valid for unchanged application code. Checked publisher reruns required shared checks. No measured sensor accuracy/timing, physical-side mapping, live telemetry or Done claim.
+
+## 2026-10-18 — CS-013-PHONE-PREVIEW-20261018: Record first physical iPhone local depth preview and successful launch
+
+Author: michaelkrymski (AI-assisted) · Task: CS-013
+
+After developer-app trust, Michael reported the live local preview status from the native depth-processing path on iPhone 17 Pro Max / iOS 26.6.2. A subsequent devicectl launch succeeded. First-launch trust is resolved. Numeric, stop and background/recovery checks are requested separately; no accuracy, clock, mapping, live telemetry or Done claim.
+
+Validation: Signed build, strict code-signature check, installation and subsequent launch succeeded. Operator-reported UI status retained in sanitized evidence. No source behavior changed; prior 64 Swift and four backend conformance tests remain valid. Checked publishing runs shared checks.
+
+## 2026-10-18 — CS-013-PM-CLAIM-20261018: Assign iPhone app build and support verification to Michael
+
+Author: michaelkrymski (AI-assisted) · Task: CS-013
+
+Assignment-only PM claim from accepted main 5dd5fa37009402b7eb7c9dbed3d20eacd4346c90. User authorized creating the Xcode host and resuming deferred Apple verification. Requirements, dependencies and allowed paths are unchanged. Implementation begins only after verifying the PM-authored claim PR.
+
+Validation: Assignment only; no app, signing, device, LiDAR or hardware acceptance claimed. Shared checks run by checked publishing.
+
+## 2026-10-18 — CS-013-XCODE-HOST-20261018: Build iPhone local depth host and verify deferred Swift packages with Xcode
+
+Author: michaelkrymski (AI-assisted) · Task: CS-013
+
+New SwiftUI iOS16+ host checks scene-depth support, requests camera permission and displays bounded local image-column depth. Epoch barriers, interruption invalidation and receipt-time UI expiry preserve unknowns. Pinned ignored review dependencies preserve draft PR source without modifying teammate tasks. Network/GPS/motors stay off. Initial PM claim PR #69 was author/diff verified before implementation.
+
+Validation: 59 package macOS XCTest cases, five host gate cases and four Swift/backend wire cases passed. Four package physical-iOS SDK builds and four iOS Simulator test-bundle builds passed. Unsigned host physical-iOS build passed. Simulator tests and physical phone/signing/clock/mapping/WSS acceptance remain pending; task blocked and PR draft. Checked publisher runs shared checks.
+
 ## 2026-10-18 — CS-017-CLEANUP-REENTRANCY-20261018: Fence lifecycle cleanup and latch clock-fault notifications
 
 Author: Gavin (gmarcialcalleja) · Task: CS-017

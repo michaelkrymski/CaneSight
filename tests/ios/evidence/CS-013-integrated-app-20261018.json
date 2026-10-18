@@ -1,0 +1,121 @@
+{
+  "task": "CS-013",
+  "date": "2026-10-18",
+  "base_commit": "e24279f9f4f62bfb602e43333936c0ca51136fad",
+  "preceding_host_commit": "88e2a14cd6fc2e6a368368cf72118c829382b4a4",
+  "device": {
+    "model": "iPhone 17 Pro Max",
+    "os": "26.6.2"
+  },
+  "phone_ui": {
+    "result": "Passed",
+    "totalTestCount": 5,
+    "passedTests": 5,
+    "failedTests": 0,
+    "skippedTests": 0
+  },
+  "simulator_ui": {
+    "result": "Passed",
+    "totalTestCount": 2,
+    "passedTests": 2,
+    "failedTests": 0,
+    "skippedTests": 0
+  },
+  "current_lifecycle_simulator": {
+    "result": "Passed",
+    "totalTestCount": 14,
+    "passedTests": 14,
+    "failedTests": 0,
+    "skippedTests": 0
+  },
+  "strict_mac_tests": {
+    "lifecycle": 12,
+    "coarse_location": 15,
+    "accessible_status": 17,
+    "mount_mapping": 11,
+    "preview_state": 5,
+    "total": 60,
+    "failures": 0
+  },
+  "location_observation": {
+    "one_time_permission_tested": true,
+    "coarse_fix_available_observed": true,
+    "opt_out_clears_displayed_quality": true,
+    "coordinates_recorded": false,
+    "network_enabled": false
+  },
+  "audio_observation": {
+    "fixed_status_requested": true,
+    "local_cancel_hook_observed": true,
+    "sink_failure_result_propagated": true,
+    "audible_stop_latency_measured": false,
+    "voiceover_listening_verified": false
+  },
+  "new_features": [
+    "portrait live camera and confidence-aware depth display",
+    "session-only side-check workflow",
+    "accessible status/large controls",
+    "fixed on-device status speech with cancellation",
+    "foreground opt-in local coarse location"
+  ],
+  "local_results": [
+    "/tmp/canesight-integrated-phone-final.xcresult",
+    "/tmp/canesight-integrated-simulator-ui-v2.xcresult",
+    "/tmp/canesight-current-lifecycle-sim.xcresult"
+  ],
+  "review_inputs": [
+    {
+      "name": "MappingBench/ReviewDependencies/DepthSectors",
+      "pr": 62,
+      "commit": "5f73dbf33ba9b2395f27b429c22344d41fb6162a",
+      "path": "ios/DepthSectors"
+    },
+    {
+      "name": "Lifecycle",
+      "pr": 63,
+      "commit": "0a2e161ed399c7a850cd8ffcf6ed211ce4f2cbca",
+      "path": "ios/Lifecycle"
+    },
+    {
+      "name": "CaneSightTelemetry",
+      "pr": 64,
+      "commit": "0433fc94af1a1e3edfe2d2bb28925cb3be6df1ee",
+      "path": "ios/CaneSightTelemetry"
+    },
+    {
+      "name": "CoarseLocation",
+      "pr": 67,
+      "commit": "6f0266dea8d7326b7541e28d0a8b817a19689142",
+      "path": "ios/CoarseLocation"
+    },
+    {
+      "name": "AccessibleStatus",
+      "pr": 73,
+      "commit": "6ddb7fc4166eda69db5153025d29ceea164b315e",
+      "path": "ios/AccessibleStatus"
+    },
+    {
+      "name": "MountMapping",
+      "pr": 70,
+      "commit": "7538be25b53823f54e8992f2955a78759085d391",
+      "path": "ios/MountMapping"
+    }
+  ],
+  "limits": [
+    "Telemetry/enrollment/network credentials absent; capture clock still unverified.",
+    "No location wire contract or remote GPS publisher enabled.",
+    "No final cane/grip/motor mapping, range/latency calibration or floor/drop classification.",
+    "No inferred nonzero background counter reset, VoiceOver audible focus assessment or physical speaker buffering measurement."
+  ],
+  "source_sha256": {
+    "ios/CaneSightApp/CaneSight.xcodeproj/project.pbxproj": "327b4c5f4b57746f4e998ca02df542f91b459e70557081f8141100aa897ef6bf",
+    "ios/CaneSightApp/CaneSight.xcodeproj/xcshareddata/xcschemes/CaneSight.xcscheme": "b33fcd378f539cdcf43d85fb2d5170c92dbeb77647aff75a738683536f5b0c11",
+    "ios/CaneSightApp/PrivacyInfo.xcprivacy": "66399c68b4a904b6788b8b2edf9ec293807ac0060b011c177bf8663e1809f38b",
+    "ios/CaneSightApp/ReviewDependencies.json": "744d6ec895463e81e3900b97966768a09a18ef85aebcf6b6a3669058c40c8b65",
+    "ios/CaneSightApp/Sources/AppServices.swift": "a13fd112e3aaab43ba5b13c2e152f5bbeec9584d85d4b97a8d25f270341ebe31",
+    "ios/CaneSightApp/Sources/CameraController.swift": "a89f1cea468926b8c5d3f713b4443ffd9d474c4801be59e614bbae5c45d53bf2",
+    "ios/CaneSightApp/Sources/CaneSightApp.swift": "62e714a797fd526f678cf85521a56c8cdf55512822e89eb6354f6cc574977ca6",
+    "ios/CaneSightApp/Sources/ContentView.swift": "704d9f7ff844d3febdd7321b33aa9e5a9016ded3a3bc5f6e6f0ab1a413f5dd52",
+    "ios/CaneSightApp/UITests/HostUITests.swift": "9fb7800194b0aecef9f7986732754910b34ed1107ba7d32ef5ceb33fb1cf9507"
+  }
+}
