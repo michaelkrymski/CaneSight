@@ -554,6 +554,14 @@ Bind accepted button/client replies to same-clock capture-based speech tickets; 
 
 Validation: 60 context tests and 132 edge tests passed. Includes real spawned HTTPS delivery to local accepted context route with generated CA/JPEG/fake provider/synthetic sink; actual synthetic executable stdin/replacement/kill/reap and failure tests. Publisher reruns shared checks. No actual eSpeak/audio/Bluetooth, Gemini API or electrical acceptance.
 
+## 2026-10-17 — CS-040-SYNTHETIC-SPEAKER-BENCH-BONDMILA-20261017: Add explicit synthetic Pi speaker and cancellation bench
+
+Author: bondmila (AI-assisted) · Task: CS-040
+
+Exercise actual eSpeak sink and narration gate with synthetic labels, priorities and capture deadlines. Record human audible observations separately from software stop timing in exclusive private report; no network/phone/camera/Gemini/GPIO or physical acceptance inference. Operator reported speaker playback; remaining device/full-integration gates remain explicit. Prepare isolated test-only combination with #58, without merging either PR to main.
+
+Validation: Seven new bench tests include full CLI with real adapter and silent executable, actual kill/reap, independent expiry, failed/unknown observations, interruption cleanup and private report rules. Context/root checks run before checked publishing; combined checkout separately tested. No audible Pi or device acceptance claimed.
+
 ## 2026-10-17 — CS-041-CLAIM-GMARCIALCALLEJA-20261017: Claim session-health dashboard for Gavin
 
 Author: Gavin (gmarcialcalleja) · Task: CS-041

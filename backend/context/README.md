@@ -142,3 +142,45 @@ speaker. Bluetooth/OS buffering can outlast process termination; cancellation is
 best effort until measured on that device. Do not claim instant physical silence
 or prevent a higher-priority cue based solely on this software test. No pairing
 credentials, Bluetooth addresses, recordings or images are committed.
+
+## Synthetic Pi speaker/cancellation bench
+
+`python3 -m backend.context.speaker_bench --speak --repetitions 3` uses the actual
+Pi eSpeak sink with fixed synthetic labels, capture times and priority events.
+It requires only the standard Python library and installed eSpeak NG; no phone,
+camera, provider, network, API credential or GPIO is used. Run as the normal Pi
+audio user with the already selected Bluetooth output; the bench does not change
+routing or volume. The operator reported Bluetooth/eSpeak playback working, but
+this is not yet evidence for the adapter's audible cancellation behavior.
+
+Cases repeat manual cancellation, synthetic hazard, synthetic unavailable,
+independent capture expiry (a synthetic seven-second-old capture leaves about
+one second), and suppression of an expired result. The first three interrupt
+a fixed sentence after one second; `--interrupt-after 1.5` may be used if startup
+is slower. Answer each audible observation with `y`, `n` or `u` (unknown). These
+are human observations; software process status cannot establish audible stop.
+Ctrl+C/EOF stops the owned speech process and marks the run incomplete.
+
+To retain a new private report outside the repository:
+
+```sh
+bench_dir=$(mktemp -d "$HOME/canesight-speaker-bench.XXXXXX")
+python3 -m backend.context.speaker_bench --speak --repetitions 3 \
+  --interrupt-after 1 --output "$bench_dir/results.json"
+```
+
+The JSON includes the tested Git commit, synthetic-input flags, per-case software
+checks and operator answers. `stop_call_ms` measures the local stop call, and
+`timer_stop_after_deadline_ms` measures software timer overshoot; neither measures
+speaker latency or buffered audio. Note audible tail separately without claiming
+an unmeasured duration. Reports are exclusive/new, mode 0600 in a private parent;
+existing files and checkout paths are refused. Exit 0 requires software checks
+and all operator answers yes; exit 2 means failed/unknown evidence, and Ctrl+C/EOF
+is incomplete. Physical acceptance remains false until independent PM review.
+
+Use a separate test-only checkout containing #41 and #58 to exercise the combined
+software; this is not a main/PR merge or release. The speaker bench itself checks
+#41's gate/sink, not live uploader sensing. Bluetooth disconnect/reconnect and
+full phone/backend integration remain unverified; neither is fabricated as a
+pass by this command. Record separate speaker disconnect/reconnect observations
+before claiming that case. No speaker identities or credentials are written.
