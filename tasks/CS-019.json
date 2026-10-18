@@ -17,13 +17,14 @@
   "elapsed_window": "11–14",
   "owner": "gmarcialcalleja",
   "status": "blocked",
-  "branch": "task/CS-019-coarse-location",
-  "pr_url": "https://github.com/michaelkrymski/CaneSight/pull/67",
+  "branch": "task/CS-019-sleep-clock",
+  "pr_url": null,
   "evidence": [
     "Merged claim: https://github.com/michaelkrymski/CaneSight/pull/65",
     "ios/CoarseLocation: consent/authorization/foreground gate, rounded-only cache, original fix age and accuracy, <=1 Hz local context handoff, and Core Location adapter. 13 portable Swift tests passed with complete strict concurrency and warnings as errors using Swift 6.0.3 Linux.",
     "decisions/CR-CS-019-location-context-contract.md proposes the required separate GPS contract; current accepted v1 protocol excludes GPS payloads. No network GPS publisher enabled.",
-    "2026-10-18 follow-up: 15 portable Swift tests passed; provider failure and reentrant recovery enforce new capture barriers. tests/ios/evidence/CS-019-recovery-20261018.json records source hashes and attributed earlier Apple build evidence from PR #69."
+    "2026-10-18 follow-up: 15 portable Swift tests passed; provider failure and reentrant recovery enforce new capture barriers. tests/ios/evidence/CS-019-recovery-20261018.json records source hashes and attributed earlier Apple build evidence from PR #69.",
+    "2026-10-18 sleep fix: LocationSystemClock uses ContinuousClock rather than awake uptime. 20 strict-concurrency Swift tests pass, including simulated sleep/recovery and real UTC-step rejection. tests/ios/evidence/CS-019-sleep-clock-20261018.json records exact tested source hashes; Apple/device and GPS transport acceptance remain pending."
   ],
-  "blocker": "Pending separately reviewed GPS wire contract/receiver and scope assignment, CS-016 host integration, current-head Apple build and real-device authorization/provider/lifecycle verification. PR #69 reports earlier pinned Apple builds; its phone preview has GPS sharing off. Local software prepared; end-to-end telemetry acceptance not claimed."
+  "blocker": "Sleep-clock software fix prepared and portable tests pass. Completion still requires separately reviewed GPS wire contract/receiver and scope assignment, CS-016 host integration, current-head Apple build and real-device authorization/provider/sleep-resume verification. GPS network publishing remains disabled."
 }

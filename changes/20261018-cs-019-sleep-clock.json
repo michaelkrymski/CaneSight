@@ -1,0 +1,9 @@
+{
+  "id": "CS-019-SLEEP-CLOCK-GMARCIALCALLEJA-20261018",
+  "date": "2026-10-18",
+  "author": "Gavin (gmarcialcalleja)",
+  "task": "CS-019",
+  "summary": "Keep GPS freshness time advancing through device sleep",
+  "details": "Replace awake-only uptime in Core Location with a ContinuousClock reader and preserve original fix age/recovery barriers. Add simulated sleep, expiry and real UTC-step regressions plus source-hashed evidence. Host dependency pin will select this reviewed fix; GPS protocol/receiver and device acceptance remain outstanding.",
+  "validation": "20 portable Swift XCTest cases passed using Swift 6.0.3 with complete strict concurrency and warnings as errors in local network-disabled Docker. Core Location/UIKit code excluded on Linux; no Apple SDK/device verification claimed. Checked publisher runs repository structure/shared tests/generated log/whitespace checks."
+}
