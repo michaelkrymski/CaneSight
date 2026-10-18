@@ -890,6 +890,14 @@ Add opt-in hosted real-depth pair test with fixed private clock origin, pause/re
 
 Validation: Signed physical iOS build and two device tests passed with zero skips; 41 local real frames, no network. Six synthetic Pi observer tests passed. Actual paired depth run pending.
 
+## 2026-10-18 — CS-016-depth-paired-20261018: Record actual real-depth phone to Pi transport and reconnect
+
+Author: michaelkrymski · Task: CS-016
+
+Phone sent and Pi operator reported receiving 80 real depth packets across two connections, strict sequence/capture order, ~9.07 Hz. Eight correlated clock exchanges recorded as diagnostics; age eligibility remains unknown. No GPIO, guidance or electrical acceptance.
+
+Validation: Signed physical iPhone paired test: 1 passed, 0 failed/skipped. Receiver summary operator-reported. No implementation change; shared checks via checked publisher.
+
 ## 2026-10-18 — CS-016-DEPTH-STREAM-20261018: Continue accepted telemetry ownership with a session-bound depth producer adapter
 
 Author: michaelkrymski (AI-assisted) · Task: CS-016
