@@ -1,0 +1,28 @@
+{
+  "task": "CS-013",
+  "date": "2026-10-18",
+  "app_implementation": "3e9e781cdb427cc7760cfcd47baeb74f8bc4cff7",
+  "signing_checkpoint": "cf64ad8d2c610f448d297375915384ccc29f26ec",
+  "device": {
+    "model": "iPhone 17 Pro Max",
+    "os": "26.6.2"
+  },
+  "signed_build": "passed",
+  "strict_deep_codesign": "passed",
+  "installation": "passed",
+  "subsequent_devicectl_launch": "passed",
+  "operator_observation": "live local preview; sensor timing and physical mapping unverified.",
+  "observation_scope": "Reported on-phone local processed-depth status. No measured depth accuracy, source clock, spatial mapping or live network acceptance.",
+  "requested_checks": {
+    "changing_numeric_values": "pending_operator_response",
+    "stop_clears_unknown": "pending_operator_response",
+    "background_lock_recovery": "pending_operator_response"
+  },
+  "raw_images_retained": false,
+  "live_telemetry_enabled": false,
+  "source_sha256": {
+    "ios/CaneSightApp/Sources/CameraController.swift": "651a0f5635d08403e611afe5c12b659e0d70540671fce692ba32737af4edf116",
+    "ios/CaneSightApp/Sources/CaneSightApp.swift": "352813f30b0ce182cc6fb56be5ed14f70a795b52fa2a87db7020fb861c14b449",
+    "ios/CaneSightApp/Sources/ContentView.swift": "483e4856c25a2e5f40d599be85b3e80b24a3346629a56a95eb5060dad1e37673"
+  }
+}

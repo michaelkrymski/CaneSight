@@ -102,3 +102,9 @@ on the paired phone. iOS refused first launch pending explicit developer-app
 trust. The operator was asked to trust the development profile in Settings →
 General → VPN & Device Management, then open the app and report scene-depth
 support and live preview. No runtime result is inferred from installation.
+
+The operator subsequently reported the on-phone status **“Live local preview;
+sensor timing and physical mapping unverified.”** A subsequent devicectl launch
+succeeded. This establishes app launch and a reported processed local depth frame,
+not measured depth accuracy, calibrated timing, physical-side mapping or telemetry.
+Numeric changes and Stop/background/recovery observations were requested separately.

@@ -650,6 +650,14 @@ Developer Mode enabled and Apple account sign-in completed by the user. Personal
 
 Validation: Signed iOS build and strict deep codesign verification passed; devicectl installation succeeded on iPhone 17 Pro Max / iOS 26.6.2. Published implementation checkpoint 3e9e781 had green repository/governance checks. Signing-only follow-up receives SDK build and checked publishing. Prior 64 Swift and four backend conformance tests are unchanged.
 
+## 2026-10-18 — CS-013-PHONE-PREVIEW-20261018: Record first physical iPhone local depth preview and successful launch
+
+Author: michaelkrymski (AI-assisted) · Task: CS-013
+
+After developer-app trust, Michael reported the live local preview status from the native depth-processing path on iPhone 17 Pro Max / iOS 26.6.2. A subsequent devicectl launch succeeded. First-launch trust is resolved. Numeric, stop and background/recovery checks are requested separately; no accuracy, clock, mapping, live telemetry or Done claim.
+
+Validation: Signed build, strict code-signature check, installation and subsequent launch succeeded. Operator-reported UI status retained in sanitized evidence. No source behavior changed; prior 64 Swift and four backend conformance tests remain valid. Checked publishing runs shared checks.
+
 ## 2026-10-18 — CS-013-PM-CLAIM-20261018: Assign iPhone app build and support verification to Michael
 
 Author: michaelkrymski (AI-assisted) · Task: CS-013

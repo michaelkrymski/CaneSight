@@ -24,7 +24,10 @@
     "tests/ios/evidence/CS-013-apple-builds-20261018.json",
     "Xcode 27.1 unsigned physical-iOS host build and all four pinned package SDK builds passed. 59 package and five host XCTest cases passed on macOS; four generated Swift/backend conformance cases passed. Native simulator test bundles compiled, not executed.",
     "handoffs/CS-013-20261018-device-install.md",
-    "Signed Personal Team build, strict code-signature verification and installation on paired iPhone 17 Pro Max / iOS 26.6.2 passed. First launch refused pending developer-app trust; runtime depth remains unverified."
+    "Signed Personal Team build, strict code-signature verification and installation on paired iPhone 17 Pro Max / iOS 26.6.2 passed. First launch refused pending developer-app trust; runtime depth remains unverified.",
+    "handoffs/CS-013-20261018-phone-preview.md",
+    "tests/ios/evidence/CS-013-phone-preview-20261018.json",
+    "Operator reported native Live local preview status on iPhone 17 Pro Max / iOS 26.6.2; subsequent devicectl launch succeeded. Depth accuracy, sensor timing and physical mapping are not measured."
   ],
-  "blocker": "Signed app installed; iOS developer-app trust and actual scene-depth/runtime permission/lifecycle checks remain pending. Pinned draft PR dependencies #62/#63/#64/#67 require review/acceptance; CS-001 remains unchanged. Live telemetry still requires verified capture clock and physical mapping."
+  "blocker": "Native app is signed, installed and launched with operator-reported live local depth. Numeric and Stop/background/recovery observations remain pending. Pinned draft dependencies #62/#63/#64/#67 need review/acceptance; CS-001 remains unchanged. Full live telemetry needs verified source clock and physical mapping."
 }
