@@ -16,7 +16,7 @@
   "estimate_hours": 1.0,
   "elapsed_window": "5\u20138",
   "owner": "michaelkrymski",
-  "status": "review",
+  "status": "blocked",
   "branch": "task/CS-015-device-background-reset",
   "pr_url": null,
   "evidence": [
@@ -36,7 +36,8 @@
     "Operator reported 10% high-confidence coverage vs existing 25% minimum, explaining Unknown; sensor confidence cause unmeasured. Direct device screenshot and real-phone UI automation succeeded. Latest UI test passed with no failures/skips: real depth, Stop-to-Unknown, restart, explicit Home Screen background, reopen/live recovery, final Stop. No nonzero counter background test or capture-age measurement claimed. Independent review and CS-014 #62 acceptance required before integration.",
     "handoffs/CS-015-20261018-background-counter-reset.md",
     "tests/ios/evidence/CS-015-background-counter-reset-20261018.json",
-    "Physical iPhone 17 Pro Max / iOS 26.6.2: separate baseline and operator-assisted nonzero counter background-reset UI tests each passed with zero failures/skips. Actual Left 1/3 cleared to all 0/3 after verified Home Screen background and fresh depth recovery; final Stop clears readings to Unknown. 11 strict mapping cases and 212 shared tests passed. Handheld portrait only; no final mount, accuracy, capture-age, latency or motor acceptance."
+    "Physical iPhone 17 Pro Max / iOS 26.6.2: separate baseline and operator-assisted nonzero counter background-reset UI tests each passed with zero failures/skips. Actual Left 1/3 cleared to all 0/3 after verified Home Screen background and fresh depth recovery; final Stop clears readings to Unknown. 11 strict mapping cases and 212 shared tests passed. Handheld portrait only; no final mount, accuracy, capture-age, latency or motor acceptance.",
+    "handoffs/CS-015-20261018-background-publishing-blocker.md"
   ],
-  "blocker": ""
+  "blocker": "Physical background-counter checkpoint passed and branch pushed. Creating follow-up PR through the GitHub connector returned HTTP 403 Resource not accessible by integration. No follow-up PR opened; current-head PR CI/review unavailable until PR creation access is restored or Michael opens the compare link."
 }

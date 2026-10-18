@@ -802,6 +802,14 @@ Add a separate operator-assisted physical UI check while retaining baseline came
 
 Validation: Two separate physical iPhone UI tests passed (one each, zero failures/skips); 11 strict mapping cases and 212 shared tests passed. Earlier target-placement failures and free-signing installation limit documented. Shared checks rerun by publisher. No full-task Done, final mount, timing, accuracy or electrical claim.
 
+## 2026-10-18 — CS-015-BACKGROUND-PUBLISHING-BLOCKER-20261018: Record follow-up PR creation access blocker
+
+Author: michaelkrymski (AI-assisted) · Task: CS-015
+
+Checked task branch pushed successfully. GitHub connector PR creation returned 403 Resource not accessible by integration. No follow-up PR exists; task blocked pending PR creation, not a failed physical check.
+
+Validation: Physical tests, 11 mapping cases and 212 shared tests passed in preceding checkpoint. This runtime-only update is checked by publisher; no merge or PR CI claim.
+
 ## 2026-10-18 — CS-015-BENCH-INSTALL-20261018: Sign, install and launch portrait mapping bench for operator verification
 
 Author: michaelkrymski (AI-assisted) · Task: CS-015
