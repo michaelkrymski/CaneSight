@@ -1,0 +1,9 @@
+{
+  "id": "CS-015-TERMINAL-PR-PUBLISHING-20261018",
+  "date": "2026-10-18",
+  "author": "michaelkrymski (AI-assisted)",
+  "task": "CS-015",
+  "summary": "Open physical background-reset follow-up PR through terminal Git authentication",
+  "details": "User authorized terminal publishing. Existing configured Git credential authenticated as michaelkrymski; GitHub API created PR #88. Clear prior connector-only creation blocker and link actual PR; no credentials persisted or disclosed.",
+  "validation": "Runtime-only publishing checkpoint; prior physical baseline/nonzero-counter tests, 11 mapping cases and 212 shared tests retained. Checked publishing reruns repository checks. Independent review remains required; no merge or Done claim."
+}

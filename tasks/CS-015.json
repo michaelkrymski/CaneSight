@@ -16,9 +16,9 @@
   "estimate_hours": 1.0,
   "elapsed_window": "5\u20138",
   "owner": "michaelkrymski",
-  "status": "blocked",
+  "status": "review",
   "branch": "task/CS-015-device-background-reset",
-  "pr_url": null,
+  "pr_url": "https://github.com/michaelkrymski/CaneSight/pull/88",
   "evidence": [
     "handoffs/CS-015-20261018-portrait-mapping.md",
     "11 strict-concurrency Mac XCTest cases passed; new physical-iOS SDK bench/native build passed. No operator target mapping result yet.",
@@ -37,7 +37,8 @@
     "handoffs/CS-015-20261018-background-counter-reset.md",
     "tests/ios/evidence/CS-015-background-counter-reset-20261018.json",
     "Physical iPhone 17 Pro Max / iOS 26.6.2: separate baseline and operator-assisted nonzero counter background-reset UI tests each passed with zero failures/skips. Actual Left 1/3 cleared to all 0/3 after verified Home Screen background and fresh depth recovery; final Stop clears readings to Unknown. 11 strict mapping cases and 212 shared tests passed. Handheld portrait only; no final mount, accuracy, capture-age, latency or motor acceptance.",
-    "handoffs/CS-015-20261018-background-publishing-blocker.md"
+    "handoffs/CS-015-20261018-background-publishing-blocker.md",
+    "handoffs/CS-015-20261018-terminal-pr-publishing.md"
   ],
-  "blocker": "Physical background-counter checkpoint passed and branch pushed. Creating follow-up PR through the GitHub connector returned HTTP 403 Resource not accessible by integration. No follow-up PR opened; current-head PR CI/review unavailable until PR creation access is restored or Michael opens the compare link."
+  "blocker": ""
 }

@@ -858,6 +858,14 @@ Use native ARKit display transform with exact paired depth/confidence rotation a
 
 Validation: 11 XCTest cases pass with strict concurrency and warnings as errors. New app/core/native iOS SDK build passes. Physical mapping and signed device bench results remain pending; task blocked/PR draft. Shared checks run through checked publishing.
 
+## 2026-10-18 — CS-015-TERMINAL-PR-PUBLISHING-20261018: Open physical background-reset follow-up PR through terminal Git authentication
+
+Author: michaelkrymski (AI-assisted) · Task: CS-015
+
+User authorized terminal publishing. Existing configured Git credential authenticated as michaelkrymski; GitHub API created PR #88. Clear prior connector-only creation blocker and link actual PR; no credentials persisted or disclosed.
+
+Validation: Runtime-only publishing checkpoint; prior physical baseline/nonzero-counter tests, 11 mapping cases and 212 shared tests retained. Checked publishing reruns repository checks. Independent review remains required; no merge or Done claim.
+
 ## 2026-10-18 — CS-016-PR81-MAIN-REFRESH-20261018: Refresh ownership-transfer PR #81 with accepted main
 
 Author: gmarcialcalleja (AI-assisted) · Task: CS-016
