@@ -1074,6 +1074,14 @@ Reuse the accepted logger, initialize the existing schema, provision separate ru
 
 Validation: Live database results are separate from mocked/component tests. Dashboard/component suite passed 39 cases; repository checks run through checked publishing. One incomplete development fault run and its cleanup recovery are disclosed. Docker image build, production HTTPS/WSS activation/re-enrollment, exact provider backup/control-plane configuration and PM acceptance remain pending. No physical-device or Done claim.
 
+## 2026-10-18 — CS-043-CLAIM-GMARCIALCALLEJA-20261018: Claim power, boot, crash and motor kill testing for Gavin
+
+Author: Gavin (gmarcialcalleja) · Task: CS-043
+
+Propose gmarcialcalleja ownership and in_progress on a dedicated claim branch. Preserve E01-E03 acceptance, CS-010/023/026 dependencies and qa/tests scope. Wait for Michael to merge assignment before implementation or testing. No GPIO, power, physical kill or hardware acceptance claimed.
+
+Validation: Assignment metadata only. Checked publishing runs repository structure, shared unittest discovery, generated changelog and staged whitespace checks. Actual results reported in the claim PR; no new hardware or task implementation tests claimed.
+
 ## 2026-10-18 — CS-044-CROSSING-CAMPAIGN-20261018: Add pinned crossing-menu and audio failure campaign
 
 Author: Gavin (gmarcialcalleja) · Task: CS-044
