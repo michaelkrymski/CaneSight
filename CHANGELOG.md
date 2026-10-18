@@ -50,6 +50,46 @@ Add closed versioned message schema, six replay fixtures, reference validation/c
 
 Validation: 34 repository/contract tests pass, including duplicate/order/epoch/session/mode handling, unknown fields, nonfinite and oversize input, clock bounds, frame lineage and heartbeat-independent expiry. Structural validation, generated log and whitespace checks pass. Current-head GitHub CI is verified separately; PM/collaborator acceptance remains required.
 
+## 2026-10-17 — CS-014-CLAIM-ADITSANGANI-20261017: Request CS-014 assignment for depth-sector software preparation
+
+Author: aditsangani (AI-assisted) · Task: CS-014
+
+Claim only, from main 18884a5914e8f0476a2877a9c63ff37a24291306. Human requests coding confidence-aware depth sectors now and deferring Xcode/Mac/device verification. Scope is CS-014 numerical filtering, confidence/coverage, percentile aggregation, unknown values, source timestamps and synthetic test inputs within ios/ and tests/ios/. CS-013 remains an unchanged prerequisite; physical support/signing, ARKit build, orientation/mount acceptance and real-device accuracy are not claimed. Implementation waits for Michael to merge this assignment.
+
+Validation: Checked publishing runs repository validation, shared unit tests, generated changelog consistency and whitespace checks. No Swift build, Xcode, iOS simulator or device tests are claimed by this assignment.
+
+## 2026-10-17 — CS-016-CLAIM-BONDMILA-20261017: Request CS-016 bounded phone telemetry assignment
+
+Author: bondmila (AI-assisted) · Task: CS-016
+
+Assignment-only proposal after confirming accepted main has no owner and no matching open claim PR. Preserve task requirements/dependencies/allowed paths. Implementation waits for merged ownership; depth producer CS-014 and physical phone evidence are pending. No telemetry or device completion claim.
+
+Validation: Checked publishing runs repository validation, root tests, governance, generated changelog and whitespace checks. No task implementation or physical-phone test performed.
+
+## 2026-10-17 — CS-017-CLAIM-GMARCIALCALLEJA-20261017: Claim AR interruption and app suspension handling for Gavin
+
+Author: Gavin (gmarcialcalleja) · Task: CS-017
+
+Propose gmarcialcalleja as owner of CS-017, preserving its requirements, CS-016 dependency and ios/tests-ios scope. Implementation waits for Michael to merge this claim. After assignment, software implementation and fixture tests can proceed while Xcode build, ARKit integration and physical-device verification remain explicitly pending. CS-016 is not yet implemented; no iOS, Pi or hardware acceptance is claimed.
+
+Validation: Claim metadata only. Checked publishing runs repository structure validation, shared tests, generated changelog validation and staged whitespace checks; actual results are recorded in the claim PR. No Xcode, Swift, ARKit or device tests claimed.
+
+## 2026-10-17 — CS-018-CLAIM-ADITSANGANI-20261017: Request CS-018 assignment for accessible status and manual audio cancel
+
+Author: aditsangani (AI-assisted) · Task: CS-018
+
+Claim only, from main ae449acb1bea251c360833a0863ec014d1f7feff. Human authorized CS-018 software preparation: explicit unknown/disconnected status, large accessible controls, VoiceOver labels and manual audio cancellation within ios/ and tests/ios/. CS-017 remains an unchanged prerequisite; coordinate integration with its owner. Cancellation UI will expose an integration action without taking over CS-040 narration implementation. Xcode builds, XCTest execution, VoiceOver and physical-device verification remain pending access to a Mac and phone. Implementation waits for Michael to merge this assignment.
+
+Validation: Checked publishing runs repository validation, shared unit tests, generated changelog consistency and whitespace checks. This assignment contains no implementation and claims no Swift, simulator, VoiceOver or device test results.
+
+## 2026-10-17 — CS-019-CLAIM-GMARCIALCALLEJA-20261017: Claim consented coarse GPS telemetry for Gavin
+
+Author: Gavin (gmarcialcalleja) · Task: CS-019
+
+Propose gmarcialcalleja ownership and in_progress on a dedicated claim branch. Preserve acceptance, CS-016 dependency and ios/tests-ios scope. Implementation waits for Michael to merge ownership. No GPS implementation, Xcode/device verification or precise location data included.
+
+Validation: Assignment metadata only; checked publishing runs repository structure, shared unittest discovery, generated changelog and staged whitespace checks. Actual results are reported in the claim PR; no GPS/device tests claimed.
+
 ## 2026-10-17 — CS-021-CS-022-MICHAEL-CLAIM-20261017: Assign Pi capture and latest-only uploader work to Michael
 
 Author: michaelkrymski (AI-assisted) · Task: CS-021, CS-022
@@ -569,6 +609,22 @@ Author: aditsangani (AI-assisted) · Task: CS-042
 Claim only. Accepted-main CS-042 was unowned and no competing open claim was present; dashboard dependency PR #25 is merged. Plan minimal consented event records, parameterized database writes, retention/deletion and failure isolation within the existing task paths. Implementation waits for Michael to merge this assignment. Live Tiger Data connectivity, credentials, deployment and hardware acceptance are not claimed.
 
 Validation: Checked publishing runs repository validation, shared unit tests, generated changelog consistency and whitespace checks. No implementation tests or live database tests are claimed by this assignment.
+
+## 2026-10-17 — CS-042-EVENT-LOGGING-20261017: Add opt-in consented event logging with isolated PostgreSQL writer
+
+Author: aditsangani (AI-assisted) · Task: CS-042
+
+Add a separate dashboard factory, operator consent/withdrawal/deletion controls, private receipt helper, minimal fixed event records, parameterized PostgreSQL/Tiger Data adapter and 24-hour expiry view/cleanup. A bounded spawned writer isolates database stalls; withdrawal stops new submissions even if deletion cannot queue. Existing backend/dashboard factories, device protocol, deployment and policy are unchanged. Live database setup, persisted retention/deletion and cloud TLS verification remain unverified.
+
+Validation: 18 new logging tests passed including privacy/auth, admitted frame/vision output, parameter binding, deletion ordering/failure receipts and actual blocked-worker isolation/shutdown; 35 dashboard tests passed before the final added integration case. Checked publishing runs full shared tests and repository/log/whitespace checks. No live DB or hardware results claimed.
+
+## 2026-10-17 — CS-042-REVIEW-LINK-20261017: Record consented logging review PR and full shared test result
+
+Author: aditsangani (AI-assisted) · Task: CS-042
+
+Link CS-042 to PR #57 and record all 110 root tests passing, including 18 logging tests. Existing implementation and handoff remain unchanged. Status remains Review; live database configuration, persisted retention/deletion and activation are unverified.
+
+Validation: Metadata-only follow-up. Checked publishing reruns full shared tests plus repository structure, generated log and whitespace checks; inspect current-head CI after push.
 
 ## 2026-10-17 — CS-044-CLAIM-20261017-GMARCIALCALLEJA: Propose disconnect delay and replay failure-test assignment
 

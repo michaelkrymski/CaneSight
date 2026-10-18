@@ -1,0 +1,9 @@
+{
+  "id": "CS-042-EVENT-LOGGING-20261017",
+  "date": "2026-10-17",
+  "author": "aditsangani (AI-assisted)",
+  "task": "CS-042",
+  "summary": "Add opt-in consented event logging with isolated PostgreSQL writer",
+  "details": "Add a separate dashboard factory, operator consent/withdrawal/deletion controls, private receipt helper, minimal fixed event records, parameterized PostgreSQL/Tiger Data adapter and 24-hour expiry view/cleanup. A bounded spawned writer isolates database stalls; withdrawal stops new submissions even if deletion cannot queue. Existing backend/dashboard factories, device protocol, deployment and policy are unchanged. Live database setup, persisted retention/deletion and cloud TLS verification remain unverified.",
+  "validation": "18 new logging tests passed including privacy/auth, admitted frame/vision output, parameter binding, deletion ordering/failure receipts and actual blocked-worker isolation/shutdown; 35 dashboard tests passed before the final added integration case. Checked publishing runs full shared tests and repository/log/whitespace checks. No live DB or hardware results claimed."
+}
