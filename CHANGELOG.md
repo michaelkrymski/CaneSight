@@ -74,6 +74,14 @@ Link task to draft PR #62. Existing 110 root Python tests passed; seven fixture 
 
 Validation: Metadata-only checked publishing reruns existing shared/repository/log/whitespace checks. These do not compile Swift or run XCTest; inspect current-head CI after push.
 
+## 2026-10-17 — CS-016-BOUNDED-TELEMETRY-BONDMILA-20261017: Implement bounded timestamped phone telemetry software checkpoint
+
+Author: bondmila (AI-assisted) · Task: CS-016
+
+Add isolated Swift package with latest-only 10 Hz depth transport, original capture timestamps, role-bound native WSS, independent sequence streams, strict clock probes, watchdog cancellation and reconnect without queue replay. Keep task blocked and PR draft pending producer/app integration and deferred iOS device evidence; no shared contract or baseline changes.
+
+Validation: 21 host Swift tests and strict-concurrency build pass; 4 generated Swift replay-to-accepted-backend/schema tests pass. Repository validator and 110 root tests pass; checked publishing reruns shared checks. No iOS app build/signing, physical phone, live WSS or electrical verification claimed.
+
 ## 2026-10-17 — CS-016-CLAIM-BONDMILA-20261017: Request CS-016 bounded phone telemetry assignment
 
 Author: bondmila (AI-assisted) · Task: CS-016
@@ -866,6 +874,62 @@ User authorized terminal publishing. Existing configured Git credential authenti
 
 Validation: Runtime-only publishing checkpoint; prior physical baseline/nonzero-counter tests, 11 mapping cases and 212 shared tests retained. Checked publishing reruns repository checks. Independent review remains required; no merge or Done claim.
 
+## 2026-10-18 — CS-016-CLEAN-FIXTURE-20261018: Build the current Swift fixture in clean-checkout contract tests
+
+Author: michaelkrymski (AI-assisted) · Task: CS-016
+
+PR #89 repository CI found Swift installed without a prebuilt TelemetryFixtures executable. Build that product before locating it; retain explicit supplied-binary support and existing no-Swift skip. No protected workflow or source validation is weakened.
+
+Validation: Reproduced a clean artifact-free package in a temporary directory on macOS; all four Swift/backend conformance tests passed after self-build. Checked publisher reruns the shared repository tests. GitHub Linux result is inspected after push; no phone access.
+
+## 2026-10-18 — CS-016-depth-pair-prep-20261018: Prepare bounded real-depth phone and Pi diagnostics
+
+Author: michaelkrymski · Task: CS-016
+
+Add opt-in hosted real-depth pair test with fixed private clock origin, pause/reconnect and bounded Pi depth/clock observer. Real capture-age eligibility remains unknown; normal app streaming stays off.
+
+Validation: Signed physical iOS build and two device tests passed with zero skips; 41 local real frames, no network. Six synthetic Pi observer tests passed. Actual paired depth run pending.
+
+## 2026-10-18 — CS-016-depth-paired-20261018: Record actual real-depth phone to Pi transport and reconnect
+
+Author: michaelkrymski · Task: CS-016
+
+Phone sent and Pi operator reported receiving 80 real depth packets across two connections, strict sequence/capture order, ~9.07 Hz. Eight correlated clock exchanges recorded as diagnostics; age eligibility remains unknown. No GPIO, guidance or electrical acceptance.
+
+Validation: Signed physical iPhone paired test: 1 passed, 0 failed/skipped. Receiver summary operator-reported. No implementation change; shared checks via checked publisher.
+
+## 2026-10-18 — CS-016-DEPTH-STREAM-20261018: Continue accepted telemetry ownership with a session-bound depth producer adapter
+
+Author: michaelkrymski (AI-assisted) · Task: CS-016
+
+Preserve Mila telemetry history from PR #64, merge accepted transfer #81, add explicit CS-014 summary conversion and stream wrapper without a default clock or app network activation. Add native macOS TLS rejection/cancellation fixtures; phone remains untouched at human request.
+
+Validation: Seven strict macOS bridge tests and seven iOS Simulator tests passed; iOS SDK build passed. Twenty-one existing transport tests passed; two separately invoked native URLSession cases passed, four Swift/backend contract tests and 217 repository tests passed. No successful native trusted WSS, physical phone/Pi clock/rate, motor or electrical acceptance claimed.
+
+## 2026-10-18 — CS-016-NATIVE-PAIR-PREP-20261018: Prepare private-grant native phone and manual Pi transport probes
+
+Author: michaelkrymski (AI-assisted) · Task: CS-016
+
+Backend HTTPS recovered and actual phone health test passed. Add hosted phone starting-heartbeat/reconnect test using a one-use private phone-role file and elapsed in-app clock. Add a manual Pi receiver under tests/ios with fresh process identities, strict private role-file binding, bounded observation/reconnect, and no camera/GPIO/clock eligibility. Real Pi replaces the unconnected bench plan.
+
+Validation: Signed physical-iOS build-for-testing succeeded; native authenticated test awaits fresh credentials and is not claimed passed. Five helper tests passed using synthetic packets/fake sockets, including reconnect sequence retention. Prior physical core/camera evidence stays separate. No automated Pi SSH runner or physical Pi test performed.
+
+## 2026-10-18 — CS-016-native-paired-20261018: Record real phone and Pi starting-heartbeat transport success
+
+Author: michaelkrymski · Task: CS-016
+
+Five starting heartbeats crossed two native WSS connections; real Pi operator reported all five in strict sequence order. Capture-age eligibility stays unknown; no camera, GPIO or guidance verification. Keep real-depth gates explicit.
+
+Validation: Physical iPhone native test: 1 passed, 0 failed/skipped. Pi final summary operator-reported; no independent SSH inspection. Shared checks run by checked publisher.
+
+## 2026-10-18 — CS-016-PHONE-HOST-20261018: Host telemetry tests on the physical iPhone and sample live depth timestamps
+
+Author: michaelkrymski (AI-assisted) · Task: CS-016
+
+Add a signed CaneSightTransport app-hosted scheme using existing core/client tests and actual depth adapter source; bind host telemetry to current sibling package and retain five other pinned review inputs. Record two bounded 30-frame ARKit runs, paused/restarted, and local camera UI recovery. No live app streaming enabled.
+
+Validation: Physical phone: 22 hosted tests passed, one public HTTPS timeout skipped; one real camera Stop/background UI case passed without skip. Strict signature verification passed. Source/media-clock deltas are short-run observations only, not clock calibration, Pi latency or electrical proof. Public origin timed out from Mac and phone.
+
 ## 2026-10-18 — CS-016-PR81-MAIN-REFRESH-20261018: Refresh ownership-transfer PR #81 with accepted main
 
 Author: gmarcialcalleja (AI-assisted) · Task: CS-016
@@ -873,6 +937,14 @@ Author: gmarcialcalleja (AI-assisted) · Task: CS-016
 Merge accepted main 3769c4bc46b81afb5fcf8d2f475fc0b2d06363fa into the existing proposal without changing its task runtime/static fields or CR. Preserve both histories and regenerate the log. The ownership transfer remains proposed; Michael must renew exact-head authorization after this push.
 
 Validation: Repository structure valid; unittest discovery ran 212 tests successfully with 11 platform/optional skips on Windows. Generated-log and whitespace checks passed. No Swift/device/electrical acceptance was performed in this refresh.
+
+## 2026-10-18 — CS-016-review-ready-20261018: Prepare bounded sender and device evidence for independent review
+
+Author: michaelkrymski · Task: CS-016
+
+Map unchanged transport requirements to tests and measured real-depth delivery; correct stale draft blockers that included downstream lifecycle/receiver guidance gates. Retain unknown age and disabled normal-app streaming. No task scope or implementation change.
+
+Validation: Accepted main integrated. 22 signed physical-iPhone regression tests passed with zero skips, including synthetic 10 Hz cap and blocked-send/no stale queue replay. Required shared checks run by checked publisher.
 
 ## 2026-10-18 — CS-016-TRANSFER-PROPOSAL-20261018: Propose reviewed telemetry ownership transfer from Mila to Michael
 

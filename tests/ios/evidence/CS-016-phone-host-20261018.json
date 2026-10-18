@@ -1,0 +1,90 @@
+{
+  "task": "CS-016",
+  "date": "2026-10-18",
+  "starting_head": "1efa6f702bc0c251e9701bec02e658dbe6affe28",
+  "accepted_main_refresh": "0fa978d",
+  "phone": "iPhone 17 Pro Max / iOS 26.6.2",
+  "source_sha256": {
+    "ios/CaneSightApp/CaneSight.xcodeproj/project.pbxproj": "ec3ee1bb9df17654399c332ab8dee4f1e22057a72ff0352673b3c0906eef50d5",
+    "ios/CaneSightApp/CaneSight.xcodeproj/xcshareddata/xcschemes/CaneSightTransport.xcscheme": "dde0fc9ec8cbfc02b0b947bd9878f9482d3ce38b73dd5ae5ee9aeba7d4dfdf0c",
+    "ios/CaneSightApp/DeviceTests/TelemetryDeviceTests.swift": "2396f64fa25c599f8bfd5fbf3ad1d29d7f7fc57dd85b55a97923c0870abf3e8b",
+    "ios/CaneSightApp/ReviewDependencies.json": "59e1b425f1485a11290a9382bb5ebe8f854c096020c60372cd64501060c1b8fa",
+    "ios/DepthTelemetry/Sources/CaneSightDepthTelemetry/DepthTelemetryAdapter.swift": "5dd5fc53936fffb530031d64d2d785611a5ad7f84746f4bd2594021a297aa877",
+    "ios/CaneSightTelemetry/Tests/CaneSightTelemetryTests/CoreTests.swift": "9da5d24bb415bbcadd12f461d7ee9eee240ca30b2473e0029284949aaee3636c",
+    "ios/CaneSightTelemetry/Tests/CaneSightTelemetryTests/ClientTests.swift": "afeb626a0c62bda1be615e9a24dae8421493c124128c812ad6df685ea3c26768"
+  },
+  "hosted_phone_tests": {
+    "result": "Passed",
+    "totalTestCount": 23,
+    "passedTests": 22,
+    "failedTests": 0,
+    "skippedTests": 1
+  },
+  "hosted_test_detail": {
+    "synthetic_core_client_tests_passed": 21,
+    "real_ARKit_depth_adapter_tests_passed": 1,
+    "public_HTTPS_probe": "skipped: initial native timeout -1001; refreshed build failed to connect -1004"
+  },
+  "camera_stop_background_UI": {
+    "result": "Passed",
+    "totalTestCount": 1,
+    "passedTests": 1,
+    "failedTests": 0,
+    "skippedTests": 0
+  },
+  "capture_callback_candidate_delta_runs": [
+    {
+      "run": 0,
+      "samples": 30,
+      "minimum_ms": 42.46016700199107,
+      "median_ms": 43.12095866771415,
+      "p95_ms": 43.629209001665004,
+      "maximum_ms": 43.86345833700034
+    },
+    {
+      "run": 1,
+      "samples": 30,
+      "minimum_ms": 30.09145900432486,
+      "median_ms": 30.700417337357067,
+      "p95_ms": 31.341459005489014,
+      "maximum_ms": 37.801750670041656
+    }
+  ],
+  "strict_signature_verification": "passed",
+  "network_diagnostics": {
+    "public_origin": "https://64.177.50.116",
+    "Mac_TCP_ports_22_80_443": "all timed out",
+    "phone_HTTPS_health": "Initial timeout -1001; refreshed test failed to connect -1004"
+  },
+  "privacy": "No image, GPS, absolute source/boot timestamp, session token, team ID or device identifier in evidence. Only elapsed candidate deltas exported. App networking remains off except explicit test health request.",
+  "limits": [
+    "Two short foreground camera runs separated by ARKit pause/restart; not phone sleep/lock or relative-drift verification.",
+    "Observed candidate source/media-clock relationship is not proof of capture latency or common epoch.",
+    "Core/client tests use fake sockets and injected data, even on physical iPhone.",
+    "Camera UI recovery is local preview; it establishes no native live WSS/Pi timing or electrical behavior.",
+    "Successful native trusted authenticated WSS, enrolled actual phone/Pi pair, clock maps and measured remote freshness remain blocked."
+  ],
+  "local_result_bundles": [
+    "/tmp/canesight-cs016-host-device-refreshed.xcresult",
+    "/tmp/canesight-cs016-host-camera-ui-refreshed.xcresult"
+  ],
+  "publication_main_refresh": "a239e22",
+  "initial_capture_callback_candidate_delta_runs": [
+    {
+      "run": 0,
+      "samples": 30,
+      "minimum_ms": 40.53104233753402,
+      "median_ms": 41.16695833727135,
+      "p95_ms": 41.776625670536305,
+      "maximum_ms": 41.91420867027773
+    },
+    {
+      "run": 1,
+      "samples": 30,
+      "minimum_ms": 27.774959002272226,
+      "median_ms": 28.372917337037507,
+      "p95_ms": 28.98937533791468,
+      "maximum_ms": 29.07704233803088
+    }
+  ]
+}
