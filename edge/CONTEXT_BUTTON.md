@@ -336,3 +336,42 @@ GPIO read failures/stalls suppress state. No model/source health is inferred fro
 a button, successful process, heartbeat or missing detection. Speech clarity and
 buffered audible cancellation still need human observations. Reports save fixed
 state/counters only and keep physical acceptance false. No road-use test.
+
+## Opt-in uploader menu/request bridge (CS-027 follow-up)
+
+The follow-up `--context-menu` path uses the same enrolled uploader frame/session,
+ContextClient, one ContextButton and narration controller. A debounced short
+release in idle dispatches the existing bounded request; it never dispatches on
+the initial press. Holding 3000 ms opens the fixed spoken menu without a request.
+Existing one-outstanding request, ten-second cooldown, original capture +8s
+expiry, consent and primary-source gates remain. Entering/cancelling the menu
+cancels old requests before optional speech; late replies cannot replace the menu.
+An input edge can stop old optional narration early, even before debounce, but
+cannot start a request early. No scenario or other field is added to the wire.
+
+This path depends on the separately reviewed CS-040 completed-gesture API and
+speech channels; without that installed it refuses startup and closes owned audio.
+It is off by default. With the existing enrolled input/consent/policy flags,
+add all three flags only for a controlled run:
+
+```sh
+--context-audio --context-menu --context-menu-audio-confirmed
+```
+
+`--context-menu-audio-confirmed` means the operator has just checked audible
+output. It is manual confirmation, **not automatic Bluetooth route detection**.
+Stop the run on speaker loss. In terminal mode `audio-off` immediately stops
+optional audio and latches route loss until a new controller/run; `audio-on`
+cannot undo it. Programmatic composition may instead supply a prompt, trusted
+`audio_ready()` callback; missing, failed or non-true readiness fails closed.
+Recovery does not replay speech and requires stable release and a fresh gesture.
+
+All three scenario capabilities remain unavailable. Selecting and confirming a
+scenario announces unavailable and cannot activate a job or initiate a context
+request. This connects the actual one-shot request path and fixed interaction;
+it does not implement pedestrian recognition, beacon/vehicle tracking or a
+scenario-specific provider job. Higher-priority hazards, source/camera/input
+loss, consent withdrawal, clock faults and cleanup retain cancellation. Separate
+speech ownership prevents the idle description timer from silencing menu phrases.
+No motor GPIO is introduced. Paired-device, real-provider, route-monitoring and
+physical audible-cancellation acceptance remain pending.

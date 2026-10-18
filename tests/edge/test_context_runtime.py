@@ -229,7 +229,7 @@ class PriorityTests(unittest.TestCase):
 
 
 class UploaderContextTests(unittest.TestCase):
-    def run_uploader(self, *, context_enabled=True, camera_error=False, audio=False, runtime_error=False, gpio=False):
+    def run_uploader(self, *, context_enabled=True, camera_error=False, audio=False, runtime_error=False, gpio=False, menu=False):
         frame_request = Mock()
         frame_request.get_metadata.return_value = {'SensorTimestamp': 1000000000, 'ExposureTime': 1000}
         frame_request.make_image.return_value = Image.new('RGB', (640, 480), 'gray')
@@ -254,6 +254,8 @@ class UploaderContextTests(unittest.TestCase):
                      '--context-gpio21' if gpio else '--context-stdin', '--context-consent']
         if audio:
             args += ['--context-audio']
+        if menu:
+            args += ['--context-menu', '--context-menu-audio-confirmed']
         with ExitStack() as stack:
             stack.enter_context(patch('sys.argv', args))
             stack.enter_context(patch.dict('sys.modules', {'picamera2': types.SimpleNamespace(Picamera2=lambda: camera)}))
@@ -323,6 +325,12 @@ class UploaderContextTests(unittest.TestCase):
         runtime.close.assert_called_once()
         _, factory, _ = self.run_uploader()
         self.assertNotIn('audio', factory.call_args.kwargs)
+
+    def test_menu_opt_in_passes_explicit_readiness_and_keeps_cleanup(self):
+        runtime, factory, _ = self.run_uploader(audio=True, menu=True)
+        self.assertTrue(factory.call_args.kwargs['menu'])
+        self.assertIs(factory.call_args.kwargs['audio_ready'](), True)
+        runtime.close.assert_called_once()
 
     def test_gpio_flag_uses_only_input_adapter_and_closes_it_on_camera_failure(self):
         self.run_uploader(gpio=True)

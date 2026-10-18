@@ -1,0 +1,9 @@
+{
+  "id": "CS-027-PRODUCTION-MENU-READY-20261018",
+  "date": "2026-10-18",
+  "author": "Mila (bondmila, AI-assisted)",
+  "task": "CS-027",
+  "summary": "Integrate accepted narration APIs and verify uploader menu for review",
+  "details": "Merge accepted main 1385e11 including dependency PR #77 into the PR #78 branch. Verify normal edge/context discovery without dependency overlays or skips. Update runtime evidence and preserve full integration/hardware blockers. No menu/request implementation or protected baseline changes.",
+  "validation": "205 edge tests and 83 context tests passed on macOS/Python 3.13 with no skips. Checked publication runs repository, root tests and generated changelog checks; exact-head CI is inspected before ready status. No new Pi, Gemini, Bluetooth or paired-phone acceptance."
+}
