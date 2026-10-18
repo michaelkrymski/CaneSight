@@ -223,6 +223,8 @@ def main(argv=None):
     except (KeyboardInterrupt, EOFError):
         summary['error'] = 'Bench interrupted; incomplete evidence'
         status = 130
+    except FileExistsError:
+        summary['error'] = 'Report already exists; choose a new output filename. Original report preserved.'
     except Exception:
         summary['error'] = 'Bench unavailable; inspect installation/output and rerun'
     finally:

@@ -392,3 +392,27 @@ Retain both failed and subsequent diagnostic reports with their source commits.
 Use the existing manual-only bench on this diagnostic build with the same private
 route configuration and a new exclusive output filename. Diagnostics identify
 which path to investigate; they are not physical acceptance or audible latency.
+
+### Query scheduling correction after Pi diagnostics
+
+The diagnostic Pi build 9a62621 reported `observation_expired` during
+`stream_query`. Sequential queries can consume the cache budget while waiting
+for otherwise timely reads. A regression with 80 ms reads reproduced expiry
+before this correction. Independent sink, BlueZ and (only while playing) stream
+queries now run concurrently, with at most three owned daemon helper workers
+in one round. A nonblocking probe lock refuses concurrent rounds, preventing
+worker accumulation even while an injected reader stalls. The round waits for
+its workers; the independent watchdog still cancels stale route evidence, and
+real command helpers retain their original deadlines and bounded cleanup.
+
+All observations remain anchored to the round START. Successful reads must all
+pass the same identity/state/stream checks. The 100 ms helper budget, 350 ms age,
+100 ms poll wait, 200 ms missing-registration grace, 64 KiB per-helper output cap
+and loss/reconnect latch are unchanged. No elapsed-time value is replaced by a
+later receipt to hide slow work. There is no catch-up queue or automatic recovery.
+Parallel helper memory/process usage is bounded to three results/processes per
+round; actual Pi scheduling and playback still require the candidate retest.
+
+Use a NEW report filename on every bench invocation. Reusing one refuses before
+audio and now explicitly reports that the original report was preserved. Retain
+prior failed/unknown reports; successful host regressions are not audible proof.

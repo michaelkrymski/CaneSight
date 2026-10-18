@@ -23,9 +23,17 @@ def route():
                 properties={'device.api': 'bluez5'}, volume={'mono': {'value': 65536}})
 
 
+def responses(*, sinks=None, connected='b true\n', inputs=None):
+    def run(args):
+        if args[-1] == 'sinks': return json.dumps([route()] if sinks is None else sinks)
+        if args[-1] == 'Connected': return connected
+        return json.dumps([] if inputs is None else inputs)
+    return Mock(side_effect=run)
+
+
 class ProbeTests(unittest.TestCase):
     def probe(self, entries=None, connected='b true\n'):
-        run = Mock(side_effect=[json.dumps([route()] if entries is None else entries), connected])
+        run = responses(sinks=entries, connected=connected)
         probe = RouteProbe(SINK, DEVICE, run=run)
         return probe, run
 
@@ -34,11 +42,10 @@ class ProbeTests(unittest.TestCase):
             data = route(); data['state'] = state
             probe, run = self.probe([data])
             self.assertTrue(probe())
-            self.assertEqual(run.call_args_list[0].args[0],
-                ['/usr/bin/pactl', '--format=json', 'list', 'sinks'])
-            self.assertEqual(run.call_args_list[1].args[0],
+            self.assertEqual(sorted(c.args[0] for c in run.call_args_list), sorted([
+                ['/usr/bin/pactl', '--format=json', 'list', 'sinks'],
                 ['/usr/bin/busctl', '--system', 'get-property', 'org.bluez',
-                 DEVICE, 'org.bluez.Device1', 'Connected'])
+                 DEVICE, 'org.bluez.Device1', 'Connected']]))
 
     def test_disconnected_missing_duplicate_muted_zero_volume_or_wrong_api_refused(self):
         for connected in ('b false', '', 'true', 'b true\nPRIVATE'):
@@ -50,15 +57,14 @@ class ProbeTests(unittest.TestCase):
             data = route(); data.update(mutation)
             probe, run = self.probe([data])
             self.assertFalse(probe())
-            self.assertEqual(run.call_count, 1)
+            self.assertEqual(run.call_count, 2)
         for entries in ([], [route(), route()]):
             probe, _ = self.probe(entries)
             self.assertFalse(probe())
 
     def test_live_stream_must_remain_on_the_configured_sink(self):
         for sink, expected in ((42, True), (43, False), ('42', False)):
-            run = Mock(side_effect=[json.dumps([route()]), 'b true',
-                json.dumps([{'sink': sink, 'properties': {'media.name': 'fixture-stream'}}])])
+            run = responses(inputs=[{'sink': sink, 'properties': {'media.name': 'fixture-stream'}}])
             probe = RouteProbe(SINK, DEVICE, run=run, stream=lambda: 'fixture-stream')
             self.assertIs(probe(), expected)
 
@@ -84,9 +90,54 @@ class ProbeTests(unittest.TestCase):
 
 
 class MonitorTests(unittest.TestCase):
+    def test_stalled_parallel_stream_query_still_expires_without_worker_accumulation(self):
+        active, entered, release, lost = (threading.Event() for _ in range(4))
+        calls = []
+        def run(args):
+            calls.append(args[-1])
+            if args[-1] == 'sinks': return json.dumps([route()])
+            if args[-1] == 'Connected': return 'b true'
+            entered.set(); release.wait(2)
+            return json.dumps([{'sink': 42, 'properties': {'media.name': 'fixture-stream'}}])
+        probe = RouteProbe(SINK, DEVICE, run=run,
+                           stream=lambda: 'fixture-stream' if active.is_set() else None)
+        monitor = BluetoothRouteMonitor(probe, lost.set)
+        try:
+            monitor.start(); active.set()
+            self.assertTrue(entered.wait(.5))
+            before = len(calls)
+            for _ in range(10): self.assertFalse(probe())
+            self.assertEqual(len(calls), before)
+            self.assertTrue(lost.wait(.6))
+            self.assertEqual(monitor.diagnostics()['failure'], 'observation_expired')
+            release.set()
+            self.assertFalse(monitor.ready())
+        finally:
+            release.set(); monitor.close()
+
+    def test_individually_timely_queries_do_not_expire_a_connected_route(self):
+        # Each 80ms read is inside the existing 100ms helper budget. Serial
+        # reads + the poll wait cannot maintain the 350ms start-age budget.
+        active = threading.Event()
+        def run(args):
+            time.sleep(.080)
+            if args[-1] == 'sinks': return json.dumps([route()])
+            if args[-1] == 'Connected': return 'b true'
+            return json.dumps([{'sink': 42, 'properties': {'media.name': 'fixture-stream'}}])
+        probe = RouteProbe(SINK, DEVICE, run=run,
+                           stream=lambda: 'fixture-stream' if active.is_set() else None)
+        lost = threading.Event()
+        monitor = BluetoothRouteMonitor(probe, lost.set)
+        try:
+            monitor.start()
+            active.set()
+            self.assertFalse(lost.wait(.7), monitor.diagnostics())
+            self.assertTrue(monitor.ready())
+        finally:
+            monitor.close()
+
     def test_failure_diagnostics_preserve_reason_without_reprobing_or_rearming(self):
-        run = Mock(side_effect=[json.dumps([route()]), 'b true',
-            json.dumps([{'sink': 43, 'properties': {'media.name': 'fixture-stream'}}])])
+        run = responses(inputs=[{'sink': 43, 'properties': {'media.name': 'fixture-stream'}}])
         probe = RouteProbe(SINK, DEVICE, run=run, stream=lambda: 'fixture-stream')
         m = self.make(probe)
         with self.assertRaises(ValueError): m.start()

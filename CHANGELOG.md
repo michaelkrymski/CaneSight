@@ -1162,6 +1162,14 @@ Operator reported the new GPIO21 spoken-menu sequence worked and explicitly decl
 
 Validation: Verified in-scope implementation matches last prepared 04f660b; preceding branch/combined test evidence remains separate. Checked publisher runs shared checks and exact-head CI is inspected before ready-for-review.
 
+## 2026-10-18 — CS-040-PARALLEL-ROUTE-QUERIES-20261018: Prevent serial route-query latency from expiring otherwise timely observations
+
+Author: bondmila (AI-assisted) · Task: CS-040
+
+Preserve Pi observation_expired report. Reproduce expiry with 80ms reads, then run at most three independent queries concurrently in one bounded nonoverlapping round. Keep original helper/cache/grace/identity and loss-latch protections. Explain exclusive-report refusal without starting audio.
+
+Validation: The new latency regression fails before and passes after; 108 context tests pass including stalled-query expiry/no-worker-accumulation and preserved-report refusal. Actual candidate Pi sound/cancellation remains pending; see handoff for edge/shared results.
+
 ## 2026-10-18 — CS-040-RECOVERY-REPORTS-MANUAL-DIAGNOSTIC-BONDMILA-20261018: Preserve mixed Pi recovery evidence and isolate manual audibility test
 
 Author: bondmila (AI-assisted) · Task: CS-040

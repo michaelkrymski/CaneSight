@@ -78,11 +78,60 @@ class RouteProbe:
         self.run, self.stream, self.clock = run, stream, clock
         self._missing = None
         self.failure_stage = None
+        self._call_lock = threading.Lock()
 
     def __call__(self):
+        # One round per probe, including if a helper stalls. A concurrent caller
+        # cannot build a backlog or spawn another set of helper workers.
+        if not self._call_lock.acquire(blocking=False):
+            return False
+        try:
+            return self._observe()
+        finally:
+            self._call_lock.release()
+
+    def _observe(self):
+        self.failure_stage = 'stream_state'
+        active = self.stream()
+        queries = [
+            ('sink_query', ['/usr/bin/pactl', '--format=json', 'list', 'sinks']),
+            ('device_query', ['/usr/bin/busctl', '--system', 'get-property', 'org.bluez',
+                              self.device, 'org.bluez.Device1', 'Connected'])]
+        if active is not None:
+            queries.append(('stream_query',
+                            ['/usr/bin/pactl', '--format=json', 'list', 'sink-inputs']))
+        # Independent reads share one conservative round-start age. Serial
+        # 100ms helper budgets plus the poll wait cannot meet the 350ms cache
+        # budget. At most three bounded helpers run concurrently; all original
+        # query limits, validation, watchdog and loss latches remain in force.
+        results, failed = {}, set()
+        result_lock = threading.Lock()
+        def read(name, args):
+            try:
+                value = self.run(args)
+                with result_lock: results[name] = value
+            except Exception:
+                with result_lock: failed.add(name)
+        workers = []
+        try:
+            for name, args in queries:
+                worker = threading.Thread(target=read, args=(name, args), daemon=True)
+                worker.start()
+                workers.append((name, worker))
+        finally:
+            # A failed thread launch cannot orphan another round. The real
+            # command runner owns each helper's deadline/kill/reap; the monitor
+            # watchdog independently invalidates a blocked injected reader.
+            for name, worker in workers:
+                self.failure_stage = name
+                worker.join()
+        for name, _ in queries:
+            if name in failed:
+                self.failure_stage = name
+                raise ValueError('Bluetooth route observation unavailable')
         # paplay is explicitly bound to this sink; the global default is not used.
         self.failure_stage = 'sink_query'
-        raw = self.run(['/usr/bin/pactl', '--format=json', 'list', 'sinks'])
+        raw = results['sink_query']
         if type(raw) is not str or len(raw.encode('utf-8')) > MAX_OUTPUT:
             return False
         sinks = json.loads(raw)
@@ -104,19 +153,16 @@ class RouteProbe:
                        or not 0 < v['value'] <= 2**31-1 for v in volume.values())):
             return False
         self.failure_stage = 'device_query'
-        connected = self.run(['/usr/bin/busctl', '--system', 'get-property', 'org.bluez',
-            self.device, 'org.bluez.Device1', 'Connected'])
+        connected = results['device_query']
         if type(connected) is not str or connected.strip() != 'b true':
             return False
-        self.failure_stage = 'stream_state'
-        active = self.stream()
         if active is None:
             self._missing = None
             self.failure_stage = None
             return True
         # A server can move a live stream even when the original sink survives.
         self.failure_stage = 'stream_query'
-        raw = self.run(['/usr/bin/pactl', '--format=json', 'list', 'sink-inputs'])
+        raw = results['stream_query']
         if type(raw) is not str or len(raw.encode('utf-8')) > MAX_OUTPUT:
             return False
         inputs = json.loads(raw)

@@ -29,6 +29,20 @@ class SilentSink:
 
 
 class SpeakerBenchTests(unittest.TestCase):
+    @unittest.skipUnless(os.name == 'posix', 'Private Pi report permissions require POSIX')
+    def test_existing_report_refusal_is_explicit_and_never_starts_audio(self):
+        with tempfile.TemporaryDirectory() as folder:
+            path = Path(folder)/'original.json'
+            path.write_text('original failed evidence')
+            with patch.object(speaker_bench, 'EspeakSink') as factory, \
+                 patch('sys.stdout', io.StringIO()) as output:
+                self.assertEqual(speaker_bench.main(['--speak', '--output', str(path)]), 1)
+            factory.assert_not_called()
+            self.assertEqual(path.read_text(), 'original failed evidence')
+            result = json.loads(output.getvalue())
+            self.assertIn('Report already exists', result['error'])
+            self.assertNotIn(str(path), output.getvalue())
+
     def test_diagnostic_failure_cannot_skip_audio_cleanup_or_expose_exception(self):
         sink = Mock(spec=EspeakSink)
         sink.diagnostics.side_effect = ValueError('PRIVATE-SENTINEL')
