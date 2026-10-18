@@ -770,6 +770,14 @@ Add optional exclusive metadata-only run report and allowlisted terminal status 
 
 Validation: 152 edge tests pass with updated CS-040 modules via external overlay, no skips. Report tests cover allowlisting, private/exclusive files, symlink refusal, startup failure, normal completion and status without a press. Checked publisher runs shared checks; actual Pi integration pending.
 
+## 2026-10-18 — CS-027-REVIEW-SYNC-20261018: Resolve generated changelog conflict before software checkpoint review
+
+Author: bondmila (AI-assisted) · Task: CS-027
+
+Synchronize accepted GPS checkpoint from main d1d8eb9 (GPS 94ccaaf plus CS-045 measurement analysis). Regenerate the conflicted log; menu, audio, GPIO, safety contracts and requirements unchanged. Await actual operator menu report without claiming a physical pass.
+
+Validation: 182 edge tests: 171 passed, 11 explicit draft narration/menu-audio dependency skips. Checked publisher runs shared validation, governance, changelog and whitespace checks; final CI inspected by exact head.
+
 ## 2026-10-18 — CS-040-FIXED-MENU-AUDIO-BONDMILA-20261018: Implement fixed menu speech with readiness and stale-event preemption
 
 Author: bondmila (AI-assisted) · Task: CS-040
