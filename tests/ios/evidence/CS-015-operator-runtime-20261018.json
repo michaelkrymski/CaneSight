@@ -1,0 +1,124 @@
+{
+  "task": "CS-015",
+  "date": "2026-10-18",
+  "original_main_base": "5dd5fa37009402b7eb7c9dbed3d20eacd4346c90",
+  "integrated_main": "5dbb6ad",
+  "tested_phone_implementation": "bd99b6cf043122d2d4548f4e97bfa70bbf868409",
+  "device": {
+    "model": "iPhone 17 Pro Max",
+    "os": "26.6.2"
+  },
+  "operator": "michaelkrymski",
+  "operator_report": {
+    "configuration": "handheld portrait upright; rear cameras facing forward",
+    "target_counts": {
+      "left": 3,
+      "center": 3,
+      "right": 3
+    },
+    "provenance": "Operator explicitly confirmed all three reached 3/3 in chat; no video or raw depth retained.",
+    "rotation_reset": true,
+    "stop_reset": true,
+    "background_reset": null,
+    "floor_observation": "Operator reported the floor makes all three readings similar, including when kneeling. No numerical measurements or camera pitch recorded.",
+    "reset_provenance": "Operator explicitly confirmed sideways/upright clears counters, then recording a fresh 1/3 and Stop clears counters and all distances to Unknown. Background pending.",
+    "background_followup": "Instead of confirming the background reset, operator reported View left mostly Unknown with occasional numerical flashes. Main status was live portrait view; physical mapping unverified until target check. Other column behavior not confirmed."
+  },
+  "interpretation": "Operator-reported target placement, rotation reset and Stop reset success for this handheld configuration only. Full-height near-percentile sectors include floor samples; no floor/obstacle classification. Background reset pending. Intermittent left unknown report is unresolved; no background pass inferred.",
+  "final_cane_mount_verified": false,
+  "motor_mapping_verified": false,
+  "capture_clock_verified": false,
+  "surface_accuracy_measured": false,
+  "native_simulator": {
+    "review_inputs": [
+      {
+        "name": "DepthSectors",
+        "pr": 62,
+        "commit": "5f73dbf33ba9b2395f27b429c22344d41fb6162a",
+        "path": "ios/DepthSectors"
+      },
+      {
+        "name": "Lifecycle",
+        "pr": 63,
+        "commit": "0edb2229977b93eae00df6842286d87d4870aea4",
+        "path": "ios/Lifecycle"
+      },
+      {
+        "name": "CaneSightTelemetry",
+        "pr": 64,
+        "commit": "0433fc94af1a1e3edfe2d2bb28925cb3be6df1ee",
+        "path": "ios/CaneSightTelemetry"
+      },
+      {
+        "name": "CoarseLocation",
+        "pr": 67,
+        "commit": "5d311229a183b35176c10bdf33b6553c0c52fbfd",
+        "path": "ios/CoarseLocation"
+      }
+    ],
+    "results": {
+      "depth": {
+        "result": "Passed",
+        "totalTestCount": 15,
+        "passedTests": 15,
+        "failedTests": 0,
+        "skippedTests": 0,
+        "runtime": {
+          "platform": "iOS Simulator",
+          "modelName": "iPhone 17",
+          "osVersion": "27.0",
+          "osBuildNumber": "24A434",
+          "architecture": "arm64"
+        }
+      },
+      "lifecycle": {
+        "result": "Passed",
+        "totalTestCount": 12,
+        "passedTests": 12,
+        "failedTests": 0,
+        "skippedTests": 0,
+        "runtime": {
+          "platform": "iOS Simulator",
+          "modelName": "iPhone 17",
+          "osVersion": "27.0",
+          "osBuildNumber": "24A434",
+          "architecture": "arm64"
+        }
+      },
+      "telemetry": {
+        "result": "Passed",
+        "totalTestCount": 21,
+        "passedTests": 21,
+        "failedTests": 0,
+        "skippedTests": 0,
+        "runtime": {
+          "platform": "iOS Simulator",
+          "modelName": "iPhone 17",
+          "osVersion": "27.0",
+          "osBuildNumber": "24A434",
+          "architecture": "arm64"
+        }
+      },
+      "location": {
+        "result": "Passed",
+        "totalTestCount": 13,
+        "passedTests": 13,
+        "failedTests": 0,
+        "skippedTests": 0,
+        "runtime": {
+          "platform": "iOS Simulator",
+          "modelName": "iPhone 17",
+          "osVersion": "27.0",
+          "osBuildNumber": "24A434",
+          "architecture": "arm64"
+        }
+      }
+    },
+    "total_passed": 61,
+    "failures": 0,
+    "skipped": 0,
+    "telemetry_scheme": "CaneSightTelemetry-Package",
+    "reporting_correction": "Earlier product-scheme telemetry build-for-testing succeeded without a test bundle. Initial test-without-building returned no test bundles available. Rebuilt with the package scheme and actually executed all 21 telemetry tests successfully. This supersedes the earlier premature all-four-test-bundles claim.",
+    "limits": "Simulator tests do not establish physical LiDAR/mount/GPS behavior, live server transport, source capture-age calibration or motor/electrical verification."
+  }
+}

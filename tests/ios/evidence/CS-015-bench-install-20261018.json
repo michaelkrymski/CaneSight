@@ -1,0 +1,43 @@
+{
+  "task": "CS-015",
+  "date": "2026-10-18",
+  "main_base": "5dd5fa37009402b7eb7c9dbed3d20eacd4346c90",
+  "tested_commit": "bd99b6cf043122d2d4548f4e97bfa70bbf868409",
+  "pr": 70,
+  "configuration": "portrait upright, rear cameras facing forward (user selected)",
+  "device": {
+    "model": "iPhone 17 Pro Max",
+    "os": "26.6.2"
+  },
+  "software": {
+    "macos_xctest_passed": 11,
+    "failures": 0,
+    "shared_tests_passed": 110,
+    "ios_sdk_build": "passed",
+    "signed_device_build": "passed",
+    "strict_deep_codesign": "passed",
+    "installation": "passed",
+    "launch": "passed",
+    "required_ci": "passed_on_tested_commit"
+  },
+  "physical_checks": {
+    "left_three_distinct_captures": null,
+    "center_three_distinct_captures": null,
+    "right_three_distinct_captures": null,
+    "rotation_resets": null,
+    "stop_background_reset": null
+  },
+  "operator_results": "requested_pending",
+  "physical_mapping_verified": false,
+  "final_cane_mount_verified": false,
+  "motor_mapping_verified": false,
+  "capture_clock_verified": false,
+  "images_saved": false,
+  "network_enabled": false,
+  "source_sha256": {
+    "ios/MountMapping/Sources/CaneSightMountMappingARKit/PortraitDepth.swift": "1d1d50c94f9316ef26ab304daa82db2d1fcfc007512f912358ed4b60f575c429",
+    "ios/MountMapping/Sources/CaneSightMountMapping/DisplayMapping.swift": "b6b7b22e46d57675be09efcf011503da7fb696077d802ce5cd57bd23c1886942",
+    "ios/MappingBench/Sources/BenchController.swift": "8c3e6832be8f244e7a48307d22f65f90ba2f88c718cf161048c2e2b243f1e2ae",
+    "ios/MappingBench/Sources/MappingBenchApp.swift": "cb6069b79cba0f19c7ee196c598461400f400f2c7a20e882a125d8203831767e"
+  }
+}
