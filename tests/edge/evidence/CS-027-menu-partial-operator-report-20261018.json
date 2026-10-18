@@ -1,0 +1,54 @@
+{
+  "task": "CS-027",
+  "reported_date": "2026-10-18",
+  "provenance": "Operator pasted a console snapshot from the instructed Pi GPIO21 synthetic interaction bench; complete saved report and exact source SHA were not supplied.",
+  "reported_build_commit": null,
+  "agent_observed_hardware": false,
+  "reported_snapshot": {
+    "automatic_audio_route_detection": false,
+    "backend_used": false,
+    "context_gesture_events": 2,
+    "context_requests_used": false,
+    "event_counts": {
+      "activate": 0,
+      "cancel": 2,
+      "choose": 0,
+      "confirmation": 0,
+      "context": 2,
+      "entry": 2,
+      "selection": 7,
+      "unavailable": 0
+    },
+    "fault": false,
+    "gemini_used": false,
+    "generation": 7,
+    "gpio_used": true,
+    "last_event": {
+      "kind": "cancel",
+      "reason": "timeout",
+      "scenario": null
+    },
+    "live_observations_implemented": false,
+    "motor_gpio_used": false,
+    "phone_used": false,
+    "physical_audio_accepted": false,
+    "scenario_capabilities": "synthetic interaction only",
+    "selected": null,
+    "state": "closed"
+  },
+  "human_speech_clarity": null,
+  "human_audible_cancel_tail": null,
+  "confirmation_verified": false,
+  "activation_verified": false,
+  "physical_audio_accepted": false,
+  "limitations": [
+    "Counters show entry/cycling and a final timeout cancellation, not measured debounce/hold/timeout timing or label order/wrap.",
+    "Both confirmation and activation counters are zero. A focused rerun is required; no code defect or physical pass is inferred.",
+    "The two context gesture events created no requests in this bench.",
+    "No automatic route monitoring, actual scenario observations, phone/backend/Gemini or motor evidence."
+  ],
+  "operator_followup": {
+    "reported_checkout_commit": "f2a6dca6df87ffe1daf0a9f265590ca9ba6a393e",
+    "binding": "Operator supplied git rev-parse HEAD from the same checkout after both snapshots; agent did not observe the device or run."
+  }
+}

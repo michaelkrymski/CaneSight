@@ -954,6 +954,14 @@ Preserve exact pasted report from combined 6dfda42: initially LOW, seven press/r
 
 Validation: Parsed report and checked counts/disabled subsystems; confirmed source commit contains the GPIO adapter. No new implementation or local hardware test. Checked publisher runs shared validation, tests, governance, changelog and whitespace.
 
+## 2026-10-18 — CS-027-MENU-DEVICE-EVIDENCE-20261018: Record Pi button/menu confirmation and qualitative speech cancellation evidence
+
+Author: bondmila (AI-assisted) · Task: CS-027
+
+Preserve initial zero-confirmation snapshot and focused confirmation/activation/cancel snapshot separately. Operator reports exact checkout SHA, clear speech and prompt stop without noticeable tail. Integrate accepted route-monitoring dependency; physical runs did not enable it. Keep full task blocked for PM acceptance and remaining integration.
+
+Validation: Operator-reported GPIO input and no fault on both snapshots; no agent-observed hardware run, measured audible latency, automatic route-loss, live scenario/phone/backend or motor result. Software rerun results recorded in handoff; checked publisher runs shared checks.
+
 ## 2026-10-18 — CS-027-MENU-OPERATOR-CONFIRMATION-20261018: Record operator menu confirmation for software checkpoint review
 
 Author: bondmila (AI-assisted) · Task: CS-027
