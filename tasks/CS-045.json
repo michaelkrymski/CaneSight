@@ -19,7 +19,7 @@
   "owner": "gmarcialcalleja",
   "status": "blocked",
   "branch": "task/CS-045-measurement-analysis",
-  "pr_url": null,
+  "pr_url": "https://github.com/michaelkrymski/CaneSight/pull/72",
   "evidence": [
     "Assignment proposal only; implementation waits for Michael to merge ownership. CS-025/CS-044 software checkpoints are merged. Planned measurement-analysis preparation: validate original capture-age/clock uncertainty and distinguish software command times from physical onset; real 20-sample latency and distance evidence remain required.",
     "Merged ownership: https://github.com/michaelkrymski/CaneSight/pull/54",
