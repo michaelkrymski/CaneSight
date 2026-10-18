@@ -1,0 +1,37 @@
+{
+  "task": "CS-042",
+  "database": "real PostgreSQL over verify-full TLS",
+  "measured_at_utc": "2026-10-18T06:32:37.637124+00:00",
+  "python": "3.14.3",
+  "input": "synthetic replay only",
+  "native_transport": "local ASGI, not deployed HTTPS/WSS",
+  "checks": {
+    "three_distinct_roles_connect_with_verified_tls": "pass",
+    "runtime_and_analytics_least_privilege": "pass",
+    "only_approved_minimal_database_columns": "pass",
+    "native_admission_without_consent_writes_nothing": "pass",
+    "two_consented_synthetic_streams_persist_and_are_visible": "pass",
+    "withdrawal_stops_new_collection": "pass",
+    "confirmed_deletion_preserves_other_stream": "pass",
+    "expired_rows_hidden_by_database_clock": "pass",
+    "runtime_physically_purges_expired_rows": "pass",
+    "unrelated_valid_ca_rejects_actual_service": "pass",
+    "invalid_certificate_writer_does_not_block_native_admission_or_consumer_expiry": "pass",
+    "real_database_lock_and_queue_saturation_do_not_block_native_admission": "pass",
+    "independent_consumer_capture_expiry_under_real_database_lock": "pass",
+    "unreachable_database_does_not_block_native_admission_or_consumer_expiry": "pass"
+  },
+  "all_checks_passed": true,
+  "deployment_verified": false,
+  "provider_backup_policy_verified": false,
+  "source_sha256": {
+    "backend/telemetry/live_probe.py": "fa1d97da0eb744fe47f52932927def39fa34462f133d1947ba7e6265b87da079",
+    "backend/telemetry/event_store.py": "397e72b14816a04ce057b10d080ea15e0e6dc4a0d60ec05bde5f5b13ceb8b4fe",
+    "backend/telemetry/event_writer.py": "2521a4df4d6efc28b0e68ef2d5411994c522a348ba4a5c6fb7fb1e6ec6f781da",
+    "backend/telemetry/logging_app.py": "9a6423c58856bb9115cf83956fe842a9e59e3ae347e7a6e873dc470ec6e58dce",
+    "backend/telemetry/event_control.py": "cd4f5a81d9c12d82326c244fedbe6e72ac78cd1f2051b277c03016a16504fe77",
+    "backend/telemetry/event_schema.sql": "284d4f5d295ff558f842f399de330632c8a5df5e953c486911f097754bae293f"
+  },
+  "synthetic_stream_cleanup_confirmed": true,
+  "private_recovery_receipt_retained": false
+}
