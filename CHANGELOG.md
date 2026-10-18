@@ -650,3 +650,11 @@ Assignment runtime only. After merged ownership, prepare bounded validation/stat
 
 Validation: Verified accepted task unclaimed and no competing open claim. Checked publishing runs repository/shared/changelog/whitespace checks. No measurement implementation or real-device evidence included.
 
+## 2026-10-18 — CS-019-CLOCK-FAULT-NOTIFICATION-20261018: Make GPS clock-fault purge notification idempotent
+
+Author: Gavin (gmarcialcalleja) · Task: CS-019
+
+Final review follow-up on PR 67: once a clock fault is latched, unavailable snapshot reads no longer trigger another purge callback. This prevents a synchronous UI refresh from recursively purging. Extend the existing clock-fault regression; contract and device blockers remain.
+
+Validation: All 13 portable Swift XCTest cases passed again on Swift 6.0.3 Linux with complete strict concurrency and warnings as errors. Apple SDK adapter remains excluded; no device validation claimed.
+

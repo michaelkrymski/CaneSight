@@ -196,7 +196,9 @@ final class LocationContextTests: XCTestCase {
                 default: r.utc -= 2
                 }
                 XCTAssertEqual(r.context.snapshot().unavailable, .clockFault)
+                let count = r.purges
                 XCTAssertNil(r.context.snapshot().latitude)
+                XCTAssertEqual(r.purges, count) // no repeated/reentrant fault notifications
                 r.mono = 2000; r.utc = 2001
                 XCTAssertFalse(r.context.receive(r.fix()))
                 XCTAssertEqual(r.context.snapshot().unavailable, .clockFault)

@@ -1,0 +1,9 @@
+{
+  "id": "CS-019-CLOCK-FAULT-NOTIFICATION-20261018",
+  "date": "2026-10-18",
+  "author": "Gavin (gmarcialcalleja)",
+  "task": "CS-019",
+  "summary": "Make GPS clock-fault purge notification idempotent",
+  "details": "Final review follow-up on PR 67: once a clock fault is latched, unavailable snapshot reads no longer trigger another purge callback. This prevents a synchronous UI refresh from recursively purging. Extend the existing clock-fault regression; contract and device blockers remain.",
+  "validation": "All 13 portable Swift XCTest cases passed again on Swift 6.0.3 Linux with complete strict concurrency and warnings as errors. Apple SDK adapter remains excluded; no device validation claimed."
+}

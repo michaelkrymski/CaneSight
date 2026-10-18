@@ -117,6 +117,9 @@ public struct LocationPolicy: Sendable {
     }
 
     private func readClock() -> LocationClock? {
+        // Notify once. A UI purge hook may synchronously read the unavailable
+        // snapshot; it must not recursively trigger another purge on clock fault.
+        guard !clockFailed else { return nil }
         let value = now()
         var valid = value.utcSeconds.isFinite && value.utcSeconds >= 0
             && value.monotonicMilliseconds.isFinite && value.monotonicMilliseconds >= 0
