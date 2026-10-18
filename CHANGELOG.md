@@ -698,6 +698,14 @@ Add a targeted master-plan subsection, implementation brief and CR for 3-second 
 
 Validation: Planning-only change. Repository validation, generated changelog consistency, whitespace and shared unit suite are checked before publication. No button/audio/vision implementation, training, live traffic, GPIO or physical acceptance claimed. Protected plan/task amendments require exact-head GitHub approval.
 
+## 2026-10-18 — CS-027-CROSSING-MENU-BONDMILA-20261018: Implement merged crossing observation gesture component and synthetic bench
+
+Author: bondmila (AI-assisted) · Task: CS-027
+
+Follow accepted PR #71: deterministic thresholds/release barriers, no default/three-mode menu, cancel/expiry/source/epoch gates. Add explicit synthetic terminal/GPIO21 and silent/real-speech bench; no traffic observations, model requests or motor outputs. Existing uploader stays unchanged pending production bridge and trusted readiness.
+
+Validation: Virtual clock threshold/expiry/fault tests plus combined edge regressions and exact private-report silent CLI. Checked publishing runs shared checks. No new physical menu/audio or road-use test performed; see handoff for actual counts.
+
 ## 2026-10-18 — CS-027-GPIO21-INPUT-BONDMILA-20261018: Connect reported GPIO21 button to gated context runtime
 
 Author: bondmila (AI-assisted) · Task: CS-027
