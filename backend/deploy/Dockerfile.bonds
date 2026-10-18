@@ -1,0 +1,7 @@
+# Layer over the exact existing native/vision/context/logging image.
+# The deployment owner must resolve and verify BASE_IMAGE before building.
+ARG BASE_IMAGE
+FROM ${BASE_IMAGE}
+COPY backend/app.py backend/bonds.py /opt/canesight/backend/
+# Inherit the parent's command, environment, user, healthcheck and dependencies.
+# Enabling CANESIGHT_BOND_REGISTRY and mounting the registry are separate opt-ins.

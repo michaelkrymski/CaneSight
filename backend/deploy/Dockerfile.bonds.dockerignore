@@ -1,0 +1,7 @@
+**
+!backend/
+!backend/app.py
+!backend/bonds.py
+!backend/deploy/
+!backend/deploy/Dockerfile.bonds
+!backend/deploy/Dockerfile.bonds.dockerignore
