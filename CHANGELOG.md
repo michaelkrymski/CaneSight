@@ -682,6 +682,14 @@ Add standalone CaneSightStatus/SwiftUI products with explicit unknown, disconnec
 
 Validation: 17 portable Swift tests and 2 actual lifecycle integration tests passed on official Swift 6.0.3 in Ubuntu/WSL with strict concurrency and warnings as errors. Six Swift files passed syntax audit. Native SwiftUI/Apple SDK, VoiceOver/layout, actual host/speech path and audible speaker stop remain unrun; keep draft/blocked. Checked publishing runs shared repository/changelog/whitespace validation.
 
+## 2026-10-18 — CS-018-DRAFT-LINK-20261018: Link CS-018 draft review and preserve explicit native validation limits
+
+Author: aditsangani (AI-assisted) · Task: CS-018
+
+Record draft PR #73 in task runtime. Use synthesized ObservableObject revision notifications while reading status directly from the controller, preserving no duplicate UI cache. No core/lifecycle algorithm change. Refresh source audit hashes; keep Apple build, accessibility/device and actual host/speech adapter checks pending.
+
+Validation: 17 portable Swift and 2 accepted lifecycle integration tests passed for unchanged core/test source. Updated conditional UI syntax passed grammar parsing; its body is not compiled on Linux. Prior checked publisher passed 113 shared Python tests plus repository/changelog/whitespace checks; checked publishing repeats shared checks for this checkpoint.
+
 ## 2026-10-18 — CS-019-CLOCK-FAULT-NOTIFICATION-20261018: Make GPS clock-fault purge notification idempotent
 
 Author: Gavin (gmarcialcalleja) · Task: CS-019

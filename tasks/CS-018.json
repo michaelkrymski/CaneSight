@@ -18,7 +18,7 @@
   "owner": "aditsangani",
   "status": "blocked",
   "branch": "task/CS-018-accessible-status",
-  "pr_url": null,
+  "pr_url": "https://github.com/michaelkrymski/CaneSight/pull/73",
   "evidence": [
     "Merged ownership: https://github.com/michaelkrymski/CaneSight/pull/66",
     "ios/AccessibleStatus: typed unknown/disconnected/depth/audio status, large SwiftUI controls, VoiceOver labels/values/hints and manual local cancellation seam. No host or teammate code modified.",

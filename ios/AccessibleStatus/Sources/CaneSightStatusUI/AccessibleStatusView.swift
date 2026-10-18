@@ -9,7 +9,7 @@ import Combine
 /// One view adapter per controller; the host delivers lifecycle/source events on
 /// MainActor. No camera, network, credentials, speech engine or GPS access here.
 @MainActor public final class AccessibleStatusModel: ObservableObject {
-    public let objectWillChange = ObservableObjectPublisher()
+    @Published private var viewRevision = false
     public let controller: StatusController
     // Read the authoritative controller snapshot. Never cache a second copy:
     // synchronous observers can invalidate a source while notification runs.
@@ -17,7 +17,7 @@ import Combine
 
     public init(controller: StatusController) {
         self.controller = controller
-        controller.onChange = { [weak self] _ in self?.objectWillChange.send() }
+        controller.onChange = { [weak self] _ in self?.viewRevision.toggle() }
     }
 }
 
