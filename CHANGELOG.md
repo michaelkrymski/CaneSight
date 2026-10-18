@@ -50,6 +50,14 @@ Add closed versioned message schema, six replay fixtures, reference validation/c
 
 Validation: 34 repository/contract tests pass, including duplicate/order/epoch/session/mode handling, unknown fields, nonfinite and oversize input, clock bounds, frame lineage and heartbeat-independent expiry. Structural validation, generated log and whitespace checks pass. Current-head GitHub CI is verified separately; PM/collaborator acceptance remains required.
 
+## 2026-10-17 — CS-016-CLAIM-BONDMILA-20261017: Request CS-016 bounded phone telemetry assignment
+
+Author: bondmila (AI-assisted) · Task: CS-016
+
+Assignment-only proposal after confirming accepted main has no owner and no matching open claim PR. Preserve task requirements/dependencies/allowed paths. Implementation waits for merged ownership; depth producer CS-014 and physical phone evidence are pending. No telemetry or device completion claim.
+
+Validation: Checked publishing runs repository validation, root tests, governance, generated changelog and whitespace checks. No task implementation or physical-phone test performed.
+
 ## 2026-10-17 — CS-021-CS-022-MICHAEL-CLAIM-20261017: Assign Pi capture and latest-only uploader work to Michael
 
 Author: michaelkrymski (AI-assisted) · Task: CS-021, CS-022

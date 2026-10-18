@@ -17,10 +17,12 @@
   "suggested_role": "iOS",
   "estimate_hours": 1.0,
   "elapsed_window": "5–8",
-  "owner": null,
-  "status": "backlog",
-  "branch": null,
+  "owner": "bondmila",
+  "status": "in_progress",
+  "branch": "claim/CS-016-bondmila",
   "pr_url": null,
-  "evidence": [],
+  "evidence": [
+    "Assignment proposal only: implementation waits for Michael to merge ownership. CS-016 acceptance is bounded 10 Hz starting phone summaries with session/boot/sequence identity and reconnect without stale queue replay. Initial software work will use clearly identified depth fixtures until CS-014 and real-device evidence are available."
+  ],
   "blocker": ""
 }
