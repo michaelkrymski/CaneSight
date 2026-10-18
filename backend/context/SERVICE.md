@@ -131,3 +131,13 @@ and [thought-signature documentation](https://ai.google.dev/gemini-api/docs/gene
 The optional opaque signature on final text is discarded. Thought/prose/tool
 parts, multiple candidates, incomplete/safety-blocked results, extra output
 properties and unsupported labels are never rendered as descriptions.
+
+## Deployment composition follow-up
+
+The original standalone factory remains available. The opt-in
+`backend.context.deployment` factory can now install the same service over an
+explicitly selected existing sessions/vision, dashboard or logging factory,
+reusing its native manager and lifespans. See [DEPLOYMENT.md](DEPLOYMENT.md) for
+the restricted image layer, exact proposed service command/configuration,
+verification, restart/re-enrollment and rollback. Packaging is prepared for review;
+no running service is changed and no container build is claimed.

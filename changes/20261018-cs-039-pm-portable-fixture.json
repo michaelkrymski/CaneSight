@@ -1,0 +1,9 @@
+{
+  "id": "CS-039-PM-PORTABLE-FIXTURE-20261018",
+  "date": "2026-10-18",
+  "author": "michaelkrymski (AI-assisted)",
+  "task": "CS-039",
+  "summary": "Use native absolute model fixture paths in composition tests",
+  "details": "Replace POSIX-only synthetic weight path with a path under the existing temporary directory and assert the configured path reaches the model factory. No runtime validation, factories, deployment or credentials changed.",
+  "validation": "Reproduced two Windows context/root errors before repair; after repair all 106 context cases complete with eleven platform skips and all 228 shared cases complete with eleven skips, no failures. Unchanged backend suite: 128 cases, nineteen skips, no failures. No Docker build, cloud or device test."
+}
