@@ -216,3 +216,22 @@ is not automatic OS route-loss detection. If eSpeak fails, restart only after
 inspection; the sink intentionally does not clear a fault or replay old speech.
 This uses synthetic labels/capture/priority, with no camera, phone, network,
 backend request, Gemini or GPIO. Full phone/backend verification remains open.
+
+
+## Hardware handoff #68 (2026-10-18)
+
+[Michael's issue #68](https://github.com/michaelkrymski/CaneSight/issues/68)
+supersedes the earlier no-button assumption: active-high BCM21 input now exists,
+as do reported camera uploads, manual motor-channel operation and standalone
+speaker playback. The local motor bench package mentioned there is not uploaded;
+this narration implementation does not rely on it or claim its motor outputs.
+CS-027's opt-in input-only GPIO21 adapter can feed the same context/narration
+controller once the real phone/session/backend prerequisites exist. Those gates
+remain mandatory; installed hardware cannot manufacture source readiness.
+
+The earlier 15-case operator speaker report and the newer issue's motor bench are
+separate evidence. Issue #68 supplies no new combined context/audio lifecycle or
+Bluetooth recovery result and explicitly reports phone depth not ready. Keep #41
+and #58 draft, retain prior evidence, and collect current combined-checkout input
+and recovery reports. CS-018 owns accessible controls; CS-023/CS-025 own motor
+integration. No baseline pin-map amendment or physical acceptance is made here.

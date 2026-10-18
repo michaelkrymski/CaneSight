@@ -682,6 +682,14 @@ Assignment runtime only. After merged ownership, prepare bounded validation/stat
 
 Validation: Verified accepted task unclaimed and no competing open claim. Checked publishing runs repository/shared/changelog/whitespace checks. No measurement implementation or real-device evidence included.
 
+## 2026-10-18 — CS-040-HARDWARE-68-HANDOFF-BONDMILA-20261018: Reconcile narration readiness with Michael hardware handoff #68
+
+Author: bondmila (AI-assisted) · Task: CS-040
+
+Record installed GPIO21 button, reported camera and speaker availability while preserving prior synthetic speaker evidence. Keep full context/audio and phone-depth gates open; motor integration and accessible controls remain with their owners. No protected baseline changes.
+
+Validation: Read issue #68 and author identity via GitHub. Existing 71 context tests passed for current code; documentation/runtime update only. Checked publisher runs shared checks; no new hardware or audible test claimed.
+
 ## 2026-10-18 — CS-040-SPEAKER-RECOVERY-BONDMILA-20261018: Prepare operator-guided Bluetooth cancellation and fresh-request recovery test
 
 Author: bondmila (AI-assisted) · Task: CS-040
