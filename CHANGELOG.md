@@ -850,6 +850,38 @@ Prevent synchronous disconnect/UI cleanup callbacks from recursively invalidatin
 
 Validation: 12 portable Swift 6.0.3 Linux tests passed with complete strict concurrency and warnings as errors; 3 Python consumer expiry/reconnect tests passed. No current-head Apple SDK or physical test claimed.
 
+## 2026-10-18 — CS-018-ACCEPTED-HOST-EVIDENCE-20261018: Reconcile accessible-status acceptance with the merged phone host
+
+Author: Adit (aditsangani, AI-assisted) · Task: CS-018
+
+Match unchanged CS-018 Swift sources to merged host review pin and all nine recorded host hashes. Attribute completed Apple build/largest-text/local-speech checks and human audible-cancel/VoiceOver labels, Unknown and Cancel observations on an unidentified installed build. Separate remaining exact-build, Escape, layout, route/buffering and CS-040/Pi integration gates. No runtime or teammate-source changes.
+
+Validation: Reran 17 portable status and two actual accepted-lifecycle integration tests in Swift 6.0.3 WSL with complete strict concurrency and warnings as errors; all passed. Apple results are attributed source-verified repository evidence, not rerun on Windows. Shared repository/changelog/whitespace checks run through checked publishing. Keep PR #73 draft and task blocked; no measured silence, Bluetooth, transport or Done claim.
+
+## 2026-10-18 — CS-018-ACCESSIBLE-STATUS-20261018: Prepare accessible phone status and local audio cancellation controls
+
+Author: aditsangani (AI-assisted) · Task: CS-018
+
+Add standalone CaneSightStatus/SwiftUI products with explicit unknown, disconnected and narration states, image-column labels, optional 60pt camera controls, large cancel control and accessibility Escape. Preserve original display deadlines and fence late/reentrant callbacks; cancellation uses a synchronous local adapter even offline and reports requests without asserting physical silence. Use accepted CS-017 directly in integration tests after its merge. Host app, speech engine, protocol, hardware and other owners' code remain unchanged. Initial base 5dbb6adc6f7c8984e1beb624fc7c8fe1a4cdfafa; publication base 94ccaaf14a88b990cc468433e55622b0b1e6681f.
+
+Validation: 17 portable Swift tests and 2 actual lifecycle integration tests passed on official Swift 6.0.3 in Ubuntu/WSL with strict concurrency and warnings as errors. Six Swift files passed syntax audit. Native SwiftUI/Apple SDK, VoiceOver/layout, actual host/speech path and audible speaker stop remain unrun; keep draft/blocked. Checked publishing runs shared repository/changelog/whitespace validation.
+
+## 2026-10-18 — CS-018-DRAFT-LINK-20261018: Link CS-018 draft review and preserve explicit native validation limits
+
+Author: aditsangani (AI-assisted) · Task: CS-018
+
+Record draft PR #73 in task runtime. Use synthesized ObservableObject revision notifications while reading status directly from the controller, preserving no duplicate UI cache. No core/lifecycle algorithm change. Refresh source audit hashes; keep Apple build, accessibility/device and actual host/speech adapter checks pending.
+
+Validation: 17 portable Swift and 2 accepted lifecycle integration tests passed for unchanged core/test source. Updated conditional UI syntax passed grammar parsing; its body is not compiled on Linux. Prior checked publisher passed 113 shared Python tests plus repository/changelog/whitespace checks; checked publishing repeats shared checks for this checkpoint.
+
+## 2026-10-18 — CS-018-PM-REVIEW-20261018: Clarify software review readiness and outstanding physical acceptance
+
+Author: michaelkrymski (AI-assisted) · Task: CS-018
+
+Synchronize accepted menu bridge and correct stale draft wording in current README/acceptance guide. Preserve historical handoffs and runtime, tests, source pins, requirements and blocked task state.
+
+Validation: Four package and nine accepted-host hashes match; runtime/package/tests unchanged from Apple-tested pin. All 195 shared cases complete with seven platform skips, no failures. Structure/changelog/whitespace pass. No new Swift/Xcode/device or audible-stop measurement performed.
+
 ## 2026-10-18 — CS-019-CLOCK-FAULT-NOTIFICATION-20261018: Make GPS clock-fault purge notification idempotent
 
 Author: Gavin (gmarcialcalleja) · Task: CS-019

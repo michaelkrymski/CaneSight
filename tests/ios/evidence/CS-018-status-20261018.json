@@ -1,0 +1,55 @@
+{
+  "task": "CS-018",
+  "date": "2026-10-18",
+  "base_commit": "5dbb6adc6f7c8984e1beb624fc7c8fe1a4cdfafa",
+  "swift_environment": {
+    "version": "Swift 6.0.3 RELEASE",
+    "platform": "Ubuntu 24.04 x86_64 via local WSL",
+    "toolchain_url": "https://download.swift.org/swift-6.0.3-release/ubuntu2404/swift-6.0.3-RELEASE/swift-6.0.3-RELEASE-ubuntu24.04.tar.gz",
+    "runtime_dependency": "libncurses6 extracted into task-local WSL cache; no system/root install"
+  },
+  "portable_tests": {
+    "passed": 17,
+    "failed": 0,
+    "command": "swift test --package-path ios/AccessibleStatus --jobs 2 -Xswiftc -strict-concurrency=complete -Xswiftc -warnings-as-errors"
+  },
+  "cs017_integration": {
+    "passed": 2,
+    "failed": 0,
+    "command": "swift test --package-path tests/ios/cs018_lifecycle_integration --jobs 2 -Xswiftc -strict-concurrency=complete -Xswiftc -warnings-as-errors",
+    "notice": "Uses accepted-main ios/Lifecycle directly after merge of PR #63; no source copying or review dependency required.",
+    "lifecycle_implementation_commit": "0a2e161ed399c7a850cd8ffcf6ed211ce4f2cbca"
+  },
+  "swift_grammar_audit": {
+    "passed_files": 6,
+    "parser": "tree-sitter 0.26.0 / tree-sitter-swift 0.7.4",
+    "notice": "Includes conditional SwiftUI syntax only; not native API type checking."
+  },
+  "source_sha256_utf8_lf": {
+    "ios/AccessibleStatus/Package.swift": "e9f5ea32471cd92644115c7d7d643fe146c58a313ce4efe22f79c5f1bbe263f9",
+    "ios/AccessibleStatus/Sources/CaneSightStatus/StatusController.swift": "234acd942da2ad430e66fb2f8ea23ca661e7f01b30e8a1291224e93ccfaf4a42",
+    "ios/AccessibleStatus/Sources/CaneSightStatusUI/AccessibleStatusView.swift": "5da5d09a7732a464ecb1698f0752bb41641b695415ed16467058651e5baaa1e2",
+    "ios/AccessibleStatus/Tests/CaneSightStatusTests/StatusControllerTests.swift": "7716ad30b7393afdf1f18dc621cb28d8a6c462612c76bd135c0c78aca4dfc737",
+    "tests/ios/cs018_lifecycle_integration/Tests/CS018LifecycleIntegrationTests/LifecycleIntegrationTests.swift": "b18a35c0899688d430a405e9a34ed7abfac9907e46f986f18e180dbc3b515e55",
+    "tests/ios/cs018_lifecycle_integration/Package.swift": "cba3502dcc7e5ebcce1a4d5aca427a461ea1f78cb9752062a7a65c108be2f5ca"
+  },
+  "native_swiftui_build": "not_run",
+  "voiceover_and_dynamic_type": "not_run",
+  "phone_host_and_cs040_sink_integration": "not_run",
+  "audible_bluetooth_cancel_latency": "not_measured",
+  "limitations": [
+    "Linux excludes SwiftUI body. Root Python CI does not run Swift tests.",
+    "No iOS SDK build, VoiceOver/layout test or actual host/speech/motor/Pi check.",
+    "CS-017 is merged with device limits still pending. CS-013 host and CS-040 speech integration are still pending.",
+    "Local software cancellation request is not verified physical silence."
+  ],
+  "publication_base": "94ccaaf14a88b990cc468433e55622b0b1e6681f",
+  "accepted_lifecycle_source_sha256": "d391d4ab76e1e5b5934a4997aea00c86862bac593e18600dfd5d500561bd7205",
+  "shared_checks": {
+    "python_unittest_discovery_passed": 113,
+    "repository_validation": "passed",
+    "changelog_consistency": "passed",
+    "whitespace": "passed",
+    "notice": "Observed from checked publishing at implementation commit 8db6ebfbfe39c75c5fd068d334391095d147a805; native UI remains unbuilt."
+  }
+}
