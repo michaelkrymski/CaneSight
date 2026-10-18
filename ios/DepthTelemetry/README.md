@@ -46,5 +46,7 @@ Run `swift test --package-path ios/DepthTelemetry -Xswiftc
 -strict-concurrency=complete -Xswiftc -warnings-as-errors`. Tests use generated
 depth samples and injected transports. Native OS TLS rejection/cancellation is
 tested separately with `python -m unittest discover -s tests/ios -p
-test_native_websocket.py -v` on macOS. No phone, physical Pi, live camera, measured
-sensor latency, accepted network enrollment or electrical verification is claimed.
+test_native_websocket.py -v` on macOS. These package tests are synthetic. Separate CS-016 signed phone and real Pi
+transport evidence is listed in `tests/ios/CS-016_ACCEPTANCE.md`; it does not
+establish measured sensor latency, final-consumer capture-age eligibility or
+electrical verification.

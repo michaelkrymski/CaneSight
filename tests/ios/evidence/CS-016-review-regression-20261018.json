@@ -1,0 +1,27 @@
+{
+  "task": "CS-016",
+  "date": "2026-10-18",
+  "accepted_main": "5234f04",
+  "test_source_merge_commit": "8b59fcc8512c55f1a0b8f8428dd973d6a4fc9739",
+  "physical_phone_regression": {
+    "passed": 22,
+    "failed": 0,
+    "skipped": 0,
+    "core_tests": 13,
+    "client_tests": 8,
+    "bench_clock_guard_tests": 1,
+    "fault_injection": "Synthetic clocks and sockets on physical iOS; no live grant consumed"
+  },
+  "acceptance_mapping": "tests/ios/CS-016_ACCEPTANCE.md",
+  "source_sha256": {
+    "ios/CaneSightTelemetry/Sources/CaneSightTelemetry/TelemetryCore.swift": "6b91e0b501f2b36dfaee7a271637cee50f227e2d39a4141d388734f4d816300d",
+    "ios/CaneSightTelemetry/Sources/CaneSightTelemetry/TelemetryClient.swift": "2706e8d18faa67b210fa9acaf601e644f025b98bde3fd5fbe61e47e1a245748a",
+    "ios/CaneSightTelemetry/Tests/CaneSightTelemetryTests/ClientTests.swift": "afeb626a0c62bda1be615e9a24dae8421493c124128c812ad6df685ea3c26768",
+    "ios/CaneSightTelemetry/Tests/CaneSightTelemetryTests/CoreTests.swift": "9da5d24bb415bbcadd12f461d7ee9eee240ca30b2473e0029284949aaee3636c"
+  },
+  "limits": [
+    "Actual received rate 9.07 Hz, not hard real-time 10 Hz delivery.",
+    "Unknown remote age/drift is retained; no normal-app streaming activation.",
+    "Actual lock/sleep and final-consumer freshness are CS-017/CS-030 integration gates; no completion claims for those tasks."
+  ]
+}

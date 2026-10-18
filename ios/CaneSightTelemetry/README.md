@@ -131,13 +131,26 @@ To inspect synthetic replay output: `swift run --package-path ios/CaneSightTelem
 This separate test root is explicit; existing repository CI does not run Swift or
 these cross-language tests automatically. No protected workflow is changed.
 
-## Deferred acceptance gates
+## Review evidence and integration boundaries
 
-Host SwiftPM build/tests are software evidence only. An iOS app target, CS-014
-producer adapter, CS-017 lifecycle integration, verified capture clock mapping,
-app privacy/permission configuration, iOS SDK build/signing, real LiDAR phone,
-live native authenticated WSS/paired Pi tests, network loss/backpressure/background
-runs and measured on-device rate/freshness remain unverified. The user authorized
-finishing this software checkpoint while deferring Xcode/app/device verification.
-Keep the implementation PR draft and task blocked until those gates have evidence;
-this is not full phone/backend integration or physical acceptance.
+CS-016 acceptance remains: "Send 10 Hz starting summaries, session/boot/sequence
+IDs and reconnect without old queue replay." The 100 ms minimum separation is a
+10 Hz starting cap, with no catch-up burst; it is not a hard real-time delivery
+promise. The deterministic fast-producer test sends ten times in a simulated
+second. The measured real pair delivered about 9.07 Hz on the tested network.
+
+See [CS-016 acceptance evidence](../../tests/ios/CS-016_ACCEPTANCE.md) for the
+source-to-test mapping and actual phone/Pi counters. Physical-iPhone core/client
+regressions cover a blocked send, independent timeout/cancellation, latest-only
+mailbox, retained sequence state, cleared reconnect queue and fresh post-open
+capture. Those socket/clock fault injections are synthetic even on a real phone.
+Separate native tests exercised real default-TLS authenticated WSS, real ARKit
+summaries, and operator-reported real Pi receipt across reconnect.
+
+This component is ready for independent transport review. It does not enable
+normal-app streaming or make receiver observations eligible. CS-017 owns actual
+host lifecycle/background/lock integration; CS-030 owns final-consumer capture-age
+bounds with a justified joint drift budget. Those gates remain open, preserve
+unknown/unavailable, and must be completed before live guidance. Motor/electrical
+acceptance is separate. No ownership, acceptance, protocol or plan requirement
+is changed by this division. Review is not Done or permission to merge own work.
