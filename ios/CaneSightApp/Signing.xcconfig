@@ -1,0 +1,2 @@
+// Optional machine-local team selection; no credentials or profiles in Git.
+#include? "Signing.local.xcconfig"

@@ -1,0 +1,9 @@
+{
+  "id": "CS-013-XCODE-HOST-20261018",
+  "date": "2026-10-18",
+  "author": "michaelkrymski (AI-assisted)",
+  "task": "CS-013",
+  "summary": "Build iPhone local depth host and verify deferred Swift packages with Xcode",
+  "details": "New SwiftUI iOS16+ host checks scene-depth support, requests camera permission and displays bounded local image-column depth. Epoch barriers, interruption invalidation and receipt-time UI expiry preserve unknowns. Pinned ignored review dependencies preserve draft PR source without modifying teammate tasks. Network/GPS/motors stay off. Initial PM claim PR #69 was author/diff verified before implementation.",
+  "validation": "59 package macOS XCTest cases, five host gate cases and four Swift/backend wire cases passed. Four package physical-iOS SDK builds and four iOS Simulator test-bundle builds passed. Unsigned host physical-iOS build passed. Simulator tests and physical phone/signing/clock/mapping/WSS acceptance remain pending; task blocked and PR draft. Checked publisher runs shared checks."
+}
