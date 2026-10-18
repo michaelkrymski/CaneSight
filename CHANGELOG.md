@@ -778,6 +778,14 @@ New SwiftUI iOS16+ host checks scene-depth support, requests camera permission a
 
 Validation: 59 package macOS XCTest cases, five host gate cases and four Swift/backend wire cases passed. Four package physical-iOS SDK builds and four iOS Simulator test-bundle builds passed. Unsigned host physical-iOS build passed. Simulator tests and physical phone/signing/clock/mapping/WSS acceptance remain pending; task blocked and PR draft. Checked publisher runs shared checks.
 
+## 2026-10-18 — CS-014-PM-ENCODING-REPAIR-20261018: Restore accepted task window to resolve unintended governance change
+
+Author: michaelkrymski (AI-assisted) · Task: CS-014
+
+Restore elapsed_window verbatim from accepted main after an encoding corruption. No task requirement, scope, ownership, Swift implementation, test or fixture change. Preserve readiness reconciliation and historical records.
+
+Validation: All static task fields match accepted main; all eight normalized implementation/package/test/fixture hashes match readiness evidence and the Apple-tested pin. Seven fixture structures pass. All 195 shared cases complete with seven platform skips and no failures. Fresh Apple/Swift execution not performed; optional syntax audit unavailable because tree_sitter is absent.
+
 ## 2026-10-18 — CS-014-READINESS-ADITSANGANI-20261018: Reconcile depth-sector readiness with accepted Apple and phone evidence
 
 Author: aditsangani (AI-assisted) · Task: CS-014
