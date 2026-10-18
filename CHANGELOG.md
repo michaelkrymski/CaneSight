@@ -890,6 +890,14 @@ Preserve Mila telemetry history from PR #64, merge accepted transfer #81, add ex
 
 Validation: Seven strict macOS bridge tests and seven iOS Simulator tests passed; iOS SDK build passed. Twenty-one existing transport tests passed; two separately invoked native URLSession cases passed, four Swift/backend contract tests and 217 repository tests passed. No successful native trusted WSS, physical phone/Pi clock/rate, motor or electrical acceptance claimed.
 
+## 2026-10-18 — CS-016-NATIVE-PAIR-PREP-20261018: Prepare private-grant native phone and manual Pi transport probes
+
+Author: michaelkrymski (AI-assisted) · Task: CS-016
+
+Backend HTTPS recovered and actual phone health test passed. Add hosted phone starting-heartbeat/reconnect test using a one-use private phone-role file and elapsed in-app clock. Add a manual Pi receiver under tests/ios with fresh process identities, strict private role-file binding, bounded observation/reconnect, and no camera/GPIO/clock eligibility. Real Pi replaces the unconnected bench plan.
+
+Validation: Signed physical-iOS build-for-testing succeeded; native authenticated test awaits fresh credentials and is not claimed passed. Five helper tests passed using synthetic packets/fake sockets, including reconnect sequence retention. Prior physical core/camera evidence stays separate. No automated Pi SSH runner or physical Pi test performed.
+
 ## 2026-10-18 — CS-016-PHONE-HOST-20261018: Host telemetry tests on the physical iPhone and sample live depth timestamps
 
 Author: michaelkrymski (AI-assisted) · Task: CS-016
