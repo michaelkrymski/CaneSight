@@ -778,6 +778,14 @@ Actual background and operator lock recovery tests plus bounded state-clear evid
 
 Validation: Three actual phone UI tests passed without skips; signed clock-test build succeeded. Six characterization tests and six Pi helper tests passed. Actual clock enrollment/run pending.
 
+## 2026-10-18 — CS-013-measured-receiver-harness-20261018: Exercise existing receiver with held-out measured clock model
+
+Author: michaelkrymski · Task: CS-013
+
+After calibration and separate holdout, isolated measurement receiver uses derived candidate ppm, its own fresh calibration/health gates, independent expiry and close clearing. No production configuration or guidance activation.
+
+Validation: Six synthetic characterization/receiver tests passed; actual phone/Pi measurement pending. Earlier actual local phone background/lock tests passed and remain separately attributed.
+
 ## 2026-10-18 — CS-013-PHONE-CHECKS-20261018: Record operator phone checks and prepare iPhone host for review
 
 Author: michaelkrymski (AI-assisted) · Task: CS-013

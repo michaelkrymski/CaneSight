@@ -1,0 +1,9 @@
+{
+  "id": "CS-013-measured-receiver-harness-20261018",
+  "date": "2026-10-18",
+  "author": "michaelkrymski",
+  "task": "CS-013",
+  "summary": "Exercise existing receiver with held-out measured clock model",
+  "details": "After calibration and separate holdout, isolated measurement receiver uses derived candidate ppm, its own fresh calibration/health gates, independent expiry and close clearing. No production configuration or guidance activation.",
+  "validation": "Six synthetic characterization/receiver tests passed; actual phone/Pi measurement pending. Earlier actual local phone background/lock tests passed and remain separately attributed."
+}

@@ -42,3 +42,12 @@ The assisted lock test opts in using CANESIGHT_OPERATOR_LOCK_TEST=1 in the UI
 runner test environment (xctestrun EnvironmentVariables). Normal full suites skip
 this manual test instead of waiting for an operator. The actual recorded lock run
 preceded this selection guard; its tested source hash is retained in evidence.
+
+After twenty separate holdout exchanges pass, an isolated test CaptureAgeGate is
+constructed with the measured candidate ppm for this same controlled run. It
+requires its own newly issued/matched calibration and fresh ready heartbeat,
+then admits only original captures inside accepted age/uncertainty budgets. It
+runs independent expiry ticks and clears on transport close/model inconsistency.
+Report these bench observations separately from simpler conditional interval
+statistics. This is an actual instance of the unchanged receiver implementation,
+not a production configuration change or an unconditional physical drift claim.
