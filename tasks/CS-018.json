@@ -15,9 +15,9 @@
   "suggested_role": "iOS",
   "estimate_hours": 0.5,
   "elapsed_window": "8–11",
-  "owner": null,
-  "status": "backlog",
-  "branch": null,
+  "owner": "aditsangani",
+  "status": "in_progress",
+  "branch": "claim/CS-018-aditsangani",
   "pr_url": null,
   "evidence": [],
   "blocker": ""
