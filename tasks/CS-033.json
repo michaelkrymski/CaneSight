@@ -37,7 +37,10 @@
     "Final committed-snapshot image sha256:c374fd16ab6a57ba17c775cbf6c01c0a06443b35c2e7ef206bf6f3c2c3c77e14 deployed on Vultr. Packaged runtime Python source hashes match the first accepted-probe image; all 115 Linux backend tests passed again with final-image and Caddy integration enabled, and the complete public session probe passed after activation.",
     "handoffs/CS-033-current-backend-verification-20261018.md",
     "backend/deploy/evidence/CS-033-public-verification-20261018.json",
-    "2026-10-18 public verification: all packaged runtime/contracts/readiness files match accepted a239e22; active vision model and worker passed 20 generated HTTPS/WSS JPEG-to-result samples (median 125.588 ms, p95 169.779 ms). Separate enrollment/readiness/role/duplicate/expiry/reconnect probe passed. Linux backend suite 128 tests OK, 6 optional skips. Built current image; candidate launch rejected by automatic approval review, so no activation/restart. Existing deployment already carries current native runtime. No physical-device, detection-accuracy, optional-service or motor acceptance."
+    "2026-10-18 public verification: all packaged runtime/contracts/readiness files match accepted a239e22; active vision model and worker passed 20 generated HTTPS/WSS JPEG-to-result samples (median 125.588 ms, p95 169.779 ms). Separate enrollment/readiness/role/duplicate/expiry/reconnect probe passed. Linux backend suite 128 tests OK, 6 optional skips. Built current image; candidate launch rejected by automatic approval review, so no activation/restart. Existing deployment already carries current native runtime. No physical-device, detection-accuracy, optional-service or motor acceptance.",
+    "handoffs/CS-033-application-preparation-20261018.md",
+    "backend/deploy/evidence/CS-033-application-packaging-20261018.json",
+    "Prepared image/Compose overlay around accepted CS-039 composition PR #94, reusing its sessions/dashboard/logging modes with no second factory. Three packaging/build tests and six accepted composition tests passed with synthetic data/fake providers. Final application image b9a4679 built on Vultr with runtime import smoke; no candidate container or active service change. Private reviewed configuration and public feature probes remain required."
   ],
   "blocker": null
 }

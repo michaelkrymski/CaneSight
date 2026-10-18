@@ -1066,6 +1066,14 @@ Synchronize accepted GPS checkpoint from main d1d8eb9 (GPS 94ccaaf plus CS-045 m
 
 Validation: 182 edge tests: 171 passed, 11 explicit draft narration/menu-audio dependency skips. Checked publisher runs shared validation, governance, changelog and whitespace checks; final CI inspected by exact head.
 
+## 2026-10-18 — CS-033-APPLICATION-PREPARATION-20261018: Package accepted Gemini composition with native vision, dashboard and consented logging
+
+Author: gmarcialcalleja (AI-assisted) · Task: CS-033
+
+Adopt accepted CS-039 PR #94 composition rather than introducing a second factory. Add an allowlisted application image containing accepted context/telemetry modules and dashboard assets, private Compose configuration and exact-local-base build helper. Preserve the native operator environment, TLS/resource/model settings and active deployment. User requested task-by-task preparation while CS-016 completes; no provider/DB activation or new wire contract.
+
+Validation: Three packaging/build/Compose tests passed; all six accepted context deployment-composition tests passed with fake provider/writer/model. Final application image b9a4679 built on Vultr with successful runtime imports over the exact vision image. No container started or public service changed. Full backend/shared results recorded in handoff.
+
 ## 2026-10-18 — CS-033-CURRENT-BACKEND-VERIFICATION-20261018: Verify current deployed backend against accepted runtime and public inference/session probes
 
 Author: gmarcialcalleja (AI-assisted) · Task: CS-033
