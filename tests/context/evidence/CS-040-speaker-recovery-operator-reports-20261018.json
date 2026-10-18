@@ -1,0 +1,145 @@
+{
+  "task": "CS-040",
+  "reported_date": "2026-10-18",
+  "provenance": "Two distinct operator-pasted Pi report payloads; each was pasted identically twice and is stored once. No agent SSH or audio observation.",
+  "agent_observed_audio": false,
+  "attempts": [
+    {
+      "report": {
+        "mode": "synthetic-speaker-bench",
+        "priority_input": "synthetic",
+        "capture_input": "synthetic",
+        "phone_used": false,
+        "backend_used": false,
+        "gemini_used": false,
+        "gpio_used": false,
+        "physical_audio_accepted": false,
+        "bluetooth_disconnect_reconnect_verified": false,
+        "complete": true,
+        "bluetooth_recovery_attempted": true,
+        "timer_fault": false,
+        "build_commit": "6dfda420ff5fbf5b4377f3608bda8a22a25c5ea5",
+        "records": [
+          {
+            "repetition": 1,
+            "case": "manual_cancel",
+            "software_pass": true,
+            "stop_call_ms": 3.505,
+            "operator_pass": false
+          },
+          {
+            "repetition": 1,
+            "case": "hazard",
+            "software_pass": true,
+            "stop_call_ms": 3.695,
+            "operator_pass": true
+          },
+          {
+            "repetition": 1,
+            "case": "unavailable",
+            "software_pass": true,
+            "stop_call_ms": 3.679,
+            "operator_pass": true
+          },
+          {
+            "repetition": 1,
+            "case": "expiry",
+            "software_pass": true,
+            "timer_stop_after_deadline_ms": 8.656,
+            "operator_pass": true
+          },
+          {
+            "repetition": 1,
+            "case": "late_result",
+            "software_pass": true,
+            "operator_pass": true
+          },
+          {
+            "repetition": 1,
+            "case": "bluetooth_operator_recovery",
+            "software_pass": false,
+            "operator_pass": false,
+            "disconnect_observed": true,
+            "reconnect_silence_observed": null,
+            "fresh_audio_observed": false,
+            "automatic_route_detection": false
+          }
+        ],
+        "software_checks_passed": false,
+        "operator_reported_all_passed": false
+      },
+      "operator_clarification": "Operator stated the manual_cancel sentence was not audible. Recovery fresh playback was skipped after reconnect silence answer u; not an observed fresh-playback failure."
+    },
+    {
+      "report": {
+        "mode": "synthetic-speaker-bench",
+        "priority_input": "synthetic",
+        "capture_input": "synthetic",
+        "phone_used": false,
+        "backend_used": false,
+        "gemini_used": false,
+        "gpio_used": false,
+        "physical_audio_accepted": false,
+        "bluetooth_disconnect_reconnect_verified": false,
+        "complete": true,
+        "bluetooth_recovery_attempted": true,
+        "timer_fault": false,
+        "build_commit": "6dfda420ff5fbf5b4377f3608bda8a22a25c5ea5",
+        "records": [
+          {
+            "repetition": 1,
+            "case": "manual_cancel",
+            "software_pass": true,
+            "stop_call_ms": 3.918,
+            "operator_pass": false
+          },
+          {
+            "repetition": 1,
+            "case": "hazard",
+            "software_pass": true,
+            "stop_call_ms": 3.674,
+            "operator_pass": true
+          },
+          {
+            "repetition": 1,
+            "case": "unavailable",
+            "software_pass": true,
+            "stop_call_ms": 3.614,
+            "operator_pass": true
+          },
+          {
+            "repetition": 1,
+            "case": "expiry",
+            "software_pass": true,
+            "timer_stop_after_deadline_ms": 1.287,
+            "operator_pass": true
+          },
+          {
+            "repetition": 1,
+            "case": "late_result",
+            "software_pass": true,
+            "operator_pass": true
+          },
+          {
+            "repetition": 1,
+            "case": "bluetooth_operator_recovery",
+            "software_pass": true,
+            "operator_pass": true,
+            "disconnect_observed": true,
+            "reconnect_silence_observed": true,
+            "fresh_audio_observed": true,
+            "automatic_route_detection": false
+          }
+        ],
+        "software_checks_passed": true,
+        "operator_reported_all_passed": false
+      },
+      "interpretation": "Operator recovery observations all true; manual_cancel remains negative. No additional reason supplied specifically for this later attempt."
+    }
+  ],
+  "limits": [
+    "Stop-call and timer measurements are software timings, not measured audible latency.",
+    "Prior passing three-round evidence remains a separate run; these mixed results do not supersede it with blanket acceptance.",
+    "Physical acceptance/automatic route verification flags remain false; full phone/backend path unused."
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "id": "CS-013-INTEGRATED-APP-20261018",
+  "date": "2026-10-18",
+  "author": "michaelkrymski (AI-assisted)",
+  "task": "CS-013",
+  "summary": "Integrate portrait camera, accessible status, local speech and opt-in local GPS",
+  "details": "PM-authorized host integration uses exact unchanged module inputs. Add portrait image/depth/confidence and session side checks; captured display epochs; accessible large controls; one fixed local status utterance with synchronous cancellation; foreground-only coarse location off each launch and opt-out purge. No telemetry or GPS network path enabled.",
+  "validation": "Signed app and actual phone suite: 5 passed/0 skipped; Simulator UI: 2 passed; strict Mac cases: 60 passed; current lifecycle native Simulator: 14 passed. One-time local GPS fix and opt-out observed without coordinates in evidence. Corrected real button hit-area bug, Debug simulator architecture, and test-only free-profile/knob targeting setup. Current shared checks run by publisher. Review only, no full-system or measured timing/accuracy claims."
+}

@@ -226,6 +226,14 @@ Add opt-in press/release/cancel/off terminal input with original frame lineage, 
 
 Validation: 15 new tests passed, including actual spawned HTTPS delivery over generated local CA to accepted context route with fake provider. All 131 edge and 92 root tests passed. No physical device, public service, Gemini API, audio or electrical acceptance; PR #41 remains draft.
 
+## 2026-10-17 — CS-027-UPLOADER-AUDIO-BONDMILA-20261017: Wire explicit Pi narration opt-in into manual uploader
+
+Author: bondmila (AI-assisted) · Task: CS-027
+
+Add --context-audio gated by consented manual input. Use the CS-040 narration bridge instead of a second button/request loop; share original frame/session/clock and trusted camera/primary readiness. Cancel and close speech on manual/off/EOF/camera loss/shutdown. Text default never imports audio; missing dependency refuses activation. Draft depends on PR #41, which stays draft.
+
+Validation: 145 edge tests ran on main-based checkout: 140 passed and five narration-dependency skips. All 145 passed with exact draft #41 modules via external guarded runner; no dependency code copied. Generated HTTPS/provider/speech fixtures only; no Bluetooth, eSpeak audio, Gemini API or device acceptance. Checked publisher reruns shared checks.
+
 ## 2026-10-17 — CS-028-CLAIM-ADITSANGANI-20261017: Claim FastAPI skeleton and frame endpoint for Adit
 
 Author: aditsangani · Task: CS-028
@@ -586,6 +594,46 @@ Assignment only. Implementation waits for Michael to merge this claim. Requireme
 
 Validation: Repository structure, shared unit tests, changelog consistency and whitespace checked by publish_task.py before commit. No hardware or Gemini API tests performed.
 
+## 2026-10-17 — CS-040-CLOCK-REVERSAL-BONDMILA-20261017: Cancel narration on clock reversal or clock failure
+
+Author: bondmila (AI-assisted) · Task: CS-040
+
+Track the highest clock reading across begin/delivery/tick and cancellation. Stop audio and invalidate pending tickets on backward, failed, nonfinite or invalid clock reads. Recovery cannot revive old tickets. PR #41 remains draft with synthetic speech adapter and unfinished integration.
+
+Validation: Five new regression methods reproduced failures on the original implementation; all 20 narration tests pass after the fix. Checked publisher reruns repository/root tests/changelog/whitespace checks. No physical audio or device acceptance.
+
+## 2026-10-17 — CS-040-NARRATION-GATE-BONDMILA-20261017: Add restricted narration and local cancellation/priority gate
+
+Author: bondmila (AI-assisted) · Task: CS-040
+
+Render only uncertain short descriptions from closed object labels; suppress stale, cancelled, superseded and duplicate responses. Hazard/unavailable policy preempts audio. Component-only checkpoint; provider, button and accessible audio integration remain dependencies. No shared protocol, hardware or permission policy changes.
+
+Validation: 15 isolated context tests passed; repository/shared tests and changelog validation run through checked publishing. No live Gemini/device test claimed.
+
+## 2026-10-17 — CS-040-PI-NARRATION-BRIDGE-BONDMILA-20261017: Compose local context narration and add cancellable Pi speech adapter
+
+Author: bondmila (AI-assisted) · Task: CS-040
+
+Bind accepted button/client replies to same-clock capture-based speech tickets; independent priority/consent/expiry/manual cancellation. Add opt-in eSpeak NG sink for selected Pi system output, bounded template stdin, one owned process group, kill/reap and failure latch. User selected Bluetooth speaker; no automatic routing or activation. Keep PR #41 draft pending installation/device evidence.
+
+Validation: 60 context tests and 132 edge tests passed. Includes real spawned HTTPS delivery to local accepted context route with generated CA/JPEG/fake provider/synthetic sink; actual synthetic executable stdin/replacement/kill/reap and failure tests. Publisher reruns shared checks. No actual eSpeak/audio/Bluetooth, Gemini API or electrical acceptance.
+
+## 2026-10-17 — CS-040-PI-SPEAKER-OPERATOR-EVIDENCE-BONDMILA-20261017: Record operator-reported Pi speaker cancellation bench results
+
+Author: bondmila (AI-assisted), operator-supplied evidence · Task: CS-040
+
+Preserve one incomplete and one completed report at pinned combined #41/#58 commit 9607f76. All 15 synthetic speaker cases passed software and operator observations with no timer fault. Update runtime blocker to remaining PM review, Bluetooth disconnect/reconnect and full phone/backend integration. Preserve false physical acceptance and no Done claim.
+
+Validation: Parsed report structure and verified 15 unique cases, three repetitions of each expected case, all software/operator passes and explicit synthetic/no phone/backend/Gemini/GPIO flags. Checked publisher reruns shared repository checks. Agent did not access Pi audio; software stop timing is not audible latency.
+
+## 2026-10-17 — CS-040-SYNTHETIC-SPEAKER-BENCH-BONDMILA-20261017: Add explicit synthetic Pi speaker and cancellation bench
+
+Author: bondmila (AI-assisted) · Task: CS-040
+
+Exercise actual eSpeak sink and narration gate with synthetic labels, priorities and capture deadlines. Record human audible observations separately from software stop timing in exclusive private report; no network/phone/camera/Gemini/GPIO or physical acceptance inference. Operator reported speaker playback; remaining device/full-integration gates remain explicit. Prepare isolated test-only combination with #58, without merging either PR to main.
+
+Validation: Seven new bench tests include full CLI with real adapter and silent executable, actual kill/reap, independent expiry, failed/unknown observations, interruption cleanup and private report rules. Context/root checks run before checked publishing; combined checkout separately tested. No audible Pi or device acceptance claimed.
+
 ## 2026-10-17 — CS-041-CLAIM-GMARCIALCALLEJA-20261017: Claim session-health dashboard for Gavin
 
 Author: Gavin (gmarcialcalleja) · Task: CS-041
@@ -666,6 +714,102 @@ Add a targeted master-plan subsection, implementation brief and CR for 3-second 
 
 Validation: Planning-only change. Repository validation, generated changelog consistency, whitespace and shared unit suite are checked before publication. No button/audio/vision implementation, training, live traffic, GPIO or physical acceptance claimed. Protected plan/task amendments require exact-head GitHub approval.
 
+## 2026-10-18 — CS-013-DEVICE-INSTALL-20261018: Sign and install iPhone host while keeping team configuration local
+
+Author: michaelkrymski (AI-assisted) · Task: CS-013
+
+Developer Mode enabled and Apple account sign-in completed by the user. Personal Team signed build and physical phone installation succeeded. Optional ignored signing configuration keeps account/team metadata out of shared settings. First launch remains gated by explicit developer-app trust; no LiDAR/runtime completion is claimed.
+
+Validation: Signed iOS build and strict deep codesign verification passed; devicectl installation succeeded on iPhone 17 Pro Max / iOS 26.6.2. Published implementation checkpoint 3e9e781 had green repository/governance checks. Signing-only follow-up receives SDK build and checked publishing. Prior 64 Swift and four backend conformance tests are unchanged.
+
+## 2026-10-18 — CS-013-INTEGRATED-APP-20261018: Integrate portrait camera, accessible status, local speech and opt-in local GPS
+
+Author: michaelkrymski (AI-assisted) · Task: CS-013
+
+PM-authorized host integration uses exact unchanged module inputs. Add portrait image/depth/confidence and session side checks; captured display epochs; accessible large controls; one fixed local status utterance with synchronous cancellation; foreground-only coarse location off each launch and opt-out purge. No telemetry or GPS network path enabled.
+
+Validation: Signed app and actual phone suite: 5 passed/0 skipped; Simulator UI: 2 passed; strict Mac cases: 60 passed; current lifecycle native Simulator: 14 passed. One-time local GPS fix and opt-out observed without coordinates in evidence. Corrected real button hit-area bug, Debug simulator architecture, and test-only free-profile/knob targeting setup. Current shared checks run by publisher. Review only, no full-system or measured timing/accuracy claims.
+
+## 2026-10-18 — CS-013-PHONE-CHECKS-20261018: Record operator phone checks and prepare iPhone host for review
+
+Author: michaelkrymski (AI-assisted) · Task: CS-013
+
+Michael confirmed all three image-column distances updating except very close objects, then separately confirmed Stop clears values to Unknown and lock/background recovery waits for new frames. Local host ready for independent review; exact draft dependency inputs must be reviewed/accepted before main integration. Other task statuses, protected files and full-system gates unchanged.
+
+Validation: Human-reported observations retained in sanitized phone evidence. Prior signed build/install/launch and software tests remain valid for unchanged application code. Checked publisher reruns required shared checks. No measured sensor accuracy/timing, physical-side mapping, live telemetry or Done claim.
+
+## 2026-10-18 — CS-013-PHONE-PREVIEW-20261018: Record first physical iPhone local depth preview and successful launch
+
+Author: michaelkrymski (AI-assisted) · Task: CS-013
+
+After developer-app trust, Michael reported the live local preview status from the native depth-processing path on iPhone 17 Pro Max / iOS 26.6.2. A subsequent devicectl launch succeeded. First-launch trust is resolved. Numeric, stop and background/recovery checks are requested separately; no accuracy, clock, mapping, live telemetry or Done claim.
+
+Validation: Signed build, strict code-signature check, installation and subsequent launch succeeded. Operator-reported UI status retained in sanitized evidence. No source behavior changed; prior 64 Swift and four backend conformance tests remain valid. Checked publishing runs shared checks.
+
+## 2026-10-18 — CS-013-PM-CLAIM-20261018: Assign iPhone app build and support verification to Michael
+
+Author: michaelkrymski (AI-assisted) · Task: CS-013
+
+Assignment-only PM claim from accepted main 5dd5fa37009402b7eb7c9dbed3d20eacd4346c90. User authorized creating the Xcode host and resuming deferred Apple verification. Requirements, dependencies and allowed paths are unchanged. Implementation begins only after verifying the PM-authored claim PR.
+
+Validation: Assignment only; no app, signing, device, LiDAR or hardware acceptance claimed. Shared checks run by checked publishing.
+
+## 2026-10-18 — CS-013-XCODE-HOST-20261018: Build iPhone local depth host and verify deferred Swift packages with Xcode
+
+Author: michaelkrymski (AI-assisted) · Task: CS-013
+
+New SwiftUI iOS16+ host checks scene-depth support, requests camera permission and displays bounded local image-column depth. Epoch barriers, interruption invalidation and receipt-time UI expiry preserve unknowns. Pinned ignored review dependencies preserve draft PR source without modifying teammate tasks. Network/GPS/motors stay off. Initial PM claim PR #69 was author/diff verified before implementation.
+
+Validation: 59 package macOS XCTest cases, five host gate cases and four Swift/backend wire cases passed. Four package physical-iOS SDK builds and four iOS Simulator test-bundle builds passed. Unsigned host physical-iOS build passed. Simulator tests and physical phone/signing/clock/mapping/WSS acceptance remain pending; task blocked and PR draft. Checked publisher runs shared checks.
+
+## 2026-10-18 — CS-015-BENCH-INSTALL-20261018: Sign, install and launch portrait mapping bench for operator verification
+
+Author: michaelkrymski (AI-assisted) · Task: CS-015
+
+Separate Mount Check app built with local Personal Team signing, passed strict deep signature verification and installed/launched on paired iPhone 17 Pro Max / iOS 26.6.2. Operator target/reset procedure requested; no physical results prefilled. Existing #69 app/source unchanged.
+
+Validation: Signed build, strict codesign, installation and launch passed. All 11 mapping XCTest cases, 110 shared checks and required CI passed on tested implementation bd99b6cf043122d2d4548f4e97bfa70bbf868409. This evidence-only checkpoint reruns shared checks; task blocked and PR draft pending physical observations and review.
+
+## 2026-10-18 — CS-015-DEPTH-DIAGNOSTICS-20261018: Expose per-column depth evidence to investigate intermittent Unknown readings
+
+Author: michaelkrymski (AI-assisted) · Task: CS-015
+
+Record operator rotation/Stop passes and unresolved left-column Unknown report. Add coverage/reason beneath each distance using existing CS-014 sector evidence; preserve every confidence, freshness and mapping rule. Signed diagnostic app installed/launched; background reset and diagnostic result pending.
+
+Validation: Signed iOS build, strict deep signature check, install and launch passed. Core mapping/dependencies unchanged; prior 11 mapping and 61 Simulator cases remain applicable. Shared checks run through checked publisher; no sensor fix or new physical pass claimed.
+
+## 2026-10-18 — CS-015-OPERATOR-RUNTIME-20261018: Record portrait target counts, floor limitation and executed native package tests
+
+Author: michaelkrymski (AI-assisted) · Task: CS-015
+
+Operator explicitly confirmed Left/Center/Right each reached 3/3; reset checks remain pending. Document full-height sectors including floor samples. Persist 61 passing iOS Simulator tests from pinned review packages, including correction of a telemetry product-scheme build that initially contained no tests. Integrated accepted main; no app or teammate source changed.
+
+Validation: 61 executed Simulator tests passed (15 depth, 12 lifecycle, 21 telemetry, 13 location), zero failed/skipped. Prior 11 mapping tests and signed phone build remain applicable to unchanged source. Shared checks run by checked publisher. Physical claims limited to operator report; no measured accuracy, capture clock, final mount or motor verification.
+
+## 2026-10-18 — CS-015-PHONE-UI-AUTOMATION-20261018: Automate real-phone camera controls and background recovery
+
+Author: michaelkrymski (AI-assisted) · Task: CS-015
+
+Direct device screenshot inspection works. Added signed UI test target and bench accessibility identifiers. Operator 10% confidence coverage explains left Unknown under unchanged 25% gate; later live readings recovered. Real-phone UI test verifies Stop clears readings, restart, explicit Home Screen background and live recovery; no seeded target checks.
+
+Validation: Physical iPhone UI test passed, 1 executed/0 failed/0 skipped. Initial harness failures corrected for offscreen controls, combined labels and unreliable Home-button activation. No sensor/lifecycle thresholds changed. Shared checks run by publisher. Prior operator target/rotation/Stop evidence retained; no final mount, range accuracy, source-clock or nonzero background-counter claim. Task Review; independent review and dependency acceptance remain required.
+
+## 2026-10-18 — CS-015-PM-CLAIM-20261018: Assign camera orientation and mount mapping verification to Michael
+
+Author: michaelkrymski (AI-assisted) · Task: CS-015
+
+Assignment-only claim from accepted main 5dd5fa37009402b7eb7c9dbed3d20eacd4346c90. User authorized continuing the remaining iPhone work while CS-013 PR #69 is reviewed. CS-015 is unclaimed; no competing open claim found. Requirements, dependency and allowed paths remain unchanged. Implementation follows verified PM-authored claim PR.
+
+Validation: Assignment only; no calibration, supported orientation, physical mapping or hardware acceptance claimed. Shared checks run before publishing.
+
+## 2026-10-18 — CS-015-PORTRAIT-MAPPING-20261018: Add portrait depth remapping and separate physical target-check app
+
+Author: michaelkrymski (AI-assisted) · Task: CS-015
+
+Use native ARKit display transform with exact paired depth/confidence rotation and visible ROI, preserving original source time and the pinned CS-014 processor. Add a separate bounded portrait bench, three distinct observations per physical side and fail-closed geometry/lifecycle resets. No #69 or teammate source/task edited; no network/GPS/actuation.
+
+Validation: 11 XCTest cases pass with strict concurrency and warnings as errors. New app/core/native iOS SDK build passes. Physical mapping and signed device bench results remain pending; task blocked/PR draft. Shared checks run through checked publishing.
+
 ## 2026-10-18 — CS-017-CLEANUP-REENTRANCY-20261018: Fence lifecycle cleanup and latch clock-fault notifications
 
 Author: Gavin (gmarcialcalleja) · Task: CS-017
@@ -690,6 +834,14 @@ Advance capture barriers before notifying consumers and after provider errors, p
 
 Validation: 15 portable Swift 6.0.3 Linux tests passed with complete strict concurrency and warnings as errors. Core Location/UIKit bodies excluded; contract, host integration and real-device gates remain.
 
+## 2026-10-18 — CS-025-PROVENANCE-RECOVERY-ADITSANGANI-20261018: Recover exact Swift fixture input manifest bytes for PR #75
+
+Author: aditsangani (AI-assisted; PM-delegated PR fix) · Task: CS-025
+
+Under Michael's explicit PR75 assignment, restore the exact CRLF generating-manifest bytes matching the unchanged artifact's recorded SHA-256. Pin only that manifest against text normalization in a fixture-local Git attribute. All four generator input hashes and eight pinned Swift source blobs verify; synthetic-wire.json, expected digests, original tests, task ownership and requirements remain unchanged. Integrate current main and render the union changelog. Gavin's commits/authorship are preserved.
+
+Validation: The original failure was reproduced on a Git archive (6/7 passed). After exact-byte recovery, all seven focused tests pass. Full edge/shared suites, committed/index byte checks, repository/changelog/whitespace and current-head CI are verified separately. No new Swift/Docker generation or physical-device evidence is claimed.
+
 ## 2026-10-18 — CS-025-SWIFT-POLICY-20261018: Test actual Swift telemetry bytes through accepted relay and simulated policy
 
 Author: Gavin (gmarcialcalleja) · Task: CS-025
@@ -705,6 +857,134 @@ Author: Gavin (gmarcialcalleja) · Task: CS-025
 Record PR #75 on the task runtime; retain native host/device-clock and physical acceptance blockers. No fixture or implementation change.
 
 Validation: Implementation publication passed all 132 root tests and seven focused integration tests; Swift Linux compilation/generation passed. Checked publishing reruns shared checks for this task-link and audit-only follow-up.
+
+## 2026-10-18 — CS-027-CROSSING-MENU-BONDMILA-20261018: Implement merged crossing observation gesture component and synthetic bench
+
+Author: bondmila (AI-assisted) · Task: CS-027
+
+Follow accepted PR #71: deterministic thresholds/release barriers, no default/three-mode menu, cancel/expiry/source/epoch gates. Add explicit synthetic terminal/GPIO21 and silent/real-speech bench; no traffic observations, model requests or motor outputs. Existing uploader stays unchanged pending production bridge and trusted readiness.
+
+Validation: Virtual clock threshold/expiry/fault tests plus combined edge regressions and exact private-report silent CLI. Checked publishing runs shared checks. No new physical menu/audio or road-use test performed; see handoff for actual counts.
+
+## 2026-10-18 — CS-027-GPIO21-INPUT-BONDMILA-20261018: Connect reported GPIO21 button to gated context runtime
+
+Author: bondmila (AI-assisted) · Task: CS-027
+
+Use issue #68 active-high BCM21/no-pull wiring in explicit input-only opt-in. Preserve release-to-arm debounce, single request, cooldown and narration cancellation; fail closed on read error or stalled input. Add private raw input observation command and truthful input-use metadata; no motor GPIO or protected pin-map change.
+
+Validation: 164 combined edge tests pass with draft CS-040 modules, simulated GPIO and speech. Covers startup-held input, pending and speaking cancellation, stalled/failed reads, input cleanup, mutually exclusive CLI modes and private observer reports. No real GPIO or audio activated locally; checked publisher runs shared checks.
+
+## 2026-10-18 — CS-027-GPIO21-OPERATOR-EVIDENCE-BONDMILA-20261018: Record completed operator Pi GPIO21 input observation
+
+Author: bondmila (AI-assisted) · Task: CS-027
+
+Preserve exact pasted report from combined 6dfda42: initially LOW, seven press/release edge pairs, 2965 samples, complete. Keep raw-input observation separate from application request/audio/electrical acceptance; verification flags unchanged.
+
+Validation: Parsed report and checked counts/disabled subsystems; confirmed source commit contains the GPIO adapter. No new implementation or local hardware test. Checked publisher runs shared validation, tests, governance, changelog and whitespace.
+
+## 2026-10-18 — CS-027-MENU-OPERATOR-CONFIRMATION-20261018: Record operator menu confirmation for software checkpoint review
+
+Author: bondmila (AI-assisted) · Task: CS-027
+
+Operator reported the new GPIO21 spoken-menu sequence worked and explicitly declined pasting JSON. Preserve that provenance without inventing counters/timings/build SHA or additional case passes. Keep full integration and final acceptance gates explicit.
+
+Validation: Verified in-scope implementation matches last prepared 04f660b; preceding branch/combined test evidence remains separate. Checked publisher runs shared checks and exact-head CI is inspected before ready-for-review.
+
+## 2026-10-18 — CS-027-POSIX-REPORTS-20261018: Scope private context reports to POSIX and fail closed elsewhere
+
+Author: Mila (bondmila, AI-assisted) · Task: CS-027
+
+Address Michael’s PR #58 changes request without weakening privacy: unsupported hosts reject report output before filesystem or GPIO/audio access; retain exclusive 0600/private-directory guards on POSIX. Mark five report-success tests POSIX-only, add portable rejection/no-side-effect tests, and document platform limits. Integrate accepted main including narration #41.
+
+Validation: 186 combined edge tests passed on macOS before accepted-main sync; native dependency and shared repository checks recorded in the handoff. Windows paths are simulated in portable regression tests, not actual Windows-host validation. No new hardware or deployment acceptance.
+
+## 2026-10-18 — CS-027-PRIVATE-RUN-REPORT-BONDMILA-20261018: Save private context run diagnostics for Pi verification
+
+Author: bondmila (AI-assisted) · Task: CS-027
+
+Add optional exclusive metadata-only run report and allowlisted terminal status with sole narration-button counters when available. Preserve original readiness, consent and audio gates; do not infer physical delivery or phone/backend acceptance.
+
+Validation: 152 edge tests pass with updated CS-040 modules via external overlay, no skips. Report tests cover allowlisting, private/exclusive files, symlink refusal, startup failure, normal completion and status without a press. Checked publisher runs shared checks; actual Pi integration pending.
+
+## 2026-10-18 — CS-027-REVIEW-SYNC-20261018: Resolve generated changelog conflict before software checkpoint review
+
+Author: bondmila (AI-assisted) · Task: CS-027
+
+Synchronize accepted GPS checkpoint from main d1d8eb9 (GPS 94ccaaf plus CS-045 measurement analysis). Regenerate the conflicted log; menu, audio, GPIO, safety contracts and requirements unchanged. Await actual operator menu report without claiming a physical pass.
+
+Validation: 182 edge tests: 171 passed, 11 explicit draft narration/menu-audio dependency skips. Checked publisher runs shared validation, governance, changelog and whitespace checks; final CI inspected by exact head.
+
+## 2026-10-18 — CS-040-FIXED-MENU-AUDIO-BONDMILA-20261018: Implement fixed menu speech with readiness and stale-event preemption
+
+Author: bondmila (AI-assisted) · Task: CS-040
+
+Follow merged PR #71 with closed disclaimer/selection/confirmation/cancellation phrases, explicit route readiness/priority, epoch/generation binding, expiry and fault latch. Keep production request/route integration and physical evidence open; no provider prose, traffic inference or stale replay.
+
+Validation: 78 context tests pass, including five new fixed phrase/readiness/epoch/expiry/fault tests. Combined synthetic bench tests are reported by CS-027. Checked publishing runs shared checks; no new actual audio or device test performed.
+
+## 2026-10-18 — CS-040-HARDWARE-68-HANDOFF-BONDMILA-20261018: Reconcile narration readiness with Michael hardware handoff #68
+
+Author: bondmila (AI-assisted) · Task: CS-040
+
+Record installed GPIO21 button, reported camera and speaker availability while preserving prior synthetic speaker evidence. Keep full context/audio and phone-depth gates open; motor integration and accessible controls remain with their owners. No protected baseline changes.
+
+Validation: Read issue #68 and author identity via GitHub. Existing 71 context tests passed for current code; documentation/runtime update only. Checked publisher runs shared checks; no new hardware or audible test claimed.
+
+## 2026-10-18 — CS-040-MANUAL-CANCEL-OPERATOR-EVIDENCE-BONDMILA-20261018: Record passing focused Pi manual cancellation observation
+
+Author: bondmila (AI-assisted) · Task: CS-040
+
+Preserve the manual-only report at combined beb0d9d: software and operator checks passed, 3.788ms software stop call. Keep prior mixed runs intact, distinguish subset success from full acceptance, and retain speech clarity and phone/backend gates.
+
+Validation: Parsed exact supplied report and checked subset identity, positive results and disabled subsystem/acceptance flags; verified source commit exists. No new implementation or agent hardware/audio test. Checked publisher runs shared checks.
+
+## 2026-10-18 — CS-040-MENU-CLOCK-READINESS-BONDMILA-20261018: Return unavailable immediately for menu update clock failure
+
+Author: bondmila (AI-assisted) · Task: CS-040
+
+Include the fault latched by the internal expiry tick in the readiness return. Preserve the existing failure latch and reject entry after failure.
+
+Validation: Regression injects a clock exception between the initial update read and internal tick; all 79 context tests pass. No actual audio or hardware test.
+
+## 2026-10-18 — CS-040-MENU-OPERATOR-CONFIRMATION-20261018: Record operator menu confirmation for software checkpoint review
+
+Author: bondmila (AI-assisted) · Task: CS-040
+
+Operator reported the new GPIO21 spoken-menu sequence worked and explicitly declined pasting JSON. Preserve that provenance without inventing counters/timings/build SHA or additional case passes. Keep full integration and final acceptance gates explicit.
+
+Validation: Verified in-scope implementation matches last prepared 04f660b; preceding branch/combined test evidence remains separate. Checked publisher runs shared checks and exact-head CI is inspected before ready-for-review.
+
+## 2026-10-18 — CS-040-RECOVERY-REPORTS-MANUAL-DIAGNOSTIC-BONDMILA-20261018: Preserve mixed Pi recovery evidence and isolate manual audibility test
+
+Author: bondmila (AI-assisted) · Task: CS-040
+
+Record two distinct operator report payloads without changing negative/unknown results: later reconnect silence and fresh speech passed, manual case remains negative. Add explicit manual-only diagnostic subset without production changes or hidden warmup/retry. Keep PR draft and physical acceptance flags false.
+
+Validation: 73 context tests pass, including manual subset and no/unknown observations plus incompatible flag rejection. Parsed supplied reports and confirmed original build identity; no agent audio/SSH observation. Checked publisher runs shared validation and tests.
+
+## 2026-10-18 — CS-040-REVIEW-SYNC-20261018: Resolve generated changelog conflict before software checkpoint review
+
+Author: bondmila (AI-assisted) · Task: CS-040
+
+Synchronize accepted GPS checkpoint from main d1d8eb9 (GPS 94ccaaf plus CS-045 measurement analysis). Regenerate the conflicted log; menu, audio, GPIO, safety contracts and requirements unchanged. Await actual operator menu report without claiming a physical pass.
+
+Validation: 79 context tests passed. Checked publisher runs shared validation, governance, changelog and whitespace checks; final CI inspected by exact head.
+
+## 2026-10-18 — CS-040-SPEAKER-RECOVERY-BONDMILA-20261018: Prepare operator-guided Bluetooth cancellation and fresh-request recovery test
+
+Author: bondmila (AI-assisted) · Task: CS-040
+
+Extend opt-in speaker bench with disconnect, unavailable cancellation, reconnect silence and fresh-ticket observations. Expose sanitized consumer request counts for CS-027 runtime reports; preserve draft status and prior operator evidence.
+
+Validation: 71 context tests pass, including silent recovery/no-or-unknown/interrupted input regressions and consumer diagnostics. No actual Bluetooth recovery or full phone/backend run claimed; checked publisher runs shared checks.
+
+## 2026-10-18 — CS-042-LIVE-TIGER-PROVISIONING-20261018: Provision real Tiger Data event storage and prepare reviewed rollout
+
+Author: Adit (aditsangani, AI-assisted) · Task: CS-042
+
+Reuse the accepted logger, initialize the existing schema, provision separate runtime/analytics logins and verify real TLS, privileges, consent, persistence, deletion, expiry and fault isolation using synthetic inputs. Add a sanitized live probe/report, failure-recovery record, restricted image recipe and deployment proposal. Credentials and test receipts stay private; existing deployment/protected files and logger behavior are unchanged.
+
+Validation: Live database results are separate from mocked/component tests. Dashboard/component suite passed 39 cases; repository checks run through checked publishing. One incomplete development fault run and its cleanup recovery are disclosed. Docker image build, production HTTPS/WSS activation/re-enrollment, exact provider backup/control-plane configuration and PM acceptance remain pending. No physical-device or Done claim.
 
 ## 2026-10-18 — CS-044-CROSSING-CAMPAIGN-20261018: Add pinned crossing-menu and audio failure campaign
 

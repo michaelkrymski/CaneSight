@@ -62,3 +62,26 @@ own scope. Real phone capture-clock bounds/drift, native lifecycle integration,
 physical mount mapping, driver/power/kill prerequisites and measured physical
 response remain required before CS-025 is Done. Never reinterpret these fixture
 times as end-to-end measured latency or crossing permission.
+
+## Exact generating-manifest recovery (18 October 2026)
+
+Michael authorized Adit to maintain this existing PR while overall CS-025
+ownership stays with Gavin. The original artifact and all expected digests are
+unchanged. Its recorded `review-inputs.json` digest matches the committed JSON
+with CRLF line endings exactly; the Git LF version does not. This recovers the
+exact bytes identified by the original SHA-256 rather than substituting a hash
+or claiming a new compiler run. The other three generator-input digests and all
+eight pinned Swift Git blobs were independently verified unchanged.
+
+The fixture-local `.gitattributes` marks only `review-inputs.json` as `-text`,
+preserving those recorded bytes in the Git object and every checkout. The
+`cr-at-eol` whitespace attribute recognizes the manifest's CRLF endings; it does
+not alter the provenance test, expected hashes, Swift pins, generated wire or
+repository governance. Do not normalize this one byte-hashed source manifest.
+After any future real regeneration, all four input hashes must still match the
+actual committed bytes. The generator remains the documented pinned Docker path.
+
+No new Swift/Docker generation was run for this recovery. The unchanged original
+artifact retains its original compiler-image provenance. Exact Git/index/archive
+bytes and the focused/full edge suites are checked separately from root CI.
+See `tests/edge/evidence/CS-025-manifest-recovery-20261018.json`.

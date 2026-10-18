@@ -1,0 +1,26 @@
+{
+  "task": "CS-015",
+  "date": "2026-10-18",
+  "tested_source_sha256": {
+    "ios/MappingBench/Sources/BenchController.swift": "e09dcb123c4880009fc8ac5be16b956bd7b4adedd5d4578ace45502c3a2bf968",
+    "ios/MappingBench/Sources/MappingBenchApp.swift": "7a6580fe98322748954a2203c3da293dab1ed2299b7f3f2384a35e4eddfa9e6e"
+  },
+  "change": "Show per-column high-confidence sample coverage and reason for Unknown; clear diagnostics with depth on invalidation. No threshold/algorithm/lifecycle changes.",
+  "signed_ios_sdk_build": "passed",
+  "strict_codesign": "passed",
+  "installation": "passed",
+  "launch": "passed",
+  "operator_diagnostic_result": null,
+  "unresolved": "Left intermittently unknown on earlier build; no proof yet whether this is per-column confidence loss or another issue. Background reset not confirmed.",
+  "previous_phone_build_operator_report": {
+    "left_center_right_counts": [
+      3,
+      3,
+      3
+    ],
+    "rotation_reset": true,
+    "stop_reset_and_all_unknown": true,
+    "background_reset": null
+  },
+  "limits": "Earlier operator results apply to bd99b6c source. This diagnostic UI update requires follow-up observation; it is not a sensor fix or new physical validation."
+}

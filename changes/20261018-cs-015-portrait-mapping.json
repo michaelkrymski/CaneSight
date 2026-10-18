@@ -1,0 +1,9 @@
+{
+  "id": "CS-015-PORTRAIT-MAPPING-20261018",
+  "date": "2026-10-18",
+  "author": "michaelkrymski (AI-assisted)",
+  "task": "CS-015",
+  "summary": "Add portrait depth remapping and separate physical target-check app",
+  "details": "Use native ARKit display transform with exact paired depth/confidence rotation and visible ROI, preserving original source time and the pinned CS-014 processor. Add a separate bounded portrait bench, three distinct observations per physical side and fail-closed geometry/lifecycle resets. No #69 or teammate source/task edited; no network/GPS/actuation.",
+  "validation": "11 XCTest cases pass with strict concurrency and warnings as errors. New app/core/native iOS SDK build passes. Physical mapping and signed device bench results remain pending; task blocked/PR draft. Shared checks run through checked publishing."
+}

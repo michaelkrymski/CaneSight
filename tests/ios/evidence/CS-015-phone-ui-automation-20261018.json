@@ -1,0 +1,50 @@
+{
+  "task": "CS-015",
+  "date": "2026-10-18",
+  "previous_head": "fa7b44402cf5ad4a90a36a216aa95da9bd45062a",
+  "main_base": "94ccaaf14a88b990cc468433e55622b0b1e6681f",
+  "device": {
+    "model": "iPhone 17 Pro Max",
+    "os": "26.6.2"
+  },
+  "operator_diagnostic_report": {
+    "left_high_confidence_coverage_percent": 10,
+    "configured_minimum_percent": 25,
+    "interpretation": "Insufficient eligible depth coverage explains withholding the distance. Cause of reduced sensor confidence was not identified."
+  },
+  "phone_screen_inspection": "Direct screenshot through Xcode device tools succeeded; observed waiting for valid depth/tracking with all readings unknown at that instant. Images remain local, excluded from Git.",
+  "automated_ui": {
+    "result": "Passed",
+    "passed": 1,
+    "failed": 0,
+    "skipped": 0,
+    "checks": [
+      "Obtain a real measured distance after Start",
+      "Stop clears all three distances to Unknown and shows stopped status",
+      "Restart obtains measured live depth",
+      "Explicit Home Screen activation places app in runningBackground state (raw value 3)",
+      "Reopen app obtains measured live depth",
+      "Final Stop clears all readings"
+    ],
+    "last_run_observed_coverage_percent": [
+      95,
+      99,
+      99
+    ],
+    "local_result_bundle": "/tmp/canesight-cs015-ui-results-v6.xcresult",
+    "setup_attempts": "Earlier attempts failed on an offscreen control, combined accessibility labels, and press(.home) leaving app reported foreground. The final test scrolls, accepts combined Unknown labels, and explicitly activates SpringBoard; no app sensor thresholds or lifecycle checks were weakened."
+  },
+  "limits": [
+    "Automated UI run did not seed/complete a nonzero target counter; physical target counts and rotation/Stop resets are earlier operator evidence.",
+    "Live recovery UI does not independently prove capture age, latency or epoch freshness; no capture-clock calibration claimed.",
+    "Coverage recovery is not measured range accuracy, floor classification or final cane/motor verification."
+  ],
+  "source_sha256": {
+    "ios/MappingBench/Sources/BenchController.swift": "e09dcb123c4880009fc8ac5be16b956bd7b4adedd5d4578ace45502c3a2bf968",
+    "ios/MappingBench/Sources/MappingBenchApp.swift": "686e9340430b9dc888b677833f6847926432f39f053256477f20963cf7a4db48",
+    "ios/MappingBench/UITests/BenchUITests.swift": "8567be11cbdb97a35eb412c1627bb71dffb9fcbf5755981f926a1f29c07f082e",
+    "ios/MappingBench/MountCheck.xcodeproj/project.pbxproj": "dc35df11983abae1e6b7f4ac8666ac76df351ed1049bd9b8388a37a241873db3",
+    "ios/MappingBench/MountCheck.xcodeproj/xcshareddata/xcschemes/MountCheck.xcscheme": "4715e4fdba84f671be9db92407d8b940ca14a8c3dcc8a99d995d4b4c18b6f58e"
+  },
+  "integration_note": "Main accepted newer CS-017/CS-019 code while this phone test ran. Integrated without editing those packages. Earlier 61-test evidence applies only to its recorded older review pins, not the newer accepted implementations."
+}

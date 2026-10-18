@@ -1,0 +1,9 @@
+{
+  "id": "CS-040-PI-NARRATION-BRIDGE-BONDMILA-20261017",
+  "date": "2026-10-17",
+  "author": "bondmila (AI-assisted)",
+  "task": "CS-040",
+  "summary": "Compose local context narration and add cancellable Pi speech adapter",
+  "details": "Bind accepted button/client replies to same-clock capture-based speech tickets; independent priority/consent/expiry/manual cancellation. Add opt-in eSpeak NG sink for selected Pi system output, bounded template stdin, one owned process group, kill/reap and failure latch. User selected Bluetooth speaker; no automatic routing or activation. Keep PR #41 draft pending installation/device evidence.",
+  "validation": "60 context tests and 132 edge tests passed. Includes real spawned HTTPS delivery to local accepted context route with generated CA/JPEG/fake provider/synthetic sink; actual synthetic executable stdin/replacement/kill/reap and failure tests. Publisher reruns shared checks. No actual eSpeak/audio/Bluetooth, Gemini API or electrical acceptance."
+}
