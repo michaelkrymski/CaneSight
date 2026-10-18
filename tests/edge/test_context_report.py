@@ -37,6 +37,7 @@ class ReportTests(unittest.TestCase):
 
     def test_allowlist_drops_credentials_images_device_ids_and_arbitrary_errors(self):
         status = bounded_status(dict(token='private', frame='image', session_id='private',
+            menu=dict(state='private', selected='private', token='private'),
             fault='private exception', audio_enabled=True, button=dict(requests=3, token='private',
             fault='private error', failed=True, cancelled=-1)))
         self.assertNotIn('private', json.dumps(status))

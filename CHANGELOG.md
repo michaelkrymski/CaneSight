@@ -962,6 +962,22 @@ Add optional exclusive metadata-only run report and allowlisted terminal status 
 
 Validation: 152 edge tests pass with updated CS-040 modules via external overlay, no skips. Report tests cover allowlisting, private/exclusive files, symlink refusal, startup failure, normal completion and status without a press. Checked publisher runs shared checks; actual Pi integration pending.
 
+## 2026-10-18 — CS-027-PRODUCTION-MENU-READY-20261018: Integrate accepted narration APIs and verify uploader menu for review
+
+Author: Mila (bondmila, AI-assisted) · Task: CS-027
+
+Merge accepted main 1385e11 including dependency PR #77 into the PR #78 branch. Verify normal edge/context discovery without dependency overlays or skips. Update runtime evidence and preserve full integration/hardware blockers. No menu/request implementation or protected baseline changes.
+
+Validation: 205 edge tests and 83 context tests passed on macOS/Python 3.13 with no skips. Checked publication runs repository, root tests and generated changelog checks; exact-head CI is inspected before ready status. No new Pi, Gemini, Bluetooth or paired-phone acceptance.
+
+## 2026-10-18 — CS-027-PRODUCTION-MENU-20261018: Connect opt-in uploader gestures to existing context requests and menu speech
+
+Author: Mila (bondmila, AI-assisted) · Task: CS-027
+
+Add opt-in release/hold menu routing to the enrolled runtime, using the sole existing context/narration slot. Preserve consent, cooldown, original capture expiry and primary priority; cancel old jobs before menu speech. Explicit manual route confirmation is required; loss latches and recovery never replays. All scenario capabilities remain unavailable. Depends on separate CS-040 request and speech-channel APIs; no shared protocol or motor changes.
+
+Validation: 204 combined edge tests passed on macOS with CS-040 dependency through external overlay, generated frames/jobs and synthetic speech. No actual Gemini, phone, Pi, Bluetooth or physical acceptance. Standalone dependency skips and checked-publisher results recorded in handoff.
+
 ## 2026-10-18 — CS-027-REVIEW-SYNC-20261018: Resolve generated changelog conflict before software checkpoint review
 
 Author: bondmila (AI-assisted) · Task: CS-027

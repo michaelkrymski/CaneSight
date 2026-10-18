@@ -53,11 +53,22 @@ class ManualContext:
     start/read/emit injection exists for generated offline fixtures.
     """
     def __init__(self, session, priority, *, consent, ca_file=None, clock=clock_ms,
-                 client=None, emit=print, audio=False, speech_sink=None, narration_factory=None):
+                 client=None, emit=print, audio=False, speech_sink=None, narration_factory=None,
+                 menu=False, audio_ready=None):
         if consent is not True:
             raise ValueError('Explicit scene-sharing consent required')
         if type(audio) is not bool or (not audio and (speech_sink is not None or narration_factory is not None)):
             raise ValueError('Audio adapters require explicit audio opt-in')
+        if type(menu) is not bool or (menu and not audio):
+            raise ValueError('Crossing menu requires explicit audio opt-in')
+        if audio_ready is not None and (not menu or not callable(audio_ready)):
+            raise ValueError('Route readiness callback requires menu mode')
+        self._menu_lock = threading.RLock()
+        self._menu = self._menu_audio = None
+        self._route_lost = False
+        self._menu_last_level = False
+        self._menu_usable = False
+        self._route_ready = audio_ready if audio_ready is not None else lambda: False
         self._binding = {key: session[key] for key in ('session_id', 'source_id', 'boot_id', 'mode')}
         self._client = client if client is not None else ContextClient(session, ca_file=ca_file)
         self._priority = priority
@@ -87,12 +98,22 @@ class ManualContext:
                     from backend.context.pi_speech import EspeakSink
                     speech_sink = EspeakSink()
                 self._speech = speech_sink
+                if menu:
+                    from .context_menu import CrossingMenu
+                    from backend.context.menu_audio import FixedMenuAudio
+                    from backend.context.speech_channels import OptionalSpeechChannels
+                    self._menu = CrossingMenu()  # Evaluated scenario capabilities are not installed.
+                    self._speech = OptionalSpeechChannels(speech_sink)
+                    self._menu_audio = FixedMenuAudio(self._speech.menu, clock=lambda: clock()/1000)
+                    speech_sink = self._speech.context
+                    if not callable(getattr(narration_factory, 'request', None)):
+                        raise ValueError('Completed-gesture narration API is required')
                 self._narration = narration_factory(self.latest, self._client, speech_sink,
                     priority=self._audio_priority, consent=self._audio_consent, clock=clock)
             except Exception:
-                if speech_sink is not None:
+                if self._speech is not None:
                     try:
-                        speech_sink.close()
+                        self._speech.close()
                     except Exception:
                         pass
                 raise RuntimeError('Context audio unavailable; check narration installation and Pi speech setup') from None
@@ -101,7 +122,15 @@ class ManualContext:
 
     def _audio_priority(self):
         ready, _, hazard, _ = self._state()
+        if self._menu is not None:
+            ready = ready and self._menu.state == 'idle' and self._menu_usable and self._audio_route_ready()
         return ready, hazard
+
+    def _audio_route_ready(self):
+        try:
+            return not self._route_lost and self._route_ready() is True
+        except Exception:
+            return False
 
     def _audio_consent(self):
         with self._lock:
@@ -148,6 +177,12 @@ class ManualContext:
             gpio, input_at = self._gpio, self._last_input_at
         try:
             now = number(self._clock())
+        except Exception:
+            if self._menu is not None:
+                with self._lock:
+                    self._fault = 'Context clock unavailable'
+            return False, False, True, False
+        try:
             age = now - frame.metadata['capture_monotonic_ms'] if frame is not None else None
             ready, hazard = self._priority()
             input_fresh = not gpio or (input_at is not None and 0 <= now-input_at <= 100)
@@ -157,7 +192,46 @@ class ManualContext:
         except Exception:
             return False, False, True, False
 
+    def _menu_events(self, events):
+        for event in events:
+            if event.kind == 'context':
+                self._narration.request()
+                continue
+            self._stop_request()  # Cancel old provider/audio before any menu replacement.
+            kind = 'unavailable' if event.kind == 'cancel' and event.reason == 'source' else event.kind
+            ok = self._menu_audio.speak(kind, generation=event.generation,
+                epoch=event.epoch, scenario=event.scenario)
+            if not ok and event.kind in ('entry', 'selection', 'choose', 'confirmation'):
+                self._menu.cancel('audio')
+                self._menu_audio.update(audio_ready=False, priority_clear=False,
+                                        epoch=tuple(self._binding.values()))
+
+    def _menu_tick(self):
+        with self._menu_lock:
+            ready, consent, hazard, level = self._state()
+            epoch = tuple(self._binding.values())
+            if level is True and not self._menu_last_level:
+                self._stop_request()  # An input edge may cancel early; never requests early.
+            self._menu_last_level = level
+            usable = self._menu_audio.update(audio_ready=self._audio_route_ready(),
+                priority_clear=consent is True and hazard is False, epoch=epoch)
+            self._menu_usable = usable
+            if not usable:
+                self._stop_request()
+            try:
+                now = None if self._fault == 'Context clock unavailable' else self._clock()
+            except Exception:
+                now = None
+            self._menu_events(self._menu.sample(level, now_ms=now,
+                consent=consent, ready=ready and hazard is False, audio_ready=usable, epoch=epoch))
+            if self._menu.state == 'failed':
+                self._stop_request(); self._menu_audio.close()
+            self._narration.tick()
+
     def tick(self):
+        if self._menu is not None:
+            self._menu_tick()
+            return
         ready, consent, hazard, level = self._state()
         if self._narration is not None:
             self._narration.sample(level)
@@ -196,6 +270,10 @@ class ManualContext:
             from .context_report import bounded_status
             self._emit('Context status ' + json.dumps(bounded_status(self.snapshot()), sort_keys=True))
             return True
+        if command == 'audio-off' and self._menu is not None:
+            self._route_lost = True  # Recovery requires a new controller/explicit confirmation.
+            self._menu_tick()
+            return True
         if command in ('press', 'release'):
             with self._lock:
                 self._level = command == 'press'
@@ -213,6 +291,13 @@ class ManualContext:
         with self._lock:
             self._level = False
         self._stop_request()
+        if self._menu is not None:
+            with self._menu_lock:
+                ready, consent, hazard, _ = self._state()
+                self._menu_audio.update(audio_ready=self._audio_route_ready(),
+                    priority_clear=consent is True and hazard is False,
+                    epoch=tuple(self._binding.values()))
+                self._menu_events(self._menu.cancel())
 
     def withdraw(self):
         with self._lock:
@@ -223,6 +308,9 @@ class ManualContext:
         if self.button is not None:
             self.button.set_state(ready=False, consent=False, hazard=True)
         self._stop_request()
+        if self._menu is not None:
+            with self._menu_lock:
+                self._menu.cancel('consent'); self._menu_audio.close()
 
     def start(self, stream=None, *, gpio_input=None):
         with self._lock:
@@ -301,6 +389,9 @@ class ManualContext:
                       'audio_delivery_verified': False,
                       'consent': self._consent, 'input_closed': self._input_closed,
                       'closed': self._closed, 'fault': self._fault, 'shown': self._shown}
+        if self._menu is not None:
+            with self._menu_lock:
+                result['menu'] = self._menu.snapshot()
         result['button'] = self.button.snapshot() if self.button is not None else None
         if self._narration is not None:
             snapshot = getattr(self._narration, 'snapshot', None)
@@ -316,6 +407,9 @@ class ManualContext:
             self._frame = None
             self._consent = False
             self._stop.set()
+        if self._menu is not None:
+            with self._menu_lock:
+                self._menu.close(); self._menu_audio.close()
         if self._narration is not None:
             try:
                 self._narration.close()

@@ -31,6 +31,15 @@ def bounded_status(snapshot):
     result['fault_present'] = snapshot.get('fault') is not None
     result['shown'] = snapshot.get('shown') if type(snapshot.get('shown')) is int and 0 <= snapshot['shown'] <= 2**53-1 else None
     button = snapshot.get('button')
+    menu = snapshot.get('menu')
+    if type(menu) is dict:
+        result['menu'] = {
+            'state': menu.get('state') if menu.get('state') in
+                ('idle', 'unavailable', 'menu_entry', 'menu', 'confirm_release', 'active', 'failed', 'closed') else None,
+            'selected': menu.get('selected') if menu.get('selected') in
+                ('pedestrian_signal', 'flashing_beacon', 'unsignalized_street') else None,
+            'live_observations_implemented': False,
+        }
     result['button'] = None
     if type(button) is dict:
         fields = {}
