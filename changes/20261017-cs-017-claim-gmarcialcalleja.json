@@ -1,0 +1,9 @@
+{
+  "id": "CS-017-CLAIM-GMARCIALCALLEJA-20261017",
+  "date": "2026-10-17",
+  "author": "Gavin (gmarcialcalleja)",
+  "task": "CS-017",
+  "summary": "Claim AR interruption and app suspension handling for Gavin",
+  "details": "Propose gmarcialcalleja as owner of CS-017, preserving its requirements, CS-016 dependency and ios/tests-ios scope. Implementation waits for Michael to merge this claim. After assignment, software implementation and fixture tests can proceed while Xcode build, ARKit integration and physical-device verification remain explicitly pending. CS-016 is not yet implemented; no iOS, Pi or hardware acceptance is claimed.",
+  "validation": "Claim metadata only. Checked publishing runs repository structure validation, shared tests, generated changelog validation and staged whitespace checks; actual results are recorded in the claim PR. No Xcode, Swift, ARKit or device tests claimed."
+}

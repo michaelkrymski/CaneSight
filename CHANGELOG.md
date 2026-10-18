@@ -50,6 +50,14 @@ Add closed versioned message schema, six replay fixtures, reference validation/c
 
 Validation: 34 repository/contract tests pass, including duplicate/order/epoch/session/mode handling, unknown fields, nonfinite and oversize input, clock bounds, frame lineage and heartbeat-independent expiry. Structural validation, generated log and whitespace checks pass. Current-head GitHub CI is verified separately; PM/collaborator acceptance remains required.
 
+## 2026-10-17 — CS-017-CLAIM-GMARCIALCALLEJA-20261017: Claim AR interruption and app suspension handling for Gavin
+
+Author: Gavin (gmarcialcalleja) · Task: CS-017
+
+Propose gmarcialcalleja as owner of CS-017, preserving its requirements, CS-016 dependency and ios/tests-ios scope. Implementation waits for Michael to merge this claim. After assignment, software implementation and fixture tests can proceed while Xcode build, ARKit integration and physical-device verification remain explicitly pending. CS-016 is not yet implemented; no iOS, Pi or hardware acceptance is claimed.
+
+Validation: Claim metadata only. Checked publishing runs repository structure validation, shared tests, generated changelog validation and staged whitespace checks; actual results are recorded in the claim PR. No Xcode, Swift, ARKit or device tests claimed.
+
 ## 2026-10-17 — CS-021-CS-022-MICHAEL-CLAIM-20261017: Assign Pi capture and latest-only uploader work to Michael
 
 Author: michaelkrymski (AI-assisted) · Task: CS-021, CS-022
