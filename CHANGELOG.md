@@ -74,6 +74,14 @@ Propose gmarcialcalleja as owner of CS-017, preserving its requirements, CS-016 
 
 Validation: Claim metadata only. Checked publishing runs repository structure validation, shared tests, generated changelog validation and staged whitespace checks; actual results are recorded in the claim PR. No Xcode, Swift, ARKit or device tests claimed.
 
+## 2026-10-17 — CS-018-CLAIM-ADITSANGANI-20261017: Request CS-018 assignment for accessible status and manual audio cancel
+
+Author: aditsangani (AI-assisted) · Task: CS-018
+
+Claim only, from main ae449acb1bea251c360833a0863ec014d1f7feff. Human authorized CS-018 software preparation: explicit unknown/disconnected status, large accessible controls, VoiceOver labels and manual audio cancellation within ios/ and tests/ios/. CS-017 remains an unchanged prerequisite; coordinate integration with its owner. Cancellation UI will expose an integration action without taking over CS-040 narration implementation. Xcode builds, XCTest execution, VoiceOver and physical-device verification remain pending access to a Mac and phone. Implementation waits for Michael to merge this assignment.
+
+Validation: Checked publishing runs repository validation, shared unit tests, generated changelog consistency and whitespace checks. This assignment contains no implementation and claims no Swift, simulator, VoiceOver or device test results.
+
 ## 2026-10-17 — CS-019-CLAIM-GMARCIALCALLEJA-20261017: Claim consented coarse GPS telemetry for Gavin
 
 Author: Gavin (gmarcialcalleja) · Task: CS-019
