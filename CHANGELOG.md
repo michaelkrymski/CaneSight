@@ -770,6 +770,14 @@ Record two distinct operator report payloads without changing negative/unknown r
 
 Validation: 73 context tests pass, including manual subset and no/unknown observations plus incompatible flag rejection. Parsed supplied reports and confirmed original build identity; no agent audio/SSH observation. Checked publisher runs shared validation and tests.
 
+## 2026-10-18 — CS-040-REVIEW-SYNC-20261018: Resolve generated changelog conflict before software checkpoint review
+
+Author: bondmila (AI-assisted) · Task: CS-040
+
+Synchronize accepted GPS checkpoint from main 94ccaaf. Regenerate the conflicted log; menu, audio, GPIO, safety contracts and requirements unchanged. Await actual operator menu report without claiming a physical pass.
+
+Validation: 79 context tests passed. Checked publisher runs shared validation, governance, changelog and whitespace checks; final CI inspected by exact head.
+
 ## 2026-10-18 — CS-040-SPEAKER-RECOVERY-BONDMILA-20261018: Prepare operator-guided Bluetooth cancellation and fresh-request recovery test
 
 Author: bondmila (AI-assisted) · Task: CS-040
@@ -777,4 +785,20 @@ Author: bondmila (AI-assisted) · Task: CS-040
 Extend opt-in speaker bench with disconnect, unavailable cancellation, reconnect silence and fresh-ticket observations. Expose sanitized consumer request counts for CS-027 runtime reports; preserve draft status and prior operator evidence.
 
 Validation: 71 context tests pass, including silent recovery/no-or-unknown/interrupted input regressions and consumer diagnostics. No actual Bluetooth recovery or full phone/backend run claimed; checked publisher runs shared checks.
+
+## 2026-10-18 — CS-045-MEASUREMENT-ANALYSIS-20261018: Prepare offline bounded latency and depth-error analysis
+
+Author: Gavin (gmarcialcalleja) · Task: CS-045
+
+Add strict private measurement input, conservative latency bounds with median/p95/max, explicit failed-trial counts, sector/distance error and availability summaries, synthetic example and bench collection guide. Keep software command separate from measured physical onset; clock/provenance and physical acceptance remain independent review gates.
+
+Validation: 15 focused unit/CLI tests passed on Windows and network-disabled local Linux Python 3.12 Docker. Included example is deliberately synthetic and below the 20-observation requirement. No device, camera, GPIO or motor tests performed.
+
+## 2026-10-18 — CS-045-REVIEW-LINK-20261018: Link measurement-analysis software preparation PR
+
+Author: Gavin (gmarcialcalleja) · Task: CS-045
+
+Record PR #72 on the assigned task runtime. Physical timing, clock and measured-distance evidence gates remain explicit; no acceptance or device test claim added.
+
+Validation: Prior implementation publication passed all 128 repository tests and 15 focused tests on Windows/Linux. This update changes only the task link and new audit records; checked publisher reruns shared checks.
 
