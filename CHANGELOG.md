@@ -938,6 +938,14 @@ Advance capture barriers before notifying consumers and after provider errors, p
 
 Validation: 15 portable Swift 6.0.3 Linux tests passed with complete strict concurrency and warnings as errors. Core Location/UIKit bodies excluded; contract, host integration and real-device gates remain.
 
+## 2026-10-18 — CS-023-GPIO-ADAPTER-20261018: Add explicit two-channel GPIO output adapter and bounded bench command
+
+Author: gmarcialcalleja (AI-assisted) · Task: CS-023
+
+Implement the remaining CS-023 output adapter using lazily imported GPIO Zero, explicit distinct BCM pins and active-high initial-off devices. Latch write faults, request both off independently and release partial initialization/cleanup resources. Add opt-in off-only/single-pulse bench command and accurate scheduler output-mode reporting. Existing policy remains simulation-only. CS-009 is retained as a physical acceptance dependency; no GPIO or motors used.
+
+Validation: 15 fake-device adapter/CLI tests and 28 existing scheduler tests passed. Full edge discovery ran 220 tests successfully with 8 platform skips on Windows Python 3.14. Simulation CLI and bench help passed. Shared repository checks are run by publish_task before commit/push. No physical, electrical, or real-time acceptance claimed.
+
 ## 2026-10-18 — CS-025-PROVENANCE-RECOVERY-ADITSANGANI-20261018: Recover exact Swift fixture input manifest bytes for PR #75
 
 Author: aditsangani (AI-assisted; PM-delegated PR fix) · Task: CS-025
