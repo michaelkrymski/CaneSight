@@ -4,11 +4,12 @@ Standalone local Swift package, owned by CS-018. Products: `CaneSightStatus`
 (portable presentation controller) and `CaneSightStatusUI` (conditional SwiftUI
 view/model). No third-party packages. iOS 16+, macOS 13+ for native review.
 
-This is source preparation plus portable software evidence. It is **not yet
-installed in Michael's draft host app**, and does not replace CS-017 lifecycle,
-CS-016 transport, CS-019 consent/location or CS-040 speech policy. The current
-accepted main contains the lifecycle and coarse-location packages but no host app. App integration needs
-review of those separate PR inputs. No other teammate's source was modified.
+Merged host PR #69 integrates the exact CS-018 source pinned at `6ddb7fc` and
+supplies attributed Apple build, largest-text UI and fixed local status-speech/
+cancellation evidence. CS-018 PR #73 remains a separate draft review. This
+package does not replace CS-017 lifecycle, CS-016 transport, CS-019 consent/location
+or CS-040 speech policy. No other teammate's source is modified by this follow-up.
+See [ACCEPTANCE.md](ACCEPTANCE.md) for completed evidence and remaining checks.
 
 ## Behavior
 
@@ -49,15 +50,15 @@ disappears while camera capture was requested. Cancellation also has an accessib
 Escape action. No automatic 10Hz status announcements interrupt VoiceOver. The
 button cancels **app narration**, not VoiceOver, motors or the physical kill switch.
 
-## Host integration (Michael's PR #69 / accepted CS-017)
+## Host integration (merged PR #69 / accepted CS-017)
 
-Review the exact host package inputs before integrating. CS-017 and CS-019 merged
-during this session; their physical acceptance is still pending. This package
-requires no unmerged dependency at runtime. Add `ios/AccessibleStatus` as a local Xcode package
-and link `CaneSightStatus` and `CaneSightStatusUI` in the host app. Do not copy
-teammate implementations into this package. PR #69's current local camera preview
-does not have a narration/remote cancel path, so **keep its adapter nil until there
-is a real connected implementation**.
+The accepted host's AppServices owns StatusController/AccessibleStatusModel and
+wires cancelAudioNow to its real LocalStatusSpeech adapter. CameraController
+attaches display tokens before worker processing and invalidates display state on
+source/lifecycle loss. The adapter speaks fixed local app status; it is not a
+CS-040 scene-description/Pi adapter or remote cancellation protocol. Unwired
+builds must still leave the adapter nil. The following examples describe the
+package interfaces; preserve the accepted host wiring rather than duplicating it.
 
 1. Own one `StatusController` and one `AccessibleStatusModel` per camera scene,
    on MainActor. Use a finite nondecreasing local monotonic clock in milliseconds.
@@ -69,7 +70,7 @@ is a real connected implementation**.
    import CaneSightStatusUI
    import QuartzCore
 
-   // In the host's MainActor owner. Nil is intentional for the preview-only host.
+   // Example for an unwired host. The accepted AppServices supplies a real hook.
    let status = StatusController(nowMilliseconds: { CACurrentMediaTime() * 1000 })
    let statusUI = AccessibleStatusModel(controller: status)
    ```
@@ -170,20 +171,23 @@ source hashes and unrun checks. A UI observer must only consume snapshots; it mu
 not feed callbacks back as new sensor readiness. Reentrant notification delivery
 is suppressed and is not a general event bus.
 
-## Mac/phone acceptance — all pending for this new UI
+## Mac/phone acceptance — completed and remaining
 
-| Check | Evidence required |
+| Check | Current evidence and remaining work |
 | --- | --- |
-| Build | macOS package plus physical-iOS SDK build of the SwiftUI body and host; build/run the current CS-017 dependency head, not an older pin. |
-| VoiceOver | Depth/connection/narration names and values; Unknown spoken; predictable focus; button/hint and Escape cancellation reach the real adapter. |
-| Layout | Small phone portrait/landscape, light/dark and largest Accessibility Dynamic Type; wrapping, no clipped labels, scrollable/reachable 60pt controls. |
+| Build | Accepted #69 reports signed physical-iOS build/install/launch, 17 status Mac tests and 14 current-lifecycle Simulator tests. Exact status pin and all nine host source hashes were independently matched here. Apple tests were not rerun on Windows. |
+| VoiceOver | Human reports meaningful labels, spoken Unknown and accessible/activatable Cancel on an unidentified installed build. Exact build association, Escape gesture and full focus/hint assessment remain. |
+| Layout | Accepted #69 phone and Simulator UI tests cover largest text/reachable 60pt controls. Small-screen, landscape, light/dark and VoiceOver focus/listening matrix remains. |
 | Failure display | Camera denied/unsupported; lock/background/interruption; worker delayed across epoch; missing/expired depth; connected heartbeat with stale depth. |
-| Local cancellation | While offline, pending request, long speech, failure and repeated taps; no late callback/reconnect replay. Verify real sink and request generation. |
+| Local cancellation | Accepted #69 tests the real fixed local speech/cancel hook and propagates failure. A later human reports audible speech stopping on Cancel on an unidentified installed build. CS-040/Pi/request integration, all output routes and measured buffering remain separate. |
 | Audio | Record observed speaker stop/buffering delay; distinguish app narration from VoiceOver; never label software stop-call timing as audible latency. |
 | Whole host | Real PR #69 camera, reviewed CS-017/016 wiring, live phone/Pi and original-age evidence. Physical mapping remains CS-015. |
 
-Until native/host/device results exist, keep the PR draft and task blocked rather
-than asserting Done. The original task acceptance/dependencies remain unchanged.
+Keep the PR draft and task blocked for the remaining VoiceOver, route/buffering
+and CS-040/Pi integration gates; do not keep completed Apple/host checks labelled
+unrun. The original task acceptance/dependencies remain unchanged. Historical
+CS-018-status-20261018.json describes the initial portable-only checkpoint and is
+not overwritten by newer evidence.
 
 Apple references: [SwiftUI accessibility modifiers](https://developer.apple.com/documentation/swiftui/view-accessibility),
 [accessibility labels](https://developer.apple.com/documentation/swiftui/view/accessibilitylabel(_:)-1d7jv).

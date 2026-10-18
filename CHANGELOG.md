@@ -850,6 +850,14 @@ Prevent synchronous disconnect/UI cleanup callbacks from recursively invalidatin
 
 Validation: 12 portable Swift 6.0.3 Linux tests passed with complete strict concurrency and warnings as errors; 3 Python consumer expiry/reconnect tests passed. No current-head Apple SDK or physical test claimed.
 
+## 2026-10-18 — CS-018-ACCEPTED-HOST-EVIDENCE-20261018: Reconcile accessible-status acceptance with the merged phone host
+
+Author: Adit (aditsangani, AI-assisted) · Task: CS-018
+
+Match unchanged CS-018 Swift sources to merged host review pin and all nine recorded host hashes. Attribute completed Apple build/largest-text/local-speech checks and human audible-cancel/VoiceOver labels, Unknown and Cancel observations on an unidentified installed build. Separate remaining exact-build, Escape, layout, route/buffering and CS-040/Pi integration gates. No runtime or teammate-source changes.
+
+Validation: Reran 17 portable status and two actual accepted-lifecycle integration tests in Swift 6.0.3 WSL with complete strict concurrency and warnings as errors; all passed. Apple results are attributed source-verified repository evidence, not rerun on Windows. Shared repository/changelog/whitespace checks run through checked publishing. Keep PR #73 draft and task blocked; no measured silence, Bluetooth, transport or Done claim.
+
 ## 2026-10-18 — CS-018-ACCESSIBLE-STATUS-20261018: Prepare accessible phone status and local audio cancellation controls
 
 Author: aditsangani (AI-assisted) · Task: CS-018

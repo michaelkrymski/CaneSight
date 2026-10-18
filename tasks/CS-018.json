@@ -24,7 +24,11 @@
     "ios/AccessibleStatus: typed unknown/disconnected/depth/audio status, large SwiftUI controls, VoiceOver labels/values/hints and manual local cancellation seam. No host or teammate code modified.",
     "17 portable Swift tests plus 2 actual accepted CS-017 lifecycle hook integration tests passed on Swift 6.0.3 Ubuntu/WSL with complete strict concurrency and warnings as errors. Linux excludes SwiftUI body.",
     "tests/ios/evidence/CS-018-status-20261018.json",
-    "handoffs/CS-018-accessible-status-20261018.md"
+    "handoffs/CS-018-accessible-status-20261018.md",
+    "tests/ios/evidence/CS-018-accepted-host-20261018.json",
+    "handoffs/CS-018-accepted-host-evidence-20261018.md",
+    "ios/AccessibleStatus/ACCEPTANCE.md",
+    "Matched all four Swift package files to merged #69 status pin 6ddb7fc and all nine host evidence hashes. Attributed native build/UI and real fixed local speech integration; reran 17 status and 2 accepted-lifecycle integration Swift tests locally, all passed. Human corrected earlier no-audio reply: speech is audible and Cancel audio stops it; installed build/device/route/timing remain unidentified. Human also reports VoiceOver labels, Unknown values and Cancel accessible; Escape and installed-build identity remain unverified."
   ],
-  "blocker": "Awaiting current-head Apple SwiftUI/iOS SDK build, host integration with Michael's CS-013 app and accepted CS-017 lifecycle, real CS-040 local cancellation adapter, VoiceOver/Dynamic Type device checks and observed audible cancellation/buffering evidence. Portable logic and accepted lifecycle hook tests pass; no physical silence or task Done claim."
+  "blocker": "Merged #69 supplies exact-source Apple SDK/build, largest-text and fixed local status-speech/cancel evidence. Human reports audible speech cancellation and accessible VoiceOver labels/Unknown/Cancel on an unidentified installed build. Remaining: exact installed-build association, Escape gesture, full layout/output-route and measured buffering checks, plus real CS-040/Pi request cancellation integration. No Done claim."
 }
