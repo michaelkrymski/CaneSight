@@ -722,6 +722,14 @@ Preserve exact pasted report from combined 6dfda42: initially LOW, seven press/r
 
 Validation: Parsed report and checked counts/disabled subsystems; confirmed source commit contains the GPIO adapter. No new implementation or local hardware test. Checked publisher runs shared validation, tests, governance, changelog and whitespace.
 
+## 2026-10-18 — CS-027-MENU-OPERATOR-CONFIRMATION-20261018: Record operator menu confirmation for software checkpoint review
+
+Author: bondmila (AI-assisted) · Task: CS-027
+
+Operator reported the new GPIO21 spoken-menu sequence worked and explicitly declined pasting JSON. Preserve that provenance without inventing counters/timings/build SHA or additional case passes. Keep full integration and final acceptance gates explicit.
+
+Validation: Verified in-scope implementation matches last prepared 04f660b; preceding branch/combined test evidence remains separate. Checked publisher runs shared checks and exact-head CI is inspected before ready-for-review.
+
 ## 2026-10-18 — CS-027-PRIVATE-RUN-REPORT-BONDMILA-20261018: Save private context run diagnostics for Pi verification
 
 Author: bondmila (AI-assisted) · Task: CS-027
@@ -737,6 +745,22 @@ Author: bondmila (AI-assisted) · Task: CS-027
 Synchronize accepted GPS checkpoint from main d1d8eb9 (GPS 94ccaaf plus CS-045 measurement analysis). Regenerate the conflicted log; menu, audio, GPIO, safety contracts and requirements unchanged. Await actual operator menu report without claiming a physical pass.
 
 Validation: 182 edge tests: 171 passed, 11 explicit draft narration/menu-audio dependency skips. Checked publisher runs shared validation, governance, changelog and whitespace checks; final CI inspected by exact head.
+
+## 2026-10-18 — CS-044-CROSSING-CAMPAIGN-20261018: Add pinned crossing-menu and audio failure campaign
+
+Author: Gavin (gmarcialcalleja) · Task: CS-044
+
+Test real unmodified review snapshots from PRs 58 and 41 in an isolated subprocess with virtual clock and silent speech. Cover gestures, barriers, cancellation, source/audio/consent/epoch loss, delayed worker tickets and no replay. Record absent production bridge and physical monitoring/timing as remaining gates; no teammate implementation or protected contract changes.
+
+Validation: All 19 closed campaign cases passed on Windows and local network-disabled Linux Python 3.12. Four source/report-integrity tests passed. Physical acceptance remains false; no Pi, camera, network device, GPIO or motor used.
+
+## 2026-10-18 — CS-044-CROSSING-REVIEW-LINK-20261018: Link crossing failure campaign PR
+
+Author: Gavin (gmarcialcalleja) · Task: CS-044
+
+Record PR #74 on the CS-044 runtime. Exact unmerged dependency pins and production/physical acceptance limits remain unchanged.
+
+Validation: Implementation publication passed all 117 repository tests; 19 pinned campaign cases passed on Windows and local Linux. This follow-up changes the task PR URL and adds audit records only; checked publishing reruns shared checks.
 
 ## 2026-10-18 — CS-045-MEASUREMENT-ANALYSIS-20261018: Prepare offline bounded latency and depth-error analysis
 
