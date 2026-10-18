@@ -690,3 +690,19 @@ Advance capture barriers before notifying consumers and after provider errors, p
 
 Validation: 15 portable Swift 6.0.3 Linux tests passed with complete strict concurrency and warnings as errors. Core Location/UIKit bodies excluded; contract, host integration and real-device gates remain.
 
+## 2026-10-18 — CS-045-MEASUREMENT-ANALYSIS-20261018: Prepare offline bounded latency and depth-error analysis
+
+Author: Gavin (gmarcialcalleja) · Task: CS-045
+
+Add strict private measurement input, conservative latency bounds with median/p95/max, explicit failed-trial counts, sector/distance error and availability summaries, synthetic example and bench collection guide. Keep software command separate from measured physical onset; clock/provenance and physical acceptance remain independent review gates.
+
+Validation: 15 focused unit/CLI tests passed on Windows and network-disabled local Linux Python 3.12 Docker. Included example is deliberately synthetic and below the 20-observation requirement. No device, camera, GPIO or motor tests performed.
+
+## 2026-10-18 — CS-045-REVIEW-LINK-20261018: Link measurement-analysis software preparation PR
+
+Author: Gavin (gmarcialcalleja) · Task: CS-045
+
+Record PR #72 on the assigned task runtime. Physical timing, clock and measured-distance evidence gates remain explicit; no acceptance or device test claim added.
+
+Validation: Prior implementation publication passed all 128 repository tests and 15 focused tests on Windows/Linux. This update changes only the task link and new audit records; checked publisher reruns shared checks.
+
