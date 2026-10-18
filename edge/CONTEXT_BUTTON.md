@@ -264,3 +264,66 @@ explicitly says phone depth streaming is not ready. A working button or speaker
 therefore cannot satisfy the live readiness gate. Keep the context/audio PRs draft
 until current-head Pi input/audio evidence and the actual enrolled path are reviewed.
 CS-023/CS-025 motor work and CS-018 accessible controls remain with their owners.
+
+
+## Merged crossing-menu rollout — CS-027
+
+[PR #71](https://github.com/michaelkrymski/CaneSight/pull/71) merged the normative
+`docs/operations/CROSSING_ASSISTANCE.md` brief into accepted main `5dbb6ad`.
+`edge.context_menu.CrossingMenu` is the deterministic interaction component:
+30 ms debounce, idle context event only on short release, 3000 ms menu entry,
+no default selection, three labels and wrap, separate 1000 ms confirmation hold,
+entry/confirmation release barriers, active cancellation on a new debounced
+press, 15 s inactivity and 30 s absolute menu cap. Startup/recovery-held input
+cannot dispatch. Source/consent/audio loss and epoch changes clear selection;
+clock faults latch until replacement. Events carry a local generation/epoch,
+are returned directly with no FIFO, and do not introduce wire fields.
+
+Capabilities default to empty: unsupported confirmation announces unavailable
+and cannot activate. The component emits a context gesture; it does not create
+requests, override the existing ContextButton cooldown, invoke Gemini, or infer
+signals/traffic state. This checkpoint **does not replace the existing uploader
+input path**. Production gesture/request integration still needs the reviewed
+adapter bridge and trusted CS-018 audio/source readiness. Existing uploader flags
+remain the previous one-shot path and rollback target.
+
+### Controlled interaction bench
+
+The combined test checkout also contains CS-040's fixed phrase audio component.
+From that checkout on Pi, after checking the current speaker output:
+
+```sh
+git pull --ff-only
+results_dir=$(mktemp -d "$HOME/canesight-menu.XXXXXX")
+python3 -m edge.menu_bench --speak --audio-confirmed --consent --synthetic-adapters --gpio21 --output "$results_dir/run.json"
+cat "$results_dir/run.json"
+```
+
+This is an explicitly synthetic **interaction-only** bench. It does not acquire
+images, create analysis jobs/requests or emit traffic observations. Motor GPIO is
+unused. Synthetic capability selection is explicit; omit `--synthetic-adapters`
+to exercise unsupported-mode refusal. Use `--simulate-audio` instead of real
+speech for silent tests; no automatic fallback. GPIO Zero is needed only for
+`--gpio21`; omit that flag to use timed terminal `press`/`release` commands.
+No phone/backend/camera/dependency installation is needed for this bench.
+
+1. Release, hold 3 seconds, then release: hear the observation disclaimer/menu.
+2. Short press/release: hear the first label. Repeat to cycle all three and wrap.
+3. Hold a selected option for 1 second, then release: hear confirmation. This
+   demonstrates interaction only, with no observation adapter or model job.
+4. A new press cancels. Holding the entry/confirmation gesture cannot double-dispatch.
+5. Let a menu idle 15 seconds; it closes. A held menu cannot survive its 30 s cap.
+6. In SSH, `status` prints bounded state/counters; `audio-off`/`audio-on`,
+   `source-off`/`source-on`, and `hazard-on`/`hazard-off` inject labeled test state.
+   Loss cancels, and recovery never restores a selected/active scenario.
+7. `cancel`, `consent-off`, `quit`, EOF or Ctrl+C stop the owned optional audio.
+   Consent withdrawal is permanent for this bench instance.
+
+The normal hardware device has no automatic route-health adapter in this bench.
+`--audio-confirmed` is an operator assertion, not OS Bluetooth monitoring. Use
+`audio-off` immediately for reported loss; automatic disconnect detection remains
+an integration gate. The independent worker drives expiry while stdin is blocked;
+GPIO read failures/stalls suppress state. No model/source health is inferred from
+a button, successful process, heartbeat or missing detection. Speech clarity and
+buffered audible cancellation still need human observations. Reports save fixed
+state/counters only and keep physical acceptance false. No road-use test.

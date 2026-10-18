@@ -1,0 +1,9 @@
+{
+  "id": "CS-027-CROSSING-MENU-BONDMILA-20261018",
+  "date": "2026-10-18",
+  "author": "bondmila (AI-assisted)",
+  "task": "CS-027",
+  "summary": "Implement merged crossing observation gesture component and synthetic bench",
+  "details": "Follow accepted PR #71: deterministic thresholds/release barriers, no default/three-mode menu, cancel/expiry/source/epoch gates. Add explicit synthetic terminal/GPIO21 and silent/real-speech bench; no traffic observations, model requests or motor outputs. Existing uploader stays unchanged pending production bridge and trusted readiness.",
+  "validation": "Virtual clock threshold/expiry/fault tests plus combined edge regressions and exact private-report silent CLI. Checked publishing runs shared checks. No new physical menu/audio or road-use test performed; see handoff for actual counts."
+}
