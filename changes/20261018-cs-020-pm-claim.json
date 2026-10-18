@@ -1,0 +1,9 @@
+{
+  "id": "CS-020-PM-CLAIM-20261018",
+  "date": "2026-10-18",
+  "author": "michaelkrymski (AI-assisted)",
+  "task": "CS-020",
+  "summary": "Assign difficult LiDAR surface checks to Michael",
+  "details": "PM-authorized assignment only. Accepted-main task is unowned; no competing open CS-020 claim or implementation found. Preserve scope and dependencies; begin only after verifying actual PM-authored assignment PR and initial diff.",
+  "validation": "Assignment runtime fields only plus this new changelog/handoff and generated log. Shared checks run by checked publisher. No implementation or physical results asserted."
+}
