@@ -642,6 +642,14 @@ Assignment runtime only. After merged ownership, prepare bounded validation/stat
 
 Validation: Verified accepted task unclaimed and no competing open claim. Checked publishing runs repository/shared/changelog/whitespace checks. No measurement implementation or real-device evidence included.
 
+## 2026-10-18 — CS-015-BENCH-INSTALL-20261018: Sign, install and launch portrait mapping bench for operator verification
+
+Author: michaelkrymski (AI-assisted) · Task: CS-015
+
+Separate Mount Check app built with local Personal Team signing, passed strict deep signature verification and installed/launched on paired iPhone 17 Pro Max / iOS 26.6.2. Operator target/reset procedure requested; no physical results prefilled. Existing #69 app/source unchanged.
+
+Validation: Signed build, strict codesign, installation and launch passed. All 11 mapping XCTest cases, 110 shared checks and required CI passed on tested implementation bd99b6cf043122d2d4548f4e97bfa70bbf868409. This evidence-only checkpoint reruns shared checks; task blocked and PR draft pending physical observations and review.
+
 ## 2026-10-18 — CS-015-PM-CLAIM-20261018: Assign camera orientation and mount mapping verification to Michael
 
 Author: michaelkrymski (AI-assisted) · Task: CS-015

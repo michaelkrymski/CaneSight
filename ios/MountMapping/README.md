@@ -103,3 +103,12 @@ saved or shared; no GPS, session enrollment, telemetry, motor or narration runs.
 Callback-recency checks are not verified sensor capture-age bounds. Source-clock,
 surface accuracy, phone-to-grip/motor mapping, final mount and full WSS/Pi integration
 remain separate acceptance work. Do not claim physical completion from SDK/tests.
+
+## Device checkpoint — 18 October 2026
+
+The exact implementation at `bd99b6cf043122d2d4548f4e97bfa70bbf868409` built
+with Personal Team signing, passed strict deep signature verification, and was
+installed/launched on the paired iPhone 17 Pro Max / iOS 26.6.2 through Apple's
+device tools. Required CI passed on that implementation. The operator received
+the target/reset procedure above; physical results are pending and not prefilled.
+The original CaneSight app/#69 source remains unchanged.
