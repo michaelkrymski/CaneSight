@@ -1170,3 +1170,11 @@ Assignment-only proposal. Preserve task requirements, dependencies and allowed p
 
 Validation: Confirmed accepted main has no owner and no competing open CS-049 claim. Verified static task fields remain identical. Repository and checked-publisher checks run before publication; no task implementation tests exist in this assignment-only diff.
 
+## 2026-10-18 — CS-049-DENIAL-FAILURE-ADITSANGANI-20261018: Verify optional context failures remain isolated from motor and freshness policy
+
+Author: Adit (aditsangani, AI-assisted) · Task: CS-049
+
+Add ten synthetic cross-component isolation cases, a fixed 43-case QA runner with source-pinned actual results, portable GPS rerun evidence and acceptance boundary documentation. Preserve incomplete reporter attempt. No production component, GPS contract, shared protocol, native host or protected workflow changes.
+
+Validation: 43 Python campaign cases and 15 portable GPS Swift tests passed with no skips/failures. Strict Swift concurrency complete and warnings as errors. Checked publishing runs current repository checks. Native device/permission/provider/transport/audio acceptance remains explicitly unverified; task is not Done.
+
