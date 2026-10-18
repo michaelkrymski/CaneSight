@@ -1074,6 +1074,14 @@ Adopt accepted CS-039 PR #94 composition rather than introducing a second factor
 
 Validation: Three packaging/build/Compose tests passed; all six accepted context deployment-composition tests passed with fake provider/writer/model. Final application image b9a4679 built on Vultr with successful runtime imports over the exact vision image. No container started or public service changed. Full backend/shared results recorded in handoff.
 
+## 2026-10-18 — CS-033-COMPOSE-FIXTURE-PORTABILITY-20261018: Make application Compose verification portable to CI tooling
+
+Author: gmarcialcalleja (AI-assisted) · Task: CS-033
+
+CI configuration verification failed on the no-env-resolution invocation supported by the development Compose version. Use isolated temporary copies and explicit synthetic native/application env files with ordinary config JSON resolution. Verify both settings survive and neither reaches the proxy. No private config is read, and runtime image/Compose settings are unchanged.
+
+Validation: All three packaging/provenance/Compose tests passed locally after the fixture change. Checked publishing reruns shared checks; current-head CI is inspected after push. No service activation or physical claim.
+
 ## 2026-10-18 — CS-033-CURRENT-BACKEND-VERIFICATION-20261018: Verify current deployed backend against accepted runtime and public inference/session probes
 
 Author: gmarcialcalleja (AI-assisted) · Task: CS-033

@@ -2,6 +2,8 @@
 import json
 import os
 import subprocess
+import shutil
+import tempfile
 from pathlib import Path
 import unittest
 from unittest.mock import patch
@@ -30,26 +32,32 @@ class ApplicationCompositionTests(unittest.TestCase):
         environment = dict(os.environ, BACKEND_IMAGE='sha256:'+'a'*64,
             CADDY_IMAGE='caddy@sha256:'+'b'*64, CANESIGHT_DOMAIN='backend.example',
             CANESIGHT_VISION_HOST_WEIGHTS='/private/model.pt')
-        result = subprocess.run(['docker','compose','-f',str(deploy/'compose.yaml'),
-            '-f',str(deploy/'compose.vision.yaml'),'-f',str(deploy/'compose.application.yaml'),
-            'config','--format','json','--no-env-resolution'],env=environment,
-            capture_output=True,text=True)
-        self.assertEqual(result.returncode,0,'Compose configuration failed; details suppressed')
-        configuration=json.loads(result.stdout)
+        with tempfile.TemporaryDirectory() as directory:
+            folder=Path(directory)
+            for name in ('compose.yaml','compose.vision.yaml','compose.application.yaml'):
+                shutil.copyfile(deploy/name,folder/name)
+            (folder/'secrets/application').mkdir(parents=True)
+            (folder/'secrets/backend.env').write_text('CANESIGHT_OPERATOR_TOKEN=synthetic-compose-only\n')
+            (folder/'secrets/application.env').write_text('CANESIGHT_CONTEXT_BASE=sessions\n')
+            result = subprocess.run(['docker','compose','-f',str(folder/'compose.yaml'),
+                '-f',str(folder/'compose.vision.yaml'),'-f',str(folder/'compose.application.yaml'),
+                'config','--format','json'],env=environment,cwd=folder,
+                capture_output=True,text=True,timeout=30)
+            self.assertEqual(result.returncode,0,'Compose fixture validation failed; details suppressed')
+            configuration=json.loads(result.stdout)
         backend=configuration['services']['backend']
         self.assertEqual(backend['network_mode'],'host')
         self.assertTrue(backend['read_only'])
         self.assertEqual(backend['user'],'10001:10001')
         self.assertEqual(int(backend['mem_limit']),2147483648)
         self.assertEqual(float(backend['cpus']),1.5)
-        self.assertEqual(len(backend['env_file']),2)
-        self.assertEqual(Path(backend['env_file'][0]['path']).name,'backend.env')
-        self.assertEqual(Path(backend['env_file'][1]['path']).name,'application.env')
-        self.assertTrue(all(Path(entry['path']).parent.name=='secrets' for entry in backend['env_file']))
+        self.assertEqual(backend['environment']['CANESIGHT_OPERATOR_TOKEN'],'synthetic-compose-only')
+        self.assertEqual(backend['environment']['CANESIGHT_CONTEXT_BASE'],'sessions')
         self.assertEqual(backend['command'][2],'backend.context.deployment')
         model=next(v for v in backend['volumes'] if v['target']=='/opt/canesight/models/yolov8n.pt')
         self.assertTrue(model['read_only'])
-        self.assertNotIn('env_file',configuration['services']['proxy'])
+        self.assertNotIn('CANESIGHT_OPERATOR_TOKEN',configuration['services']['proxy']['environment'])
+        self.assertNotIn('CANESIGHT_CONTEXT_BASE',configuration['services']['proxy']['environment'])
 
 
 if __name__ == '__main__': unittest.main()
