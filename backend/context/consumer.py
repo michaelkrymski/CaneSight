@@ -89,6 +89,15 @@ class ContextNarration:
             self._tick()
             return result
 
+    def request(self):
+        """Submit a completed local gesture to the sole existing request slot."""
+        with self._lock:
+            if self._closed or not self._state():
+                return False
+            admitted = self._button.request()
+            self._tick()
+            return admitted
+
     def _tick(self):
         self._state()
         self._narration.tick()

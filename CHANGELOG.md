@@ -922,6 +922,14 @@ Follow merged PR #71 with closed disclaimer/selection/confirmation/cancellation 
 
 Validation: 78 context tests pass, including five new fixed phrase/readiness/epoch/expiry/fault tests. Combined synthetic bench tests are reported by CS-027. Checked publishing runs shared checks; no new actual audio or device test performed.
 
+## 2026-10-18 — CS-040-GESTURE-DISPATCH-20261018: Accept completed context gestures and isolate optional speech ownership
+
+Author: Mila (bondmila, AI-assisted) · Task: CS-040
+
+Expose completed-gesture dispatch through the existing button/narration slot without fabricated input timestamps; preserve cooldown, original capture expiry and consent/priority. Add two bounded local speech channels so idle context/menu cancellation affects only its own speech; global stop remains explicit. No audio queue or default activation.
+
+Validation: 83 context tests passed on macOS with generated frames and synthetic speech. No real Gemini, Bluetooth, phone, GPIO or physical-audio acceptance. Shared checked-publisher checks run before push.
+
 ## 2026-10-18 — CS-040-HARDWARE-68-HANDOFF-BONDMILA-20261018: Reconcile narration readiness with Michael hardware handoff #68
 
 Author: bondmila (AI-assisted) · Task: CS-040
