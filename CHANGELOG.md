@@ -74,6 +74,14 @@ Propose gmarcialcalleja as owner of CS-017, preserving its requirements, CS-016 
 
 Validation: Claim metadata only. Checked publishing runs repository structure validation, shared tests, generated changelog validation and staged whitespace checks; actual results are recorded in the claim PR. No Xcode, Swift, ARKit or device tests claimed.
 
+## 2026-10-17 — CS-017-LIFECYCLE-GMARCIALCALLEJA-20261017: Add interruption and suspension guard with fresh-capture recovery
+
+Author: Gavin (gmarcialcalleja) · Task: CS-017
+
+Implement a standalone Swift package with generation barriers, bounded pending depth, transport/cache/clock purge hooks, source sequence preservation and conservative capture-age checks. Add ARKit/UIKit bridge and deferred Apple tests, consumer expiry regressions and CS-016 integration guide. Host integration and Xcode/device acceptance remain pending; no shared protocol or master plan changes.
+
+Validation: 10 Swift XCTest core cases passed using official Swift 6.0.3 Linux image with complete strict concurrency and warnings as errors; Apple SDK source/tests excluded. Root unittest discovery: 113 passed including 3 new receiver regressions. Checked publishing additionally runs structure, generated-log and whitespace checks. No physical device/electrical validation claimed.
+
 ## 2026-10-17 — CS-018-CLAIM-ADITSANGANI-20261017: Request CS-018 assignment for accessible status and manual audio cancel
 
 Author: aditsangani (AI-assisted) · Task: CS-018
@@ -89,6 +97,14 @@ Author: Gavin (gmarcialcalleja) · Task: CS-019
 Propose gmarcialcalleja ownership and in_progress on a dedicated claim branch. Preserve acceptance, CS-016 dependency and ios/tests-ios scope. Implementation waits for Michael to merge ownership. No GPS implementation, Xcode/device verification or precise location data included.
 
 Validation: Assignment metadata only; checked publishing runs repository structure, shared unittest discovery, generated changelog and staged whitespace checks. Actual results are reported in the claim PR; no GPS/device tests claimed.
+
+## 2026-10-17 — CS-019-COARSE-LOCATION-GMARCIALCALLEJA-20261017: Prepare consented coarse GPS context and Core Location adapter
+
+Author: Gavin (gmarcialcalleja) · Task: CS-019
+
+Add a standalone Swift package with explicit sharing consent, authorization and active-scene gating, rounded-only cache, fix age/accuracy checks, independent expiry and at-most-1-Hz local handoff. Add a proposed separate GPS contract CR without changing protected shared contracts or sending GPS in depth packets. End-to-end telemetry and Apple/device acceptance remain pending.
+
+Validation: 13 portable Swift XCTest cases passed on official Swift 6.0.3 Linux with complete strict concurrency and warnings as errors. Conditional Core Location/UIKit code was excluded; no Xcode/device test claimed. Checked publishing runs repository structure, shared unittest discovery, generated log and whitespace checks; actual results reported in the PR.
 
 ## 2026-10-17 — CS-021-CS-022-MICHAEL-CLAIM-20261017: Assign Pi capture and latest-only uploader work to Michael
 
@@ -681,4 +697,35 @@ Author: michaelkrymski (AI-assisted) · Task: CS-013
 New SwiftUI iOS16+ host checks scene-depth support, requests camera permission and displays bounded local image-column depth. Epoch barriers, interruption invalidation and receipt-time UI expiry preserve unknowns. Pinned ignored review dependencies preserve draft PR source without modifying teammate tasks. Network/GPS/motors stay off. Initial PM claim PR #69 was author/diff verified before implementation.
 
 Validation: 59 package macOS XCTest cases, five host gate cases and four Swift/backend wire cases passed. Four package physical-iOS SDK builds and four iOS Simulator test-bundle builds passed. Unsigned host physical-iOS build passed. Simulator tests and physical phone/signing/clock/mapping/WSS acceptance remain pending; task blocked and PR draft. Checked publisher runs shared checks.
+## 2026-10-18 — CS-001-CROSSING-ASSISTANCE-20261018: Propose user-selected crossing observation menu and revised task acceptance
+
+Author: michaelkrymski (AI-assisted) · Task: CS-001
+
+Add a targeted master-plan subsection, implementation brief and CR for 3-second entry, spoken scenario cycling, 1-second confirmation, immediate active cancellation and three observation-only modes. Expand CS-027/036/037/038/039/040/044 acceptance without changing owners, runtime status, old evidence, protocols or deployed code. Vehicle temporal analysis remains new unverified work; Gemini remains restricted object description.
+
+Validation: Planning-only change. Repository validation, generated changelog consistency, whitespace and shared unit suite are checked before publication. No button/audio/vision implementation, training, live traffic, GPIO or physical acceptance claimed. Protected plan/task amendments require exact-head GitHub approval.
+
+## 2026-10-18 — CS-017-CLEANUP-REENTRANCY-20261018: Fence lifecycle cleanup and latch clock-fault notifications
+
+Author: Gavin (gmarcialcalleja) · Task: CS-017
+
+Prevent synchronous disconnect/UI cleanup callbacks from recursively invalidating or reconnecting. Record earlier Apple build evidence with exact pinned source limits and preserve remaining transport, clock and paired-device acceptance gates.
+
+Validation: 12 portable Swift 6.0.3 Linux tests passed with complete strict concurrency and warnings as errors; 3 Python consumer expiry/reconnect tests passed. No current-head Apple SDK or physical test claimed.
+
+## 2026-10-18 — CS-019-CLOCK-FAULT-NOTIFICATION-20261018: Make GPS clock-fault purge notification idempotent
+
+Author: Gavin (gmarcialcalleja) · Task: CS-019
+
+Final review follow-up on PR 67: once a clock fault is latched, unavailable snapshot reads no longer trigger another purge callback. This prevents a synchronous UI refresh from recursively purging. Extend the existing clock-fault regression; contract and device blockers remain.
+
+Validation: All 13 portable Swift XCTest cases passed again on Swift 6.0.3 Linux with complete strict concurrency and warnings as errors. Apple SDK adapter remains excluded; no device validation claimed.
+
+## 2026-10-18 — CS-019-RECOVERY-BARRIER-20261018: Require new GPS fixes after provider failure and fence recovery callbacks
+
+Author: Gavin (gmarcialcalleja) · Task: CS-019
+
+Advance capture barriers before notifying consumers and after provider errors, preventing delayed pre-recovery fixes from restoring context. Record attributed earlier Apple builds without claiming current-head device or approved GPS transport acceptance.
+
+Validation: 15 portable Swift 6.0.3 Linux tests passed with complete strict concurrency and warnings as errors. Core Location/UIKit bodies excluded; contract, host integration and real-device gates remain.
 

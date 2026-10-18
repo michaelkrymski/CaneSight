@@ -3,7 +3,7 @@
   "title": "Evaluate signal ambiguity and track loss",
   "category": "YOLO & Signal Vision",
   "priority": "P1",
-  "acceptance": "Multiple heads/glare/occlusion/track change yield unknown; record confusion and OCR accuracy.",
+  "acceptance": "Multiple heads/glare/occlusion/track change yield unknown; record confusion and OCR accuracy. Add per-scenario held-out evaluation with denominators, abstentions and false positives for custom signal/countdown, beacon vs vehicle-yellow confusion, temporal sampling, camera motion, hidden/lost vehicles and night gaps. Prototype-overlap synthetic reports do not establish real-world accuracy or that cars yielded/stopped.",
   "dependencies": [
     "CS-037"
   ],
