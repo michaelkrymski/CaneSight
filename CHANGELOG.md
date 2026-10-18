@@ -954,6 +954,14 @@ Michael requested CS-016; bondmila published a stopped-work handoff on #64. Acce
 
 Validation: 195 repository tests, structure/rendered-log/whitespace checks passed. Existing unchanged telemetry: 21 strict Swift tests, four replay wire/backend tests and unsigned physical-iOS SDK build passed. HTTPS health request to documented origin timed out from this Mac. Ownership amendment requires exact-head PM authorization and normal independent reviewed merge; no new implementation or live paired acceptance claimed.
 
+## 2026-10-18 — CS-017-ACCEPTED-TELEMETRY-LAYOUT-20261018: Integrate accepted CS-016 host package layout and verify lifecycle coordinator
+
+Author: gmarcialcalleja (AI-assisted) · Task: CS-017
+
+Merge accepted CS-016/main 86a8783 into lifecycle PR #84. Preserve lifecycle source entries alongside accepted transport device targets and sibling telemetry package; keep accepted privacy text and remove conflict markers. Default harness resolves the accepted sibling package without the old review pin. Update runtime blockers to reflect CS-016 acceptance while retaining actual clock/device gates.
+
+Validation: All 13 strict-concurrency Swift coordinator/actor tests passed using the actual merged HEAD package and network-disabled pinned Linux image. Top-level Xcode object IDs unique and staged whitespace check passed. Windows full shared suite exposes the accepted Pi private-file fixture's POSIX requirement; Linux checked publication is used without weakening the reader. No Apple SDK or physical device/motor acceptance.
+
 ## 2026-10-18 — CS-017-CLEANUP-REENTRANCY-20261018: Fence lifecycle cleanup and latch clock-fault notifications
 
 Author: Gavin (gmarcialcalleja) · Task: CS-017

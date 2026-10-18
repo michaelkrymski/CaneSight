@@ -27,7 +27,10 @@
     "2026-10-18 transport follow-up: production host coordinator uses exact unmodified CS-016 actor pin 0433fc94af1a1e3edfe2d2bb28925cb3be6df1ee; 13 portable strict-concurrency transport tests passed. Source-hashed evidence: tests/ios/evidence/CS-017-transport-20261018.json. Native host SDK build and paired-device acceptance remain pending.",
     "handoffs/CS-017-current-telemetry-20261018.md",
     "tests/ios/evidence/CS-017-current-telemetry-20261018.json",
-    "All 13 strict-concurrency coordinator/actor tests passed against current CS-016 review commit 8a6c7b2 (exact full commit/source hashes in evidence); three Pi lifecycle receiver regressions passed. Harness now accepts an explicit telemetry ref and supports accepted sibling package layout after CS-016 merge. No Apple SDK or actual phone/Pi verification in this checkpoint."
+    "All 13 strict-concurrency coordinator/actor tests passed against current CS-016 review commit 8a6c7b2 (exact full commit/source hashes in evidence); three Pi lifecycle receiver regressions passed. Harness now accepts an explicit telemetry ref and supports accepted sibling package layout after CS-016 merge. No Apple SDK or actual phone/Pi verification in this checkpoint.",
+    "handoffs/CS-017-accepted-cs016-verified-20261018.md",
+    "tests/ios/evidence/CS-017-accepted-cs016-20261018.json",
+    "Accepted CS-016/main 86a8783 integrated. All 13 strict Swift lifecycle/actor tests passed using default accepted sibling-package layout, without a review-ref override. Xcode project keeps accepted device targets and lifecycle source, with unique top-level IDs. No Apple SDK or actual phone/Pi/motor acceptance in this checkpoint."
   ],
-  "blocker": "Lifecycle coordinator is API-compatible with tested CS-016 review head 8a6c7b2; exact-source tests passed. Still requires accepted CS-016 host/native transport and reviewed sibling-package/pin integration, independently measured capture-clock mapping, Apple SDK/native host verification and paired phone/Pi interruption/background/lock/reconnect evidence. No full acceptance or motor readiness claimed."
+  "blocker": "Accepted CS-016 telemetry is integrated and default-layout strict Swift tests pass. Await Apple SDK/native host verification, authorized app enrollment/independently measured capture-clock bounds and paired phone/Pi interruption/background/lock/reconnect evidence. Physical power/mapping/motor acceptance remains separate."
 }
