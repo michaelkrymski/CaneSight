@@ -1,0 +1,39 @@
+{
+  "task": "CS-040",
+  "reported_date": "2026-10-18",
+  "provenance": "Human operator pasted the same manual-only Pi JSON payload twice; retain one distinct payload. No agent SSH or audible observation.",
+  "agent_observed_audio": false,
+  "completed_report": {
+    "mode": "synthetic-speaker-bench",
+    "priority_input": "synthetic",
+    "capture_input": "synthetic",
+    "phone_used": false,
+    "backend_used": false,
+    "gemini_used": false,
+    "gpio_used": false,
+    "physical_audio_accepted": false,
+    "bluetooth_disconnect_reconnect_verified": false,
+    "complete": true,
+    "records": [
+      {
+        "repetition": 1,
+        "case": "manual_cancel",
+        "software_pass": true,
+        "stop_call_ms": 3.788,
+        "operator_pass": true
+      }
+    ],
+    "case_selection": "manual-only",
+    "timer_fault": false,
+    "software_checks_passed": true,
+    "operator_reported_all_passed": true,
+    "build_commit": "beb0d9dc716b8f87ca8234c3ef410284919e4a21"
+  },
+  "limits": [
+    "Focused manual-only diagnostic, not a repeat of the complete bench.",
+    "Stop-call timing is software only, not measured audible cancellation latency.",
+    "Earlier negative/unknown reports remain separate evidence.",
+    "Operator also reported mumbled speech before this result; intelligibility is not established by a cancellation pass.",
+    "Physical acceptance and route-verification flags remain false pending PM review; phone/backend/GPIO were unused."
+  ]
+}

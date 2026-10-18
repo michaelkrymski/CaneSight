@@ -1,0 +1,9 @@
+{
+  "id": "CS-040-CLOCK-REVERSAL-BONDMILA-20261017",
+  "date": "2026-10-17",
+  "author": "bondmila (AI-assisted)",
+  "task": "CS-040",
+  "summary": "Cancel narration on clock reversal or clock failure",
+  "details": "Track the highest clock reading across begin/delivery/tick and cancellation. Stop audio and invalidate pending tickets on backward, failed, nonfinite or invalid clock reads. Recovery cannot revive old tickets. PR #41 remains draft with synthetic speech adapter and unfinished integration.",
+  "validation": "Five new regression methods reproduced failures on the original implementation; all 20 narration tests pass after the fix. Checked publisher reruns repository/root tests/changelog/whitespace checks. No physical audio or device acceptance."
+}
