@@ -17,9 +17,9 @@
   "estimate_hours": 1.0,
   "elapsed_window": "11–14",
   "owner": "gmarcialcalleja",
-  "status": "review",
-  "branch": "task/CS-033-backend-refresh",
-  "pr_url": "https://github.com/michaelkrymski/CaneSight/pull/93",
+  "status": "blocked",
+  "branch": "task/CS-033-bond-backend",
+  "pr_url": "https://github.com/michaelkrymski/CaneSight/pull/96",
   "evidence": [
     "handoffs/CS-033-20261017-deployment-preparation.md",
     "Local Python 3.14.7: 32 tests discovered, 31 passed, 1 POSIX-permissions test skipped on Windows; includes temporary TLS and Compose configuration tests.",
@@ -41,7 +41,8 @@
     "handoffs/CS-033-application-preparation-20261018.md",
     "backend/deploy/evidence/CS-033-application-packaging-20261018.json",
     "Prepared image/Compose overlay around accepted CS-039 composition PR #94, reusing its sessions/dashboard/logging modes with no second factory. Three packaging/build tests and six accepted composition tests passed with synthetic data/fake providers. Final application image b9a4679 built on Vultr with runtime import smoke; no candidate container or active service change. Private reviewed configuration and public feature probes remain required.",
-    "handoffs/CS-033-accepted-cs016-20261018.md"
+    "handoffs/CS-033-accepted-cs016-20261018.md",
+    "2026-10-18 persistent bond review: 14 backend bond/TLS tests passed including a new cold-import regression; candidate built on exact current native vision parent and service UID reads persistent registry. No production activation or device readiness claimed. See handoffs/CS-033-bond-review-20261018.md."
   ],
-  "blocker": null
+  "blocker": "Persistent-bond backend candidate reviewed/tested and private matching registry staged. Production activation awaits Michael current-head review of the new enrollment authorization/renewable lease exception. iOS/Pi deployment and phone depth/clock integration are separate gates."
 }
