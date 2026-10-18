@@ -57,6 +57,13 @@ Author: bondmila (AI-assisted) · Task: CS-016
 Assignment-only proposal after confirming accepted main has no owner and no matching open claim PR. Preserve task requirements/dependencies/allowed paths. Implementation waits for merged ownership; depth producer CS-014 and physical phone evidence are pending. No telemetry or device completion claim.
 
 Validation: Checked publishing runs repository validation, root tests, governance, generated changelog and whitespace checks. No task implementation or physical-phone test performed.
+## 2026-10-17 — CS-014-CLAIM-ADITSANGANI-20261017: Request CS-014 assignment for depth-sector software preparation
+
+Author: aditsangani (AI-assisted) · Task: CS-014
+
+Claim only, from main 18884a5914e8f0476a2877a9c63ff37a24291306. Human requests coding confidence-aware depth sectors now and deferring Xcode/Mac/device verification. Scope is CS-014 numerical filtering, confidence/coverage, percentile aggregation, unknown values, source timestamps and synthetic test inputs within ios/ and tests/ios/. CS-013 remains an unchanged prerequisite; physical support/signing, ARKit build, orientation/mount acceptance and real-device accuracy are not claimed. Implementation waits for Michael to merge this assignment.
+
+Validation: Checked publishing runs repository validation, shared unit tests, generated changelog consistency and whitespace checks. No Swift build, Xcode, iOS simulator or device tests are claimed by this assignment.
 
 ## 2026-10-17 — CS-021-CS-022-MICHAEL-CLAIM-20261017: Assign Pi capture and latest-only uploader work to Michael
 

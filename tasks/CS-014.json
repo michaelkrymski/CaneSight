@@ -15,10 +15,10 @@
   "suggested_role": "iOS",
   "estimate_hours": 2.0,
   "elapsed_window": "2–5",
-  "owner": null,
-  "status": "backlog",
-  "branch": null,
+  "owner": "aditsangani",
+  "status": "in_progress",
+  "branch": "claim/CS-014-aditsangani",
   "pr_url": null,
   "evidence": [],
-  "blocker": ""
+  "blocker": "CS-013 physical-phone support/signing and Xcode/ARKit build/device verification remain pending. Claim requests CS-014 software preparation with synthetic fixtures only; no prerequisite completion or device acceptance is asserted."
 }
