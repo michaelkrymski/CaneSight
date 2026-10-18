@@ -794,6 +794,22 @@ Integrate accepted main; update README/task runtime and add source-linked readin
 
 Validation: 13 portable depth XCTest cases passed on Swift 6.0.3 WSL with strict concurrency and warnings as errors; 8 normalized source/fixture hashes match the Apple-tested pin. Attributed accepted evidence records 15 Mac tests and depth iOS SDK build, with later signed phone host checks. Shared repository/changelog/whitespace checks are required by checked publishing. No fresh Apple/device or hardware test claimed.
 
+## 2026-10-18 — CS-015-BACKGROUND-COUNTER-RESET-20261018: Verify real nonzero target counter resets after phone backgrounding
+
+Author: michaelkrymski (AI-assisted) · Task: CS-015
+
+Add a separate operator-assisted physical UI check while retaining baseline camera smoke coverage. Real left target recorded through normal controls; confirmed Home Screen background, live depth recovery, reset counters and Stop-to-Unknown. No app/sensor thresholds changed.
+
+Validation: Two separate physical iPhone UI tests passed (one each, zero failures/skips); 11 strict mapping cases and 212 shared tests passed. Earlier target-placement failures and free-signing installation limit documented. Shared checks rerun by publisher. No full-task Done, final mount, timing, accuracy or electrical claim.
+
+## 2026-10-18 — CS-015-BACKGROUND-PUBLISHING-BLOCKER-20261018: Record follow-up PR creation access blocker
+
+Author: michaelkrymski (AI-assisted) · Task: CS-015
+
+Checked task branch pushed successfully. GitHub connector PR creation returned 403 Resource not accessible by integration. No follow-up PR exists; task blocked pending PR creation, not a failed physical check.
+
+Validation: Physical tests, 11 mapping cases and 212 shared tests passed in preceding checkpoint. This runtime-only update is checked by publisher; no merge or PR CI claim.
+
 ## 2026-10-18 — CS-015-BENCH-INSTALL-20261018: Sign, install and launch portrait mapping bench for operator verification
 
 Author: michaelkrymski (AI-assisted) · Task: CS-015
@@ -841,6 +857,30 @@ Author: michaelkrymski (AI-assisted) · Task: CS-015
 Use native ARKit display transform with exact paired depth/confidence rotation and visible ROI, preserving original source time and the pinned CS-014 processor. Add a separate bounded portrait bench, three distinct observations per physical side and fail-closed geometry/lifecycle resets. No #69 or teammate source/task edited; no network/GPS/actuation.
 
 Validation: 11 XCTest cases pass with strict concurrency and warnings as errors. New app/core/native iOS SDK build passes. Physical mapping and signed device bench results remain pending; task blocked/PR draft. Shared checks run through checked publishing.
+
+## 2026-10-18 — CS-015-TERMINAL-PR-PUBLISHING-20261018: Open physical background-reset follow-up PR through terminal Git authentication
+
+Author: michaelkrymski (AI-assisted) · Task: CS-015
+
+User authorized terminal publishing. Existing configured Git credential authenticated as michaelkrymski; GitHub API created PR #88. Clear prior connector-only creation blocker and link actual PR; no credentials persisted or disclosed.
+
+Validation: Runtime-only publishing checkpoint; prior physical baseline/nonzero-counter tests, 11 mapping cases and 212 shared tests retained. Checked publishing reruns repository checks. Independent review remains required; no merge or Done claim.
+
+## 2026-10-18 — CS-016-PR81-MAIN-REFRESH-20261018: Refresh ownership-transfer PR #81 with accepted main
+
+Author: gmarcialcalleja (AI-assisted) · Task: CS-016
+
+Merge accepted main 3769c4bc46b81afb5fcf8d2f475fc0b2d06363fa into the existing proposal without changing its task runtime/static fields or CR. Preserve both histories and regenerate the log. The ownership transfer remains proposed; Michael must renew exact-head authorization after this push.
+
+Validation: Repository structure valid; unittest discovery ran 212 tests successfully with 11 platform/optional skips on Windows. Generated-log and whitespace checks passed. No Swift/device/electrical acceptance was performed in this refresh.
+
+## 2026-10-18 — CS-016-TRANSFER-PROPOSAL-20261018: Propose reviewed telemetry ownership transfer from Mila to Michael
+
+Author: michaelkrymski (AI-assisted) · Task: CS-016
+
+Michael requested CS-016; bondmila published a stopped-work handoff on #64. Accepted main still names bondmila. Propose runtime-only assignment/evidence transfer with new CR; preserve all static requirements and existing implementation history. No new implementation or completion claim.
+
+Validation: 195 repository tests, structure/rendered-log/whitespace checks passed. Existing unchanged telemetry: 21 strict Swift tests, four replay wire/backend tests and unsigned physical-iOS SDK build passed. HTTPS health request to documented origin timed out from this Mac. Ownership amendment requires exact-head PM authorization and normal independent reviewed merge; no new implementation or live paired acceptance claimed.
 
 ## 2026-10-18 — CS-017-CLEANUP-REENTRANCY-20261018: Fence lifecycle cleanup and latch clock-fault notifications
 
@@ -1185,4 +1225,12 @@ Author: Adit (aditsangani, AI-assisted) · Task: CS-049
 Assignment-only proposal. Preserve task requirements, dependencies and allowed paths. After merged ownership, prepare synthetic software tests that failures cannot alter motor/permission policy and late context is suppressed. No implementation, live API, device, audio or hardware claims.
 
 Validation: Confirmed accepted main has no owner and no competing open CS-049 claim. Verified static task fields remain identical. Repository and checked-publisher checks run before publication; no task implementation tests exist in this assignment-only diff.
+
+## 2026-10-18 — CS-049-DENIAL-FAILURE-ADITSANGANI-20261018: Verify optional context failures remain isolated from motor and freshness policy
+
+Author: Adit (aditsangani, AI-assisted) · Task: CS-049
+
+Add ten synthetic cross-component isolation cases, a fixed 43-case QA runner with source-pinned actual results, portable GPS rerun evidence and acceptance boundary documentation. Preserve incomplete reporter attempt. No production component, GPS contract, shared protocol, native host or protected workflow changes.
+
+Validation: 43 Python campaign cases and 15 portable GPS Swift tests passed with no skips/failures. Strict Swift concurrency complete and warnings as errors. Checked publishing runs current repository checks. Native device/permission/provider/transport/audio acceptance remains explicitly unverified; task is not Done.
 

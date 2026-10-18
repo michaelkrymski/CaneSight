@@ -1,0 +1,55 @@
+{
+  "task": "CS-015",
+  "date": "2026-10-18",
+  "operator": "michaelkrymski",
+  "initial_base": "3baf4de7e28b20d7fa381d6eb52d2604c313cfaa",
+  "integrated_base": "a7b0214dd0c28316b61449d72c81215753b94993",
+  "device": {
+    "model": "iPhone 17 Pro Max",
+    "ios": "26.6.2",
+    "physical": true
+  },
+  "xcode": "27.1 (27A9275)",
+  "test_source_sha256": "49fa93eb5759f0c81bc043c194e3f75ee73b22480644691a9d308c5432dc20d6",
+  "depth_review_commit": "5f73dbf33ba9b2395f27b429c22344d41fb6162a",
+  "executed": [
+    {
+      "test": "BenchUITests.testCameraStopAndBackgroundRecovery",
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "local_result": "/tmp/canesight-cs015-background-baseline.xcresult"
+    },
+    {
+      "test": "BenchUITests.testRecordedTargetResetsAfterBackground",
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "local_result": "/tmp/canesight-cs015-background-target-final.xcresult"
+    }
+  ],
+  "observed": {
+    "before_background": "Left 1/3 \u00b7 Center 0/3 \u00b7 Right 0/3",
+    "background_application_state": 3,
+    "after_background": "Left 0/3 \u00b7 Center 0/3 \u00b7 Right 0/3",
+    "real_depth_recovery": true,
+    "final_stop_unknown_all_columns": true
+  },
+  "other_tests": {
+    "strict_mapping_xctest_passed": 11,
+    "shared_unittest_passed": 212
+  },
+  "earlier_attempts": [
+    "Initial signed test build succeeded; runner installation refused by free-signing three-app cap. Removed only prior CaneSight UI-test runner, retaining both prototype apps; retry installed successfully.",
+    "First physical attempt failed to record a target: columns were about 0.90/0.95/0.97 m, without required 0.20 m separation.",
+    "Second physical attempt timed out awaiting separation; initial readings were about 0.94/0.97/0.97 m. No reset result inferred.",
+    "Operator repositioned target. Final distinct operator-assisted test recorded a real left target and passed. Baseline test also passed separately."
+  ],
+  "limits": [
+    "Handheld portrait rear-forward bench only; not final cane/grip/motor mapping.",
+    "One recorded left target resets on background; not nine captures or every orientation/target.",
+    "No capture-age, accuracy, latency, telemetry, electrical or road-use acceptance.",
+    "Private camera attachments and result bundles remain local; no unique device/signing IDs stored.",
+    "Task remains Review, pending independent review; no Done claim."
+  ]
+}
