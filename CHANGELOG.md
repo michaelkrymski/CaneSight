@@ -690,6 +690,14 @@ Assignment runtime only. After merged ownership, prepare bounded validation/stat
 
 Validation: Verified accepted task unclaimed and no competing open claim. Checked publishing runs repository/shared/changelog/whitespace checks. No measurement implementation or real-device evidence included.
 
+## 2026-10-18 — CS-001-CROSSING-ASSISTANCE-20261018: Propose user-selected crossing observation menu and revised task acceptance
+
+Author: michaelkrymski (AI-assisted) · Task: CS-001
+
+Add a targeted master-plan subsection, implementation brief and CR for 3-second entry, spoken scenario cycling, 1-second confirmation, immediate active cancellation and three observation-only modes. Expand CS-027/036/037/038/039/040/044 acceptance without changing owners, runtime status, old evidence, protocols or deployed code. Vehicle temporal analysis remains new unverified work; Gemini remains restricted object description.
+
+Validation: Planning-only change. Repository validation, generated changelog consistency, whitespace and shared unit suite are checked before publication. No button/audio/vision implementation, training, live traffic, GPIO or physical acceptance claimed. Protected plan/task amendments require exact-head GitHub approval.
+
 ## 2026-10-18 — CS-027-GPIO21-INPUT-BONDMILA-20261018: Connect reported GPIO21 button to gated context runtime
 
 Author: bondmila (AI-assisted) · Task: CS-027
@@ -714,6 +722,14 @@ Add optional exclusive metadata-only run report and allowlisted terminal status 
 
 Validation: 152 edge tests pass with updated CS-040 modules via external overlay, no skips. Report tests cover allowlisting, private/exclusive files, symlink refusal, startup failure, normal completion and status without a press. Checked publisher runs shared checks; actual Pi integration pending.
 
+## 2026-10-18 — CS-040-FIXED-MENU-AUDIO-BONDMILA-20261018: Implement fixed menu speech with readiness and stale-event preemption
+
+Author: bondmila (AI-assisted) · Task: CS-040
+
+Follow merged PR #71 with closed disclaimer/selection/confirmation/cancellation phrases, explicit route readiness/priority, epoch/generation binding, expiry and fault latch. Keep production request/route integration and physical evidence open; no provider prose, traffic inference or stale replay.
+
+Validation: 78 context tests pass, including five new fixed phrase/readiness/epoch/expiry/fault tests. Combined synthetic bench tests are reported by CS-027. Checked publishing runs shared checks; no new actual audio or device test performed.
+
 ## 2026-10-18 — CS-040-HARDWARE-68-HANDOFF-BONDMILA-20261018: Reconcile narration readiness with Michael hardware handoff #68
 
 Author: bondmila (AI-assisted) · Task: CS-040
@@ -721,6 +737,14 @@ Author: bondmila (AI-assisted) · Task: CS-040
 Record installed GPIO21 button, reported camera and speaker availability while preserving prior synthetic speaker evidence. Keep full context/audio and phone-depth gates open; motor integration and accessible controls remain with their owners. No protected baseline changes.
 
 Validation: Read issue #68 and author identity via GitHub. Existing 71 context tests passed for current code; documentation/runtime update only. Checked publisher runs shared checks; no new hardware or audible test claimed.
+
+## 2026-10-18 — CS-040-MANUAL-CANCEL-OPERATOR-EVIDENCE-BONDMILA-20261018: Record passing focused Pi manual cancellation observation
+
+Author: bondmila (AI-assisted) · Task: CS-040
+
+Preserve the manual-only report at combined beb0d9d: software and operator checks passed, 3.788ms software stop call. Keep prior mixed runs intact, distinguish subset success from full acceptance, and retain speech clarity and phone/backend gates.
+
+Validation: Parsed exact supplied report and checked subset identity, positive results and disabled subsystem/acceptance flags; verified source commit exists. No new implementation or agent hardware/audio test. Checked publisher runs shared checks.
 
 ## 2026-10-18 — CS-040-RECOVERY-REPORTS-MANUAL-DIAGNOSTIC-BONDMILA-20261018: Preserve mixed Pi recovery evidence and isolate manual audibility test
 
