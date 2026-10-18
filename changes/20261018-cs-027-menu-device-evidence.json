@@ -1,0 +1,9 @@
+{
+  "id": "CS-027-MENU-DEVICE-EVIDENCE-20261018",
+  "date": "2026-10-18",
+  "author": "bondmila (AI-assisted)",
+  "task": "CS-027",
+  "summary": "Record Pi button/menu confirmation and qualitative speech cancellation evidence",
+  "details": "Preserve initial zero-confirmation snapshot and focused confirmation/activation/cancel snapshot separately. Operator reports exact checkout SHA, clear speech and prompt stop without noticeable tail. Integrate accepted route-monitoring dependency; physical runs did not enable it. Keep full task blocked for PM acceptance and remaining integration.",
+  "validation": "Operator-reported GPIO input and no fault on both snapshots; no agent-observed hardware run, measured audible latency, automatic route-loss, live scenario/phone/backend or motor result. Software rerun results recorded in handoff; checked publisher runs shared checks."
+}
