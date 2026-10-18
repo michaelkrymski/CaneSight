@@ -890,6 +890,14 @@ Extend opt-in speaker bench with disconnect, unavailable cancellation, reconnect
 
 Validation: 71 context tests pass, including silent recovery/no-or-unknown/interrupted input regressions and consumer diagnostics. No actual Bluetooth recovery or full phone/backend run claimed; checked publisher runs shared checks.
 
+## 2026-10-18 — CS-042-LIVE-TIGER-PROVISIONING-20261018: Provision real Tiger Data event storage and prepare reviewed rollout
+
+Author: Adit (aditsangani, AI-assisted) · Task: CS-042
+
+Reuse the accepted logger, initialize the existing schema, provision separate runtime/analytics logins and verify real TLS, privileges, consent, persistence, deletion, expiry and fault isolation using synthetic inputs. Add a sanitized live probe/report, failure-recovery record, restricted image recipe and deployment proposal. Credentials and test receipts stay private; existing deployment/protected files and logger behavior are unchanged.
+
+Validation: Live database results are separate from mocked/component tests. Dashboard/component suite passed 39 cases; repository checks run through checked publishing. One incomplete development fault run and its cleanup recovery are disclosed. Docker image build, production HTTPS/WSS activation/re-enrollment, exact provider backup/control-plane configuration and PM acceptance remain pending. No physical-device or Done claim.
+
 ## 2026-10-18 — CS-044-CROSSING-CAMPAIGN-20261018: Add pinned crossing-menu and audio failure campaign
 
 Author: Gavin (gmarcialcalleja) · Task: CS-044
