@@ -642,3 +642,11 @@ Assignment runtime only. After merged ownership, prepare bounded validation/stat
 
 Validation: Verified accepted task unclaimed and no competing open claim. Checked publishing runs repository/shared/changelog/whitespace checks. No measurement implementation or real-device evidence included.
 
+## 2026-10-18 — CS-015-PM-CLAIM-20261018: Assign camera orientation and mount mapping verification to Michael
+
+Author: michaelkrymski (AI-assisted) · Task: CS-015
+
+Assignment-only claim from accepted main 5dd5fa37009402b7eb7c9dbed3d20eacd4346c90. User authorized continuing the remaining iPhone work while CS-013 PR #69 is reviewed. CS-015 is unclaimed; no competing open claim found. Requirements, dependency and allowed paths remain unchanged. Implementation follows verified PM-authored claim PR.
+
+Validation: Assignment only; no calibration, supported orientation, physical mapping or hardware acceptance claimed. Shared checks run before publishing.
+
