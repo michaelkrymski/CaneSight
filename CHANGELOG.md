@@ -738,6 +738,14 @@ Add a targeted master-plan subsection, implementation brief and CR for 3-second 
 
 Validation: Planning-only change. Repository validation, generated changelog consistency, whitespace and shared unit suite are checked before publication. No button/audio/vision implementation, training, live traffic, GPIO or physical acceptance claimed. Protected plan/task amendments require exact-head GitHub approval.
 
+## 2026-10-18 — CS-013-depth-demo-20261018: Demonstrate real LiDAR with simulated three-column responses
+
+Author: michaelkrymski · Task: CS-013
+
+Add local Demo tab with per-column 1.2 m visual response threshold and explicit Unknown/simulation labels; source snapshot already clears on lifecycle/recency loss. No motors, network or movement guidance.
+
+Validation: Seven strict Mac tests and signed physical-iPhone UI test passed without skips. Actual 0.92/0.62/0.84 m snapshot triggered visual Near responses; Stop cleared all. No controlled target accuracy/mapping acceptance.
+
 ## 2026-10-18 — CS-013-DEVICE-INSTALL-20261018: Sign and install iPhone host while keeping team configuration local
 
 Author: michaelkrymski (AI-assisted) · Task: CS-013

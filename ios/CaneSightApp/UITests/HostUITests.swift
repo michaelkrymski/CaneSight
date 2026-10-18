@@ -2,6 +2,36 @@ import XCTest
 
 /// Real controls/sensor only; no injected capture, progress, enrollment or consent.
 final class HostUITests: XCTestCase {
+    @MainActor func testRealDepthDemoAndStop() throws {
+        continueAfterFailure = false
+        let app = XCUIApplication()
+        app.launchArguments += ["--depth-demo"]
+        app.launch()
+        let toggle = app.buttons["demoCaptureToggle"]
+        XCTAssertTrue(toggle.waitForExistence(timeout: 10))
+        guard toggle.isEnabled else { throw XCTSkip("Real scene depth unsupported") }
+        toggle.tap()
+        let measured = NSPredicate { _,_ in
+            (0..<3).contains { app.staticTexts["demoDistance\($0)"].label.contains(" m") }
+        }
+        XCTAssertEqual(XCTWaiter.wait(for: [XCTNSPredicateExpectation(predicate: measured, object: app)], timeout: 25), .completed)
+        for index in 0..<3 {
+            let response = app.staticTexts["demoResponse\(index)"]
+            if !response.isHittable { app.swipeUp() }
+            XCTAssertTrue(response.exists)
+        }
+        let live = XCTAttachment(screenshot: app.screenshot())
+        live.name = "Real depth with visual simulated responses"
+        live.lifetime = .keepAlways
+        add(live)
+        reveal(toggle, in: app); toggle.tap()
+        for index in 0..<3 {
+            let distance = app.staticTexts["demoDistance\(index)"]
+            XCTAssertEqual(distance.label, "Unknown")
+            XCTAssertEqual(app.staticTexts["demoResponse\(index)"].label, "Unknown")
+        }
+    }
+
     @MainActor func testLiveCameraStopAndBackground() throws {
         continueAfterFailure=false
         let app=XCUIApplication(); app.launch()

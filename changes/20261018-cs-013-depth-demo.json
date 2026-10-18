@@ -1,0 +1,9 @@
+{
+  "id": "CS-013-depth-demo-20261018",
+  "date": "2026-10-18",
+  "author": "michaelkrymski",
+  "task": "CS-013",
+  "summary": "Demonstrate real LiDAR with simulated three-column responses",
+  "details": "Add local Demo tab with per-column 1.2 m visual response threshold and explicit Unknown/simulation labels; source snapshot already clears on lifecycle/recency loss. No motors, network or movement guidance.",
+  "validation": "Seven strict Mac tests and signed physical-iPhone UI test passed without skips. Actual 0.92/0.62/0.84 m snapshot triggered visual Near responses; Stop cleared all. No controlled target accuracy/mapping acceptance."
+}
