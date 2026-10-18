@@ -19,7 +19,7 @@
   "owner": "bondmila",
   "status": "blocked",
   "branch": "task/CS-027-production-menu",
-  "pr_url": null,
+  "pr_url": "https://github.com/michaelkrymski/CaneSight/pull/83",
   "evidence": [
     "edge/buttons.py and edge/context_client.py: 30ms release-to-arm debounce, one outstanding request, ten-second minimum interval retained through cancellation, capture+8s expiry, independent timer, cancellable network child and Pi session/frame binding.",
     "28 new button/client tests and all 116 edge tests passed on Python 3.13 with pinned backend test requirements. All 82 root tests passed. In-process accepted context route parsed real multipart with synthetic provider; actual spawned-child delivery/cancellation/reaping passed.",
