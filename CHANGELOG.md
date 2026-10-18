@@ -698,3 +698,11 @@ Test real unmodified review snapshots from PRs 58 and 41 in an isolated subproce
 
 Validation: All 19 closed campaign cases passed on Windows and local network-disabled Linux Python 3.12. Four source/report-integrity tests passed. Physical acceptance remains false; no Pi, camera, network device, GPIO or motor used.
 
+## 2026-10-18 — CS-044-CROSSING-REVIEW-LINK-20261018: Link crossing failure campaign PR
+
+Author: Gavin (gmarcialcalleja) · Task: CS-044
+
+Record PR #74 on the CS-044 runtime. Exact unmerged dependency pins and production/physical acceptance limits remain unchanged.
+
+Validation: Implementation publication passed all 117 repository tests; 19 pinned campaign cases passed on Windows and local Linux. This follow-up changes the task PR URL and adds audit records only; checked publishing reruns shared checks.
+
