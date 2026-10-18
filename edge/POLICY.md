@@ -1,9 +1,10 @@
-# CS-024 local policy checkpoint
+# Local policy and CS-025 GPIO integration
 
 The existing receiver is opt-in with `--receive-vision`. Add `--simulate-policy`
 to run the local policy and capped scheduler using **simulated outputs only**.
-No GPIO library/driver is included. This flag explicitly arms the simulation;
-without it the uploader/receiver never instantiate a scheduler.
+This flag explicitly arms only the simulation. Without a policy output flag,
+the uploader/receiver never instantiate a scheduler. The separate `--gpio-policy`
+option below explicitly selects the CS-023 physical-output adapter.
 
 ```sh
 python -m edge.uploader --receive-vision --simulate-policy --frames 20 \
@@ -43,6 +44,52 @@ configured numeric drift. It validates nonce, enrolled identity, session/mode,
 uncertainty, capture floor and original capture age using accepted CS-030 rules.
 Missing/expired calibration or heartbeat cannot establish fresh depth. No TLS,
 Origin, shared protocol or backend changes are needed.
+
+## Explicit configured GPIO policy
+
+After review of the actual wiring, mapping and CS-009/010 prerequisites, replace
+`--simulate-policy` with `--gpio-policy` and supply both reviewed BCM pin numbers
+and active-high polarity. BCM21 remains reserved for the context button. Neither
+pins nor clock drift values are inferred from incoming packets. The phone binding
+must match the operator's current session; null drift is rejected before session
+enrollment or any GPIO claim in this mode. Use a measured bound for real devices;
+zero in the automated tests is an explicitly synthetic same-clock choice.
+
+```sh
+python3 -m edge.uploader --receive-vision --gpio-policy --frames 20 \
+  --session-file ~/.canesight-session.json \
+  --phone-binding-file /PRIVATE/phone-binding.json \
+  --motor-left-bcm LEFT --motor-right-bcm RIGHT --motor-active-high \
+  --policy-trace /PRIVATE/new-gpio-policy.jsonl
+```
+
+Substitute only verified pin numbers for LEFT/RIGHT. This is a live motor-capable
+command, not a software simulation. No such physical run was performed for this
+implementation. GPIO Zero remains lazily imported only after explicit selection
+and authenticated receiver startup. The same process owns uploader identity,
+receiver, CLOCK_BOOTTIME gate, scheduler, watchdog and output adapter.
+
+GPIO policy requires a live enrolled phone, numeric drift budget and attached
+same-clock watchdog. Freshness still requires successful native clock probes,
+ready source heartbeat and two recovered depth observations. Ready sockets or
+backend heartbeats cannot arm normal pulses, renew capture time or clear a
+latched fault. Late/replayed/mismatched observations remain unavailable.
+
+The CLI attaches the watchdog before starting the scheduler/policy workers.
+Camera initialization failure, Ctrl+C/SIGTERM and normal exit request policy,
+watchdog and scheduler shutdown, then release the motor adapter before slower
+audio/trace/network/camera cleanup. Every motor-stop attempt runs even if another
+stop fails. Any stop/adapter-release failure makes the command unsuccessful;
+successful software writes still do not certify electrical off state.
+
+The policy snapshot and private decision trace identify `output_mode: gpio`.
+Simulation defaults and existing trace formats retain `output_mode: simulation`.
+Context input/audio may use either policy mode with its existing explicit consent
+and phone binding; hazard/source/epoch cancellation behavior is unchanged. Context
+report `gpio_used` describes the button input; policy trace/output mode describes
+motor GPIO separately. Provider/scenario availability is not enabled by choosing
+GPIO policy. Automatic deployment, arming on reconnect or service installation
+is not introduced.
 
 Coordinate camera availability with Michael before a physical run. Start a fresh
 uploader, obtain its new boot ID, enroll a fresh 600-second paired session and

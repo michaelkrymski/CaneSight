@@ -20,8 +20,8 @@
   "elapsed_window": "5–8",
   "owner": "gmarcialcalleja",
   "status": "blocked",
-  "branch": "task/CS-025-swift-policy",
-  "pr_url": "https://github.com/michaelkrymski/CaneSight/pull/75",
+  "branch": "task/CS-025-live-output",
+  "pr_url": null,
   "evidence": [
     "Assignment proposal only; implementation waits for Michael to merge this claim. CS-024 and CS-026 software checkpoints are merged. Planned software preparation: repeatable depth-to-simulated-output integration and original capture-age evidence; real-phone/mount/power acceptance remains pending.",
     "handoffs/CS-025-20261017-depth-integration-preparation.md",
@@ -29,7 +29,9 @@
     "Linux Python 3.12: all 88 edge tests and 82 shared/dashboard/narration cases passed. Windows Python 3.14: 87 edge passed with POSIX SIGTERM skipped. Three synthetic rounds accepted left/center/right three times each, 18 trace records, no drops, idle outputs off. No real Pi or camera access.",
     "handoffs/CS-025-swift-policy-20261018.md",
     "tests/edge/swift_policy_fixture/README.md",
-    "Actual Swift 6.0.3 TelemetryCore wire generation from unchanged PR #64 0433fc9 compiled in network-disabled local Docker with strict concurrency/warnings as errors. Seven Windows integration tests pass through accepted role-bound relay, final-consumer age gate and simulated left/center/right policy; unknown tracking, delayed/replayed packets and foreign boot fail closed. Original bytes and source hashes recorded in synthetic-wire.json."
+    "Actual Swift 6.0.3 TelemetryCore wire generation from unchanged PR #64 0433fc9 compiled in network-disabled local Docker with strict concurrency/warnings as errors. Seven Windows integration tests pass through accepted role-bound relay, final-consumer age gate and simulated left/center/right policy; unknown tracking, delayed/replayed packets and foreign boot fail closed. Original bytes and source hashes recorded in synthetic-wire.json.",
+    "handoffs/CS-025-live-output-20261018.md",
+    "Prepared explicit GPIO policy wiring from accepted phone receiver through capture-age gate, policy, watchdog and CS-023 adapter. Nine synthetic/fake-pin integration tests and two actual TLS transport tests passed. Full edge suite 230 tests OK, 8 Windows/platform skips. Accurate gpio/simulation trace labels and output-first cleanup. No actual phone/Pi/GPIO/motor execution."
   ],
-  "blocker": "Software-only vertical slice now includes real Swift-generated synthetic replay wire bytes. Full acceptance still needs CS-016 native actor/WSS and CS-017 lifecycle host wiring, measured real-phone capture-clock/drift bounds, CS-015 physical mapping, CS-010 power/driver/kill evidence and coordinated actual phone/Pi/output tests. No device or physical output acceptance claimed."
+  "blocker": "Receiver-to-GPIO software integration is prepared for review. Full acceptance still needs CS-016 real phone streaming/native clock responses and CS-017 lifecycle integration, measured phone/Pi clock bounds, CS-015 physical mapping and CS-009/010 power/driver/kill evidence. No physical actuation or real-phone acceptance is claimed."
 }

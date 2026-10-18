@@ -16,14 +16,17 @@ class DecisionTrace:
     Output must be new/outside checkout in a private parent. Incomplete/dropped
     traces are explicitly reported; logging never renews evidence or blocks policy.
     """
-    def __init__(self, path, *, provenance='enrolled-session'):
+    def __init__(self, path, *, provenance='enrolled-session', output_mode='simulation'):
         path=Path(path)
         if provenance not in ('enrolled-session','synthetic-fixture'):
             raise ValueError('Explicit trace provenance required')
+        if output_mode not in ('simulation', 'gpio'):
+            raise ValueError('Explicit supported trace output mode required')
         if path.resolve().is_relative_to(Path(__file__).resolve().parents[1]):
             raise ValueError('Private trace must stay outside checkout')
         self.stream=os.fdopen(os.open(path,os.O_WRONLY|os.O_CREAT|os.O_EXCL,0o600),'w',encoding='utf-8')
         self.provenance=provenance
+        self.output_mode=output_mode
         self.pending=queue.Queue(maxsize=64)
         self.lock=threading.Lock()
         self.stop=threading.Event()
@@ -35,7 +38,7 @@ class DecisionTrace:
     def record(self, event):
         if set(event) != FIELDS:
             raise ValueError('Closed trace fields required')
-        raw=json.dumps(dict(event,schema_version=1,input_kind=self.provenance,output_mode='simulation'),allow_nan=False,separators=(',',':'))+'\n'
+        raw=json.dumps(dict(event,schema_version=1,input_kind=self.provenance,output_mode=self.output_mode),allow_nan=False,separators=(',',':'))+'\n'
         if len(raw.encode('utf-8'))>2048:
             raise ValueError('Trace record exceeds bound')
         with self.lock:
@@ -75,4 +78,4 @@ class DecisionTrace:
             return dict(submitted=self.submitted,written=self.written,dropped=self.dropped,
                 error=self.error,closed=closed,complete=bool(closed and not self.error
                     and not self.dropped and self.written==self.submitted and self.written>0),
-                output_mode='simulation',input_kind=self.provenance)
+                output_mode=self.output_mode,input_kind=self.provenance)

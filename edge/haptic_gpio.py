@@ -1,6 +1,6 @@
 """CS-023 explicit active-high GPIO output adapter and bounded bench command.
 
-Imports never open GPIO. The normal uploader/policy remains simulation-only.
+Imports never open GPIO. The uploader/policy defaults to simulated outputs.
 BCM pins must be chosen from the reviewed circuit; no wiring is inferred here.
 """
 import argparse
@@ -22,13 +22,18 @@ class GPIOOutput:
     mode = 'gpio'
     gpio_used = True
 
-    def __init__(self, *, left_bcm, right_bcm, active_high, device_factory=None):
+    @staticmethod
+    def validate_configuration(left_bcm, right_bcm, active_high):
         pins = (left_bcm, right_bcm)
         if (any(type(pin) is not int or not 2 <= pin <= 27 or pin == 21 for pin in pins)
                 or left_bcm == right_bcm):
             raise ValueError('Choose distinct BCM 2..27 outputs excluding the BCM21 button')
         if active_high is not True:
             raise ValueError('This adapter requires explicitly verified active-high drivers')
+
+    def __init__(self, *, left_bcm, right_bcm, active_high, device_factory=None):
+        self.validate_configuration(left_bcm, right_bcm, active_high)
+        pins = (left_bcm, right_bcm)
         self._lock = threading.Lock()
         self._devices = {}
         self._closed = self._faulted = False
