@@ -1,0 +1,9 @@
+{
+  "id": "CS-033-COMPOSE-FIXTURE-PORTABILITY-20261018",
+  "date": "2026-10-18",
+  "author": "gmarcialcalleja (AI-assisted)",
+  "task": "CS-033",
+  "summary": "Make application Compose verification portable to CI tooling",
+  "details": "CI configuration verification failed on the no-env-resolution invocation supported by the development Compose version. Use isolated temporary copies and explicit synthetic native/application env files with ordinary config JSON resolution. Verify both settings survive and neither reaches the proxy. No private config is read, and runtime image/Compose settings are unchanged.",
+  "validation": "All three packaging/provenance/Compose tests passed locally after the fixture change. Checked publishing reruns shared checks; current-head CI is inspected after push. No service activation or physical claim."
+}
