@@ -690,6 +690,14 @@ Advance capture barriers before notifying consumers and after provider errors, p
 
 Validation: 15 portable Swift 6.0.3 Linux tests passed with complete strict concurrency and warnings as errors. Core Location/UIKit bodies excluded; contract, host integration and real-device gates remain.
 
+## 2026-10-18 — CS-025-SWIFT-POLICY-20261018: Test actual Swift telemetry bytes through accepted relay and simulated policy
+
+Author: Gavin (gmarcialcalleja) · Task: CS-025
+
+Compile an unchanged pinned CS-016 review package to generate synthetic left/center/right, clock, health and limited-tracking wire data. Add seven integration checks for role binding, original capture age, channel mapping, cancellation, expiry and replay/epoch rejection. Preserve explicit native-transport, lifecycle, device-clock and physical acceptance gaps.
+
+Validation: Swift 6.0.3 Linux Docker compilation/generation passed with strict concurrency and warnings as errors, network disabled. Seven focused Python integration tests passed on Windows. No real phone, Pi, camera, network device, GPIO or motor used.
+
 ## 2026-10-18 — CS-044-CROSSING-CAMPAIGN-20261018: Add pinned crossing-menu and audio failure campaign
 
 Author: Gavin (gmarcialcalleja) · Task: CS-044
