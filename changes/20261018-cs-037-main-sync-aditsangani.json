@@ -1,0 +1,9 @@
+{
+  "id": "CS-037-MAIN-SYNC-ADITSANGANI-20261018",
+  "date": "2026-10-18",
+  "author": "aditsangani (AI-assisted)",
+  "task": "CS-037",
+  "summary": "Integrate accepted main into CS-037 scenario adapter review",
+  "details": "Merge accepted CS-018 main update without editing its files; render union changelog. Scenario implementation, tests, QA source hashes and full-acceptance blocker remain unchanged.",
+  "validation": "Prior exact CS-037 head e872dd4 passed repository/governance/security checks and 80 explicit vision tests. Integration adds only accepted iOS files; checked publishing reruns required shared/repository/changelog/governance checks and current-head CI is inspected after push."
+}

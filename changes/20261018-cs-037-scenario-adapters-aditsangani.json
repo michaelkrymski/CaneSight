@@ -1,0 +1,9 @@
+{
+  "id": "CS-037-SCENARIO-ADAPTERS-ADITSANGANI-20261018",
+  "date": "2026-10-18",
+  "author": "aditsangani (AI-assisted)",
+  "task": "CS-037",
+  "summary": "Add isolated synthetic scenario replay adapters and artifact identity inspection",
+  "details": "Explicit pedestrian-signal, pedestrian-yellow-beacon and unsignalized-street selection; preserve schematic pixel parser. Add bounded annotated beacon alternation and vehicle image-displacement prototypes, source/epoch/age/token gates and local custom-artifact hash/provenance checks without loading. Live capabilities remain unavailable; no production/wire/menu or shared-contract change.",
+  "validation": "80 vision tests passed with 27 new scenario/artifact cases; no skips or failures. Original parser/evaluation cases retained. Checked publishing additionally runs repository/shared/changelog/governance/whitespace checks. No model training, real-scene accuracy, night or physical acceptance claimed."
+}
