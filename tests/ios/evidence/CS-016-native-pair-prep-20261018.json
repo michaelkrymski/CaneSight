@@ -1,0 +1,30 @@
+{
+  "task": "CS-016",
+  "date": "2026-10-18",
+  "phone_HTTPS_retry": {
+    "result": "Passed",
+    "totalTestCount": 1,
+    "passedTests": 1,
+    "failedTests": 0,
+    "skippedTests": 0
+  },
+  "backend_health": "200",
+  "backend_ready": "503: ingestion_configured false; model_available and worker_healthy true",
+  "native_phone_test": "Signed physical-iOS build-for-testing succeeded; fresh credentials pending, not executed",
+  "Pi_probe_tests": {
+    "passed": 5,
+    "failed": 0,
+    "real_Pi_execution": false,
+    "network": "fake sockets and synthetic packets"
+  },
+  "source_sha256": {
+    "ios/CaneSightApp/DeviceTests/TelemetryDeviceTests.swift": "0347b923a5c9f3416ddf0daacb36eaf1c8e050498a80559e96b6fa68d3579f82",
+    "tests/ios/pi_phone_transport_probe.py": "fb6e6e755faa76a2f259f049ff3deed0da44c57034a158972e319d8821bde425",
+    "tests/ios/test_pi_phone_probe.py": "482e27d2543c008a6e1e887e721d9db00e01f46baa47fa774990939e0464cf65"
+  },
+  "limits": [
+    "No real native WSS or Pi delivery claimed yet.",
+    "Human runs Pi commands manually; no automated SSH runner retried.",
+    "Only starting heartbeats; sensor streaming, clock-map eligibility and motors remain unavailable."
+  ]
+}

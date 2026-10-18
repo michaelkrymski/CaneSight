@@ -1,0 +1,39 @@
+{
+  "task": "CS-016",
+  "date": "2026-10-18",
+  "tested_phone_source_commit": "a5b666c1bfb8a195eeaef05efd335b6da8921e91",
+  "phone_observation": "Direct Xcode physical-device test result",
+  "phone_test": {
+    "name": "TelemetryDeviceTests/testNativeStartingHeartbeatAndReconnect",
+    "result": "Passed",
+    "total": 1,
+    "passed": 1,
+    "failed": 0,
+    "skipped": 0,
+    "starting_heartbeats": 5,
+    "connections": 2,
+    "depth_packets": 0
+  },
+  "Pi_observation": "Operator-reported final probe summary in this chat; no automated SSH or independent Pi revision inspection",
+  "Pi_summary": {
+    "transport_only": true,
+    "starting_heartbeats_observed": 5,
+    "connections": 2,
+    "strict_sequence_order": true,
+    "capture_age_eligibility": "unknown",
+    "camera_used": false,
+    "gpio_used": false,
+    "physical_guidance_verified": false
+  },
+  "transport": "Real authenticated phone/backend/Pi WSS; default OS TLS and role-separated Bearer headers. Same client/process reconnect retains sequence state.",
+  "source_sha256": {
+    "ios/CaneSightApp/DeviceTests/TelemetryDeviceTests.swift": "0347b923a5c9f3416ddf0daacb36eaf1c8e050498a80559e96b6fa68d3579f82",
+    "tests/ios/pi_phone_transport_probe.py": "fb6e6e755faa76a2f259f049ff3deed0da44c57034a158972e319d8821bde425"
+  },
+  "limits": [
+    "Starting heartbeats only; zero depth packets. No real-depth rate or old depth queue replay measurement.",
+    "Elapsed test clock does not establish ARKit capture epoch, sleep behavior or justified cross-device relative drift.",
+    "Phone-local completion alone is not receipt; Pi receipt is separately operator-reported.",
+    "No camera, GPIO, motor, electrical or physical guidance acceptance. No private credentials or device IDs retained in this evidence."
+  ]
+}

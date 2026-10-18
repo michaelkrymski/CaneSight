@@ -1,0 +1,29 @@
+{
+  "task": "CS-016",
+  "date": "2026-10-18",
+  "base_commit": "8a6c7b207b48fa4ff859ca02811247c21d882721",
+  "signed_physical_iOS_build": "Passed",
+  "physical_phone_tests": {
+    "passed": 2,
+    "failed": 0,
+    "skipped": 0,
+    "local_processed_frames": 41,
+    "network_started": false,
+    "scope": "Clock guard synthetic discontinuities plus actual foreground ARKit capture with pause/restart"
+  },
+  "Pi_observer_tests": {
+    "passed": 6,
+    "scope": "Synthetic state, rate diagnostics and full fake-socket observer reconnect/clock loop"
+  },
+  "paired_real_depth_execution": "Not yet run; fresh role files pending",
+  "source_sha256": {
+    "ios/CaneSightApp/DeviceTests/LiveDepthPairTests.swift": "8971a9e0fb9cc085c18d43b188cec04f955eb9fd5dc193b0ef1a504dfbbce5e8",
+    "tests/ios/pi_phone_depth_probe.py": "3dc697c3b444ca85d9fcbb60da34eb8f03a60ca3697323c9503722c504248f7a"
+  },
+  "limits": [
+    "No measured live joint drift or capture-age eligibility.",
+    "No real Pi depth receipt claimed yet.",
+    "No lock/sleep or forced delayed-network depth backlog test.",
+    "No GPIO, haptic, electrical or guidance verification."
+  ]
+}

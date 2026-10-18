@@ -1,0 +1,9 @@
+{
+  "id": "CS-016-native-paired-20261018",
+  "date": "2026-10-18",
+  "author": "michaelkrymski",
+  "task": "CS-016",
+  "summary": "Record real phone and Pi starting-heartbeat transport success",
+  "details": "Five starting heartbeats crossed two native WSS connections; real Pi operator reported all five in strict sequence order. Capture-age eligibility stays unknown; no camera, GPIO or guidance verification. Keep real-depth gates explicit.",
+  "validation": "Physical iPhone native test: 1 passed, 0 failed/skipped. Pi final summary operator-reported; no independent SSH inspection. Shared checks run by checked publisher."
+}

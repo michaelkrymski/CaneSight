@@ -1,0 +1,9 @@
+{
+  "id": "CS-016-depth-paired-20261018",
+  "date": "2026-10-18",
+  "author": "michaelkrymski",
+  "task": "CS-016",
+  "summary": "Record actual real-depth phone to Pi transport and reconnect",
+  "details": "Phone sent and Pi operator reported receiving 80 real depth packets across two connections, strict sequence/capture order, ~9.07 Hz. Eight correlated clock exchanges recorded as diagnostics; age eligibility remains unknown. No GPIO, guidance or electrical acceptance.",
+  "validation": "Signed physical iPhone paired test: 1 passed, 0 failed/skipped. Receiver summary operator-reported. No implementation change; shared checks via checked publisher."
+}
