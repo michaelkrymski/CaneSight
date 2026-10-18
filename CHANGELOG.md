@@ -690,6 +690,14 @@ Operator explicitly confirmed Left/Center/Right each reached 3/3; reset checks r
 
 Validation: 61 executed Simulator tests passed (15 depth, 12 lifecycle, 21 telemetry, 13 location), zero failed/skipped. Prior 11 mapping tests and signed phone build remain applicable to unchanged source. Shared checks run by checked publisher. Physical claims limited to operator report; no measured accuracy, capture clock, final mount or motor verification.
 
+## 2026-10-18 — CS-015-PHONE-UI-AUTOMATION-20261018: Automate real-phone camera controls and background recovery
+
+Author: michaelkrymski (AI-assisted) · Task: CS-015
+
+Direct device screenshot inspection works. Added signed UI test target and bench accessibility identifiers. Operator 10% confidence coverage explains left Unknown under unchanged 25% gate; later live readings recovered. Real-phone UI test verifies Stop clears readings, restart, explicit Home Screen background and live recovery; no seeded target checks.
+
+Validation: Physical iPhone UI test passed, 1 executed/0 failed/0 skipped. Initial harness failures corrected for offscreen controls, combined labels and unreliable Home-button activation. No sensor/lifecycle thresholds changed. Shared checks run by publisher. Prior operator target/rotation/Stop evidence retained; no final mount, range accuracy, source-clock or nonzero background-counter claim. Task Review; independent review and dependency acceptance remain required.
+
 ## 2026-10-18 — CS-015-PM-CLAIM-20261018: Assign camera orientation and mount mapping verification to Michael
 
 Author: michaelkrymski (AI-assisted) · Task: CS-015

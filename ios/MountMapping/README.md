@@ -136,3 +136,26 @@ The diagnostic UI now shows each column's existing high-confidence coverage or
 sample-count reason. Thresholds and depth rules are unchanged. Diagnostic
 follow-up is pending; no sensor fix is claimed. See
 `tests/ios/evidence/CS-015-depth-diagnostics-20261018.json`.
+
+## Direct phone inspection and automated controls
+
+Xcode device tools can capture the connected phone screen. Screenshots and
+XCTest result bundles stay local; never add private camera images to Git. The
+macOS iPhone Mirroring app cannot use the phone camera/microphone
+([Apple](https://support.apple.com/en-euro/120421)).
+
+The shared MountCheck scheme now includes MountCheckUITests. Run Test in Xcode
+with the paired physical phone selected, or use `xcodebuild test` with that
+scheme/device and local signing. Keep the phone unlocked, physically upright
+and rear cameras unobstructed. The test uses actual depth, operates Start/Stop,
+checks Unknown after Stop, activates the Home Screen, verifies background state,
+reopens and checks live recovery, then stops. If depth cannot be obtained, it
+explicitly skips rather than inventing sensor evidence. Test runner requires
+iOS 17+; the app still supports iOS 16+.
+
+The 18 October physical run passed (1 test, 0 failures/skips). A reported left
+coverage of 10% was below the unchanged 25% minimum; later test coverage recovered.
+This explains the withheld reading, not the cause of low sensor confidence. The
+UI run does not seed/complete target counts, prove a nonzero counter background
+reset, or measure capture-age bounds. Physical box placement still needs an
+operator. See `tests/ios/evidence/CS-015-phone-ui-automation-20261018.json`.

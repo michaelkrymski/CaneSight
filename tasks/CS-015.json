@@ -16,7 +16,7 @@
   "estimate_hours": 1.0,
   "elapsed_window": "5–8",
   "owner": "michaelkrymski",
-  "status": "blocked",
+  "status": "review",
   "branch": "claim/CS-015-michaelkrymski",
   "pr_url": "https://github.com/michaelkrymski/CaneSight/pull/70",
   "evidence": [
@@ -30,7 +30,10 @@
     "Operator confirmed Left 3/3, Center 3/3 and Right 3/3 in handheld portrait; resets not tested yet. Floor can produce similar distances across full-height columns. Executed 61 iOS Simulator tests across exact pinned depth/lifecycle/telemetry/location review packages, all passed.",
     "handoffs/CS-015-20261018-depth-diagnostics.md",
     "tests/ios/evidence/CS-015-depth-diagnostics-20261018.json",
-    "Operator confirmed rotation resets counts and Stop resets counts plus all distances to Unknown. Background reset not confirmed: operator instead reported intermittent View left Unknown. Installed signed diagnostic UI showing coverage/reason; follow-up pending."
+    "Operator confirmed rotation resets counts and Stop resets counts plus all distances to Unknown. Background reset not confirmed: operator instead reported intermittent View left Unknown. Installed signed diagnostic UI showing coverage/reason; follow-up pending.",
+    "handoffs/CS-015-20261018-phone-ui-automation.md",
+    "tests/ios/evidence/CS-015-phone-ui-automation-20261018.json",
+    "Operator reported 10% high-confidence coverage vs existing 25% minimum, explaining Unknown; sensor confidence cause unmeasured. Direct device screenshot and real-phone UI automation succeeded. Latest UI test passed with no failures/skips: real depth, Stop-to-Unknown, restart, explicit Home Screen background, reopen/live recovery, final Stop. No nonzero counter background test or capture-age measurement claimed. Independent review and CS-014 #62 acceptance required before integration."
   ],
-  "blocker": "Intermittent View left Unknown needs diagnostic follow-up; background reset still unconfirmed. Target counts, rotation and Stop passed by operator report on prior build. CS-014 #62 review/acceptance remains required before integration. No floor classification, final cane/motor mapping or calibrated capture clock."
+  "blocker": ""
 }
