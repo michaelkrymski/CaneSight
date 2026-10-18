@@ -74,6 +74,14 @@ Propose gmarcialcalleja as owner of CS-017, preserving its requirements, CS-016 
 
 Validation: Claim metadata only. Checked publishing runs repository structure validation, shared tests, generated changelog validation and staged whitespace checks; actual results are recorded in the claim PR. No Xcode, Swift, ARKit or device tests claimed.
 
+## 2026-10-17 — CS-017-LIFECYCLE-GMARCIALCALLEJA-20261017: Add interruption and suspension guard with fresh-capture recovery
+
+Author: Gavin (gmarcialcalleja) · Task: CS-017
+
+Implement a standalone Swift package with generation barriers, bounded pending depth, transport/cache/clock purge hooks, source sequence preservation and conservative capture-age checks. Add ARKit/UIKit bridge and deferred Apple tests, consumer expiry regressions and CS-016 integration guide. Host integration and Xcode/device acceptance remain pending; no shared protocol or master plan changes.
+
+Validation: 10 Swift XCTest core cases passed using official Swift 6.0.3 Linux image with complete strict concurrency and warnings as errors; Apple SDK source/tests excluded. Root unittest discovery: 113 passed including 3 new receiver regressions. Checked publishing additionally runs structure, generated-log and whitespace checks. No physical device/electrical validation claimed.
+
 ## 2026-10-17 — CS-018-CLAIM-ADITSANGANI-20261017: Request CS-018 assignment for accessible status and manual audio cancel
 
 Author: aditsangani (AI-assisted) · Task: CS-018
@@ -657,6 +665,14 @@ Author: michaelkrymski (AI-assisted) · Task: CS-001
 Add a targeted master-plan subsection, implementation brief and CR for 3-second entry, spoken scenario cycling, 1-second confirmation, immediate active cancellation and three observation-only modes. Expand CS-027/036/037/038/039/040/044 acceptance without changing owners, runtime status, old evidence, protocols or deployed code. Vehicle temporal analysis remains new unverified work; Gemini remains restricted object description.
 
 Validation: Planning-only change. Repository validation, generated changelog consistency, whitespace and shared unit suite are checked before publication. No button/audio/vision implementation, training, live traffic, GPIO or physical acceptance claimed. Protected plan/task amendments require exact-head GitHub approval.
+
+## 2026-10-18 — CS-017-CLEANUP-REENTRANCY-20261018: Fence lifecycle cleanup and latch clock-fault notifications
+
+Author: Gavin (gmarcialcalleja) · Task: CS-017
+
+Prevent synchronous disconnect/UI cleanup callbacks from recursively invalidating or reconnecting. Record earlier Apple build evidence with exact pinned source limits and preserve remaining transport, clock and paired-device acceptance gates.
+
+Validation: 12 portable Swift 6.0.3 Linux tests passed with complete strict concurrency and warnings as errors; 3 Python consumer expiry/reconnect tests passed. No current-head Apple SDK or physical test claimed.
 
 ## 2026-10-18 — CS-027-CROSSING-MENU-BONDMILA-20261018: Implement merged crossing observation gesture component and synthetic bench
 
