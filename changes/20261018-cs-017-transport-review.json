@@ -1,0 +1,9 @@
+{
+  "id": "CS-017-TRANSPORT-REVIEW-20261018",
+  "date": "2026-10-18",
+  "author": "Gavin (gmarcialcalleja, AI-assisted)",
+  "task": "CS-017",
+  "summary": "Link transport lifecycle checkpoint to draft review #84",
+  "details": "Record PR #84 for software checkpoint 4275ca6ef96affb879dfaebddbdf3dc57445753c. Retain blocked task status for dependency, enrolled verified clock configuration, current Apple host build and paired phone/Pi acceptance.",
+  "validation": "Checked initial publishing passed repository validation, 212 root unittest cases with 11 skips, changelog and whitespace checks. 13 Swift coordinator tests and three receiver tests passed; no physical hardware access."
+}

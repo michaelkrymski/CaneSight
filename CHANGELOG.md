@@ -858,6 +858,14 @@ Add opt-in host coordinator around the pinned unmodified CS-016 actor, synchrono
 
 Validation: 13 portable Swift transport tests passed with complete strict concurrency and warnings as errors; Xcode project plist syntax validated. Apple SDK compilation and paired phone/Pi measurements remain pending. No camera, Pi or motor access.
 
+## 2026-10-18 — CS-017-TRANSPORT-REVIEW-20261018: Link transport lifecycle checkpoint to draft review #84
+
+Author: Gavin (gmarcialcalleja, AI-assisted) · Task: CS-017
+
+Record PR #84 for software checkpoint 4275ca6ef96affb879dfaebddbdf3dc57445753c. Retain blocked task status for dependency, enrolled verified clock configuration, current Apple host build and paired phone/Pi acceptance.
+
+Validation: Checked initial publishing passed repository validation, 212 root unittest cases with 11 skips, changelog and whitespace checks. 13 Swift coordinator tests and three receiver tests passed; no physical hardware access.
+
 ## 2026-10-18 — CS-018-ACCEPTED-HOST-EVIDENCE-20261018: Reconcile accessible-status acceptance with the merged phone host
 
 Author: Adit (aditsangani, AI-assisted) · Task: CS-018

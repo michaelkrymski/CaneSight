@@ -18,7 +18,7 @@
   "owner": "gmarcialcalleja",
   "status": "blocked",
   "branch": "task/CS-017-transport-fence",
-  "pr_url": "https://github.com/michaelkrymski/CaneSight/pull/63",
+  "pr_url": "https://github.com/michaelkrymski/CaneSight/pull/84",
   "evidence": [
     "Merged ownership: https://github.com/michaelkrymski/CaneSight/pull/59",
     "ios/Lifecycle: Swift lifecycle guard, ARKit/UIKit forwarding bridge and integration guide. 10 core XCTest cases pass with Swift 6.0.3 on Linux; Apple bridge and its 2 tests excluded on Linux.",
