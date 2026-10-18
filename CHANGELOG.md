@@ -554,6 +554,14 @@ Bind accepted button/client replies to same-clock capture-based speech tickets; 
 
 Validation: 60 context tests and 132 edge tests passed. Includes real spawned HTTPS delivery to local accepted context route with generated CA/JPEG/fake provider/synthetic sink; actual synthetic executable stdin/replacement/kill/reap and failure tests. Publisher reruns shared checks. No actual eSpeak/audio/Bluetooth, Gemini API or electrical acceptance.
 
+## 2026-10-17 — CS-040-PI-SPEAKER-OPERATOR-EVIDENCE-BONDMILA-20261017: Record operator-reported Pi speaker cancellation bench results
+
+Author: bondmila (AI-assisted), operator-supplied evidence · Task: CS-040
+
+Preserve one incomplete and one completed report at pinned combined #41/#58 commit 9607f76. All 15 synthetic speaker cases passed software and operator observations with no timer fault. Update runtime blocker to remaining PM review, Bluetooth disconnect/reconnect and full phone/backend integration. Preserve false physical acceptance and no Done claim.
+
+Validation: Parsed report structure and verified 15 unique cases, three repetitions of each expected case, all software/operator passes and explicit synthetic/no phone/backend/Gemini/GPIO flags. Checked publisher reruns shared repository checks. Agent did not access Pi audio; software stop timing is not audible latency.
+
 ## 2026-10-17 — CS-040-SYNTHETIC-SPEAKER-BENCH-BONDMILA-20261017: Add explicit synthetic Pi speaker and cancellation bench
 
 Author: bondmila (AI-assisted) · Task: CS-040
