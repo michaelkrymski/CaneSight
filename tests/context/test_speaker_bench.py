@@ -99,6 +99,25 @@ class SpeakerBenchTests(unittest.TestCase):
                 pause=lambda *a: None, bluetooth_recovery=True)
         self.assertIsNone(sink.current)
 
+    def test_manual_subset_records_only_requested_cases_and_preserves_failed_observations(self):
+        for observation in (True, False, None):
+            sink = SilentSink()
+            result = speaker_bench.run_bench(sink, observe=lambda *a: observation,
+                emit=lambda *a: None, pause=lambda *a: None, manual_only=True, repetitions=3)
+            self.assertEqual(result['case_selection'], 'manual-only')
+            self.assertEqual([r['case'] for r in result['records']], ['manual_cancel']*3)
+            self.assertEqual(len(sink.spoken), 3)
+            self.assertTrue(result['software_checks_passed'])
+            self.assertEqual(result['operator_reported_all_passed'], observation is True)
+            self.assertFalse(result['physical_audio_accepted'])
+            self.assertIsNone(sink.current)
+
+    def test_manual_subset_refuses_recovery_combination_before_audio(self):
+        with patch.object(speaker_bench, 'EspeakSink') as factory, patch('sys.stderr', io.StringIO()):
+            with self.assertRaises(SystemExit):
+                speaker_bench.main(['--speak', '--manual-only', '--bluetooth-recovery'])
+            factory.assert_not_called()
+
     def test_no_or_unknown_observation_never_becomes_a_pass(self):
         for answer in (False, None):
             with self.subTest(answer=answer):

@@ -690,6 +690,14 @@ Record installed GPIO21 button, reported camera and speaker availability while p
 
 Validation: Read issue #68 and author identity via GitHub. Existing 71 context tests passed for current code; documentation/runtime update only. Checked publisher runs shared checks; no new hardware or audible test claimed.
 
+## 2026-10-18 — CS-040-RECOVERY-REPORTS-MANUAL-DIAGNOSTIC-BONDMILA-20261018: Preserve mixed Pi recovery evidence and isolate manual audibility test
+
+Author: bondmila (AI-assisted) · Task: CS-040
+
+Record two distinct operator report payloads without changing negative/unknown results: later reconnect silence and fresh speech passed, manual case remains negative. Add explicit manual-only diagnostic subset without production changes or hidden warmup/retry. Keep PR draft and physical acceptance flags false.
+
+Validation: 73 context tests pass, including manual subset and no/unknown observations plus incompatible flag rejection. Parsed supplied reports and confirmed original build identity; no agent audio/SSH observation. Checked publisher runs shared validation and tests.
+
 ## 2026-10-18 — CS-040-SPEAKER-RECOVERY-BONDMILA-20261018: Prepare operator-guided Bluetooth cancellation and fresh-request recovery test
 
 Author: bondmila (AI-assisted) · Task: CS-040
