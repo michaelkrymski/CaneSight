@@ -850,6 +850,14 @@ Use native ARKit display transform with exact paired depth/confidence rotation a
 
 Validation: 11 XCTest cases pass with strict concurrency and warnings as errors. New app/core/native iOS SDK build passes. Physical mapping and signed device bench results remain pending; task blocked/PR draft. Shared checks run through checked publishing.
 
+## 2026-10-18 — CS-016-DEPTH-STREAM-20261018: Continue accepted telemetry ownership with a session-bound depth producer adapter
+
+Author: michaelkrymski (AI-assisted) · Task: CS-016
+
+Preserve Mila telemetry history from PR #64, merge accepted transfer #81, add explicit CS-014 summary conversion and stream wrapper without a default clock or app network activation. Add native macOS TLS rejection/cancellation fixtures; phone remains untouched at human request.
+
+Validation: Seven strict macOS bridge tests and seven iOS Simulator tests passed; iOS SDK build passed. Twenty-one existing transport tests passed; two separately invoked native URLSession cases passed, four Swift/backend contract tests and 217 repository tests passed. No successful native trusted WSS, physical phone/Pi clock/rate, motor or electrical acceptance claimed.
+
 ## 2026-10-18 — CS-016-PR81-MAIN-REFRESH-20261018: Refresh ownership-transfer PR #81 with accepted main
 
 Author: gmarcialcalleja (AI-assisted) · Task: CS-016

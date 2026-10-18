@@ -1,0 +1,67 @@
+{
+  "task": "CS-016",
+  "date": "2026-10-18",
+  "accepted_base": "a7b0214dd0c28316b61449d72c81215753b94993",
+  "preserved_implementation": "0433fc94af1a1e3edfe2d2bb28925cb3be6df1ee",
+  "history_merge": "598d534",
+  "phone_control_performed": false,
+  "source_sha256": {
+    "ios/CaneSightTelemetry/Tests/CaneSightTelemetryTests/NativeWebSocketTests.swift": "79407d460096e659d7f40297b52fbbc43c19f569b71a346fa90d39f59f7c1c23",
+    "ios/DepthTelemetry/.gitignore": "acc718146d21aae829cba1761475e05de39d73209d83af2ab8487a74843cead0",
+    "ios/DepthTelemetry/Package.swift": "488be903acefe9b2e6b4349752f01e1ae1bb0355a2c5865f7c0c0e887bdc58be",
+    "ios/DepthTelemetry/README.md": "9f15030734b1826a5d001f1448c40b64ea51f3526e666a46f886aa1e7eef0be5",
+    "ios/DepthTelemetry/Sources/CaneSightDepthTelemetry/DepthTelemetryAdapter.swift": "5dd5fc53936fffb530031d64d2d785611a5ad7f84746f4bd2594021a297aa877",
+    "ios/DepthTelemetry/Sources/CaneSightDepthTelemetry/DepthTelemetryStream.swift": "a85905be29bc340e153253a68a89bb773e930bff9eed406443f64b826e9f3290",
+    "ios/DepthTelemetry/Tests/DepthTelemetryTests/DepthTelemetryTests.swift": "3eadc0699aff2d72afd1c51e6e57b3035eb2ab1a9cfc2fa91f2c6ac93e926cf5",
+    "ios/DepthTelemetry/Tests/DepthTelemetryTests/StreamTests.swift": "9bb9c3ad35e91958b60b70f9b7e4891e68ffa979405f95cc8d8a0833d159940c",
+    "tests/ios/test_native_websocket.py": "c67569579f963a5c8bea047bedabbb896b7c28649ddea739899088940cb4f841"
+  },
+  "verification": {
+    "macOS_bridge": {
+      "passed": 7,
+      "failed": 0,
+      "strict_concurrency": "complete",
+      "warnings_as_errors": true
+    },
+    "macOS_transport": {
+      "passed": 21,
+      "skipped": 2,
+      "failed": 0,
+      "note": "Two native cases run separately by loopback harness below."
+    },
+    "native_loopback": {
+      "python_tests": 1,
+      "swift_tests": 2,
+      "failed": 0,
+      "cases": [
+        "Untrusted OS TLS rejection before HTTP authentication",
+        "Cancellation of stalled real TCP/TLS handshake"
+      ],
+      "trust_store_modified": false
+    },
+    "swift_to_backend_contract": {
+      "passed": 4,
+      "failed": 0
+    },
+    "iOS_SDK": "generic platform iOS build succeeded; unsigned, no physical device",
+    "iOS_simulator": {
+      "result": "Passed",
+      "totalTestCount": 7,
+      "passedTests": 7,
+      "failedTests": 0,
+      "skippedTests": 0
+    },
+    "repository": {
+      "passed": 217,
+      "failed": 0
+    }
+  },
+  "limits": [
+    "Synthetic depth and fake sockets in stream tests; no sensor or electrical acceptance.",
+    "Native positive trusted WSS, paired physical Pi, capture-clock alignment and joint drift remain unverified.",
+    "Public documented origin health request did not succeed from this Mac.",
+    "No phone control, signing, installation, screenshots or live ARKit test in this checkpoint.",
+    "App remains local preview; no default clock, telemetry consent, enrollment or network activation added."
+  ],
+  "publication_refresh_base": "f6af886f01979d48dbdf6664c54320ba7cfa0b8d"
+}

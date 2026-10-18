@@ -5,6 +5,12 @@ paired-session WebSocket protocol. It supplies the transport component; it does
 not acquire ARKit depth, enroll devices, or provide an iOS app/Xcode project.
 CS-014 owns the depth producer and CS-017 owns app lifecycle wiring.
 
+`../DepthTelemetry` supplies a session-bound CS-014 summary adapter and
+`DepthTelemetryStream`. It preserves original capture timestamps, image-column
+order and unknown values, rejects a mismatched live/replay mode, and forwards
+explicit readiness/lifecycle calls to this client. It supplies no implicit clock
+verification or app networking activation.
+
 ## App integration
 
 Add this local package to the phone app and import `CaneSightTelemetry`. Construct
@@ -91,6 +97,12 @@ before enabling submissions. Its
 is 8192 bytes; parsing applies the same byte bound. Do not add a certificate trust
 bypass to make a test server connect. Native TLS/auth/routing behavior still needs
 real iOS verification; host fake-socket tests do not establish that evidence.
+
+Mac URLSession rejection/cancellation tests use generated loopback fixtures via
+`python -m unittest discover -s tests/ios -p test_native_websocket.py -v`. They
+prove default OS rejection before HTTP authentication and cancellation of a real
+stalled TLS handshake, without changing the trust store. They do not prove a
+successful trusted WSS connection, live phone/Pi pairing or sensor timing.
 
 The accepted backend closes both paired peers when either detaches. Phone reconnect
 alone therefore does not prove the Pi is connected or has a valid clock epoch.
