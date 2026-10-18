@@ -3,7 +3,7 @@
   "title": "Inject disconnect, delay and replay failures",
   "category": "Safety & Testing",
   "priority": "P0",
-  "acceptance": "Execute N01–N05; old observations never actuate as fresh; health cannot extend expiry.",
+  "acceptance": "Execute N01–N05; old observations never actuate as fresh; health cannot extend expiry. Add crossing-menu threshold/release-barrier tests, idle context compatibility, no-default/timeout behavior, audio/source/epoch loss, stale results after scenario change, consent withdrawal and Bluetooth reconnect non-replay. Keep depth 500 ms and vision 1500 ms original capture budgets; controlled bench evidence only, no road crossing or physical-off guarantee.",
   "dependencies": [
     "CS-025",
     "CS-030",
