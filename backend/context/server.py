@@ -118,12 +118,18 @@ def install_context(app, service):
     return app
 
 
-def create_context_app():
+def configured_service():
+    """Validate private configuration before constructing any base-app resources."""
     model = os.environ.get('CANESIGHT_GEMINI_MODEL', '')
     Gemini(model)  # Validate configuration without network or credential output.
     if not os.environ.get('GEMINI_API_KEY'):
         raise RuntimeError('Configure server-only GEMINI_API_KEY')
-    return install_context(create_session_app(), ContextService(model))
+    return ContextService(model)
+
+
+def create_context_app():
+    service = configured_service()
+    return install_context(create_session_app(), service)
 
 
 def main():

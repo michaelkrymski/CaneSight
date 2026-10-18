@@ -1,0 +1,10 @@
+**
+!backend/
+!backend/context/
+!backend/context/__init__.py
+!backend/context/provider.py
+!backend/context/service.py
+!backend/context/server.py
+!backend/context/deployment.py
+!backend/context/Dockerfile.context
+!backend/context/Dockerfile.context.dockerignore
