@@ -962,6 +962,14 @@ Synchronize accepted GPS checkpoint from main d1d8eb9 (GPS 94ccaaf plus CS-045 m
 
 Validation: 182 edge tests: 171 passed, 11 explicit draft narration/menu-audio dependency skips. Checked publisher runs shared validation, governance, changelog and whitespace checks; final CI inspected by exact head.
 
+## 2026-10-18 — CS-037-SCENARIO-ADAPTERS-ADITSANGANI-20261018: Add isolated synthetic scenario replay adapters and artifact identity inspection
+
+Author: aditsangani (AI-assisted) · Task: CS-037
+
+Explicit pedestrian-signal, pedestrian-yellow-beacon and unsignalized-street selection; preserve schematic pixel parser. Add bounded annotated beacon alternation and vehicle image-displacement prototypes, source/epoch/age/token gates and local custom-artifact hash/provenance checks without loading. Live capabilities remain unavailable; no production/wire/menu or shared-contract change.
+
+Validation: 80 vision tests passed with 27 new scenario/artifact cases; no skips or failures. Original parser/evaluation cases retained. Checked publishing additionally runs repository/shared/changelog/governance/whitespace checks. No model training, real-scene accuracy, night or physical acceptance claimed.
+
 ## 2026-10-18 — CS-040-FIXED-MENU-AUDIO-BONDMILA-20261018: Implement fixed menu speech with readiness and stale-event preemption
 
 Author: bondmila (AI-assisted) · Task: CS-040

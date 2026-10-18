@@ -17,14 +17,19 @@
   "estimate_hours": 2.0,
   "elapsed_window": "8–11",
   "owner": "aditsangani",
-  "status": "review",
+  "status": "blocked",
   "branch": "task/CS-037-signal-parser",
-  "pr_url": "https://github.com/michaelkrymski/CaneSight/pull/46",
+  "pr_url": null,
   "evidence": [
     "handoffs/CS-037-schematic-parser-20261017.md",
     "qa/vision/signal-parser-replay-20261017.json",
     "45 vision tests passed including 14 parser regressions; replay CLI processed all 18 fixture frames. Manual schematic profile only; no training, automatic real-world recognition or hardware acceptance.",
-    "ROI retarget regression failed before fix and passed after selection included geometry. Final suite: 46 vision tests including 15 parser tests; all 18 replay frames still passed. See handoffs/CS-037-roi-retarget-20261017.md."
+    "ROI retarget regression failed before fix and passed after selection included geometry. Final suite: 46 vision tests including 15 parser tests; all 18 replay frames still passed. See handoffs/CS-037-roi-retarget-20261017.md.",
+    "backend/vision/SCENARIO_ADAPTERS.md",
+    "qa/vision/scenario-adapters-validation-20261018.json",
+    "Explicit isolated local replay adapters for pedestrian signal, yellow beacon and unsignalized street; original pixel parser preserved. Bounded annotation-only alternation/image displacement, epoch/selection/clock/age fencing and fail-closed night/motion/occlusion handling. Live capabilities all false.",
+    "80 vision tests passed on Windows/Python 3.14.3, including 22 scenario and 5 inert-artifact regressions. Artifact hash/provenance inspection does not deserialize models, validate referenced evaluations or enable live inference.",
+    "handoffs/CS-037-scenario-adapters-aditsangani-20261018.md"
   ],
-  "blocker": ""
+  "blocker": "Scenario replay adapters and local artifact identity inspector prepared for software review. Full acceptance requires CS-036 licensed real-scene data/trusted custom artifacts and CS-038 held-out evaluation, real detector/digit/beacon/vehicle adapters with verified source timing and camera-motion handling, and separately reviewed menu/provider integration. All live capabilities remain unavailable; no training, model loading, production activation or physical acceptance claimed."
 }
