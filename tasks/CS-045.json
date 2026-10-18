@@ -17,11 +17,14 @@
   "estimate_hours": 1.0,
   "elapsed_window": "14–17",
   "owner": "gmarcialcalleja",
-  "status": "in_progress",
-  "branch": "claim/CS-045-gmarcialcalleja",
+  "status": "blocked",
+  "branch": "task/CS-045-measurement-analysis",
   "pr_url": null,
   "evidence": [
-    "Assignment proposal only; implementation waits for Michael to merge ownership. CS-025/CS-044 software checkpoints are merged. Planned measurement-analysis preparation: validate original capture-age/clock uncertainty and distinguish software command times from physical onset; real 20-sample latency and distance evidence remain required."
+    "Assignment proposal only; implementation waits for Michael to merge ownership. CS-025/CS-044 software checkpoints are merged. Planned measurement-analysis preparation: validate original capture-age/clock uncertainty and distinguish software command times from physical onset; real 20-sample latency and distance evidence remain required.",
+    "Merged ownership: https://github.com/michaelkrymski/CaneSight/pull/54",
+    "handoffs/CS-045-measurement-analysis-20261018.md",
+    "Offline analyzer in qa/measurements: original-capture timing intervals, 20-observed-trial count, median/p95/max bounds, explicit failed outcomes and depth error/availability by sector/distance. 15 focused unit/CLI tests passed on Windows and local network-disabled Linux Python 3.12. Synthetic example does not establish physical timing or accuracy."
   ],
-  "blocker": ""
+  "blocker": "Analysis software prepared. Real acceptance still requires integrated phone/Pi capture-clock evidence, at least 20 observed timing trials per endpoint/cohort, measured distance/error data and independent physical onset evidence when claimed, with mount/power prerequisites. No device or physical readiness claim."
 }

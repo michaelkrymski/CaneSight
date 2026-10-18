@@ -666,3 +666,11 @@ Prevent synchronous disconnect/UI cleanup callbacks from recursively invalidatin
 
 Validation: 12 portable Swift 6.0.3 Linux tests passed with complete strict concurrency and warnings as errors; 3 Python consumer expiry/reconnect tests passed. No current-head Apple SDK or physical test claimed.
 
+## 2026-10-18 — CS-045-MEASUREMENT-ANALYSIS-20261018: Prepare offline bounded latency and depth-error analysis
+
+Author: Gavin (gmarcialcalleja) · Task: CS-045
+
+Add strict private measurement input, conservative latency bounds with median/p95/max, explicit failed-trial counts, sector/distance error and availability summaries, synthetic example and bench collection guide. Keep software command separate from measured physical onset; clock/provenance and physical acceptance remain independent review gates.
+
+Validation: 15 focused unit/CLI tests passed on Windows and network-disabled local Linux Python 3.12 Docker. Included example is deliberately synthetic and below the 20-observation requirement. No device, camera, GPIO or motor tests performed.
+
