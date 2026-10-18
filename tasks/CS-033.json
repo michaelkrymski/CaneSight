@@ -18,8 +18,8 @@
   "elapsed_window": "11–14",
   "owner": "gmarcialcalleja",
   "status": "review",
-  "branch": "task/CS-033-vultr-deployment",
-  "pr_url": "https://github.com/michaelkrymski/CaneSight/pull/11",
+  "branch": "task/CS-033-backend-refresh",
+  "pr_url": null,
   "evidence": [
     "handoffs/CS-033-20261017-deployment-preparation.md",
     "Local Python 3.14.7: 32 tests discovered, 31 passed, 1 POSIX-permissions test skipped on Windows; includes temporary TLS and Compose configuration tests.",
@@ -34,7 +34,10 @@
     "Authenticated public https://64.177.50.116: verified HTTPS/WSS, role-scoped synthetic JPEG acknowledgment, duplicate/expired credential rejection, disconnect and reconnect sequence protection. Readiness truthfully 503: ingestion configured, model/worker unavailable.",
     "Windows laptop fallback served the full public HTTPS/WSS/JPEG acceptance probe while the production backend was stopped; production restored and probed again. Proxy restart retained trusted IP certificate. Linux: all 115 backend/deployment tests passed with real backend/Caddy image tests enabled; Windows: 115 discovered, 109 passed, 6 environment-specific skips; 39 shared tests and replay smoke passed on both hosts.",
     "handoffs/CS-033-20261017-final-image-and-ci.md",
-    "Final committed-snapshot image sha256:c374fd16ab6a57ba17c775cbf6c01c0a06443b35c2e7ef206bf6f3c2c3c77e14 deployed on Vultr. Packaged runtime Python source hashes match the first accepted-probe image; all 115 Linux backend tests passed again with final-image and Caddy integration enabled, and the complete public session probe passed after activation."
+    "Final committed-snapshot image sha256:c374fd16ab6a57ba17c775cbf6c01c0a06443b35c2e7ef206bf6f3c2c3c77e14 deployed on Vultr. Packaged runtime Python source hashes match the first accepted-probe image; all 115 Linux backend tests passed again with final-image and Caddy integration enabled, and the complete public session probe passed after activation.",
+    "handoffs/CS-033-current-backend-verification-20261018.md",
+    "backend/deploy/evidence/CS-033-public-verification-20261018.json",
+    "2026-10-18 public verification: all packaged runtime/contracts/readiness files match accepted a239e22; active vision model and worker passed 20 generated HTTPS/WSS JPEG-to-result samples (median 125.588 ms, p95 169.779 ms). Separate enrollment/readiness/role/duplicate/expiry/reconnect probe passed. Linux backend suite 128 tests OK, 6 optional skips. Built current image; candidate launch rejected by automatic approval review, so no activation/restart. Existing deployment already carries current native runtime. No physical-device, detection-accuracy, optional-service or motor acceptance."
   ],
   "blocker": null
 }

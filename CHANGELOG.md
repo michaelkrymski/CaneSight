@@ -1066,6 +1066,14 @@ Synchronize accepted GPS checkpoint from main d1d8eb9 (GPS 94ccaaf plus CS-045 m
 
 Validation: 182 edge tests: 171 passed, 11 explicit draft narration/menu-audio dependency skips. Checked publisher runs shared validation, governance, changelog and whitespace checks; final CI inspected by exact head.
 
+## 2026-10-18 — CS-033-CURRENT-BACKEND-VERIFICATION-20261018: Verify current deployed backend against accepted runtime and public inference/session probes
+
+Author: gmarcialcalleja (AI-assisted) · Task: CS-033
+
+User requested deployment and live verification. Uploaded accepted source a239e22 to a dedicated Vultr release directory and built its vision image. Current deployed runtime, shared contract and readiness source hashes already match accepted main, so no replacement activation or restart was necessary. Existing model/worker passed verified public HTTPS/WSS generated JPEG inference and session lifecycle probes. Preserve operator credentials, certificate volumes and current device enrollment configuration.
+
+Validation: 20 generated JPEG-to-native-result samples passed with original lineage, role/session isolation, expiry and revocation. Separate session probe passed readiness while enrolled, acknowledgment, duplicate/expired credential rejection and peer disconnect/reconnect replay rejection. Server backend suite: 128 tests, OK with 6 optional skips. Candidate launch was rejected by automatic approval review; candidate not activated. No real-device/detection-accuracy/hardware acceptance.
+
 ## 2026-10-18 — CS-037-CHANGELOG-CONFLICT-ADITSANGANI-20261018: Resolve PR79 generated changelog merge conflict
 
 Author: aditsangani (AI-assisted) · Task: CS-037
