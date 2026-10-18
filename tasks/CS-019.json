@@ -22,7 +22,8 @@
   "evidence": [
     "Merged claim: https://github.com/michaelkrymski/CaneSight/pull/65",
     "ios/CoarseLocation: consent/authorization/foreground gate, rounded-only cache, original fix age and accuracy, <=1 Hz local context handoff, and Core Location adapter. 13 portable Swift tests passed with complete strict concurrency and warnings as errors using Swift 6.0.3 Linux.",
-    "decisions/CR-CS-019-location-context-contract.md proposes the required separate GPS contract; current accepted v1 protocol excludes GPS payloads. No network GPS publisher enabled."
+    "decisions/CR-CS-019-location-context-contract.md proposes the required separate GPS contract; current accepted v1 protocol excludes GPS payloads. No network GPS publisher enabled.",
+    "2026-10-18 follow-up: 15 portable Swift tests passed; provider failure and reentrant recovery enforce new capture barriers. tests/ios/evidence/CS-019-recovery-20261018.json records source hashes and attributed earlier Apple build evidence from PR #69."
   ],
-  "blocker": "Pending separately reviewed GPS wire contract/receiver and scope assignment, CS-016 integration, Xcode/Core Location SDK build and real-device authorization/lifecycle verification. Local software is prepared; end-to-end GPS telemetry acceptance is not claimed."
+  "blocker": "Pending separately reviewed GPS wire contract/receiver and scope assignment, CS-016 host integration, current-head Apple build and real-device authorization/provider/lifecycle verification. PR #69 reports earlier pinned Apple builds; its phone preview has GPS sharing off. Local software prepared; end-to-end telemetry acceptance not claimed."
 }

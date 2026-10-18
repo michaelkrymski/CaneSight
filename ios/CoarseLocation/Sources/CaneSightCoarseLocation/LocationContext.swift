@@ -140,8 +140,8 @@ public struct LocationPolicy: Sendable {
     }
 
     private func resetForPermissionChange() {
-        clear(.noFix)
         captureFloorUTC = readClock()?.utcSeconds ?? .infinity
+        clear(.noFix)
         // Do not reset the emission limiter, including on opt-out/opt-in.
     }
 
@@ -163,7 +163,13 @@ public struct LocationPolicy: Sendable {
         resetForPermissionChange()
     }
 
-    public func locationFailed() { clear(.noFix) }
+    public func locationFailed() {
+        // Reject fixes captured before this failure even if their delegate
+        // delivery was delayed and they have never entered the cache before.
+        // Set the barrier before notifying consumers through the purge hook.
+        captureFloorUTC = readClock()?.utcSeconds ?? .infinity
+        clear(.noFix)
+    }
 
     @discardableResult public func receive(_ fix: LocationFix) -> Bool {
         guard let time = readClock(), permitted else { return false }

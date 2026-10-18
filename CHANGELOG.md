@@ -666,3 +666,11 @@ Final review follow-up on PR 67: once a clock fault is latched, unavailable snap
 
 Validation: All 13 portable Swift XCTest cases passed again on Swift 6.0.3 Linux with complete strict concurrency and warnings as errors. Apple SDK adapter remains excluded; no device validation claimed.
 
+## 2026-10-18 — CS-019-RECOVERY-BARRIER-20261018: Require new GPS fixes after provider failure and fence recovery callbacks
+
+Author: Gavin (gmarcialcalleja) · Task: CS-019
+
+Advance capture barriers before notifying consumers and after provider errors, preventing delayed pre-recovery fixes from restoring context. Record attributed earlier Apple builds without claiming current-head device or approved GPS transport acceptance.
+
+Validation: 15 portable Swift 6.0.3 Linux tests passed with complete strict concurrency and warnings as errors. Core Location/UIKit bodies excluded; contract, host integration and real-device gates remain.
+

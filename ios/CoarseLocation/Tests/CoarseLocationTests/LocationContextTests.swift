@@ -23,6 +23,56 @@ import XCTest
 }
 
 final class LocationContextTests: XCTestCase {
+    func testProviderFailureRejectsPreviouslyUnseenPreFailureFix() async {
+        await MainActor.run {
+            let r = Rig(); r.start()
+            r.advance(100)
+            let delayed = r.fix()
+            r.advance(100)
+            r.context.locationFailed()
+            XCTAssertFalse(r.context.receive(delayed))
+            XCTAssertNil(r.context.snapshot().latitude)
+            r.advance(1)
+            XCTAssertTrue(r.context.receive(r.fix()))
+            XCTAssertNil(r.context.snapshot().unavailable)
+        }
+    }
+
+    func testRecoveryBarrierIsSetBeforeSynchronousPurgeCallback() async {
+        await MainActor.run {
+            var utc = 2000.0
+            var mono = 1000.0
+            var delayed: LocationFix?
+            var attempted = false
+            var context: CoarseLocationContext!
+            context = CoarseLocationContext(policy: try! LocationPolicy(), clock: {
+                LocationClock(utcSeconds: utc, monotonicMilliseconds: mono)
+            }, purgeCachedAndQueuedContext: {
+                if let fix = delayed {
+                    attempted = true
+                    delayed = nil // avoid recursively re-entering on rejection
+                    XCTAssertFalse(context.receive(fix))
+                }
+            })
+            context.setConsent(true)
+            context.setAuthorization(.authorized)
+            context.setActive(true)
+            utc += 0.1; mono += 100
+            delayed = LocationFix(latitude: 10, longitude: 20,
+                horizontalAccuracyMeters: 5, originalFixUTCSeconds: utc)
+            context.setActive(false)
+            utc += 0.1; mono += 100
+            // The callback runs after active=true; an old capture must still
+            // fail against the new barrier before any consumer can cache it.
+            attempted = false
+            delayed = LocationFix(latitude: 10, longitude: 20,
+                horizontalAccuracyMeters: 5, originalFixUTCSeconds: utc - 0.1)
+            context.setActive(true)
+            XCTAssertTrue(attempted)
+            XCTAssertNil(context.snapshot().latitude)
+        }
+    }
+
     func testConfigurationRejectsInvalidThresholds() {
         for value in [0.0, -1, .nan, .infinity] {
             XCTAssertThrowsError(try LocationPolicy(maximumFixAgeMilliseconds: value))

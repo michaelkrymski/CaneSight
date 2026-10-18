@@ -1,7 +1,8 @@
 # CS-019: consented coarse location
 
-Standalone Swift package for the future iOS host. Portable policy code is tested;
-Core Location SDK compilation and device acceptance are pending. No network GPS
+Standalone Swift package for the iOS host. Portable policy code is tested;
+Michael's draft host PR #69 reports Apple SDK compilation of the earlier pinned
+package. Current-head Apple verification and device acceptance remain pending. No network GPS
 transport is enabled: the accepted v1 contract explicitly excludes GPS fields.
 See `decisions/CR-CS-019-location-context-contract.md` for the review request.
 
@@ -30,7 +31,9 @@ transiently, but only rounded coordinates leave this adapter's local policy cach
    whenever `unavailable` is nonnull; unavailable snapshots have no location fields.
    The latest fix is cleared on permission/consent/activity change or provider
    failure. Resume and re-consent require a newly dated fix, not CLLocationManager's
-   pre-resume cache. Core Location delegate callbacks run synchronously on the main
+   pre-resume cache. Provider errors also advance the capture barrier so a delayed
+   pre-error fix cannot restore availability. Recovery barriers are set before
+   synchronous purge callbacks run. Core Location delegate callbacks run synchronously on the main
    run loop because the manager is constructed on MainActor.
 4. A future approved P1 publisher can poll `nextContextSnapshot()` on a timer for
    an in-process snapshot at most once per second. It must re-read/validate at send
@@ -72,9 +75,14 @@ cd ios/CoarseLocation
 swift test --jobs 1 -Xswiftc -strict-concurrency=complete -Xswiftc -warnings-as-errors
 ```
 
-13 portable XCTest cases pass with official Swift 6.0.3 on Linux. Linux excludes
+15 portable XCTest cases pass with official Swift 6.0.3 on Linux. Linux excludes
 the Core Location/UIKit source body; this does not establish an Apple SDK build.
-On a Mac, build both libraries for the host's iOS target. On an iPhone verify:
+PR #69 reports 13 macOS tests, iOS SDK builds and simulator test-bundle compilation
+for `5d311229a183b35176c10bdf33b6553c0c52fbfd`; no GPS sharing or real permission
+tests were enabled in its phone preview. This is earlier-commit evidence, not
+current-head or end-to-end acceptance. See
+`tests/ios/evidence/CS-019-recovery-20261018.json` for local test scope and hashes.
+On a Mac, update the reviewed dependency pin and build both libraries for the host's iOS target. On an iPhone verify:
 default off/no prompt; opt-in prompt; denied/restricted/reduced/full authorization;
 Settings revocation; stale cached initial fix; indoor poor accuracy; future time;
 background/lock/resume; opt-out purge; and at most one context handoff per second.
