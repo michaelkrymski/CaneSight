@@ -994,6 +994,14 @@ Synchronize accepted GPS checkpoint from main d1d8eb9 (GPS 94ccaaf plus CS-045 m
 
 Validation: 182 edge tests: 171 passed, 11 explicit draft narration/menu-audio dependency skips. Checked publisher runs shared validation, governance, changelog and whitespace checks; final CI inspected by exact head.
 
+## 2026-10-18 — CS-037-CHANGELOG-CONFLICT-ADITSANGANI-20261018: Resolve PR79 generated changelog merge conflict
+
+Author: aditsangani (AI-assisted) · Task: CS-037
+
+Integrate accepted main 3baf4de into the existing CS-037 branch and resolve only CHANGELOG.md by rendering all immutable fragments. No scenario implementation, tests, acceptance, owner or protected paths changed. Full CS-037 live/model/device acceptance remains blocked; this clears the PR integration obstacle only.
+
+Validation: 80 explicit vision tests passed with no failures/skips after merge. No unmerged paths remain; source/test/QA/task bytes unchanged before own handoff/fragment. Checked publishing reruns shared/repository/governance/changelog/whitespace checks and current-head CI is inspected after push.
+
 ## 2026-10-18 — CS-037-MAIN-SYNC-ADITSANGANI-20261018: Integrate accepted main into CS-037 scenario adapter review
 
 Author: aditsangani (AI-assisted) · Task: CS-037
@@ -1017,6 +1025,14 @@ Author: aditsangani (AI-assisted) · Task: CS-037
 Link the published software checkpoint and actual checks in task runtime evidence. Full task remains blocked; no implementation, scope or ownership changes.
 
 Validation: Before first publication, all 80 vision tests passed and shared suite ran 195 with 188 passed, 7 platform skips, zero failures; repository/governance/changelog/whitespace checks passed. Current-head CI inspected after metadata publication.
+
+## 2026-10-18 — CS-040-BLUETOOTH-ROUTE-20261018: Monitor configured Bluetooth route and pin optional speech playback
+
+Author: Mila (bondmila, AI-assisted) · Task: CS-040
+
+Add opt-in Linux PulseAudio/PipeWire and BlueZ read-only observations with bounded commands/output, start-anchored freshness and independent watchdog. Validate matching target, mute/volume and active stream binding; observed loss/fault latches and stops only owned paplay/eSpeak groups. Reconnection requires a fresh adapter/run. Add private-configuration documentation and sanitized read-only diagnostic; unconfigured audio behavior remains unchanged.
+
+Validation: 100 context cases and 205 edge cases passed on macOS/Python 3.13. Synthetic device/OS observations, real bounded helper and owned playback/generator fixture processes; no actual BlueZ/PulseAudio/paplay, Pi, Gemini, phone or audible acceptance. Shared checks run through checked publisher. Polling gaps, query budget and physical buffering limits documented.
 
 ## 2026-10-18 — CS-040-FIXED-MENU-AUDIO-BONDMILA-20261018: Implement fixed menu speech with readiness and stale-event preemption
 
@@ -1098,6 +1114,14 @@ Reuse the accepted logger, initialize the existing schema, provision separate ru
 
 Validation: Live database results are separate from mocked/component tests. Dashboard/component suite passed 39 cases; repository checks run through checked publishing. One incomplete development fault run and its cleanup recovery are disclosed. Docker image build, production HTTPS/WSS activation/re-enrollment, exact provider backup/control-plane configuration and PM acceptance remain pending. No physical-device or Done claim.
 
+## 2026-10-18 — CS-043-CLAIM-GMARCIALCALLEJA-20261018: Claim power, boot, crash and motor kill testing for Gavin
+
+Author: Gavin (gmarcialcalleja) · Task: CS-043
+
+Propose gmarcialcalleja ownership and in_progress on a dedicated claim branch. Preserve E01-E03 acceptance, CS-010/023/026 dependencies and qa/tests scope. Wait for Michael to merge assignment before implementation or testing. No GPIO, power, physical kill or hardware acceptance claimed.
+
+Validation: Assignment metadata only. Checked publishing runs repository structure, shared unittest discovery, generated changelog and staged whitespace checks. Actual results reported in the claim PR; no new hardware or task implementation tests claimed.
+
 ## 2026-10-18 — CS-044-CROSSING-CAMPAIGN-20261018: Add pinned crossing-menu and audio failure campaign
 
 Author: Gavin (gmarcialcalleja) · Task: CS-044
@@ -1129,4 +1153,12 @@ Author: Gavin (gmarcialcalleja) · Task: CS-045
 Record PR #72 on the assigned task runtime. Physical timing, clock and measured-distance evidence gates remain explicit; no acceptance or device test claim added.
 
 Validation: Prior implementation publication passed all 128 repository tests and 15 focused tests on Windows/Linux. This update changes only the task link and new audit records; checked publisher reruns shared checks.
+
+## 2026-10-18 — CS-049-CLAIM-ADITSANGANI-20261018: Propose Adit ownership of GPS and Gemini denial/failure QA
+
+Author: Adit (aditsangani, AI-assisted) · Task: CS-049
+
+Assignment-only proposal. Preserve task requirements, dependencies and allowed paths. After merged ownership, prepare synthetic software tests that failures cannot alter motor/permission policy and late context is suppressed. No implementation, live API, device, audio or hardware claims.
+
+Validation: Confirmed accepted main has no owner and no competing open CS-049 claim. Verified static task fields remain identical. Repository and checked-publisher checks run before publication; no task implementation tests exist in this assignment-only diff.
 

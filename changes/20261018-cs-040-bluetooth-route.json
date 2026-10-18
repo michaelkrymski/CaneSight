@@ -1,0 +1,9 @@
+{
+  "id": "CS-040-BLUETOOTH-ROUTE-20261018",
+  "date": "2026-10-18",
+  "author": "Mila (bondmila, AI-assisted)",
+  "task": "CS-040",
+  "summary": "Monitor configured Bluetooth route and pin optional speech playback",
+  "details": "Add opt-in Linux PulseAudio/PipeWire and BlueZ read-only observations with bounded commands/output, start-anchored freshness and independent watchdog. Validate matching target, mute/volume and active stream binding; observed loss/fault latches and stops only owned paplay/eSpeak groups. Reconnection requires a fresh adapter/run. Add private-configuration documentation and sanitized read-only diagnostic; unconfigured audio behavior remains unchanged.",
+  "validation": "100 context cases and 205 edge cases passed on macOS/Python 3.13. Synthetic device/OS observations, real bounded helper and owned playback/generator fixture processes; no actual BlueZ/PulseAudio/paplay, Pi, Gemini, phone or audible acceptance. Shared checks run through checked publisher. Polling gaps, query budget and physical buffering limits documented."
+}

@@ -1,0 +1,9 @@
+{
+  "id": "CS-043-CLAIM-GMARCIALCALLEJA-20261018",
+  "date": "2026-10-18",
+  "author": "Gavin (gmarcialcalleja)",
+  "task": "CS-043",
+  "summary": "Claim power, boot, crash and motor kill testing for Gavin",
+  "details": "Propose gmarcialcalleja ownership and in_progress on a dedicated claim branch. Preserve E01-E03 acceptance, CS-010/023/026 dependencies and qa/tests scope. Wait for Michael to merge assignment before implementation or testing. No GPIO, power, physical kill or hardware acceptance claimed.",
+  "validation": "Assignment metadata only. Checked publishing runs repository structure, shared unittest discovery, generated changelog and staged whitespace checks. Actual results reported in the claim PR; no new hardware or task implementation tests claimed."
+}
