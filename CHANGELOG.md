@@ -98,6 +98,14 @@ Propose gmarcialcalleja ownership and in_progress on a dedicated claim branch. P
 
 Validation: Assignment metadata only; checked publishing runs repository structure, shared unittest discovery, generated changelog and staged whitespace checks. Actual results are reported in the claim PR; no GPS/device tests claimed.
 
+## 2026-10-17 — CS-019-COARSE-LOCATION-GMARCIALCALLEJA-20261017: Prepare consented coarse GPS context and Core Location adapter
+
+Author: Gavin (gmarcialcalleja) · Task: CS-019
+
+Add a standalone Swift package with explicit sharing consent, authorization and active-scene gating, rounded-only cache, fix age/accuracy checks, independent expiry and at-most-1-Hz local handoff. Add a proposed separate GPS contract CR without changing protected shared contracts or sending GPS in depth packets. End-to-end telemetry and Apple/device acceptance remain pending.
+
+Validation: 13 portable Swift XCTest cases passed on official Swift 6.0.3 Linux with complete strict concurrency and warnings as errors. Conditional Core Location/UIKit code was excluded; no Xcode/device test claimed. Checked publishing runs repository structure, shared unittest discovery, generated log and whitespace checks; actual results reported in the PR.
+
 ## 2026-10-17 — CS-021-CS-022-MICHAEL-CLAIM-20261017: Assign Pi capture and latest-only uploader work to Michael
 
 Author: michaelkrymski (AI-assisted) · Task: CS-021, CS-022
@@ -666,6 +674,22 @@ Prevent synchronous disconnect/UI cleanup callbacks from recursively invalidatin
 
 Validation: 12 portable Swift 6.0.3 Linux tests passed with complete strict concurrency and warnings as errors; 3 Python consumer expiry/reconnect tests passed. No current-head Apple SDK or physical test claimed.
 
+## 2026-10-18 — CS-019-CLOCK-FAULT-NOTIFICATION-20261018: Make GPS clock-fault purge notification idempotent
+
+Author: Gavin (gmarcialcalleja) · Task: CS-019
+
+Final review follow-up on PR 67: once a clock fault is latched, unavailable snapshot reads no longer trigger another purge callback. This prevents a synchronous UI refresh from recursively purging. Extend the existing clock-fault regression; contract and device blockers remain.
+
+Validation: All 13 portable Swift XCTest cases passed again on Swift 6.0.3 Linux with complete strict concurrency and warnings as errors. Apple SDK adapter remains excluded; no device validation claimed.
+
+## 2026-10-18 — CS-019-RECOVERY-BARRIER-20261018: Require new GPS fixes after provider failure and fence recovery callbacks
+
+Author: Gavin (gmarcialcalleja) · Task: CS-019
+
+Advance capture barriers before notifying consumers and after provider errors, preventing delayed pre-recovery fixes from restoring context. Record attributed earlier Apple builds without claiming current-head device or approved GPS transport acceptance.
+
+Validation: 15 portable Swift 6.0.3 Linux tests passed with complete strict concurrency and warnings as errors. Core Location/UIKit bodies excluded; contract, host integration and real-device gates remain.
+
 ## 2026-10-18 — CS-045-MEASUREMENT-ANALYSIS-20261018: Prepare offline bounded latency and depth-error analysis
 
 Author: Gavin (gmarcialcalleja) · Task: CS-045
@@ -673,4 +697,12 @@ Author: Gavin (gmarcialcalleja) · Task: CS-045
 Add strict private measurement input, conservative latency bounds with median/p95/max, explicit failed-trial counts, sector/distance error and availability summaries, synthetic example and bench collection guide. Keep software command separate from measured physical onset; clock/provenance and physical acceptance remain independent review gates.
 
 Validation: 15 focused unit/CLI tests passed on Windows and network-disabled local Linux Python 3.12 Docker. Included example is deliberately synthetic and below the 20-observation requirement. No device, camera, GPIO or motor tests performed.
+
+## 2026-10-18 — CS-045-REVIEW-LINK-20261018: Link measurement-analysis software preparation PR
+
+Author: Gavin (gmarcialcalleja) · Task: CS-045
+
+Record PR #72 on the assigned task runtime. Physical timing, clock and measured-distance evidence gates remain explicit; no acceptance or device test claim added.
+
+Validation: Prior implementation publication passed all 128 repository tests and 15 focused tests on Windows/Linux. This update changes only the task link and new audit records; checked publisher reruns shared checks.
 
