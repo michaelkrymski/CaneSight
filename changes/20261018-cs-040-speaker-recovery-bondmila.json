@@ -1,0 +1,9 @@
+{
+  "id": "CS-040-SPEAKER-RECOVERY-BONDMILA-20261018",
+  "date": "2026-10-18",
+  "author": "bondmila (AI-assisted)",
+  "task": "CS-040",
+  "summary": "Prepare operator-guided Bluetooth cancellation and fresh-request recovery test",
+  "details": "Extend opt-in speaker bench with disconnect, unavailable cancellation, reconnect silence and fresh-ticket observations. Expose sanitized consumer request counts for CS-027 runtime reports; preserve draft status and prior operator evidence.",
+  "validation": "71 context tests pass, including silent recovery/no-or-unknown/interrupted input regressions and consumer diagnostics. No actual Bluetooth recovery or full phone/backend run claimed; checked publisher runs shared checks."
+}
