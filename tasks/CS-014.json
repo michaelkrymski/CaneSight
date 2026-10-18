@@ -18,12 +18,13 @@
   "owner": "aditsangani",
   "status": "blocked",
   "branch": "task/CS-014-depth-sectors",
-  "pr_url": null,
+  "pr_url": "https://github.com/michaelkrymski/CaneSight/pull/62",
   "evidence": [
     "ios/DepthSectors/README.md",
     "tests/ios/cs014-source-audit-20261017.json",
     "handoffs/CS-014-depth-sectors-20261017.md",
-    "Seven replay fixture structures and seven Swift source grammar parses passed on Windows. Fifteen XCTest methods authored but not executed; no Swift compiler, Xcode/iOS SDK, signing or physical-device results."
+    "Seven replay fixture structures and seven Swift source grammar parses passed on Windows. Fifteen XCTest methods authored but not executed; no Swift compiler, Xcode/iOS SDK, signing or physical-device results.",
+    "Draft PR #62 source checkpoint: existing 110 Python repository tests passed. Source/fixture audit passed; all Swift compilation, 15 XCTest executions and Apple/device checks remain unrun. See handoffs/CS-014-draft-link-20261017.md."
   ],
   "blocker": "Software preparation complete; Swift compilation/XCTest and iOS ARKit build remain unrun because this host has no Swift toolchain/Mac/Xcode. CS-013 physical support/signing prerequisite remains pending; physical orientation/mount, accuracy and lifecycle acceptance remain separate. Keep implementation PR draft until actual Apple build/test evidence."
 }

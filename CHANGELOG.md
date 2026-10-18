@@ -66,6 +66,14 @@ Add a standalone bounded/stateless depth processor, confidence/coverage/sample g
 
 Validation: Windows fixture-structure audit passed for seven cases; Tree-sitter 0.26.0/Swift grammar 0.7.4 parsed seven Swift files without syntax errors. Neither check compiles or executes Swift. Checked publishing runs existing repository tests/validation/log/whitespace checks; no Swift/XCTest/Apple/device pass is claimed.
 
+## 2026-10-17 — CS-014-DRAFT-LINK-20261017: Record CS-014 draft source checkpoint and verification boundary
+
+Author: aditsangani (AI-assisted) · Task: CS-014
+
+Link task to draft PR #62. Existing 110 root Python tests passed; seven fixture structures and seven Swift grammar parses passed. Fifteen XCTest methods remain authored but unrun. Task remains blocked for Swift/Xcode and CS-013 device evidence; no source implementation or prior audit/handoff is changed.
+
+Validation: Metadata-only checked publishing reruns existing shared/repository/log/whitespace checks. These do not compile Swift or run XCTest; inspect current-head CI after push.
+
 ## 2026-10-17 — CS-016-CLAIM-BONDMILA-20261017: Request CS-016 bounded phone telemetry assignment
 
 Author: bondmila (AI-assisted) · Task: CS-016
