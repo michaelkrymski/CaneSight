@@ -1,0 +1,33 @@
+{
+  "task": "CS-019",
+  "date": "2026-10-18",
+  "accepted_main": "5dbb6adc6f7c8984e1beb624fc7c8fe1a4cdfafa",
+  "swift_environment": {
+    "image": "swift:6.0.3",
+    "digest": "sha256:f19aea3f9a889df5884e1186e60be74869613477d99656b598c115a4b91af8a1",
+    "platform": "Linux via local Docker Desktop",
+    "command": "swift test --jobs 1 -Xswiftc -strict-concurrency=complete -Xswiftc -warnings-as-errors"
+  },
+  "portable_xctest": {
+    "passed": 15,
+    "failed": 0
+  },
+  "source_sha256": {
+    "ios/CoarseLocation/Sources/CaneSightCoarseLocation/LocationContext.swift": "2cf7a6664927770a31f5b50f76121fa93cb2061c4337bf359a5ecde40dbbe9dc",
+    "ios/CoarseLocation/Sources/CaneSightCoreLocation/CoreLocationSource.swift": "55dcd7f400b55635f8cf1e90c93142efa000527681c60cdffc8046f7d7bc74bd",
+    "ios/CoarseLocation/Tests/CoarseLocationTests/LocationContextTests.swift": "3d0a68a6d4cca060d56e920f3dcb033f5fc76d89f23d3ced626d986f0cc381df"
+  },
+  "earlier_native_evidence": {
+    "pr": 69,
+    "head": "af55732f8fbe0423b8f66a4f73e584c5906802f8",
+    "evidence": "tests/ios/evidence/CS-013-apple-builds-20261018.json",
+    "pinned_location_commit": "5d311229a183b35176c10bdf33b6553c0c52fbfd",
+    "attribution": "Michael-authored draft PR; not rerun locally; native test bundles compiled, not executed"
+  },
+  "limits": [
+    "Core Location/UIKit source excluded in local Linux test",
+    "No current-head Apple SDK build or real GPS permission/lifecycle tests",
+    "No approved GPS transport contract, remote publisher or receiver",
+    "No Pi, camera, GPIO or motor access"
+  ]
+}
