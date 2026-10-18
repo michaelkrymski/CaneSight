@@ -1,4 +1,4 @@
-"""CS-024 local depth policy. Simulated outputs only; no crossing decision."""
+"""Local depth policy. Simulated outputs by default; no crossing decision."""
 from dataclasses import dataclass
 import json
 import re
@@ -53,11 +53,23 @@ class LocalPolicy:
     Side pulses mean an obstacle on that side, never a direction to move.
     Center takes precedence and requests both channels atomically.
     """
-    def __init__(self, gate, phone_id, scheduler, *, clock=clock_ms, watchdog=None, trace=None):
+    def __init__(self, gate, phone_id, scheduler, *, clock=clock_ms, watchdog=None, trace=None,
+                 enable_gpio=False):
         if not isinstance(gate, CaptureAgeGate) or not isinstance(scheduler, HapticScheduler):
             raise ValueError('Use the accepted gate and capped scheduler')
-        if not isinstance(scheduler.output, SimulatedOutput):
-            raise ValueError('This checkpoint supports simulated outputs only')
+        if type(enable_gpio) is not bool:
+            raise ValueError('Explicit local GPIO opt-in required')
+        if enable_gpio:
+            from .haptic_gpio import GPIOOutput
+            if (not isinstance(scheduler.output, GPIOOutput) or gate.mode != 'live'
+                    or phone_id is None or gate.drift is None or watchdog is None
+                    or scheduler.guard != watchdog.deadline):
+                raise ValueError('GPIO policy requires live phone binding, drift bound and attached watchdog')
+        elif not isinstance(scheduler.output, SimulatedOutput):
+            raise ValueError('Nonsimulated outputs require explicit GPIO policy opt-in')
+        self.output_mode = 'gpio' if enable_gpio else 'simulation'
+        if trace is not None and getattr(trace, 'output_mode', None) != self.output_mode:
+            raise ValueError('Policy trace must match the configured output mode')
         # Clock identity prevents mixing two monotonic epochs or units.
         if gate.clock_ms is not clock or scheduler.clock is not clock:
             raise ValueError('Gate, policy and scheduler must share one clock callable')
@@ -93,7 +105,7 @@ class LocalPolicy:
 
     def arm(self, enabled):
         if type(enabled) is not bool:
-            raise ValueError('Explicit simulation arming required')
+            raise ValueError('Explicit local policy arming required')
         with self.lock:
             self.armed = enabled and not self.closed and self.fault is None
             self._reset()
@@ -197,7 +209,7 @@ class LocalPolicy:
 
     def snapshot(self):
         with self.lock:
-            return dict(mode=self.gate.mode, output_mode='simulation', armed=self.armed,
+            return dict(mode=self.gate.mode, output_mode=self.output_mode, armed=self.armed,
                 health=dict(self.health), hazards=dict(self.hazards), fault=self.fault,
                 requests=self.requests, guidance='unavailable',
                 status='Obstacle evidence only; unknown is not clear. No crossing permission.')
@@ -212,7 +224,7 @@ class LocalPolicy:
 
     def _run(self):
         while not self._stop.wait(.02):
-            self.tick()  # Never performs camera, network, image or GPIO I/O.
+            self.tick()  # No camera/network/image work; local output writes must return promptly.
 
     def close(self):
         self._stop.set()

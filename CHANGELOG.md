@@ -1026,6 +1026,14 @@ Implement the remaining CS-023 output adapter using lazily imported GPIO Zero, e
 
 Validation: 15 fake-device adapter/CLI tests and 28 existing scheduler tests passed. Full edge discovery ran 220 tests successfully with 8 platform skips on Windows Python 3.14. Simulation CLI and bench help passed. Shared repository checks are run by publish_task before commit/push. No physical, electrical, or real-time acceptance claimed.
 
+## 2026-10-18 — CS-025-LIVE-OUTPUT-20261018: Prepare live phone receiver-to-GPIO policy wiring for CS-016 integration
+
+Author: gmarcialcalleja (AI-assisted) · Task: CS-025
+
+Add explicit GPIO policy mode to the existing uploader with reviewed pins/polarity and a trusted phone/drift binding. Wire accepted receiver, capture-age gate, policy, scheduler, independent watchdog and GPIO adapter on one clock. Stop outputs before slow cleanup, preserve simulated defaults, and label traces with actual configured output mode. Existing context consent/priority remains compatible. No change to backend, wire contract, automatic deployment or physical readiness requirements.
+
+Validation: 9 synthetic/fake-pin GPIO policy/uploader cases passed; both verified-TLS phone-to-policy tests passed including real GPIO adapter with fake devices. Full edge suite ran 230 tests, OK with 8 Windows/platform skips. No hardware was accessed. CS-016 real phone integration and measured mapping/power/clock acceptance remain pending.
+
 ## 2026-10-18 — CS-025-PROVENANCE-RECOVERY-ADITSANGANI-20261018: Recover exact Swift fixture input manifest bytes for PR #75
 
 Author: aditsangani (AI-assisted; PM-delegated PR fix) · Task: CS-025

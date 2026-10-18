@@ -20,10 +20,18 @@ from edge.receiver import VisionReceiver
 from edge.policy import LocalPolicy, PhoneBinding
 from edge.trace import DecisionTrace
 from edge.haptics import HapticScheduler
+from edge.haptic_gpio import GPIOOutput
+from edge.watchdog import PolicyWatchdog
 from edge.uploader import Sender, Latest
 
 class PolicyTransportTests(unittest.TestCase):
     def test_verified_native_phone_clock_depth_and_interruption_cancel(self):
+        self.run_transport(gpio=False)
+
+    def test_verified_native_phone_to_gpio_adapter_and_interruption_cancel(self):
+        self.run_transport(gpio=True)
+
+    def run_transport(self, *, gpio):
         operator=secrets.token_urlsafe(40)
         with tempfile.TemporaryDirectory() as folder, socket.socket() as listener:
             root=Path(folder);ca=trustme.CA();cert=ca.issue_cert('127.0.0.1')
@@ -32,7 +40,8 @@ class PolicyTransportTests(unittest.TestCase):
             listener.bind(('127.0.0.1',0));listener.listen(128);port=listener.getsockname()[1]
             server=uvicorn.Server(server_config(create_app(session_manager=SessionManager(operator)),port=port,ssl_keyfile=str(root/'key.pem'),ssl_certfile=str(root/'cert.pem')))
             thread=threading.Thread(target=server.run,kwargs={'sockets':[listener]},daemon=True);thread.start()
-            receiver=policy=scheduler=trace=None
+            receiver=policy=scheduler=trace=watchdog=output=None
+            pins=[]
             try:
                 end=time.monotonic()+5
                 while not server.started:
@@ -44,9 +53,20 @@ class PolicyTransportTests(unittest.TestCase):
                 session=dict(base_url=base,session_id=pair['session_id'],mode='live',**{k:pair['pi'][k] for k in ('source_id','boot_id','token')})
                 receiver=VisionReceiver(session,clock=clock,ca_file=str(root/'ca.pem'),phone_binding=PhoneBinding('phone','phone-boot',0))
                 Sender(Latest(),None,receiver=receiver)
-                scheduler=HapticScheduler(clock=clock).start()
-                trace=DecisionTrace(root/'private-policy.jsonl')
-                policy=LocalPolicy(receiver.gate,'phone',scheduler,clock=clock,trace=trace).start();policy.arm(True)
+                if gpio:
+                    class Pin:
+                        def __init__(self,pin,*,active_high,initial_value):
+                            self.value=initial_value;self.closed=False;pins.append(self)
+                        def on(self):self.value=True
+                        def off(self):self.value=False
+                        def close(self):self.closed=True
+                    output=GPIOOutput(left_bcm=17,right_bcm=27,active_high=True,device_factory=Pin)
+                scheduler=HapticScheduler(output,clock=clock)
+                watchdog=PolicyWatchdog(scheduler.trip,clock=clock)
+                scheduler.set_guard(watchdog.deadline);scheduler.start();watchdog.start()
+                trace=DecisionTrace(root/'private-policy.jsonl',output_mode='gpio' if gpio else 'simulation')
+                policy=LocalPolicy(receiver.gate,'phone',scheduler,clock=clock,trace=trace,
+                    watchdog=watchdog,enable_gpio=gpio).start();policy.arm(True)
                 async def phone():
                     async with connect('wss://127.0.0.1:'+str(port)+'/v1/telemetry',ssl=context,proxy=None,additional_headers={'Authorization':'Bearer '+pair['phone']['token']}) as peer:
                         receiver.start()
@@ -69,8 +89,11 @@ class PolicyTransportTests(unittest.TestCase):
                         self.assertEqual(receiver.phone_accepted,2)
                         self.assertEqual(policy.hazards['left'],'nearby')
                         self.assertFalse(scheduler.snapshot()['outputs']['right'])
+                        if gpio:
+                            self.assertTrue(pins[0].value)
+                            self.assertFalse(pins[1].value)
                         # A ready socket/vision cannot override explicit depth interruption.
-                        await peer.send(json.dumps(packet('heartbeat',2,state='unavailable')))
+                        await peer.send(json.dumps(packet('heartbeat',2,state='degraded')))
                         end=time.monotonic()+1
                         while policy.hazards['left']!='unknown':
                             self.assertLess(time.monotonic(),end);await asyncio.sleep(.005)
@@ -87,11 +110,15 @@ class PolicyTransportTests(unittest.TestCase):
                     for event in events:
                         self.assertEqual(event['mode'],'live')
                         self.assertEqual(event['input_kind'],'enrolled-session')
-                        self.assertEqual(event['output_mode'],'simulation')
+                        self.assertEqual(event['output_mode'],'gpio' if gpio else 'simulation')
                         self.assertLessEqual(event['capture_age_interval_ms'][1],500)
                         self.assertNotIn(pair['phone']['token'],json.dumps(event))
                         self.assertNotIn(pair['pi']['token'],json.dumps(event))
+                if watchdog:watchdog.close()
                 if scheduler:scheduler.close()
+                if output:
+                    self.assertTrue(output.close())
+                    self.assertTrue(all(pin.closed and not pin.value for pin in pins))
                 if receiver:receiver.stop()
                 server.should_exit=True;thread.join(5)
                 self.assertFalse(thread.is_alive())
