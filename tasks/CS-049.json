@@ -16,10 +16,13 @@
   "suggested_role": "QA",
   "estimate_hours": 0.5,
   "elapsed_window": "14–17",
-  "owner": null,
-  "status": "backlog",
-  "branch": null,
+  "owner": "aditsangani",
+  "status": "in_progress",
+  "branch": "claim/CS-049-aditsangani",
   "pr_url": null,
-  "evidence": [],
-  "blocker": ""
+  "evidence": [
+    "Assignment proposal only; implementation waits for Michael to merge this claim. Planned software-only GPS/Gemini denial, timeout, failure and late-result suppression verification within qa/ and tests/.",
+    "Assignment-only claim record: changes/20261018-cs-049-claim-aditsangani.json. Handoff preserved outside the PR because accepted claim governance allows only own task JSON, new fragments and generated changelog before merged ownership."
+  ],
+  "blocker": "Awaiting merged assignment before implementation. CS-019 and CS-040 retain integration/physical acceptance gaps; native iOS permission prompts and actual device/audio behavior will not be claimed by synthetic software tests."
 }
