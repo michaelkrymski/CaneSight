@@ -1,0 +1,9 @@
+{
+  "id": "CS-015-BACKGROUND-COUNTER-RESET-20261018",
+  "date": "2026-10-18",
+  "author": "michaelkrymski (AI-assisted)",
+  "task": "CS-015",
+  "summary": "Verify real nonzero target counter resets after phone backgrounding",
+  "details": "Add a separate operator-assisted physical UI check while retaining baseline camera smoke coverage. Real left target recorded through normal controls; confirmed Home Screen background, live depth recovery, reset counters and Stop-to-Unknown. No app/sensor thresholds changed.",
+  "validation": "Two separate physical iPhone UI tests passed (one each, zero failures/skips); 11 strict mapping cases and 212 shared tests passed. Earlier target-placement failures and free-signing installation limit documented. Shared checks rerun by publisher. No full-task Done, final mount, timing, accuracy or electrical claim."
+}

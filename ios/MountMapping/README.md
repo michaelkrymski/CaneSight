@@ -159,3 +159,19 @@ This explains the withheld reading, not the cause of low sensor confidence. The
 UI run does not seed/complete target counts, prove a nonzero counter background
 reset, or measure capture-age bounds. Physical box placement still needs an
 operator. See `tests/ios/evidence/CS-015-phone-ui-automation-20261018.json`.
+
+## Nonzero background-reset check
+
+`BenchUITests.testRecordedTargetResetsAfterBackground` is an operator-assisted
+physical test, separate from the original camera/background smoke test. Hold the
+phone upright with rear cameras forward. Place a broad target in the left third
+of the portrait viewport, at least 0.20 m nearer than both center and right; all
+three columns must have measured depth. The test waits up to 30 seconds for that
+existing separation rule, records one real left target through the normal UI,
+requires Left 1/3, backgrounds through the Home Screen, reopens, requires live
+depth and all three counters at zero, and finishes with Stop-to-Unknown.
+
+Select this test explicitly when the operator and target are ready. Missing target
+separation or a rejected recording fails the prerequisite and does not establish
+a counter reset. No synthetic depth, seeded counters or changed sensor thresholds
+are used. Result bundles contain private camera attachments and must remain local.
