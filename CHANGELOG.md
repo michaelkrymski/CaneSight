@@ -994,6 +994,14 @@ Synchronize accepted GPS checkpoint from main d1d8eb9 (GPS 94ccaaf plus CS-045 m
 
 Validation: 182 edge tests: 171 passed, 11 explicit draft narration/menu-audio dependency skips. Checked publisher runs shared validation, governance, changelog and whitespace checks; final CI inspected by exact head.
 
+## 2026-10-18 — CS-040-BLUETOOTH-ROUTE-20261018: Monitor configured Bluetooth route and pin optional speech playback
+
+Author: Mila (bondmila, AI-assisted) · Task: CS-040
+
+Add opt-in Linux PulseAudio/PipeWire and BlueZ read-only observations with bounded commands/output, start-anchored freshness and independent watchdog. Validate matching target, mute/volume and active stream binding; observed loss/fault latches and stops only owned paplay/eSpeak groups. Reconnection requires a fresh adapter/run. Add private-configuration documentation and sanitized read-only diagnostic; unconfigured audio behavior remains unchanged.
+
+Validation: 100 context cases and 205 edge cases passed on macOS/Python 3.13. Synthetic device/OS observations, real bounded helper and owned playback/generator fixture processes; no actual BlueZ/PulseAudio/paplay, Pi, Gemini, phone or audible acceptance. Shared checks run through checked publisher. Polling gaps, query budget and physical buffering limits documented.
+
 ## 2026-10-18 — CS-040-FIXED-MENU-AUDIO-BONDMILA-20261018: Implement fixed menu speech with readiness and stale-event preemption
 
 Author: bondmila (AI-assisted) · Task: CS-040

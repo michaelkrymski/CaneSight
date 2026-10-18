@@ -21,8 +21,8 @@
   "elapsed_window": "11\u201314",
   "owner": "bondmila",
   "status": "blocked",
-  "branch": "task/CS-040-gesture-dispatch",
-  "pr_url": "https://github.com/michaelkrymski/CaneSight/pull/77",
+  "branch": "task/CS-040-bluetooth-route",
+  "pr_url": "https://github.com/michaelkrymski/CaneSight/pull/80",
   "evidence": [
     "backend/context/narration.py: closed object vocabulary, uncertain <=20-word template, capture-based expiry, single-use request tickets, cancellation and hazard/unavailable priority.",
     "15 isolated context unit tests passed; no Gemini API, physical audio, VoiceOver, GPIO or end-to-end device acceptance claimed.",
@@ -41,7 +41,9 @@
     "Menu readiness follow-up: clock failure during the expiry tick inside update now returns unavailable immediately, not a previously computed ready value. Regression and all 79 context tests pass; no device test or behavior acceptance claim.",
     "Review preparation sync: merged accepted main d1d8eb9 (including GPS 94ccaaf and CS-045 measurement analysis), resolved generated CHANGELOG with renderer, no menu/speech implementation edits. 79 context tests passed. Combined verification and current-head CI inspected after publishing. Operator says new menu run completed; actual report still pending, no new physical pass claimed.",
     "Operator confirmed the requested new GPIO21 spoken-menu sequence was run and stated \"skip paste. it worked\". Recorded as broad operator-reported working behavior, not invented per-case JSON, timing, exact device-build or full acceptance. In-scope menu code is unchanged from prepared 04f660b. User authorized completing review preparation; ready-for-review is a software checkpoint, not task Done. See tests/context/evidence/CS-040-menu-operator-confirmation-20261018.json.",
-    "Completed-gesture request API and two bounded optional-speech channels prepared for the CS-027 production menu bridge. 83 context tests passed on macOS, including one-slot/cooldown/expiry/priority and independent speech-owner stop tests. See handoffs/CS-040-gesture-dispatch-20261018.md."
+    "Completed-gesture request API and two bounded optional-speech channels prepared for the CS-027 production menu bridge. 83 context tests passed on macOS, including one-slot/cooldown/expiry/priority and independent speech-owner stop tests. See handoffs/CS-040-gesture-dispatch-20261018.md.",
+    "Opt-in automatic Linux Bluetooth route monitor prepared: bounded read-only pactl/BlueZ probes, independent stale-cache watchdog and latched observed loss. Monitored eSpeak WAV is piped to explicitly selected paplay; active stream binding is checked. Loss stops owned playback/generation and reconnect cannot clear the latch. 100 context tests and 205 edge tests passed on macOS/Python 3.13 with synthetic OS evidence and real owned helper/audio fixture processes. No real Pi/BlueZ/paplay or audible verification. See handoffs/CS-040-bluetooth-route-20261018.md.",
+    "Software review PR #80. Checked publication passed all 212 shared/root tests and repository/governance/generated-log checks; exact-head CI inspected separately. No deployment or Pi audio test performed."
   ],
-  "blocker": "Software checkpoint prepared for independent review after operator menu confirmation. Full task acceptance still requires production menu/request integration, trusted automatic audio-route readiness, evaluated observation adapters and real paired phone/backend freshness. Broad operator confirmation has no supplied JSON, measured audible latency or detailed clarity assessment; retain prior negative/unknown evidence and PM physical-acceptance review."
+  "blocker": "Software route-monitoring checkpoint prepared for independent review. Controlled Pi validation of actual pactl/BlueZ/paplay format, query latency/CPU cost, audible cancellation/buffering and reconnect behavior remains pending. The poll monitor latches observed loss but may miss outages between observations. Evaluated scenario adapters, real paired phone/backend/provider freshness and full physical acceptance remain open; operator confirmation alone is not route monitoring."
 }
