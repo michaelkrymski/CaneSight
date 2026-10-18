@@ -794,6 +794,22 @@ Integrate accepted main; update README/task runtime and add source-linked readin
 
 Validation: 13 portable depth XCTest cases passed on Swift 6.0.3 WSL with strict concurrency and warnings as errors; 8 normalized source/fixture hashes match the Apple-tested pin. Attributed accepted evidence records 15 Mac tests and depth iOS SDK build, with later signed phone host checks. Shared repository/changelog/whitespace checks are required by checked publishing. No fresh Apple/device or hardware test claimed.
 
+## 2026-10-18 — CS-015-BACKGROUND-COUNTER-RESET-20261018: Verify real nonzero target counter resets after phone backgrounding
+
+Author: michaelkrymski (AI-assisted) · Task: CS-015
+
+Add a separate operator-assisted physical UI check while retaining baseline camera smoke coverage. Real left target recorded through normal controls; confirmed Home Screen background, live depth recovery, reset counters and Stop-to-Unknown. No app/sensor thresholds changed.
+
+Validation: Two separate physical iPhone UI tests passed (one each, zero failures/skips); 11 strict mapping cases and 212 shared tests passed. Earlier target-placement failures and free-signing installation limit documented. Shared checks rerun by publisher. No full-task Done, final mount, timing, accuracy or electrical claim.
+
+## 2026-10-18 — CS-015-BACKGROUND-PUBLISHING-BLOCKER-20261018: Record follow-up PR creation access blocker
+
+Author: michaelkrymski (AI-assisted) · Task: CS-015
+
+Checked task branch pushed successfully. GitHub connector PR creation returned 403 Resource not accessible by integration. No follow-up PR exists; task blocked pending PR creation, not a failed physical check.
+
+Validation: Physical tests, 11 mapping cases and 212 shared tests passed in preceding checkpoint. This runtime-only update is checked by publisher; no merge or PR CI claim.
+
 ## 2026-10-18 — CS-015-BENCH-INSTALL-20261018: Sign, install and launch portrait mapping bench for operator verification
 
 Author: michaelkrymski (AI-assisted) · Task: CS-015
@@ -841,6 +857,14 @@ Author: michaelkrymski (AI-assisted) · Task: CS-015
 Use native ARKit display transform with exact paired depth/confidence rotation and visible ROI, preserving original source time and the pinned CS-014 processor. Add a separate bounded portrait bench, three distinct observations per physical side and fail-closed geometry/lifecycle resets. No #69 or teammate source/task edited; no network/GPS/actuation.
 
 Validation: 11 XCTest cases pass with strict concurrency and warnings as errors. New app/core/native iOS SDK build passes. Physical mapping and signed device bench results remain pending; task blocked/PR draft. Shared checks run through checked publishing.
+
+## 2026-10-18 — CS-015-TERMINAL-PR-PUBLISHING-20261018: Open physical background-reset follow-up PR through terminal Git authentication
+
+Author: michaelkrymski (AI-assisted) · Task: CS-015
+
+User authorized terminal publishing. Existing configured Git credential authenticated as michaelkrymski; GitHub API created PR #88. Clear prior connector-only creation blocker and link actual PR; no credentials persisted or disclosed.
+
+Validation: Runtime-only publishing checkpoint; prior physical baseline/nonzero-counter tests, 11 mapping cases and 212 shared tests retained. Checked publishing reruns repository checks. Independent review remains required; no merge or Done claim.
 
 ## 2026-10-18 — CS-016-PR81-MAIN-REFRESH-20261018: Refresh ownership-transfer PR #81 with accepted main
 
@@ -1034,6 +1058,46 @@ Synchronize accepted GPS checkpoint from main d1d8eb9 (GPS 94ccaaf plus CS-045 m
 
 Validation: 182 edge tests: 171 passed, 11 explicit draft narration/menu-audio dependency skips. Checked publisher runs shared validation, governance, changelog and whitespace checks; final CI inspected by exact head.
 
+## 2026-10-18 — CS-037-CHANGELOG-CONFLICT-ADITSANGANI-20261018: Resolve PR79 generated changelog merge conflict
+
+Author: aditsangani (AI-assisted) · Task: CS-037
+
+Integrate accepted main 3baf4de into the existing CS-037 branch and resolve only CHANGELOG.md by rendering all immutable fragments. No scenario implementation, tests, acceptance, owner or protected paths changed. Full CS-037 live/model/device acceptance remains blocked; this clears the PR integration obstacle only.
+
+Validation: 80 explicit vision tests passed with no failures/skips after merge. No unmerged paths remain; source/test/QA/task bytes unchanged before own handoff/fragment. Checked publishing reruns shared/repository/governance/changelog/whitespace checks and current-head CI is inspected after push.
+
+## 2026-10-18 — CS-037-INTEGRATION-REFRESH-ADITSANGANI-20261018: Refresh PR79 against accepted Pi evidence merge
+
+Author: aditsangani (AI-assisted) · Task: CS-037
+
+Merge accepted main 46b65c3 after concurrent PR83 landed during CI. Only accepted task/evidence/log records arrive; all scenario source and tests remain unchanged. Render union log; preserve history and full live-acceptance blocker.
+
+Validation: Conflict-resolution head d2d7c43 had green repository/governance/security checks, all 80 vision tests passed, and 212 shared tests ran with 201 passed and 11 platform skips. The incoming change contains no implementation edits; checked publication reruns required shared checks and current-head CI is inspected.
+
+## 2026-10-18 — CS-037-MAIN-SYNC-ADITSANGANI-20261018: Integrate accepted main into CS-037 scenario adapter review
+
+Author: aditsangani (AI-assisted) · Task: CS-037
+
+Merge accepted CS-018 main update without editing its files; render union changelog. Scenario implementation, tests, QA source hashes and full-acceptance blocker remain unchanged.
+
+Validation: Prior exact CS-037 head e872dd4 passed repository/governance/security checks and 80 explicit vision tests. Integration adds only accepted iOS files; checked publishing reruns required shared/repository/changelog/governance checks and current-head CI is inspected after push.
+
+## 2026-10-18 — CS-037-SCENARIO-ADAPTERS-ADITSANGANI-20261018: Add isolated synthetic scenario replay adapters and artifact identity inspection
+
+Author: aditsangani (AI-assisted) · Task: CS-037
+
+Explicit pedestrian-signal, pedestrian-yellow-beacon and unsignalized-street selection; preserve schematic pixel parser. Add bounded annotated beacon alternation and vehicle image-displacement prototypes, source/epoch/age/token gates and local custom-artifact hash/provenance checks without loading. Live capabilities remain unavailable; no production/wire/menu or shared-contract change.
+
+Validation: 80 vision tests passed with 27 new scenario/artifact cases; no skips or failures. Original parser/evaluation cases retained. Checked publishing additionally runs repository/shared/changelog/governance/whitespace checks. No model training, real-scene accuracy, night or physical acceptance claimed.
+
+## 2026-10-18 — CS-037-SCENARIO-PR-LINK-ADITSANGANI-20261018: Record CS-037 scenario-adapter follow-up PR #79
+
+Author: aditsangani (AI-assisted) · Task: CS-037
+
+Link the published software checkpoint and actual checks in task runtime evidence. Full task remains blocked; no implementation, scope or ownership changes.
+
+Validation: Before first publication, all 80 vision tests passed and shared suite ran 195 with 188 passed, 7 platform skips, zero failures; repository/governance/changelog/whitespace checks passed. Current-head CI inspected after metadata publication.
+
 ## 2026-10-18 — CS-040-BLUETOOTH-ROUTE-20261018: Monitor configured Bluetooth route and pin optional speech playback
 
 Author: Mila (bondmila, AI-assisted) · Task: CS-040
@@ -1169,4 +1233,12 @@ Author: Adit (aditsangani, AI-assisted) · Task: CS-049
 Assignment-only proposal. Preserve task requirements, dependencies and allowed paths. After merged ownership, prepare synthetic software tests that failures cannot alter motor/permission policy and late context is suppressed. No implementation, live API, device, audio or hardware claims.
 
 Validation: Confirmed accepted main has no owner and no competing open CS-049 claim. Verified static task fields remain identical. Repository and checked-publisher checks run before publication; no task implementation tests exist in this assignment-only diff.
+
+## 2026-10-18 — CS-049-DENIAL-FAILURE-ADITSANGANI-20261018: Verify optional context failures remain isolated from motor and freshness policy
+
+Author: Adit (aditsangani, AI-assisted) · Task: CS-049
+
+Add ten synthetic cross-component isolation cases, a fixed 43-case QA runner with source-pinned actual results, portable GPS rerun evidence and acceptance boundary documentation. Preserve incomplete reporter attempt. No production component, GPS contract, shared protocol, native host or protected workflow changes.
+
+Validation: 43 Python campaign cases and 15 portable GPS Swift tests passed with no skips/failures. Strict Swift concurrency complete and warnings as errors. Checked publishing runs current repository checks. Native device/permission/provider/transport/audio acceptance remains explicitly unverified; task is not Done.
 
