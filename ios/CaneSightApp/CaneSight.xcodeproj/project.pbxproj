@@ -56,7 +56,7 @@
 		};
 		"EB814BE3CA3B78C0734C5605" = {
 			"isa" = "PBXGroup";
-			"children" = ("CAF85B0888D78F1F83771A07", "4EDC8BFAFC6BD936B849F38C", );
+			"children" = ("CAF85B0888D78F1F83771A07", "4EDC8BFAFC6BD936B849F38C", "F1E29A4B751E043A1BC240DE", );
 			"sourceTree" = "<group>";
 		};
 		"3732091E2CFE1C767411D1E5" = {
@@ -203,6 +203,7 @@
 				"LD_RUNPATH_SEARCH_PATHS" = ("$(inherited)", "@executable_path/Frameworks", );
 				"SWIFT_EMIT_LOC_STRINGS" = "YES";
 			};
+			"baseConfigurationReference" = "F1E29A4B751E043A1BC240DE";
 		};
 		"2D49EBE4C1EF4247FC7BA12F" = {
 			"isa" = "XCBuildConfiguration";
@@ -238,6 +239,7 @@
 				"LD_RUNPATH_SEARCH_PATHS" = ("$(inherited)", "@executable_path/Frameworks", );
 				"SWIFT_EMIT_LOC_STRINGS" = "YES";
 			};
+			"baseConfigurationReference" = "F1E29A4B751E043A1BC240DE";
 		};
 		"9879E227F5AD614B3D33074F" = {
 			"isa" = "XCConfigurationList";
@@ -285,6 +287,12 @@
 			"projectDirPath" = "";
 			"projectRoot" = "";
 			"targets" = ("C1E9827DB735CA9BAA54A540", );
+		};
+		"F1E29A4B751E043A1BC240DE" = {
+			"isa" = "PBXFileReference";
+			"lastKnownFileType" = "text.xcconfig";
+			"path" = "Signing.xcconfig";
+			"sourceTree" = "<group>";
 		};
 	};
 	"rootObject" = "985959785319747668373CC6";

@@ -43,6 +43,8 @@ DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer swift test \
 2. Sign in to Xcode Settings → Accounts. In the CaneSight target's Signing &
    Capabilities select the intended development team. Signing credentials and
    profiles remain outside Git. The project intentionally contains no team ID.
+   This Mac retains the selected team in ignored `Signing.local.xcconfig`, loaded
+   by `Signing.xcconfig`; shared project settings remain portable.
 3. Select the physical phone and Run. Approve the development-app trust prompt
    on the phone if iOS requires it. Tap Start camera and grant camera permission.
 4. Record whether scene depth is supported, whether new local depth appears,
@@ -91,3 +93,12 @@ and no crossing permission is produced.
   live WSS/Pi and GPS behavior remain unverified. No full task is marked Done.
 
 Sanitized evidence: `tests/ios/evidence/CS-013-apple-builds-20261018.json`.
+
+## Device installation follow-up
+
+Developer Mode was subsequently enabled and Personal Team provisioning/signing
+succeeded. `codesign --verify --deep --strict` passed, and the signed app installed
+on the paired phone. iOS refused first launch pending explicit developer-app
+trust. The operator was asked to trust the development profile in Settings →
+General → VPN & Device Management, then open the app and report scene-depth
+support and live preview. No runtime result is inferred from installation.

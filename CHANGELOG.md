@@ -642,6 +642,14 @@ Assignment runtime only. After merged ownership, prepare bounded validation/stat
 
 Validation: Verified accepted task unclaimed and no competing open claim. Checked publishing runs repository/shared/changelog/whitespace checks. No measurement implementation or real-device evidence included.
 
+## 2026-10-18 — CS-013-DEVICE-INSTALL-20261018: Sign and install iPhone host while keeping team configuration local
+
+Author: michaelkrymski (AI-assisted) · Task: CS-013
+
+Developer Mode enabled and Apple account sign-in completed by the user. Personal Team signed build and physical phone installation succeeded. Optional ignored signing configuration keeps account/team metadata out of shared settings. First launch remains gated by explicit developer-app trust; no LiDAR/runtime completion is claimed.
+
+Validation: Signed iOS build and strict deep codesign verification passed; devicectl installation succeeded on iPhone 17 Pro Max / iOS 26.6.2. Published implementation checkpoint 3e9e781 had green repository/governance checks. Signing-only follow-up receives SDK build and checked publishing. Prior 64 Swift and four backend conformance tests are unchanged.
+
 ## 2026-10-18 — CS-013-PM-CLAIM-20261018: Assign iPhone app build and support verification to Michael
 
 Author: michaelkrymski (AI-assisted) · Task: CS-013
