@@ -1,0 +1,9 @@
+{
+  "id": "CS-016-depth-pair-prep-20261018",
+  "date": "2026-10-18",
+  "author": "michaelkrymski",
+  "task": "CS-016",
+  "summary": "Prepare bounded real-depth phone and Pi diagnostics",
+  "details": "Add opt-in hosted real-depth pair test with fixed private clock origin, pause/reconnect and bounded Pi depth/clock observer. Real capture-age eligibility remains unknown; normal app streaming stays off.",
+  "validation": "Signed physical iOS build and two device tests passed with zero skips; 41 local real frames, no network. Six synthetic Pi observer tests passed. Actual paired depth run pending."
+}

@@ -235,15 +235,21 @@ def _main(report):
     parser.add_argument('--session-file', type=Path)
     parser.add_argument('--ca-file')
     parser.add_argument('--receive-vision', action='store_true',
-                        help='Receive native WSS vision in this same process; no motor outputs')
-    parser.add_argument('--simulate-policy', action='store_true',
+                        help='Receive native WSS observations in this same process')
+    policy_mode = parser.add_mutually_exclusive_group()
+    policy_mode.add_argument('--simulate-policy', action='store_true',
                         help='Arm local policy with simulated outputs only; requires receiver')
+    policy_mode.add_argument('--gpio-policy', action='store_true',
+                        help='Explicitly use GPIO motor outputs with the live phone policy')
+    parser.add_argument('--motor-left-bcm', type=int)
+    parser.add_argument('--motor-right-bcm', type=int)
+    parser.add_argument('--motor-active-high', action='store_true')
     parser.add_argument('--phone-binding-file', type=Path,
                         help='Trusted phone source/boot/drift file; never a phone/operator token')
-    parser.add_argument('--policy-trace',type=Path,help='New private metadata JSONL outside checkout; simulated policy only')
+    parser.add_argument('--policy-trace',type=Path,help='New private policy metadata JSONL outside checkout')
     context_source = parser.add_mutually_exclusive_group()
     context_source.add_argument('--context-gpio21', action='store_true',
-                        help='Opt in to issue #68 active-high BCM21 input, no internal pull; no motor GPIO')
+                        help='Opt in to active-high BCM21 button input, no internal pull')
     context_source.add_argument('--context-stdin', action='store_true',
                         help='Manual terminal context button; requires verified primary-source policy')
     parser.add_argument('--context-consent', action='store_true',
@@ -257,19 +263,35 @@ def _main(report):
     parser.add_argument('--context-menu-audio-confirmed', action='store_true',
                         help='Operator confirms current output for a controlled run; no automatic route monitor')
     args = parser.parse_args()
+    policy_enabled = args.simulate_policy or args.gpio_policy
+    binding = None
     if args.frames < 0 or not ID.fullmatch(args.source_id):
         parser.error('Use nonnegative frames and a protocol source ID')
     if not args.capture_only and not args.session_file:
         parser.error('Supply --session-file or --capture-only')
     if args.receive_vision and args.capture_only:
         parser.error('--receive-vision requires a live enrolled upload session')
-    if (args.simulate_policy or args.phone_binding_file) and not args.receive_vision:
+    if (policy_enabled or args.phone_binding_file) and not args.receive_vision:
         parser.error('Policy/phone binding requires --receive-vision')
-    if args.policy_trace and not args.simulate_policy:
-        parser.error('--policy-trace requires --simulate-policy')
+    if args.gpio_policy:
+        from .haptic_gpio import GPIOOutput
+        from .policy import PhoneBinding
+        try:
+            GPIOOutput.validate_configuration(args.motor_left_bcm, args.motor_right_bcm, args.motor_active_high)
+            if args.phone_binding_file is None:
+                raise ValueError()
+            binding = PhoneBinding.load(args.phone_binding_file)
+            if binding.relative_drift_ppm is None:
+                raise ValueError()
+        except (OSError, ValueError, TypeError, KeyError):
+            parser.error('GPIO policy requires distinct reviewed BCM pins, --motor-active-high and a phone binding with measured drift')
+    elif args.motor_left_bcm is not None or args.motor_right_bcm is not None or args.motor_active_high:
+        parser.error('Motor pin/polarity options require --gpio-policy')
+    if args.policy_trace and not policy_enabled:
+        parser.error('--policy-trace requires a policy output mode')
     context_enabled = args.context_stdin or args.context_gpio21
-    if context_enabled and not (args.context_consent and args.simulate_policy and args.phone_binding_file):
-        parser.error('Context input requires --context-consent, --simulate-policy and --phone-binding-file')
+    if context_enabled and not (args.context_consent and policy_enabled and args.phone_binding_file):
+        parser.error('Context input requires --context-consent, a policy output mode and --phone-binding-file')
     if args.context_consent and not context_enabled:
         parser.error('--context-consent requires a context input source')
     if args.context_audio and not context_enabled:
@@ -286,6 +308,7 @@ def _main(report):
     session_id = 'capture-only'
     latest, sender, worker, receiver = Latest(), None, None, None
     policy, scheduler, watchdog, trace = None, None, None, None
+    motor_output = None
     context_input = context_gpio = None
     if not args.capture_only:
         print('Enroll this identity; waiting up to 300s for matching private session file.', flush=True)
@@ -305,7 +328,7 @@ def _main(report):
             from .receiver import VisionReceiver
             if args.phone_binding_file:
                 from .policy import PhoneBinding
-                binding = PhoneBinding.load(args.phone_binding_file)
+                binding = binding or PhoneBinding.load(args.phone_binding_file)
                 receiver = VisionReceiver(session,ca_file=args.ca_file,phone_binding=binding)
             else:
                 receiver = VisionReceiver(session, ca_file=args.ca_file)
@@ -316,20 +339,24 @@ def _main(report):
         worker.start()
     camera = None
     try:
-        if args.simulate_policy:
+        if policy_enabled:
             from .haptics import HapticScheduler, SimulatedOutput
             from .policy import LocalPolicy
             from .watchdog import PolicyWatchdog
-            scheduler = HapticScheduler(SimulatedOutput(),clock=clock_ms).start()
+            if args.gpio_policy:
+                motor_output = GPIOOutput(left_bcm=args.motor_left_bcm,
+                    right_bcm=args.motor_right_bcm, active_high=args.motor_active_high)
+            scheduler = HapticScheduler(motor_output if motor_output is not None else SimulatedOutput(),clock=clock_ms)
             watchdog = PolicyWatchdog(scheduler.trip,clock=clock_ms)
             scheduler.set_guard(watchdog.deadline)
+            scheduler.start()
             watchdog.start()
             if args.policy_trace:
                 from .trace import DecisionTrace
-                trace = DecisionTrace(args.policy_trace)
+                trace = DecisionTrace(args.policy_trace, output_mode='gpio' if args.gpio_policy else 'simulation')
             policy = LocalPolicy(receiver.gate,
                 receiver.phone_binding.source_id if receiver.phone_binding else None,
-                scheduler,clock=clock_ms,watchdog=watchdog,trace=trace)
+                scheduler,clock=clock_ms,watchdog=watchdog,trace=trace,enable_gpio=args.gpio_policy)
             policy.arm(True)
             policy.start()
         if context_enabled:
@@ -347,8 +374,8 @@ def _main(report):
                 context_input.start(gpio_input=context_gpio)
             else:
                 context_input.start(sys.stdin)
-            print(('GPIO21 context input; release before pressing; second press cancels. No motor GPIO. '
-                   if args.context_gpio21 else 'Manual context input: release / press / cancel / off. No GPIO. ')
+            print(('GPIO21 context input; release before pressing; second press cancels. '
+                   if args.context_gpio21 else 'Manual context input: release / press / cancel / off. ')
                   + ('Pi audio enabled; delivery unverified. ' if args.context_audio else 'Text output only. ')
                   + ('Menu enabled: idle short release requests; 3s hold opens menu. '
                      'Scenarios unavailable. Use cancel/off; terminal audio-off latches route loss. '
@@ -395,6 +422,16 @@ def _main(report):
                 print(f'Frame {seq} dropped: {exc}', flush=True)
             time.sleep(max(0, 1 - (time.monotonic() - started)))
     finally:
+        # Stop local actuation before potentially blocking audio, trace, network
+        # or camera cleanup. Attempt every stop even if one cleanup raises.
+        stop_failed = False
+        for component in (policy, watchdog, scheduler, motor_output):
+            if component is not None:
+                try:
+                    if component.close() is False:
+                        stop_failed = True
+                except Exception:
+                    stop_failed = True
         if context_input:
             context_input.close()
             print('Context ' + json.dumps(context_input.snapshot(), sort_keys=True))
@@ -405,14 +442,8 @@ def _main(report):
             except Exception:
                 report.data['input_cleanup_failed'] = True
                 print('GPIO21 cleanup unavailable; inspect device')
-        if policy:
-            policy.close()
         if trace:
             print('Policy trace ' + json.dumps(trace.close(),sort_keys=True))
-        if watchdog:
-            watchdog.close()
-        if scheduler:
-            scheduler.close()
         try:
             if receiver:
                 receiver.set_camera_ready(False)
@@ -429,7 +460,10 @@ def _main(report):
                     print(f'Vision accepted={receiver.accepted}; rejected={receiver.rejected}; expired={receiver.expired}; unavailable on exit')
         if policy:
             print('Policy ' + json.dumps(policy.snapshot(),sort_keys=True))
-            print('Simulated outputs off=' + str(all(value is False for value in scheduler.snapshot()['outputs'].values())) + '; gpio_used=false')
+            if not args.gpio_policy:
+                print('Simulated outputs off=' + str(all(value is False for value in scheduler.snapshot()['outputs'].values())) + '; gpio_used=false')
+            else:
+                print('Motor GPIO cleanup requested; physical off state unverified; gpio_used=true')
         if receiver and receiver.phone_binding:
             print(f'Depth accepted={receiver.phone_accepted}; rejected={receiver.phone_rejected}; phone binding configured; physical readiness unverified')
         if sender:
@@ -438,6 +472,8 @@ def _main(report):
                 raise SystemExit(sender.error)
         if receiver and receiver.error:
             raise SystemExit(receiver.error)
+        if stop_failed:
+            raise StopSession('Local output cleanup unavailable; inspect physical off state')
 
 
 def main():

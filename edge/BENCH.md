@@ -79,7 +79,8 @@ chat and issue trackers. Share only sanitized counts/results as needed.
   source/boot enrollment and measured joint drift/calibration uncertainty.
 - CS-015 verified phone orientation/mount and physical left/center/right mapping.
 - CS-010 selected-rail current, voltage/thermal and camera-load evidence, plus
-  required driver/diode/kill verification. No GPIO adapter is provided here.
+  required driver/diode/kill verification. The opt-in CS-023 GPIO adapter and
+  CS-025 policy wiring are described in POLICY.md; no physical run is claimed.
 - Coordinated real-phone/Pi test on the exact new commit; record repeated stimuli,
   capture-age intervals, failures and actual output mode. Physical onset requires
   separate measured evidence, not these software decision timestamps.
@@ -99,3 +100,18 @@ Tests cover repeated mapping, original age bounds and expiry, private/new output
 closed fields, invalid numbers, bounded blocked-disk behavior and write failure.
 The native TLS synthetic-phone relay test also verifies capture-age tracing and
 credential exclusion. This is automated software evidence, not real-phone data.
+
+## CS-025 configured GPIO path
+
+The same uploader now has an explicit `--gpio-policy` alternative to
+`--simulate-policy`. It connects the existing native receiver, final-consumer
+capture-age gate, local policy, independent watchdog and GPIO adapter in one
+process. Session/source/boot/sequence and the phone wire contract are unchanged;
+CS-016 does not need a separate backend protocol for this output path.
+
+Follow POLICY.md for the reviewed pin/binding configuration. GPIO trace records
+and summaries say `output_mode: gpio`, while existing synthetic runs retain
+`output_mode: simulation`. Both record software command decisions rather than
+measured motor onset. A GPIO label identifies the configured adapter, not proof
+of actual voltage, motion, calibration or electrical readiness. The new automated
+GPIO tests inject fake pin devices and synthetic phone messages; none opens GPIO.
