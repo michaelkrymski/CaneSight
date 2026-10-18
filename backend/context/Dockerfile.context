@@ -1,0 +1,10 @@
+# Build from repository root over the reviewed native/dashboard/logging image.
+ARG BASE_IMAGE
+FROM ${BASE_IMAGE}
+ARG BASE_IMAGE
+# Refuse mutable parent tags. Real model/configuration remain operator mounts.
+RUN python -c "import os,re,sys; sys.exit(0 if re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9./:_-]*@sha256:[0-9a-f]{64}', os.environ['BASE_IMAGE']) else 1)"
+COPY backend/context/__init__.py backend/context/provider.py backend/context/service.py backend/context/server.py backend/context/deployment.py /opt/canesight/backend/context/
+ENV CANESIGHT_INTERNAL_PORT=18083
+USER 10001:10001
+CMD ["python", "-m", "backend.context.deployment", "--host", "127.0.0.1", "--port", "18083", "--forwarded-allow-ips", "127.0.0.1"]
