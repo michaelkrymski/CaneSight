@@ -57,6 +57,13 @@ Author: Gavin (gmarcialcalleja) · Task: CS-017
 Propose gmarcialcalleja as owner of CS-017, preserving its requirements, CS-016 dependency and ios/tests-ios scope. Implementation waits for Michael to merge this claim. After assignment, software implementation and fixture tests can proceed while Xcode build, ARKit integration and physical-device verification remain explicitly pending. CS-016 is not yet implemented; no iOS, Pi or hardware acceptance is claimed.
 
 Validation: Claim metadata only. Checked publishing runs repository structure validation, shared tests, generated changelog validation and staged whitespace checks; actual results are recorded in the claim PR. No Xcode, Swift, ARKit or device tests claimed.
+## 2026-10-17 — CS-014-CLAIM-ADITSANGANI-20261017: Request CS-014 assignment for depth-sector software preparation
+
+Author: aditsangani (AI-assisted) · Task: CS-014
+
+Claim only, from main 18884a5914e8f0476a2877a9c63ff37a24291306. Human requests coding confidence-aware depth sectors now and deferring Xcode/Mac/device verification. Scope is CS-014 numerical filtering, confidence/coverage, percentile aggregation, unknown values, source timestamps and synthetic test inputs within ios/ and tests/ios/. CS-013 remains an unchanged prerequisite; physical support/signing, ARKit build, orientation/mount acceptance and real-device accuracy are not claimed. Implementation waits for Michael to merge this assignment.
+
+Validation: Checked publishing runs repository validation, shared unit tests, generated changelog consistency and whitespace checks. No Swift build, Xcode, iOS simulator or device tests are claimed by this assignment.
 
 ## 2026-10-17 — CS-021-CS-022-MICHAEL-CLAIM-20261017: Assign Pi capture and latest-only uploader work to Michael
 
