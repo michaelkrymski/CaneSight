@@ -1154,6 +1154,14 @@ Adopt accepted CS-039 PR #94 composition rather than introducing a second factor
 
 Validation: Three packaging/build/Compose tests passed; all six accepted context deployment-composition tests passed with fake provider/writer/model. Final application image b9a4679 built on Vultr with successful runtime imports over the exact vision image. No container started or public service changed. Full backend/shared results recorded in handoff.
 
+## 2026-10-18 — CS-033-BOND-ACTIVATION-GMARCIALCALLEJA-20261018: Activate reviewed persistent-bond backend with preserved native deployment
+
+Author: Gavin (gmarcialcalleja) · Task: CS-033
+
+After verified Michael current-head approval and merged PR96 plus explicit user GO, activated exact tested additive image and persistent read-only registry. Existing runtime environment, command, model mounts and proxy preserved; private enrollment not regenerated. Client rollout and phone depth/clock integration remain separate.
+
+Validation: Public health200 and missing bond authorization401. Full verified HTTPS/WSS manual session/enrollment/relay/expiry/reconnect probe passed with native readiness200 while enrolled. Five generated YOLO results preserve original lineage and role/session isolation (median119.121ms, max/p95160.44ms). No actual bonded phone/Pi connection, Apple build, scene accuracy or motor acceptance claimed.
+
 ## 2026-10-18 — CS-033-COMPOSE-FIXTURE-PORTABILITY-20261018: Make application Compose verification portable to CI tooling
 
 Author: gmarcialcalleja (AI-assisted) · Task: CS-033
