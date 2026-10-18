@@ -690,6 +690,14 @@ Assignment runtime only. After merged ownership, prepare bounded validation/stat
 
 Validation: Verified accepted task unclaimed and no competing open claim. Checked publishing runs repository/shared/changelog/whitespace checks. No measurement implementation or real-device evidence included.
 
+## 2026-10-18 — CS-027-GPIO21-INPUT-BONDMILA-20261018: Connect reported GPIO21 button to gated context runtime
+
+Author: bondmila (AI-assisted) · Task: CS-027
+
+Use issue #68 active-high BCM21/no-pull wiring in explicit input-only opt-in. Preserve release-to-arm debounce, single request, cooldown and narration cancellation; fail closed on read error or stalled input. Add private raw input observation command and truthful input-use metadata; no motor GPIO or protected pin-map change.
+
+Validation: 164 combined edge tests pass with draft CS-040 modules, simulated GPIO and speech. Covers startup-held input, pending and speaking cancellation, stalled/failed reads, input cleanup, mutually exclusive CLI modes and private observer reports. No real GPIO or audio activated locally; checked publisher runs shared checks.
+
 ## 2026-10-18 — CS-027-PRIVATE-RUN-REPORT-BONDMILA-20261018: Save private context run diagnostics for Pi verification
 
 Author: bondmila (AI-assisted) · Task: CS-027

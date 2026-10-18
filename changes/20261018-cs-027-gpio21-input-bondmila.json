@@ -1,0 +1,9 @@
+{
+  "id": "CS-027-GPIO21-INPUT-BONDMILA-20261018",
+  "date": "2026-10-18",
+  "author": "bondmila (AI-assisted)",
+  "task": "CS-027",
+  "summary": "Connect reported GPIO21 button to gated context runtime",
+  "details": "Use issue #68 active-high BCM21/no-pull wiring in explicit input-only opt-in. Preserve release-to-arm debounce, single request, cooldown and narration cancellation; fail closed on read error or stalled input. Add private raw input observation command and truthful input-use metadata; no motor GPIO or protected pin-map change.",
+  "validation": "164 combined edge tests pass with draft CS-040 modules, simulated GPIO and speech. Covers startup-held input, pending and speaking cancellation, stalled/failed reads, input cleanup, mutually exclusive CLI modes and private observer reports. No real GPIO or audio activated locally; checked publisher runs shared checks."
+}
