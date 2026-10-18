@@ -227,7 +227,7 @@ def load_session(path, source_id, boot_id):
     return session
 
 
-def main():
+def _main(report):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--capture-only', action='store_true')
     parser.add_argument('--frames', type=int, default=10, help='0 runs until Ctrl+C')
@@ -245,6 +245,8 @@ def main():
                         help='Manual terminal context button; requires verified primary-source policy')
     parser.add_argument('--context-consent', action='store_true',
                         help='Explicit consent to send requested scene frames to the context provider')
+    parser.add_argument('--context-report', type=Path,
+                        help='New private metadata-only JSON outside the checkout; requires --context-stdin')
     parser.add_argument('--context-audio', action='store_true',
                         help='Opt in to Pi narration through the selected system audio output; requires --context-stdin')
     args = parser.parse_args()
@@ -264,6 +266,9 @@ def main():
         parser.error('--context-consent requires --context-stdin')
     if args.context_audio and not args.context_stdin:
         parser.error('--context-audio requires --context-stdin')
+    if args.context_report and not args.context_stdin:
+        parser.error('--context-report requires --context-stdin')
+    report.open(args.context_report, audio=args.context_audio)
     boot_id = uuid.uuid4().hex
     print(f'Source: {args.source_id}; boot: {boot_id}', flush=True)
     session_id = 'capture-only'
@@ -370,6 +375,7 @@ def main():
         if context_input:
             context_input.close()
             print('Context ' + json.dumps(context_input.snapshot(), sort_keys=True))
+            report.capture(context_input)
         if policy:
             policy.close()
         if trace:
@@ -403,6 +409,19 @@ def main():
                 raise SystemExit(sender.error)
         if receiver and receiver.error:
             raise SystemExit(receiver.error)
+
+
+def main():
+    from .context_report import ContextRunReport
+    report = ContextRunReport()
+    try:
+        _main(report)
+        report.data.update(complete=True, outcome='finished')
+    except KeyboardInterrupt:
+        report.data['outcome'] = 'interrupted'
+        raise
+    finally:
+        report.finish()
 
 
 if __name__ == '__main__':

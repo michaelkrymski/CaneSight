@@ -650,3 +650,11 @@ Assignment runtime only. After merged ownership, prepare bounded validation/stat
 
 Validation: Verified accepted task unclaimed and no competing open claim. Checked publishing runs repository/shared/changelog/whitespace checks. No measurement implementation or real-device evidence included.
 
+## 2026-10-18 — CS-027-PRIVATE-RUN-REPORT-BONDMILA-20261018: Save private context run diagnostics for Pi verification
+
+Author: bondmila (AI-assisted) · Task: CS-027
+
+Add optional exclusive metadata-only run report and allowlisted terminal status with sole narration-button counters when available. Preserve original readiness, consent and audio gates; do not infer physical delivery or phone/backend acceptance.
+
+Validation: 152 edge tests pass with updated CS-040 modules via external overlay, no skips. Report tests cover allowlisting, private/exclusive files, symlink refusal, startup failure, normal completion and status without a press. Checked publisher runs shared checks; actual Pi integration pending.
+

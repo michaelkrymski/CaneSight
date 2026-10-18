@@ -5,6 +5,7 @@ context. Each worker owns its locks; never hold the frame lock across button,
 policy, network, input or output calls.
 """
 import copy
+import json
 import threading
 
 from .buttons import ContextButton
@@ -186,6 +187,10 @@ class ManualContext:
         with self._lock:
             if self._closed or self._input_closed:
                 return False
+        if command == 'status':
+            from .context_report import bounded_status
+            self._emit('Context status ' + json.dumps(bounded_status(self.snapshot()), sort_keys=True))
+            return True
         if command in ('press', 'release'):
             with self._lock:
                 self._level = command == 'press'
@@ -262,6 +267,12 @@ class ManualContext:
                       'consent': self._consent, 'input_closed': self._input_closed,
                       'closed': self._closed, 'fault': self._fault, 'shown': self._shown}
         result['button'] = self.button.snapshot() if self.button is not None else None
+        if self._narration is not None:
+            snapshot = getattr(self._narration, 'snapshot', None)
+            if callable(snapshot):
+                state = snapshot()
+                if type(state) is dict and type(state.get('button')) is dict:
+                    result['button'] = state['button']
         return result
 
     def close(self):

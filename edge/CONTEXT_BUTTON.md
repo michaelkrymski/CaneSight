@@ -70,6 +70,9 @@ Commands are case-sensitive, each followed by Enter:
   context (or cancel an outstanding request on a second debounced press).
 - `release`: release the input. Release before another press; holding never repeats.
 - `cancel`: immediately cancel and release; the ten-second cooldown remains.
+- `status`: print allowlisted software state and request counters without pressing
+  the input. Audio mode uses the narration bridge's sole button counters. Unknown
+  counters stay unknown if the installed dependency lacks diagnostics.
 - `off`: withdraw consent, cancel, and purge the retained frame. Restart and
   reenroll for another consented session. EOF or input failure also withdraws.
 
@@ -183,3 +186,31 @@ prove physical switch behavior, actual phone readiness, cloud deployment or
 Gemini accuracy. TLS configuration tests require certificate/hostname verification. Existing
 required CI runs root/backend suites, not the separate edge root: edge results
 are explicitly recorded locally; no workflow/protection was changed here.
+
+
+## Private run report (CS-027)
+
+For the next real Pi run, create a private result directory outside Git and add
+`--context-report "$results_dir/context.json"` to the enrolled manual uploader
+command (with `--context-audio` for speaker testing):
+
+```sh
+results_dir=$(mktemp -d "$HOME/canesight-context-results.XXXXXX")
+# Add --context-report "$results_dir/context.json" to the enrolled command above.
+# While running: status / release / press / cancel / off, each followed by Enter.
+# After stopping the uploader:
+cat "$results_dir/context.json"
+```
+
+The file is created exclusively with mode 0600 and refuses checkout/public
+folders or existing files/symlinks. It is written on normal exit or failure,
+including enrollment/startup failures after argument validation. It contains
+only build commit, run outcome, opt-in/consent/closed/fault flags and request
+counters from the runtime. No images, precise positions/times, grant/session/
+source/boot IDs, endpoint, paths or arbitrary exception text are recorded.
+`complete` means the process returned normally, not that a request succeeded.
+`physical_audio_accepted` and `phone_backend_verified` remain false; report counts
+are evidence for inspection, never automatic acceptance. An abrupt power loss or
+SIGKILL can leave an empty report; rerun to a new filename after inspection.
+The report never supplies readiness or bypasses missing phone/clock/backend
+prerequisites. Pairing a speaker alone does not unblock context requests.
