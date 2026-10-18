@@ -6,7 +6,7 @@ view/model). No third-party packages. iOS 16+, macOS 13+ for native review.
 
 Merged host PR #69 integrates the exact CS-018 source pinned at `6ddb7fc` and
 supplies attributed Apple build, largest-text UI and fixed local status-speech/
-cancellation evidence. CS-018 PR #73 remains a separate draft review. This
+cancellation evidence. CS-018 PR #73 is a separate software-checkpoint review. This
 package does not replace CS-017 lifecycle, CS-016 transport, CS-019 consent/location
 or CS-040 speech policy. No other teammate's source is modified by this follow-up.
 See [ACCEPTANCE.md](ACCEPTANCE.md) for completed evidence and remaining checks.
@@ -183,9 +183,9 @@ is suppressed and is not a general event bus.
 | Audio | Record observed speaker stop/buffering delay; distinguish app narration from VoiceOver; never label software stop-call timing as audible latency. |
 | Whole host | Real PR #69 camera, reviewed CS-017/016 wiring, live phone/Pi and original-age evidence. Physical mapping remains CS-015. |
 
-Keep the PR draft and task blocked for the remaining VoiceOver, route/buffering
-and CS-040/Pi integration gates; do not keep completed Apple/host checks labelled
-unrun. The original task acceptance/dependencies remain unchanged. Historical
+The software checkpoint is ready for review; keep the task blocked for remaining
+VoiceOver, route/buffering and CS-040/Pi integration gates. Do not keep completed
+Apple/host checks labelled unrun. The original task acceptance/dependencies remain unchanged. Historical
 CS-018-status-20261018.json describes the initial portable-only checkpoint and is
 not overwritten by newer evidence.
 

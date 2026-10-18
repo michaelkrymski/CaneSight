@@ -1,6 +1,6 @@
 # CS-018 acceptance follow-up
 
-PR #73 remains draft. Michael's review on 18 October 2026 confirms that merged
+PR #73 is ready for software-checkpoint review. Michael's review on 18 October 2026 confirms that merged
 host #69 uses the exact status source and asks that completed Apple checks be
 distinguished from remaining physical checks. This follow-up changes no runtime
 Swift, host, speech engine, contract or task requirement.
@@ -76,8 +76,9 @@ do not substitute an automated accessibility identifier check for listening.
    non-replay. The existing fixed phone speech sink does not complete this gate.
 
 Partial observations can inform debugging, but Michael accepts the exact evidence
-and remaining task boundaries. Keep draft/blocked until that review; no Done,
-paired-transport, movement-permission or physical-readiness claim.
+and remaining task boundaries. Merging the software checkpoint does not close
+those gates; keep the task blocked. No Done, paired-transport, movement-permission
+or physical-readiness claim.
 
 Apple's [VoiceOver practice guide](https://support.apple.com/guide/iphone/turn-on-and-practice-voiceover-iph3e2e415f/ios)
 explains selection/activation gestures; use normal device controls to restore

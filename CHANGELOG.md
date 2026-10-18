@@ -874,6 +874,14 @@ Record draft PR #73 in task runtime. Use synthesized ObservableObject revision n
 
 Validation: 17 portable Swift and 2 accepted lifecycle integration tests passed for unchanged core/test source. Updated conditional UI syntax passed grammar parsing; its body is not compiled on Linux. Prior checked publisher passed 113 shared Python tests plus repository/changelog/whitespace checks; checked publishing repeats shared checks for this checkpoint.
 
+## 2026-10-18 — CS-018-PM-REVIEW-20261018: Clarify software review readiness and outstanding physical acceptance
+
+Author: michaelkrymski (AI-assisted) · Task: CS-018
+
+Synchronize accepted menu bridge and correct stale draft wording in current README/acceptance guide. Preserve historical handoffs and runtime, tests, source pins, requirements and blocked task state.
+
+Validation: Four package and nine accepted-host hashes match; runtime/package/tests unchanged from Apple-tested pin. All 195 shared cases complete with seven platform skips, no failures. Structure/changelog/whitespace pass. No new Swift/Xcode/device or audible-stop measurement performed.
+
 ## 2026-10-18 — CS-019-CLOCK-FAULT-NOTIFICATION-20261018: Make GPS clock-fault purge notification idempotent
 
 Author: Gavin (gmarcialcalleja) · Task: CS-019

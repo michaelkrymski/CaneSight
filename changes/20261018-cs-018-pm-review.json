@@ -1,0 +1,9 @@
+{
+  "id": "CS-018-PM-REVIEW-20261018",
+  "date": "2026-10-18",
+  "author": "michaelkrymski (AI-assisted)",
+  "task": "CS-018",
+  "summary": "Clarify software review readiness and outstanding physical acceptance",
+  "details": "Synchronize accepted menu bridge and correct stale draft wording in current README/acceptance guide. Preserve historical handoffs and runtime, tests, source pins, requirements and blocked task state.",
+  "validation": "Four package and nine accepted-host hashes match; runtime/package/tests unchanged from Apple-tested pin. All 195 shared cases complete with seven platform skips, no failures. Structure/changelog/whitespace pass. No new Swift/Xcode/device or audible-stop measurement performed."
+}
