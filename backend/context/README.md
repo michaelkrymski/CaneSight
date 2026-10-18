@@ -416,3 +416,18 @@ round; actual Pi scheduling and playback still require the candidate retest.
 Use a NEW report filename on every bench invocation. Reusing one refuses before
 audio and now explicitly reports that the original report was preserved. Retain
 prior failed/unknown reports; successful host regressions are not audible proof.
+
+### Exact helper failure codes
+
+The parallel candidate produced audible speech on Pi but still failed its
+software gate (`probe_query_failed` at `sink_query`). The affirmative human
+answer does not prove manual cancellation: the guard fault may have stopped
+playback first. Separate read-only samples all passed (slowest 56 ms), so they
+cannot explain the failure under speech load.
+
+Reports now include cached `route.query_failure`, with a closed code for launch,
+read timeout/I/O, output limit, exit timeout/nonzero helper exit, invalid UTF-8,
+cleanup or malformed JSON. The exception message remains generic, without raw
+stdout/stderr, paths or device IDs. Codes survive parallel collection and the
+first monitor fault; no helper/observation/grace deadline, validation, cancellation
+or recovery behavior is changed. A new filename is still required per run.

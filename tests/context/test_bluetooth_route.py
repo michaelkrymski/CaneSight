@@ -11,7 +11,7 @@ import unittest
 from unittest.mock import Mock, patch
 
 from backend.context.bluetooth_route import (RouteProbe, BluetoothRouteMonitor,
-    MAX_AGE_S, command, target, main)
+    MAX_AGE_S, command, target, main, QueryFailure)
 from backend.context.pi_speech import EspeakSink
 
 SINK = 'bluez_output.01_02_03_04_05_06.1'
@@ -90,6 +90,27 @@ class ProbeTests(unittest.TestCase):
 
 
 class MonitorTests(unittest.TestCase):
+    def test_precise_helper_reason_survives_parallel_round_and_fault_cleanup(self):
+        def run(args):
+            if args[-1] == 'sinks': raise QueryFailure('read_timeout')
+            return 'b true'
+        probe = RouteProbe(SINK, DEVICE, run=run)
+        m = self.make(probe)
+        with self.assertRaises(ValueError): m.start()
+        self.assertEqual(m.diagnostics()['failure'], 'probe_query_failed')
+        self.assertEqual(m.diagnostics()['probe_stage'], 'sink_query')
+        self.assertEqual(m.diagnostics()['query_failure'], 'read_timeout')
+        m.close()
+        self.assertEqual(m.diagnostics()['query_failure'], 'read_timeout')
+
+    def test_malformed_json_is_distinct_from_helper_timeout_without_content_leak(self):
+        probe = RouteProbe(SINK, DEVICE,
+            run=lambda args: 'PRIVATE-SENTINEL' if args[-1] == 'sinks' else 'b true')
+        m = self.make(probe)
+        with self.assertRaises(ValueError): m.start()
+        self.assertEqual(m.diagnostics()['query_failure'], 'invalid_json')
+        self.assertNotIn('PRIVATE-SENTINEL', json.dumps(m.diagnostics()))
+
     def test_stalled_parallel_stream_query_still_expires_without_worker_accumulation(self):
         active, entered, release, lost = (threading.Event() for _ in range(4))
         calls = []
@@ -251,6 +272,19 @@ class MonitorTests(unittest.TestCase):
 
 @unittest.skipUnless(os.name == 'posix', 'Owned helper process groups require POSIX')
 class CommandTests(unittest.TestCase):
+    def test_helper_failures_have_closed_reasons_and_generic_messages(self):
+        for code, reason in [
+            ('import time; time.sleep(10)', 'read_timeout'),
+            ('print("x"*70000)', 'output_limit'),
+            ('import sys; print("PRIVATE-SENTINEL"); sys.exit(23)', 'helper_exit'),
+            ('import os; os.write(1, bytes([255]))', 'invalid_utf8')]:
+            with self.subTest(reason=reason):
+                with self.assertRaises(QueryFailure) as failure:
+                    command([sys.executable, '-c', code])
+                self.assertEqual(failure.exception.reason, reason)
+                self.assertEqual(str(failure.exception), 'Bluetooth route observation unavailable')
+        self.assertEqual(QueryFailure('PRIVATE-SENTINEL').reason, 'query_failed')
+
     def test_timeout_oversize_and_nonzero_are_sanitized(self):
         for code in ('import time; time.sleep(10)', 'print("x"*70000)',
                      'import sys; print("PRIVATE"); sys.exit(1)'):

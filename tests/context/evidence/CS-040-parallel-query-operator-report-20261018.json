@@ -1,0 +1,50 @@
+{
+  "task": "CS-040",
+  "reported_date": "2026-10-18",
+  "provenance": "User pasted the complete parallel-query candidate bench report and affirmative audible/interruption answer.",
+  "reported_bench": {
+    "mode": "synthetic-speaker-bench",
+    "priority_input": "synthetic",
+    "capture_input": "synthetic",
+    "phone_used": false,
+    "backend_used": false,
+    "gemini_used": false,
+    "gpio_used": false,
+    "physical_audio_accepted": false,
+    "bluetooth_disconnect_reconnect_verified": false,
+    "complete": true,
+    "records": [
+      {
+        "repetition": 1,
+        "case": "manual_cancel",
+        "software_pass": false,
+        "stop_call_ms": 0.064,
+        "operator_pass": true
+      }
+    ],
+    "case_selection": "manual-only",
+    "timer_fault": false,
+    "software_checks_passed": false,
+    "operator_reported_all_passed": true,
+    "sink_diagnostics": {
+      "fault": true,
+      "closed": false,
+      "failure": "route",
+      "exit_codes": {
+        "generator": -13,
+        "playback": null
+      },
+      "automatic_route_monitoring": true,
+      "route": {
+        "fault": true,
+        "closed": false,
+        "failure": "probe_query_failed",
+        "probe_stage": "sink_query"
+      }
+    },
+    "build_commit": "8b24e51f5b532d1cee2bad54b4b0a020debe93f0"
+  },
+  "agent_observed_hardware": false,
+  "physical_audio_accepted": false,
+  "interpretation": "Operator reports audible speech/interruption, but software still failed and route diagnostics latched probe_query_failed at sink_query. Fault-driven early stop cannot establish successful manual cancellation. Exact helper failure is not yet identified; previous observation-expiry report remains separate."
+}

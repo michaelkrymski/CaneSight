@@ -1138,6 +1138,14 @@ Record installed GPIO21 button, reported camera and speaker availability while p
 
 Validation: Read issue #68 and author identity via GitHub. Existing 71 context tests passed for current code; documentation/runtime update only. Checked publisher runs shared checks; no new hardware or audible test claimed.
 
+## 2026-10-18 — CS-040-HELPER-FAILURE-DETAILS-20261018: Identify the helper failure behind audible but faulted monitored speech
+
+Author: bondmila (AI-assisted) · Task: CS-040
+
+Preserve positive operator audio and failed software gate separately, plus successful read-only timing samples. Add closed helper/JSON failure reasons retained through parallel queries and monitor faults; generic messages, deadlines and fail-closed behavior unchanged.
+
+Validation: 111 context tests pass, including actual disposable helper timeout/overflow/nonzero/encoding tests and private parallel/JSON diagnostics. Required publisher runs shared checks. Actual helper failure under Pi speech load remains pending.
+
 ## 2026-10-18 — CS-040-MANUAL-CANCEL-OPERATOR-EVIDENCE-BONDMILA-20261018: Record passing focused Pi manual cancellation observation
 
 Author: bondmila (AI-assisted) · Task: CS-040

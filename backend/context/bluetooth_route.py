@@ -17,6 +17,16 @@ MAX_AGE_S = .350
 POLL_S = .100
 COMMAND_TIMEOUT_S = .100
 MAX_OUTPUT = 65536
+QUERY_FAILURES = frozenset({'launch_failed', 'read_timeout', 'read_failed',
+    'output_limit', 'exit_timeout', 'helper_exit', 'invalid_utf8',
+    'cleanup_failed', 'invalid_json', 'query_failed'})
+
+
+class QueryFailure(ValueError):
+    """Fixed private diagnostic code; no helper output or exception details."""
+    def __init__(self, reason):
+        super().__init__('Bluetooth route observation unavailable')
+        self.reason = reason if type(reason) is str and reason in QUERY_FAILURES else 'query_failed'
 
 
 def target(sink, device):
@@ -32,29 +42,35 @@ def command(args):
     if os.name != 'posix':
         raise ValueError('Bounded route helpers require POSIX')
     process = None
+    phase = 'launch_failed'
     try:
         process = subprocess.Popen(args, stdin=subprocess.DEVNULL, stdout=subprocess.PIPE,
             stderr=subprocess.DEVNULL, start_new_session=True,
             env={**os.environ, 'LC_ALL': 'C'})
         deadline = time.monotonic()+COMMAND_TIMEOUT_S
         data = bytearray()
+        phase = 'read_failed'
         with selectors.DefaultSelector() as selector:
             selector.register(process.stdout, selectors.EVENT_READ)
             while True:
                 remaining = deadline-time.monotonic()
                 if remaining <= 0 or not selector.select(remaining):
-                    raise ValueError()
+                    raise QueryFailure('read_timeout')
                 chunk = os.read(process.stdout.fileno(), min(4096, MAX_OUTPUT+1-len(data)))
                 if not chunk:
                     break
                 data.extend(chunk)
                 if len(data) > MAX_OUTPUT:
-                    raise ValueError()
+                    raise QueryFailure('output_limit')
+        phase = 'exit_timeout'
         if process.wait(timeout=max(.001, deadline-time.monotonic())) != 0:
-            raise ValueError()
+            raise QueryFailure('helper_exit')
+        phase = 'invalid_utf8'
         return data.decode('utf-8')
+    except QueryFailure:
+        raise
     except Exception:
-        raise ValueError('Bluetooth route observation unavailable') from None
+        raise QueryFailure(phase) from None
     finally:
         if process is not None:
             try:
@@ -68,7 +84,7 @@ def command(args):
                 finally:
                     process.stdout.close()
             except Exception:
-                raise ValueError('Bluetooth route observation unavailable') from None
+                raise QueryFailure('cleanup_failed') from None
 
 
 
@@ -78,6 +94,7 @@ class RouteProbe:
         self.run, self.stream, self.clock = run, stream, clock
         self._missing = None
         self.failure_stage = None
+        self.query_failure = None
         self._call_lock = threading.Lock()
 
     def __call__(self):
@@ -91,6 +108,7 @@ class RouteProbe:
             self._call_lock.release()
 
     def _observe(self):
+        self.query_failure = None
         self.failure_stage = 'stream_state'
         active = self.stream()
         queries = [
@@ -104,14 +122,15 @@ class RouteProbe:
         # 100ms helper budgets plus the poll wait cannot meet the 350ms cache
         # budget. At most three bounded helpers run concurrently; all original
         # query limits, validation, watchdog and loss latches remain in force.
-        results, failed = {}, set()
+        results, failed = {}, {}
         result_lock = threading.Lock()
         def read(name, args):
             try:
                 value = self.run(args)
                 with result_lock: results[name] = value
-            except Exception:
-                with result_lock: failed.add(name)
+            except Exception as error:
+                detail = error.reason if isinstance(error, QueryFailure) else 'query_failed'
+                with result_lock: failed[name] = detail
         workers = []
         try:
             for name, args in queries:
@@ -128,13 +147,14 @@ class RouteProbe:
         for name, _ in queries:
             if name in failed:
                 self.failure_stage = name
+                self.query_failure = failed[name]
                 raise ValueError('Bluetooth route observation unavailable')
         # paplay is explicitly bound to this sink; the global default is not used.
         self.failure_stage = 'sink_query'
         raw = results['sink_query']
         if type(raw) is not str or len(raw.encode('utf-8')) > MAX_OUTPUT:
             return False
-        sinks = json.loads(raw)
+        sinks = self._json(raw)
         if type(sinks) is not list or not 1 <= len(sinks) <= 64:
             return False
         matches = [s for s in sinks if type(s) is dict and s.get('name') == self.sink]
@@ -165,7 +185,7 @@ class RouteProbe:
         raw = results['stream_query']
         if type(raw) is not str or len(raw.encode('utf-8')) > MAX_OUTPUT:
             return False
-        inputs = json.loads(raw)
+        inputs = self._json(raw)
         if type(inputs) is not list or len(inputs) > 128:
             return False
         matches = [i for i in inputs if type(i) is dict and type(i.get('properties')) is dict
@@ -191,6 +211,13 @@ class RouteProbe:
         if valid: self.failure_stage = None
         return valid
 
+    def _json(self, raw):
+        try:
+            return json.loads(raw)
+        except Exception:
+            self.query_failure = 'invalid_json'
+            raise
+
 
 class BluetoothRouteMonitor:
     """Loss/errors/clock faults latch; reconnect requires a new monitor/run.
@@ -206,12 +233,14 @@ class BluetoothRouteMonitor:
         self._observed = self._last = None
         self._threads = ()
         self._failure = self._probe_stage = None
+        self._query_failure = None
 
     def diagnostics(self):
         """Cached closed codes only; no clock read, queries, device IDs or callbacks."""
         with self._lock:
             return dict(fault=self._fault, closed=self._closed,
-                        failure=self._failure, probe_stage=self._probe_stage)
+                        failure=self._failure, probe_stage=self._probe_stage,
+                        query_failure=self._query_failure)
 
     def _now(self):
         with self._lock:
@@ -236,6 +265,11 @@ class BluetoothRouteMonitor:
                 self._probe_stage = stage if type(stage) is str and stage in {
                     'sink_query', 'sink_binding', 'sink_state', 'device_query',
                     'stream_state', 'stream_query', 'stream_binding', 'stream_registration'} else None
+                try:
+                    detail = getattr(self.probe, 'query_failure', None)
+                except Exception:
+                    detail = None
+                self._query_failure = detail if type(detail) is str and detail in QUERY_FAILURES else None
             self._fault = True
             self._observed = None
         if notify:
