@@ -74,6 +74,14 @@ Propose gmarcialcalleja as owner of CS-017, preserving its requirements, CS-016 
 
 Validation: Claim metadata only. Checked publishing runs repository structure validation, shared tests, generated changelog validation and staged whitespace checks; actual results are recorded in the claim PR. No Xcode, Swift, ARKit or device tests claimed.
 
+## 2026-10-17 — CS-017-LIFECYCLE-GMARCIALCALLEJA-20261017: Add interruption and suspension guard with fresh-capture recovery
+
+Author: Gavin (gmarcialcalleja) · Task: CS-017
+
+Implement a standalone Swift package with generation barriers, bounded pending depth, transport/cache/clock purge hooks, source sequence preservation and conservative capture-age checks. Add ARKit/UIKit bridge and deferred Apple tests, consumer expiry regressions and CS-016 integration guide. Host integration and Xcode/device acceptance remain pending; no shared protocol or master plan changes.
+
+Validation: 10 Swift XCTest core cases passed using official Swift 6.0.3 Linux image with complete strict concurrency and warnings as errors; Apple SDK source/tests excluded. Root unittest discovery: 113 passed including 3 new receiver regressions. Checked publishing additionally runs structure, generated-log and whitespace checks. No physical device/electrical validation claimed.
+
 ## 2026-10-17 — CS-021-CS-022-MICHAEL-CLAIM-20261017: Assign Pi capture and latest-only uploader work to Michael
 
 Author: michaelkrymski (AI-assisted) · Task: CS-021, CS-022

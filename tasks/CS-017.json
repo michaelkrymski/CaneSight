@@ -16,9 +16,13 @@
   "estimate_hours": 1.0,
   "elapsed_window": "8–11",
   "owner": "gmarcialcalleja",
-  "status": "in_progress",
-  "branch": "claim/CS-017-gmarcialcalleja",
+  "status": "blocked",
+  "branch": "task/CS-017-ar-lifecycle",
   "pr_url": null,
-  "evidence": [],
-  "blocker": ""
+  "evidence": [
+    "Merged ownership: https://github.com/michaelkrymski/CaneSight/pull/59",
+    "ios/Lifecycle: Swift lifecycle guard, ARKit/UIKit forwarding bridge and integration guide. 10 core XCTest cases pass with Swift 6.0.3 on Linux; Apple bridge and its 2 tests excluded on Linux.",
+    "python -m unittest discover -s tests -v: 113 passed, including 3 CS-017 consumer expiry/reconnect regressions."
+  ],
+  "blocker": "Software package prepared; CS-016 host transport integration, verified device clock mapping, Xcode/Apple bridge build and real LiDAR phone-to-Pi interruption/suspension acceptance remain pending. No device or motor readiness claimed."
 }
