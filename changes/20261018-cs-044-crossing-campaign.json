@@ -1,0 +1,9 @@
+{
+  "id": "CS-044-CROSSING-CAMPAIGN-20261018",
+  "date": "2026-10-18",
+  "author": "Gavin (gmarcialcalleja)",
+  "task": "CS-044",
+  "summary": "Add pinned crossing-menu and audio failure campaign",
+  "details": "Test real unmodified review snapshots from PRs 58 and 41 in an isolated subprocess with virtual clock and silent speech. Cover gestures, barriers, cancellation, source/audio/consent/epoch loss, delayed worker tickets and no replay. Record absent production bridge and physical monitoring/timing as remaining gates; no teammate implementation or protected contract changes.",
+  "validation": "All 19 closed campaign cases passed on Windows and local network-disabled Linux Python 3.12. Four source/report-integrity tests passed. Physical acceptance remains false; no Pi, camera, network device, GPIO or motor used."
+}
