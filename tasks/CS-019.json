@@ -16,11 +16,13 @@
   "estimate_hours": 1.0,
   "elapsed_window": "11–14",
   "owner": "gmarcialcalleja",
-  "status": "in_progress",
-  "branch": "claim/CS-019-gmarcialcalleja",
-  "pr_url": "https://github.com/michaelkrymski/CaneSight/pull/65",
+  "status": "blocked",
+  "branch": "task/CS-019-coarse-location",
+  "pr_url": null,
   "evidence": [
-    "Assignment proposal only: implementation waits for Michael to merge this claim. CS-019 requires consented coarse GPS, fix age/accuracy, unavailable denied/stale fixes and no lane/signal association. CS-016 remains a dependency."
+    "Merged claim: https://github.com/michaelkrymski/CaneSight/pull/65",
+    "ios/CoarseLocation: consent/authorization/foreground gate, rounded-only cache, original fix age and accuracy, <=1 Hz local context handoff, and Core Location adapter. 13 portable Swift tests passed with complete strict concurrency and warnings as errors using Swift 6.0.3 Linux.",
+    "decisions/CR-CS-019-location-context-contract.md proposes the required separate GPS contract; current accepted v1 protocol excludes GPS payloads. No network GPS publisher enabled."
   ],
-  "blocker": ""
+  "blocker": "Pending separately reviewed GPS wire contract/receiver and scope assignment, CS-016 integration, Xcode/Core Location SDK build and real-device authorization/lifecycle verification. Local software is prepared; end-to-end GPS telemetry acceptance is not claimed."
 }

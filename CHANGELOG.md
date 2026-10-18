@@ -90,6 +90,14 @@ Propose gmarcialcalleja ownership and in_progress on a dedicated claim branch. P
 
 Validation: Assignment metadata only; checked publishing runs repository structure, shared unittest discovery, generated changelog and staged whitespace checks. Actual results are reported in the claim PR; no GPS/device tests claimed.
 
+## 2026-10-17 — CS-019-COARSE-LOCATION-GMARCIALCALLEJA-20261017: Prepare consented coarse GPS context and Core Location adapter
+
+Author: Gavin (gmarcialcalleja) · Task: CS-019
+
+Add a standalone Swift package with explicit sharing consent, authorization and active-scene gating, rounded-only cache, fix age/accuracy checks, independent expiry and at-most-1-Hz local handoff. Add a proposed separate GPS contract CR without changing protected shared contracts or sending GPS in depth packets. End-to-end telemetry and Apple/device acceptance remain pending.
+
+Validation: 13 portable Swift XCTest cases passed on official Swift 6.0.3 Linux with complete strict concurrency and warnings as errors. Conditional Core Location/UIKit code was excluded; no Xcode/device test claimed. Checked publishing runs repository structure, shared unittest discovery, generated log and whitespace checks; actual results reported in the PR.
+
 ## 2026-10-17 — CS-021-CS-022-MICHAEL-CLAIM-20261017: Assign Pi capture and latest-only uploader work to Michael
 
 Author: michaelkrymski (AI-assisted) · Task: CS-021, CS-022
