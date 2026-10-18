@@ -14,7 +14,8 @@
     "ios/DepthTelemetry/Sources/CaneSightDepthTelemetry/DepthTelemetryStream.swift": "a85905be29bc340e153253a68a89bb773e930bff9eed406443f64b826e9f3290",
     "ios/DepthTelemetry/Tests/DepthTelemetryTests/DepthTelemetryTests.swift": "3eadc0699aff2d72afd1c51e6e57b3035eb2ab1a9cfc2fa91f2c6ac93e926cf5",
     "ios/DepthTelemetry/Tests/DepthTelemetryTests/StreamTests.swift": "9bb9c3ad35e91958b60b70f9b7e4891e68ffa979405f95cc8d8a0833d159940c",
-    "tests/ios/test_native_websocket.py": "c67569579f963a5c8bea047bedabbb896b7c28649ddea739899088940cb4f841"
+    "tests/ios/test_native_websocket.py": "c67569579f963a5c8bea047bedabbb896b7c28649ddea739899088940cb4f841",
+    "tests/ios/test_telemetry_contract.py": "eaff0fe4f5df0b0bdb43295d29bcee77139afe190dce7dc24c3fba5932e7add3"
   },
   "verification": {
     "macOS_bridge": {
@@ -59,6 +60,13 @@
       "passed": 227,
       "failed": 0,
       "note": "After incorporating accepted CS-049 main refresh."
+    },
+    "clean_checkout_fixture": {
+      "passed": 4,
+      "failed": 0,
+      "platform": "macOS",
+      "artifacts_reused": false,
+      "note": "GitHub Linux CI failure diagnosed: Swift present, fixture binary absent. Test now self-builds current fixture product; Linux rerun pending."
     }
   },
   "limits": [

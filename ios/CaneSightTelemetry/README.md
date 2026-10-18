@@ -122,9 +122,10 @@ python -m unittest discover -s tests/ios -v
 Swift tests exercise the core and actor using synthetic samples, injected clocks
 and fake sockets, including cancellation, watchdogs, late callbacks, reconnect,
 clock reversal, bounded backpressure, malformed controls and sequence boundaries.
-The Python tests run the built `TelemetryFixtures` binary and validate its original
-replay bytes with the accepted backend/schema/session relay. Build the package
-first; if Swift is unavailable, provide `CANESIGHT_TELEMETRY_FIXTURES_BIN` pointing
+The Python tests build the current `TelemetryFixtures` product when Swift is
+available and validate its original
+replay bytes with the accepted backend/schema/session relay.
+If Swift is unavailable, provide `CANESIGHT_TELEMETRY_FIXTURES_BIN` pointing
 to a compatible built executable. No phone/backend connection occurs in these tests.
 To inspect synthetic replay output: `swift run --package-path ios/CaneSightTelemetry TelemetryFixtures`.
 This separate test root is explicit; existing repository CI does not run Swift or

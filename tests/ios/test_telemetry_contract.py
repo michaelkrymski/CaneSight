@@ -1,6 +1,6 @@
 """Explicit CS-016 Swift->accepted Python protocol/backend fixture conformance.
 
-Run after swift build; generated replay data only, no device or network.
+Builds its Swift fixture when Swift is installed; generated replay data only.
 This separate test root does not change protected CI workflows.
 """
 import copy
@@ -27,6 +27,11 @@ class SwiftWireTests(unittest.TestCase):
         if not binary:
             if not shutil.which('swift'):
                 raise unittest.SkipTest('Swift compiler/fixture binary unavailable; run explicitly after swift build')
+            # A clean CI checkout can have Swift without any package artifacts.
+            # Build the current product rather than requiring a stale local binary.
+            subprocess.run(['swift', 'build', '--package-path', str(PACKAGE),
+                            '--product', 'TelemetryFixtures', '--jobs', '2'],
+                           text=True, capture_output=True, timeout=180, check=True)
             result = subprocess.run(['swift', 'build', '--package-path', str(PACKAGE), '--show-bin-path'],
                                     text=True, capture_output=True, timeout=30, check=True)
             binary = str(Path(result.stdout.strip())/'TelemetryFixtures')

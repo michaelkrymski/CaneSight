@@ -874,6 +874,14 @@ User authorized terminal publishing. Existing configured Git credential authenti
 
 Validation: Runtime-only publishing checkpoint; prior physical baseline/nonzero-counter tests, 11 mapping cases and 212 shared tests retained. Checked publishing reruns repository checks. Independent review remains required; no merge or Done claim.
 
+## 2026-10-18 — CS-016-CLEAN-FIXTURE-20261018: Build the current Swift fixture in clean-checkout contract tests
+
+Author: michaelkrymski (AI-assisted) · Task: CS-016
+
+PR #89 repository CI found Swift installed without a prebuilt TelemetryFixtures executable. Build that product before locating it; retain explicit supplied-binary support and existing no-Swift skip. No protected workflow or source validation is weakened.
+
+Validation: Reproduced a clean artifact-free package in a temporary directory on macOS; all four Swift/backend conformance tests passed after self-build. Checked publisher reruns the shared repository tests. GitHub Linux result is inspected after push; no phone access.
+
 ## 2026-10-18 — CS-016-DEPTH-STREAM-20261018: Continue accepted telemetry ownership with a session-bound depth producer adapter
 
 Author: michaelkrymski (AI-assisted) · Task: CS-016
