@@ -74,6 +74,14 @@ Propose gmarcialcalleja as owner of CS-017, preserving its requirements, CS-016 
 
 Validation: Claim metadata only. Checked publishing runs repository structure validation, shared tests, generated changelog validation and staged whitespace checks; actual results are recorded in the claim PR. No Xcode, Swift, ARKit or device tests claimed.
 
+## 2026-10-17 — CS-017-LIFECYCLE-GMARCIALCALLEJA-20261017: Add interruption and suspension guard with fresh-capture recovery
+
+Author: Gavin (gmarcialcalleja) · Task: CS-017
+
+Implement a standalone Swift package with generation barriers, bounded pending depth, transport/cache/clock purge hooks, source sequence preservation and conservative capture-age checks. Add ARKit/UIKit bridge and deferred Apple tests, consumer expiry regressions and CS-016 integration guide. Host integration and Xcode/device acceptance remain pending; no shared protocol or master plan changes.
+
+Validation: 10 Swift XCTest core cases passed using official Swift 6.0.3 Linux image with complete strict concurrency and warnings as errors; Apple SDK source/tests excluded. Root unittest discovery: 113 passed including 3 new receiver regressions. Checked publishing additionally runs structure, generated-log and whitespace checks. No physical device/electrical validation claimed.
+
 ## 2026-10-17 — CS-018-CLAIM-ADITSANGANI-20261017: Request CS-018 assignment for accessible status and manual audio cancel
 
 Author: aditsangani (AI-assisted) · Task: CS-018
@@ -698,6 +706,14 @@ Add a targeted master-plan subsection, implementation brief and CR for 3-second 
 
 Validation: Planning-only change. Repository validation, generated changelog consistency, whitespace and shared unit suite are checked before publication. No button/audio/vision implementation, training, live traffic, GPIO or physical acceptance claimed. Protected plan/task amendments require exact-head GitHub approval.
 
+## 2026-10-18 — CS-017-CLEANUP-REENTRANCY-20261018: Fence lifecycle cleanup and latch clock-fault notifications
+
+Author: Gavin (gmarcialcalleja) · Task: CS-017
+
+Prevent synchronous disconnect/UI cleanup callbacks from recursively invalidating or reconnecting. Record earlier Apple build evidence with exact pinned source limits and preserve remaining transport, clock and paired-device acceptance gates.
+
+Validation: 12 portable Swift 6.0.3 Linux tests passed with complete strict concurrency and warnings as errors; 3 Python consumer expiry/reconnect tests passed. No current-head Apple SDK or physical test claimed.
+
 ## 2026-10-18 — CS-027-CROSSING-MENU-BONDMILA-20261018: Implement merged crossing observation gesture component and synthetic bench
 
 Author: bondmila (AI-assisted) · Task: CS-027
@@ -753,6 +769,14 @@ Author: bondmila (AI-assisted) · Task: CS-040
 Preserve the manual-only report at combined beb0d9d: software and operator checks passed, 3.788ms software stop call. Keep prior mixed runs intact, distinguish subset success from full acceptance, and retain speech clarity and phone/backend gates.
 
 Validation: Parsed exact supplied report and checked subset identity, positive results and disabled subsystem/acceptance flags; verified source commit exists. No new implementation or agent hardware/audio test. Checked publisher runs shared checks.
+
+## 2026-10-18 — CS-040-MENU-CLOCK-READINESS-BONDMILA-20261018: Return unavailable immediately for menu update clock failure
+
+Author: bondmila (AI-assisted) · Task: CS-040
+
+Include the fault latched by the internal expiry tick in the readiness return. Preserve the existing failure latch and reject entry after failure.
+
+Validation: Regression injects a clock exception between the initial update read and internal tick; all 79 context tests pass. No actual audio or hardware test.
 
 ## 2026-10-18 — CS-040-RECOVERY-REPORTS-MANUAL-DIAGNOSTIC-BONDMILA-20261018: Preserve mixed Pi recovery evidence and isolate manual audibility test
 

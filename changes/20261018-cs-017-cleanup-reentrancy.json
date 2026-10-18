@@ -1,0 +1,9 @@
+{
+  "id": "CS-017-CLEANUP-REENTRANCY-20261018",
+  "date": "2026-10-18",
+  "author": "Gavin (gmarcialcalleja)",
+  "task": "CS-017",
+  "summary": "Fence lifecycle cleanup and latch clock-fault notifications",
+  "details": "Prevent synchronous disconnect/UI cleanup callbacks from recursively invalidating or reconnecting. Record earlier Apple build evidence with exact pinned source limits and preserve remaining transport, clock and paired-device acceptance gates.",
+  "validation": "12 portable Swift 6.0.3 Linux tests passed with complete strict concurrency and warnings as errors; 3 Python consumer expiry/reconnect tests passed. No current-head Apple SDK or physical test claimed."
+}

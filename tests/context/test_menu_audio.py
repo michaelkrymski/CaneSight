@@ -71,3 +71,13 @@ class MenuAudioTests(unittest.TestCase):
         self.assertFalse(self.say('selection', scenario='pedestrian_signal'))
         self.audio.close(); self.assertIsNone(self.sink.current)
         self.assertFalse(self.say('entry', generation=2))
+
+    def test_clock_failure_during_update_tick_reports_not_ready_immediately(self):
+        reads = [100]
+        def clock():
+            if reads: return reads.pop()
+            raise RuntimeError('clock unavailable')
+        audio = FixedMenuAudio(self.sink, clock=clock)
+        self.assertFalse(audio.update(audio_ready=True, priority_clear=True, epoch=self.epoch))
+        self.assertFalse(audio.speak('entry', generation=1, epoch=self.epoch))
+        self.assertIsNone(self.sink.current)

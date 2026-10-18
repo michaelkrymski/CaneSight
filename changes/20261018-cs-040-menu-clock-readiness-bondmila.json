@@ -1,0 +1,9 @@
+{
+  "id": "CS-040-MENU-CLOCK-READINESS-BONDMILA-20261018",
+  "date": "2026-10-18",
+  "author": "bondmila (AI-assisted)",
+  "task": "CS-040",
+  "summary": "Return unavailable immediately for menu update clock failure",
+  "details": "Include the fault latched by the internal expiry tick in the readiness return. Preserve the existing failure latch and reject entry after failure.",
+  "validation": "Regression injects a clock exception between the initial update read and internal tick; all 79 context tests pass. No actual audio or hardware test."
+}
