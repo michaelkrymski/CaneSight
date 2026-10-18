@@ -666,6 +666,14 @@ Add a targeted master-plan subsection, implementation brief and CR for 3-second 
 
 Validation: Planning-only change. Repository validation, generated changelog consistency, whitespace and shared unit suite are checked before publication. No button/audio/vision implementation, training, live traffic, GPIO or physical acceptance claimed. Protected plan/task amendments require exact-head GitHub approval.
 
+## 2026-10-18 — CS-017-CLEANUP-REENTRANCY-20261018: Fence lifecycle cleanup and latch clock-fault notifications
+
+Author: Gavin (gmarcialcalleja) · Task: CS-017
+
+Prevent synchronous disconnect/UI cleanup callbacks from recursively invalidating or reconnecting. Record earlier Apple build evidence with exact pinned source limits and preserve remaining transport, clock and paired-device acceptance gates.
+
+Validation: 12 portable Swift 6.0.3 Linux tests passed with complete strict concurrency and warnings as errors; 3 Python consumer expiry/reconnect tests passed. No current-head Apple SDK or physical test claimed.
+
 ## 2026-10-18 — CS-019-CLOCK-FAULT-NOTIFICATION-20261018: Make GPS clock-fault purge notification idempotent
 
 Author: Gavin (gmarcialcalleja) · Task: CS-019
@@ -681,11 +689,4 @@ Author: Gavin (gmarcialcalleja) · Task: CS-019
 Advance capture barriers before notifying consumers and after provider errors, preventing delayed pre-recovery fixes from restoring context. Record attributed earlier Apple builds without claiming current-head device or approved GPS transport acceptance.
 
 Validation: 15 portable Swift 6.0.3 Linux tests passed with complete strict concurrency and warnings as errors. Core Location/UIKit bodies excluded; contract, host integration and real-device gates remain.
-## 2026-10-18 — CS-017-CLEANUP-REENTRANCY-20261018: Fence lifecycle cleanup and latch clock-fault notifications
-
-Author: Gavin (gmarcialcalleja) · Task: CS-017
-
-Prevent synchronous disconnect/UI cleanup callbacks from recursively invalidating or reconnecting. Record earlier Apple build evidence with exact pinned source limits and preserve remaining transport, clock and paired-device acceptance gates.
-
-Validation: 12 portable Swift 6.0.3 Linux tests passed with complete strict concurrency and warnings as errors; 3 Python consumer expiry/reconnect tests passed. No current-head Apple SDK or physical test claimed.
 
