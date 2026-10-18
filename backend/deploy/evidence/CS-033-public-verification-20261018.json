@@ -1,0 +1,69 @@
+{
+  "task": "CS-033",
+  "date": "2026-10-18",
+  "accepted_source": "a239e221b1d51d7673a78e8fb84e6df274b36e39",
+  "origin": "https://64.177.50.116",
+  "active_image": "sha256:8a7bcf8fa9dbcfedea2ecef6d0e5e94d766dc50c2505739229454a0ad851f3fa",
+  "candidate_image": "sha256:07c9d75f045b1eee9c31fc549c9e6cacdd07db0ce951cb61f91845415408f94a",
+  "candidate_activated": false,
+  "service_restarted": false,
+  "runtime_source_matches": {
+    "backend/__init__.py": true,
+    "backend/app.py": true,
+    "backend/replay.py": true,
+    "backend/limits.py": true,
+    "backend/server.py": true,
+    "backend/sessions.py": true,
+    "backend/inference_worker.py": true,
+    "backend/freshness.py": true,
+    "backend/events_client.py": true,
+    "backend/vision/__init__.py": true,
+    "backend/vision/baseline.py": true,
+    "backend/vision/baseline.json": true,
+    "backend/vision/observations.py": true
+  },
+  "contract_and_readiness_matches": {
+    "shared/protocol/v1/reference.py": true,
+    "shared/protocol/v1/messages.schema.json": true,
+    "shared/protocol/v1/protocol.md": true,
+    "readiness.py": true
+  },
+  "vision_probe": {
+    "generated_replay_only": true,
+    "verified_https_wss": true,
+    "samples": 20,
+    "original_lineage_preserved": true,
+    "phone_and_other_session_isolated": true,
+    "origin_query_and_role_denied": true,
+    "revocation_and_expiry_closed": true,
+    "pedestrian_signal_unknown": true,
+    "generated_upload_to_result_ms": {
+      "median": 125.588,
+      "p95_nearest_rank": 169.779,
+      "max": 185.61
+    },
+    "limits": "Generated pixels only; excludes physical capture and Pi receipt; no detection accuracy or motor readiness."
+  },
+  "session_probe_exit": 0,
+  "backend_tests": {
+    "run": 128,
+    "skipped": 6,
+    "result": "OK"
+  },
+  "limits": "Synthetic generated pixels and replay transport; no physical phone/Pi capture, detection accuracy or motor acceptance. Candidate launch rejected by automatic approval review; current deployed runtime already matches accepted source.",
+  "session_probe": {
+    "disconnect_invalidated_peer": true,
+    "duplicate_rejected": true,
+    "expired_credential_rejected": true,
+    "matching_frame_ack": true,
+    "mode": "synthetic-replay",
+    "readiness_checks": {
+      "ingestion_configured": true,
+      "model_available": true,
+      "worker_healthy": true
+    },
+    "ready": true,
+    "reconnect_replay_rejected": true,
+    "verified_https_wss": true
+  }
+}
