@@ -78,8 +78,14 @@ lifecycle events; this preview does not mark its transport guard connected or
 clock-mapped. Unknown values never mean an empty path.
 
 `PrivacyInfo.xcprivacy` declares on-device elapsed-time/timer use of system boot
-APIs under 35F9.1. No boot-time-derived information leaves this build. Reaudit
-before enabling transport; see [Apple required-reason API documentation](https://developer.apple.com/documentation/bundleresources/app-privacy-configuration/nsprivacyaccessedapitypes/nsprivacyaccessedapitype).
+APIs under 35F9.1. The normal app sends no boot-time-derived information. The opt-in CS-016
+paired test sends elapsed intervals from one fixed test-start event; it keeps
+the raw media-clock origin on device. Clock/capture values share that origin,
+so rebasing preserves original age and does not replace capture with receipt.
+Runtime checks reject clock jumps and captures outside the local 500 ms bound;
+these observations do not prove general source-clock equivalence or sleep behavior.
+Apple 35F9.1 allows elapsed intervals between in-app events to leave the device;
+this remains an engineering interpretation, not App Store acceptance. See see [Apple required-reason API documentation](https://developer.apple.com/documentation/bundleresources/app-privacy-configuration/nsprivacyaccessedapitypes/nsprivacyaccessedapitype).
 
 ## Verification — 18 October 2026 integration checkpoint
 

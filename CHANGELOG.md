@@ -882,6 +882,14 @@ PR #89 repository CI found Swift installed without a prebuilt TelemetryFixtures 
 
 Validation: Reproduced a clean artifact-free package in a temporary directory on macOS; all four Swift/backend conformance tests passed after self-build. Checked publisher reruns the shared repository tests. GitHub Linux result is inspected after push; no phone access.
 
+## 2026-10-18 — CS-016-depth-pair-prep-20261018: Prepare bounded real-depth phone and Pi diagnostics
+
+Author: michaelkrymski · Task: CS-016
+
+Add opt-in hosted real-depth pair test with fixed private clock origin, pause/reconnect and bounded Pi depth/clock observer. Real capture-age eligibility remains unknown; normal app streaming stays off.
+
+Validation: Signed physical iOS build and two device tests passed with zero skips; 41 local real frames, no network. Six synthetic Pi observer tests passed. Actual paired depth run pending.
+
 ## 2026-10-18 — CS-016-DEPTH-STREAM-20261018: Continue accepted telemetry ownership with a session-bound depth producer adapter
 
 Author: michaelkrymski (AI-assisted) · Task: CS-016

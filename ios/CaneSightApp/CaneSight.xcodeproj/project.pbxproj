@@ -5,6 +5,8 @@
 	};
 	"objectVersion" = 56;
 	"objects" = {
+        "A16D00000000000000000001" = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DeviceTests/LiveDepthPairTests.swift"; sourceTree = SOURCE_ROOT; };
+        "A16D00000000000000000002" = { isa = PBXBuildFile; fileRef = "A16D00000000000000000001"; };
         "F67FB2B029D74BB97222A7B9" = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "../DepthTelemetry/Sources/CaneSightDepthTelemetry/DepthTelemetryAdapter.swift"; sourceTree = SOURCE_ROOT; };
         "36EC466538A380A87F3CD36D" = { isa = PBXBuildFile; fileRef = "F67FB2B029D74BB97222A7B9"; };
 
@@ -41,7 +43,7 @@
 		"C1C535EB837231B8F36DC748" = {
 			"isa" = "PBXGroup";
 			"name" = "Transport device tests";
-			"children" = ("563222D4390971E0C214826A", "4CA8D90C7BD0F56F7ABFF437", "44CA7CEB83B47620CA523988", "F67FB2B029D74BB97222A7B9", );
+			"children" = ("A16D00000000000000000001", "563222D4390971E0C214826A", "4CA8D90C7BD0F56F7ABFF437", "44CA7CEB83B47620CA523988", "F67FB2B029D74BB97222A7B9", );
 			"sourceTree" = "<group>";
 		};
 		"79A7C07EA5EB48CF8472F597" = {
@@ -54,7 +56,7 @@
 		"9B35CC0005B27BB85565161D" = {
 			"isa" = "PBXSourcesBuildPhase";
 			"buildActionMask" = 2147483647;
-			"files" = ("8FF8F0E6AB10D6D4C0D0678A", "C9A26A87A0D43C6E0CD557F9", "D047595531C16CF9ECDBEAD0", "36EC466538A380A87F3CD36D", );
+			"files" = ("A16D00000000000000000002", "8FF8F0E6AB10D6D4C0D0678A", "C9A26A87A0D43C6E0CD557F9", "D047595531C16CF9ECDBEAD0", "36EC466538A380A87F3CD36D", );
 			"runOnlyForDeploymentPostprocessing" = 0;
 		};
 		"BBD1051C7DFC1F7B720CDBBD" = {
