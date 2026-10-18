@@ -762,6 +762,14 @@ Preserve exact pasted report from combined 6dfda42: initially LOW, seven press/r
 
 Validation: Parsed report and checked counts/disabled subsystems; confirmed source commit contains the GPIO adapter. No new implementation or local hardware test. Checked publisher runs shared validation, tests, governance, changelog and whitespace.
 
+## 2026-10-18 — CS-027-MENU-OPERATOR-CONFIRMATION-20261018: Record operator menu confirmation for software checkpoint review
+
+Author: bondmila (AI-assisted) · Task: CS-027
+
+Operator reported the new GPIO21 spoken-menu sequence worked and explicitly declined pasting JSON. Preserve that provenance without inventing counters/timings/build SHA or additional case passes. Keep full integration and final acceptance gates explicit.
+
+Validation: Verified in-scope implementation matches last prepared 04f660b; preceding branch/combined test evidence remains separate. Checked publisher runs shared checks and exact-head CI is inspected before ready-for-review.
+
 ## 2026-10-18 — CS-027-PRIVATE-RUN-REPORT-BONDMILA-20261018: Save private context run diagnostics for Pi verification
 
 Author: bondmila (AI-assisted) · Task: CS-027
