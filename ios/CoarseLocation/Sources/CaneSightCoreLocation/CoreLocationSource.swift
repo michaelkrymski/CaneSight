@@ -16,10 +16,9 @@ import CaneSightCoarseLocation
     private var requestedPermission = false
 
     public init(policy: LocationPolicy, purgeCachedAndQueuedContext: @escaping () -> Void) {
-        context = CoarseLocationContext(policy: policy, clock: {
-            LocationClock(utcSeconds: Date().timeIntervalSince1970,
-                          monotonicMilliseconds: ProcessInfo.processInfo.systemUptime * 1000)
-        }, purgeCachedAndQueuedContext: purgeCachedAndQueuedContext)
+        let clock = LocationSystemClock()
+        context = CoarseLocationContext(policy: policy, clock: { clock.read() },
+            purgeCachedAndQueuedContext: purgeCachedAndQueuedContext)
         manager = CLLocationManager()
         delegate = LocationDelegate()
         delegate.owner = self

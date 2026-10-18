@@ -1,9 +1,10 @@
-# CS-023 simulated haptic scheduler
+# CS-023 capped haptic scheduler
 
 The scheduler executes bounded **local** pulse requests. It does not interpret
 observations, choose a hazard cue, accept server motor commands, or grant crossing
-permission. Only simulated outputs are provided; there is no GPIO dependency,
-pin mapping, hardware enable switch or physical driver adapter.
+permission. Simulated outputs remain the default. The separate opt-in
+`haptic_gpio.GPIOOutput` adapter supports two explicitly configured active-high
+driver inputs. Normal uploader/policy commands still use simulation only.
 
 Run on a laptop or isolated software-test environment:
 
@@ -90,7 +91,8 @@ Output `write(channel, enabled)` must return promptly. Each off request is attem
 independently even if another write fails. A failed off-write reports `None`
 (unknown), never a false confirmation of low. A successful write only confirms
 the adapter accepted the request; it cannot establish measured pin voltage or
-motor behavior. No physical adapter is shipped in this checkpoint.
+motor behavior. Adapter cleanup must run after scheduler shutdown; the separate
+GPIO adapter context provides this ordering.
 
 Python/thread/OS scheduling, suspended execution, a blocking adapter or a frozen
 process can delay an off request. The 10 ms ticker and logical 500 ms cap are not
@@ -105,3 +107,70 @@ with its power/wiring prerequisites. Hardware-specific adapters and actual
 left/right mapping need separate review and bench validation. Software tests
 cannot establish motor startup-off behavior, frozen-GPIO recovery, current at
 5 V, supply integrity or electrical readiness. CS-023 is not marked Done here.
+
+## Explicit GPIO adapter and bench command
+
+`edge/haptic_gpio.py` supplies the missing two-channel output implementation.
+It is implemented and tested with fake driver devices before CS-009 acceptance;
+no motor or GPIO hardware was activated during development. It does not remove
+CS-009 or establish readiness for physical operation.
+
+Use Raspberry Pi OS's `python3-gpiozero` package for an actual device. The adapter
+uses [GPIO Zero DigitalOutputDevice](https://gpiozero.readthedocs.io/en/stable/api_output.html#digitaloutputdevice)
+with `active_high=True` and `initial_value=False`. Pins use BCM numbering and
+have no defaults. Choose two distinct pins from BCM 2..27 based on the reviewed
+circuit. BCM21 is reserved for the existing context button. Active-low drivers
+are deliberately unsupported: this task requires startup/cleanup LOW.
+
+Importing the module does not import GPIO Zero or claim pins. Constructing the
+adapter claims each output initially off. If the second claim fails, it requests
+the first off and releases it. Any write error latches the adapter unavailable
+for further on-requests and attempts both outputs off. Cleanup attempts both
+off writes and both releases independently; cleanup failure cannot produce a
+successful bench report. Releasing a pin does not guarantee its voltage stays
+low, so passive off-state wiring and the physical kill remain required.
+
+After the circuit/pins and CS-009 evidence are reviewed, run the standalone
+bench command with the verified pin numbers substituted for the placeholders:
+
+```sh
+# Claim both pins off, then release them; never requests a pulse.
+python3 -m edge.haptic_gpio --enable-gpio --active-high --left-bcm LEFT --right-bcm RIGHT --off-only
+
+# One explicit 150 ms local bench stimulus; no camera, phone or backend.
+python3 -m edge.haptic_gpio --enable-gpio --active-high --left-bcm LEFT --right-bcm RIGHT --pulse left --duration-ms 150
+```
+
+`--pulse` accepts `left`, `right`, or `both`; it cannot combine with `--off-only`.
+Every invocation requires explicit GPIO opt-in, polarity and pins. Pulse duration
+must be finite and greater than zero, up to 500 ms. The existing scheduler still
+enforces initial off-time, original deadline, rolling duty and independent expiry.
+A successful report says `mode: gpio`, `gpio_used: true`, `bench_only: true` and
+`physical_acceptance: false`. Its off states describe accepted software writes,
+not measured pin voltages or motor onset. Ctrl+C/SIGTERM request cleanup and return
+a failure/interruption status; SIGKILL, power loss or a frozen process cannot run
+Python cleanup. A timing overrun may fault even on a requested 500 ms pulse.
+
+Trusted future integration owns the adapter outside the scheduler context:
+
+```python
+from edge.haptic_gpio import GPIOOutput
+from edge.haptics import HapticScheduler
+
+with GPIOOutput(left_bcm=verified_left, right_bcm=verified_right, active_high=True) as output:
+    with HapticScheduler(output) as scheduler:
+        # Trusted caller supplies readiness and original same-clock deadlines.
+        # No pulse is generated automatically.
+        pass
+```
+
+The current CS-024 policy intentionally rejects nonsimulated outputs. Live
+phone-policy-to-GPIO wiring belongs to the separate CS-025 integration task;
+this adapter/bench command does not enable it implicitly.
+
+Developer checks (no GPIO package or Pi required):
+
+```sh
+python -m unittest discover -s tests/edge -p test_haptic_gpio.py -v
+python -m unittest discover -s tests/edge -v
+```
