@@ -774,7 +774,7 @@ Validation: 73 context tests pass, including manual subset and no/unknown observ
 
 Author: bondmila (AI-assisted) · Task: CS-040
 
-Synchronize accepted GPS checkpoint from main 94ccaaf. Regenerate the conflicted log; menu, audio, GPIO, safety contracts and requirements unchanged. Await actual operator menu report without claiming a physical pass.
+Synchronize accepted GPS checkpoint from main d1d8eb9 (GPS 94ccaaf plus CS-045 measurement analysis). Regenerate the conflicted log; menu, audio, GPIO, safety contracts and requirements unchanged. Await actual operator menu report without claiming a physical pass.
 
 Validation: 79 context tests passed. Checked publisher runs shared validation, governance, changelog and whitespace checks; final CI inspected by exact head.
 
