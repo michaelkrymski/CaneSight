@@ -1,23 +1,31 @@
-# CS-014 depth-sector software checkpoint
+# CS-014 confidence-aware depth sectors
 
-Standalone local Swift package for confidence-aware depth summaries. Code and
-synthetic XCTest cases are prepared on Windows. **Swift compilation, XCTest,
-Xcode/iOS SDK, simulator, signing and physical LiDAR checks have not run.**
-CS-013 remains a prerequisite. This checkpoint does not provide an app project,
-ARSession lifecycle, telemetry, mounting calibration or a verified phone build.
+Standalone local Swift package for confidence-aware depth summaries. Accepted
+CS-013 PR #69 pins source commit `5f73dbf33ba9b2395f27b429c22344d41fb6162a`
+and records 15 passing macOS XCTest cases, physical-iOS SDK builds and simulator
+test-bundle compilation. Later signed installation and five physical-phone host
+UI tests include live depth, Stop-to-Unknown and background/restart recovery.
+These are Michael's attributed Apple/device results, not Apple tests rerun on
+this Windows host. See `tests/ios/evidence/CS-014-readiness-20261018.json` for
+source identity, acceptance evidence and remaining limits.
+
+This package provides depth summaries; the accepted CS-013 host owns the app,
+ARSession and display integration. Transport, physical accuracy and final
+cane/grip/motor mapping retain separate acceptance gates.
 
 ## Components
 
 - `CaneSightDepth`: owned depth/confidence arrays, validated configuration,
   stateless sector processor, and bounded strided Float32/UInt8 byte decoder.
 - `CaneSightDepthARKit`: Apple CoreVideo buffer copier and iOS 14+ ARFrame adapter.
-- `CaneSightDepthTests`: 15 authored XCTest methods, including seven replay
-  fixtures and two Apple-only native pixel-buffer tests. All remain unrun.
+- `CaneSightDepthTests`: 15 XCTest methods, including seven replay fixtures and
+  two Apple-only native pixel-buffer tests. All 15 passed on macOS in the
+  attributed CS-013 evidence; the 13 portable methods can also run on Linux.
 
 There are no third-party Swift dependencies or network calls. The package is
-separate from the pending CS-016 telemetry and CS-017 lifecycle work. Add it as a
-local package dependency when the host iPhone app exists; do not copy its types
-into another package or claim a source-only review validates the Apple SDK APIs.
+separate from CS-016 telemetry and CS-017 lifecycle. The CS-013 app uses an exact
+review-source pin as a local package dependency; do not copy these types into
+another package. A source-only review cannot validate the Apple SDK APIs.
 
 ## Summary contract
 
@@ -109,7 +117,15 @@ recovery. Merely retaining the last value, or receiving a heartbeat, cannot
 renew its source capture time. No 10 Hz, memory-performance or timing guarantee
 is claimed before profiling on the actual phone.
 
-## Checks available now / checks pending
+## Recorded checks and reproduction
+
+The accepted-main records are `tests/ios/evidence/CS-013-apple-builds-20261018.json`
+and `tests/ios/evidence/CS-013-integrated-app-20261018.json`, with the corresponding
+CS-013 handoffs. The first records Xcode 27.1 / iOS SDK 27.1 and all 15 depth
+XCTest cases on macOS, including CoreVideo cases. Its simulator test bundles
+were compiled, not executed. The later record supersedes its initial phone
+signing/launch limitation: the signed host ran on iPhone 17 Pro Max / iOS 26.6.2.
+Do not describe those host UI tests as execution of all depth tests on iOS.
 
 Windows checks:
 
@@ -122,9 +138,10 @@ The Python helper audits fixture structure/provenance and optional Tree-sitter
 grammar parsing. It **does not run a Python copy of the depth algorithm** and
 cannot prove Swift types, SDK compatibility, linking or runtime behavior. Source
 hashes use UTF-8 text normalized to LF. Reports use exclusive new filenames.
-The authored expected fixture outputs are test requirements, not observed results.
+The fixture file contains authored requirements. Swift XCTest execution, rather
+than this structural audit, supplies the observed algorithm results.
 
-When a Mac/toolchain is available:
+To reproduce and extend the recorded checks:
 
 1. Run `swift test --package-path ios/DepthSectors`. Check all portable numerical,
    byte-layout and fixture cases plus the Apple-only CoreVideo tests. The tests
@@ -132,15 +149,20 @@ When a Mac/toolchain is available:
    geometry, source time, tracking, padding, mismatched planes and owned copies.
 2. Open this package/host app in Xcode and build for an iOS SDK destination.
    A host macOS `swift test` excludes the iOS ARKit branch and cannot validate it.
-3. Complete CS-013 signing/physical support checks. Verify unsupported devices,
-   missing depth/confidence, tracking loss and interruption remain unavailable.
+3. Recheck host support/lifecycle behavior when changing the source or app.
+   Accepted CS-013 evidence covers signed phone execution, unsupported simulator
+   presentation and host Stop/background recovery; it does not measure accuracy.
 4. Complete CS-015 actual orientations/mount mapping and CS-020 measured surface,
    coverage/error cases before claiming depth accuracy or physical guidance.
    Profile worker latency/allocation/thermal behavior and retain actual evidence.
 
+The implementation is ready for independent CS-014 review against finite depth,
+confidence/coverage filtering, percentile, nullable unknowns and source timestamp.
+Its reviewed Swift implementation/tests remain identical to the Apple-tested pin.
 No workflow, shared protocol, other task requirements or deployment was modified.
-Keep this checkpoint draft and the task blocked for Apple/device acceptance until
-actual build/test evidence exists. No electrical or road-use validation is implied.
+Measured range/surface accuracy (CS-020), final mount/motor mapping (CS-015),
+cross-device clock/transport and end-to-end haptics (CS-016/025) remain separate.
+No electrical or road-use validation is implied. Review is not task Done.
 
 Primary API references: [ARDepthData](https://developer.apple.com/documentation/arkit/ardepthdata),
 [confidence map](https://developer.apple.com/documentation/arkit/ardepthdata/confidencemap),

@@ -778,6 +778,14 @@ New SwiftUI iOS16+ host checks scene-depth support, requests camera permission a
 
 Validation: 59 package macOS XCTest cases, five host gate cases and four Swift/backend wire cases passed. Four package physical-iOS SDK builds and four iOS Simulator test-bundle builds passed. Unsigned host physical-iOS build passed. Simulator tests and physical phone/signing/clock/mapping/WSS acceptance remain pending; task blocked and PR draft. Checked publisher runs shared checks.
 
+## 2026-10-18 — CS-014-READINESS-ADITSANGANI-20261018: Reconcile depth-sector readiness with accepted Apple and phone evidence
+
+Author: aditsangani (AI-assisted) · Task: CS-014
+
+Integrate accepted main; update README/task runtime and add source-linked readiness evidence. Preserve original historical audits/handoffs. Swift implementation, package, tests and fixtures remain unchanged from the exact PR62 pin tested by Michael in accepted PR69. Submit for independent review; retain separate accuracy/mapping/transport limits.
+
+Validation: 13 portable depth XCTest cases passed on Swift 6.0.3 WSL with strict concurrency and warnings as errors; 8 normalized source/fixture hashes match the Apple-tested pin. Attributed accepted evidence records 15 Mac tests and depth iOS SDK build, with later signed phone host checks. Shared repository/changelog/whitespace checks are required by checked publishing. No fresh Apple/device or hardware test claimed.
+
 ## 2026-10-18 — CS-015-BENCH-INSTALL-20261018: Sign, install and launch portrait mapping bench for operator verification
 
 Author: michaelkrymski (AI-assisted) · Task: CS-015
