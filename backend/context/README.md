@@ -235,3 +235,33 @@ Bluetooth recovery result and explicitly reports phone depth not ready. Keep #41
 and #58 draft, retain prior evidence, and collect current combined-checkout input
 and recovery reports. CS-018 owns accessible controls; CS-023/CS-025 own motor
 integration. No baseline pin-map amendment or physical acceptance is made here.
+
+
+## Focused manual-cancel diagnostic
+
+Two operator recovery reports at combined commit `6dfda42` are retained in
+`tests/context/evidence/CS-040-speaker-recovery-operator-reports-20261018.json`.
+The later recovery observations passed (disconnect, reconnect silence, fresh
+speech), while manual cancellation stayed operator-negative in both. The operator
+clarified that the first run's manual sentence was inaudible. A fast stop-call
+return does not establish audible cancellation; the earlier successful 15-case
+run remains separate evidence. Neither mixed run is full acceptance.
+
+The updated bench supports `--manual-only`, which runs only manual cancellation
+and marks `case_selection: manual-only`. For a focused comparison, use a fresh
+private report and a two-second diagnostic delay:
+
+```sh
+results_dir=$(mktemp -d "$HOME/canesight-manual-cancel.XXXXXX")
+python3 -m backend.context.speaker_bench --speak --manual-only \
+  --repetitions 1 --interrupt-after 2 --output "$results_dir/run.json"
+cat "$results_dir/run.json"
+```
+
+Answer yes only if speech was audible and then interrupted without restarting;
+answer no/unknown if it was absent or already finished. The longer stop delay is
+a diagnostic variation, not a fix, production timing change or proof of the prior
+one-second case. Do not combine `--manual-only` with `--bluetooth-recovery`.
+The selector skips unrelated cases; subset success never establishes full bench,
+physical speaker acceptance or phone/backend integration. No warmup, hidden retry
+or automatic Bluetooth routing is added to make the first attempt appear to pass.

@@ -37,7 +37,7 @@ class ObservedSink:
 
 def run_bench(sink, *, observe, emit=print, clock=time.monotonic,
               pause=lambda seconds: threading.Event().wait(seconds),
-              interrupt_after=1.0, repetitions=1, bluetooth_recovery=False):
+              interrupt_after=1.0, repetitions=1, bluetooth_recovery=False, manual_only=False):
     """Synthetic priority/capture inputs; observations are human, not inferred.
 
     The caller owns the sink. The independent timer remains active while the
@@ -60,7 +60,8 @@ def run_bench(sink, *, observe, emit=print, clock=time.monotonic,
     summary = dict(mode='synthetic-speaker-bench', priority_input='synthetic',
         capture_input='synthetic', phone_used=False, backend_used=False,
         gemini_used=False, gpio_used=False, physical_audio_accepted=False,
-        bluetooth_disconnect_reconnect_verified=False, complete=False, records=records)
+        bluetooth_disconnect_reconnect_verified=False, complete=False, records=records,
+        case_selection='manual-only' if manual_only else 'standard')
     def begin(age=0):
         controller.set_priority(hazard=False, unavailable=False)
         return controller.begin_capture(capture_monotonic_s=clock()-age, consent=True)
@@ -68,7 +69,8 @@ def run_bench(sink, *, observe, emit=print, clock=time.monotonic,
         emit('SYNTHETIC BENCH: fixed object labels; no phone/backend/camera/Gemini or GPIO.')
         emit('Use the configured Pi speaker output. Answers describe audible behavior, not system readiness.')
         for repetition in range(1, repetitions+1):
-            for kind in ('manual_cancel', 'hazard', 'unavailable'):
+            kinds = ('manual_cancel',) if manual_only else ('manual_cancel', 'hazard', 'unavailable')
+            for kind in kinds:
                 emit(f'[{repetition}/{repetitions}] {kind}: speech starts; stop requested after {interrupt_after:g}s.')
                 ticket = begin()
                 delivered = ticket is not None and controller.deliver(ticket, DESCRIPTION)
@@ -86,6 +88,8 @@ def run_bench(sink, *, observe, emit=print, clock=time.monotonic,
                 records.append(dict(repetition=repetition, case=kind,
                     software_pass=bool(delivered and replay_blocked and sink.healthy()),
                     stop_call_ms=round(elapsed, 3), operator_pass=answer))
+            if manual_only:
+                continue
             emit(f'[{repetition}/{repetitions}] expiry: synthetic capture is 7s old; speech has about 1s remaining.')
             ticket = begin(7)
             delivered = ticket is not None and controller.deliver(ticket, DESCRIPTION)
@@ -192,6 +196,8 @@ def revision():
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--speak', action='store_true', help='Explicitly enable actual Pi speech for synthetic tests')
+    parser.add_argument('--manual-only', action='store_true',
+                        help='Focused manual cancellation diagnostic; does not run the full bench')
     parser.add_argument('--bluetooth-recovery', action='store_true',
                         help='Guided operator disconnect/reconnect and fresh-request test; no automatic routing')
     parser.add_argument('--repetitions', type=int, default=1)
@@ -200,6 +206,8 @@ def main(argv=None):
     args = parser.parse_args(argv)
     if not args.speak or not 1 <= args.repetitions <= 20 or not .2 <= args.interrupt_after <= 3:
         parser.error('Use --speak, 1..20 repetitions and 0.2..3 seconds before interruption')
+    if args.manual_only and args.bluetooth_recovery:
+        parser.error('--manual-only and --bluetooth-recovery are separate bench selections')
     report = sink = None
     summary = dict(mode='synthetic-speaker-bench', complete=False, physical_audio_accepted=False)
     status = 1
@@ -208,7 +216,8 @@ def main(argv=None):
             report = open_report(args.output)
         sink = EspeakSink()
         summary = run_bench(sink, observe=ask, repetitions=args.repetitions,
-                            interrupt_after=args.interrupt_after, bluetooth_recovery=args.bluetooth_recovery)
+                            interrupt_after=args.interrupt_after, bluetooth_recovery=args.bluetooth_recovery,
+                            manual_only=args.manual_only)
         status = 0 if summary['software_checks_passed'] and summary['operator_reported_all_passed'] else 2
     except (KeyboardInterrupt, EOFError):
         summary['error'] = 'Bench interrupted; incomplete evidence'
