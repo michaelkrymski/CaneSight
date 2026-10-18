@@ -642,3 +642,11 @@ Assignment runtime only. After merged ownership, prepare bounded validation/stat
 
 Validation: Verified accepted task unclaimed and no competing open claim. Checked publishing runs repository/shared/changelog/whitespace checks. No measurement implementation or real-device evidence included.
 
+## 2026-10-18 — CS-013-PM-CLAIM-20261018: Assign iPhone app build and support verification to Michael
+
+Author: michaelkrymski (AI-assisted) · Task: CS-013
+
+Assignment-only PM claim from accepted main 5dd5fa37009402b7eb7c9dbed3d20eacd4346c90. User authorized creating the Xcode host and resuming deferred Apple verification. Requirements, dependencies and allowed paths are unchanged. Implementation begins only after verifying the PM-authored claim PR.
+
+Validation: Assignment only; no app, signing, device, LiDAR or hardware acceptance claimed. Shared checks run by checked publishing.
+
