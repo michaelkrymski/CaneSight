@@ -690,6 +690,22 @@ Advance capture barriers before notifying consumers and after provider errors, p
 
 Validation: 15 portable Swift 6.0.3 Linux tests passed with complete strict concurrency and warnings as errors. Core Location/UIKit bodies excluded; contract, host integration and real-device gates remain.
 
+## 2026-10-18 — CS-044-CROSSING-CAMPAIGN-20261018: Add pinned crossing-menu and audio failure campaign
+
+Author: Gavin (gmarcialcalleja) · Task: CS-044
+
+Test real unmodified review snapshots from PRs 58 and 41 in an isolated subprocess with virtual clock and silent speech. Cover gestures, barriers, cancellation, source/audio/consent/epoch loss, delayed worker tickets and no replay. Record absent production bridge and physical monitoring/timing as remaining gates; no teammate implementation or protected contract changes.
+
+Validation: All 19 closed campaign cases passed on Windows and local network-disabled Linux Python 3.12. Four source/report-integrity tests passed. Physical acceptance remains false; no Pi, camera, network device, GPIO or motor used.
+
+## 2026-10-18 — CS-044-CROSSING-REVIEW-LINK-20261018: Link crossing failure campaign PR
+
+Author: Gavin (gmarcialcalleja) · Task: CS-044
+
+Record PR #74 on the CS-044 runtime. Exact unmerged dependency pins and production/physical acceptance limits remain unchanged.
+
+Validation: Implementation publication passed all 117 repository tests; 19 pinned campaign cases passed on Windows and local Linux. This follow-up changes the task PR URL and adds audit records only; checked publishing reruns shared checks.
+
 ## 2026-10-18 — CS-045-MEASUREMENT-ANALYSIS-20261018: Prepare offline bounded latency and depth-error analysis
 
 Author: Gavin (gmarcialcalleja) · Task: CS-045
