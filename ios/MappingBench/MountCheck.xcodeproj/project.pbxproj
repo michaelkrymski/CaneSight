@@ -1,0 +1,243 @@
+// !$*UTF8*$!
+{
+	"archiveVersion" = 1;
+	"classes" = {
+	};
+	"objectVersion" = 56;
+	"objects" = {
+		"F51E0C2708617F6E4F0104DC" = {
+			"isa" = "PBXFileReference";
+			"lastKnownFileType" = "sourcecode.swift";
+			"path" = "MappingBenchApp.swift";
+			"sourceTree" = "<group>";
+		};
+		"8BF0DF28C417785A7D73B8A6" = {
+			"isa" = "PBXBuildFile";
+			"fileRef" = "F51E0C2708617F6E4F0104DC";
+		};
+		"78947A6FF6EBC53FA5F63D73" = {
+			"isa" = "PBXFileReference";
+			"lastKnownFileType" = "sourcecode.swift";
+			"path" = "BenchController.swift";
+			"sourceTree" = "<group>";
+		};
+		"1F6661C52A44550718BAB634" = {
+			"isa" = "PBXBuildFile";
+			"fileRef" = "78947A6FF6EBC53FA5F63D73";
+		};
+		"CAF85B0888D78F1F83771A07" = {
+			"isa" = "PBXGroup";
+			"children" = ("F51E0C2708617F6E4F0104DC", "78947A6FF6EBC53FA5F63D73", );
+			"path" = "Sources";
+			"sourceTree" = "<group>";
+		};
+		"A8792157CB4F27FB949C035F" = {
+			"isa" = "PBXFileReference";
+			"explicitFileType" = "wrapper.application";
+			"includeInIndex" = 0;
+			"path" = "MountCheck.app";
+			"sourceTree" = "BUILT_PRODUCTS_DIR";
+		};
+		"4EDC8BFAFC6BD936B849F38C" = {
+			"isa" = "PBXGroup";
+			"children" = ("A8792157CB4F27FB949C035F", );
+			"name" = "Products";
+			"sourceTree" = "<group>";
+		};
+		"EB814BE3CA3B78C0734C5605" = {
+			"isa" = "PBXGroup";
+			"children" = ("CAF85B0888D78F1F83771A07", "4EDC8BFAFC6BD936B849F38C", "F1E29A4B751E043A1BC240DE", );
+			"sourceTree" = "<group>";
+		};
+		"3732091E2CFE1C767411D1E5" = {
+			"isa" = "XCLocalSwiftPackageReference";
+			"relativePath" = "ReviewDependencies/DepthSectors";
+		};
+		"198002A94FC1BE137A132A63" = {
+			"isa" = "XCSwiftPackageProductDependency";
+			"package" = "3732091E2CFE1C767411D1E5";
+			"productName" = "CaneSightDepth";
+		};
+		"0B6B3DE7CF096D5473388111" = {
+			"isa" = "PBXBuildFile";
+			"productRef" = "198002A94FC1BE137A132A63";
+		};
+		"A0FD86901AE5D3BC400CF784" = {
+			"isa" = "XCSwiftPackageProductDependency";
+			"package" = "3732091E2CFE1C767411D1E5";
+			"productName" = "CaneSightDepthARKit";
+		};
+		"9A7C600D0B918516F56AF37A" = {
+			"isa" = "PBXBuildFile";
+			"productRef" = "A0FD86901AE5D3BC400CF784";
+		};
+		"EA0EF9BE8F20531840862E12" = {
+			"isa" = "XCLocalSwiftPackageReference";
+			"relativePath" = "../MountMapping";
+		};
+		"D2C5E1587505A1E9569730AD" = {
+			"isa" = "XCSwiftPackageProductDependency";
+			"package" = "EA0EF9BE8F20531840862E12";
+			"productName" = "CaneSightMountMapping";
+		};
+		"0CA02C5ECC84E5E6E82837B7" = {
+			"isa" = "PBXBuildFile";
+			"productRef" = "D2C5E1587505A1E9569730AD";
+		};
+		"FC0A923C76B0B3DB0BE90103" = {
+			"isa" = "XCSwiftPackageProductDependency";
+			"package" = "EA0EF9BE8F20531840862E12";
+			"productName" = "CaneSightMountMappingARKit";
+		};
+		"97903F498B8C6A0EBE46ABF4" = {
+			"isa" = "PBXBuildFile";
+			"productRef" = "FC0A923C76B0B3DB0BE90103";
+		};
+		"6E05F42004B343A6E75C6AA6" = {
+			"isa" = "PBXSourcesBuildPhase";
+			"buildActionMask" = 2147483647;
+			"files" = ("8BF0DF28C417785A7D73B8A6", "1F6661C52A44550718BAB634", );
+			"runOnlyForDeploymentPostprocessing" = 0;
+		};
+		"EB53C7BC8B5458CC86DA504A" = {
+			"isa" = "PBXFrameworksBuildPhase";
+			"buildActionMask" = 2147483647;
+			"files" = ("0B6B3DE7CF096D5473388111", "9A7C600D0B918516F56AF37A", "0CA02C5ECC84E5E6E82837B7", "97903F498B8C6A0EBE46ABF4", );
+			"runOnlyForDeploymentPostprocessing" = 0;
+		};
+		"F77E8395C14206FA0A5A32E1" = {
+			"isa" = "PBXResourcesBuildPhase";
+			"buildActionMask" = 2147483647;
+			"files" = ();
+			"runOnlyForDeploymentPostprocessing" = 0;
+		};
+		"CBE79372575C6BD5A9131E8F" = {
+			"isa" = "XCBuildConfiguration";
+			"name" = "Debug";
+			"buildSettings" = {
+				"SDKROOT" = "iphoneos";
+				"IPHONEOS_DEPLOYMENT_TARGET" = "16.0";
+				"CLANG_ENABLE_MODULES" = "YES";
+				"SWIFT_VERSION" = "5.0";
+				"SWIFT_STRICT_CONCURRENCY" = "complete";
+				"SWIFT_OPTIMIZATION_LEVEL" = "-Onone";
+				"DEBUG_INFORMATION_FORMAT" = "dwarf";
+				"SWIFT_ACTIVE_COMPILATION_CONDITIONS" = "DEBUG";
+			};
+		};
+		"51E8202AFD2FC3EEE6DD9FDD" = {
+			"isa" = "XCBuildConfiguration";
+			"name" = "Debug";
+			"buildSettings" = {
+				"PRODUCT_NAME" = "MountCheck";
+				"PRODUCT_BUNDLE_IDENTIFIER" = "com.michaelkrymski.CaneSight.MountCheck";
+				"CODE_SIGN_STYLE" = "Automatic";
+				"GENERATE_INFOPLIST_FILE" = "YES";
+				"INFOPLIST_KEY_NSCameraUsageDescription" = "Mount Check uses rear camera and LiDAR to verify portrait left/center/right mapping. Images stay in memory and are not saved or uploaded.";
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation" = "YES";
+				"INFOPLIST_KEY_UILaunchScreen_Generation" = "YES";
+				"INFOPLIST_KEY_CFBundleDisplayName" = "Mount Check";
+				"INFOPLIST_KEY_UISupportedInterfaceOrientations" = "UIInterfaceOrientationPortrait";
+				"TARGETED_DEVICE_FAMILY" = "1";
+				"SUPPORTED_PLATFORMS" = "iphoneos iphonesimulator";
+				"SUPPORTS_MACCATALYST" = "NO";
+				"MARKETING_VERSION" = "0.1.0";
+				"CURRENT_PROJECT_VERSION" = "1";
+				"LD_RUNPATH_SEARCH_PATHS" = ("$(inherited)", "@executable_path/Frameworks", );
+				"SWIFT_EMIT_LOC_STRINGS" = "YES";
+			};
+			"baseConfigurationReference" = "F1E29A4B751E043A1BC240DE";
+		};
+		"2D49EBE4C1EF4247FC7BA12F" = {
+			"isa" = "XCBuildConfiguration";
+			"name" = "Release";
+			"buildSettings" = {
+				"SDKROOT" = "iphoneos";
+				"IPHONEOS_DEPLOYMENT_TARGET" = "16.0";
+				"CLANG_ENABLE_MODULES" = "YES";
+				"SWIFT_VERSION" = "5.0";
+				"SWIFT_STRICT_CONCURRENCY" = "complete";
+				"SWIFT_OPTIMIZATION_LEVEL" = "-O";
+				"DEBUG_INFORMATION_FORMAT" = "dwarf-with-dsym";
+				"SWIFT_ACTIVE_COMPILATION_CONDITIONS" = "";
+			};
+		};
+		"6FFB70182C414855445722B9" = {
+			"isa" = "XCBuildConfiguration";
+			"name" = "Release";
+			"buildSettings" = {
+				"PRODUCT_NAME" = "MountCheck";
+				"PRODUCT_BUNDLE_IDENTIFIER" = "com.michaelkrymski.CaneSight.MountCheck";
+				"CODE_SIGN_STYLE" = "Automatic";
+				"GENERATE_INFOPLIST_FILE" = "YES";
+				"INFOPLIST_KEY_NSCameraUsageDescription" = "Mount Check uses rear camera and LiDAR to verify portrait left/center/right mapping. Images stay in memory and are not saved or uploaded.";
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation" = "YES";
+				"INFOPLIST_KEY_UILaunchScreen_Generation" = "YES";
+				"INFOPLIST_KEY_CFBundleDisplayName" = "Mount Check";
+				"INFOPLIST_KEY_UISupportedInterfaceOrientations" = "UIInterfaceOrientationPortrait";
+				"TARGETED_DEVICE_FAMILY" = "1";
+				"SUPPORTED_PLATFORMS" = "iphoneos iphonesimulator";
+				"SUPPORTS_MACCATALYST" = "NO";
+				"MARKETING_VERSION" = "0.1.0";
+				"CURRENT_PROJECT_VERSION" = "1";
+				"LD_RUNPATH_SEARCH_PATHS" = ("$(inherited)", "@executable_path/Frameworks", );
+				"SWIFT_EMIT_LOC_STRINGS" = "YES";
+			};
+			"baseConfigurationReference" = "F1E29A4B751E043A1BC240DE";
+		};
+		"9879E227F5AD614B3D33074F" = {
+			"isa" = "XCConfigurationList";
+			"buildConfigurations" = ("CBE79372575C6BD5A9131E8F", "2D49EBE4C1EF4247FC7BA12F", );
+			"defaultConfigurationIsVisible" = 0;
+			"defaultConfigurationName" = "Release";
+		};
+		"C5C73E6481A31CFC647F47AB" = {
+			"isa" = "XCConfigurationList";
+			"buildConfigurations" = ("51E8202AFD2FC3EEE6DD9FDD", "6FFB70182C414855445722B9", );
+			"defaultConfigurationIsVisible" = 0;
+			"defaultConfigurationName" = "Release";
+		};
+		"C1E9827DB735CA9BAA54A540" = {
+			"isa" = "PBXNativeTarget";
+			"name" = "MountCheck";
+			"buildConfigurationList" = "C5C73E6481A31CFC647F47AB";
+			"buildPhases" = ("6E05F42004B343A6E75C6AA6", "EB53C7BC8B5458CC86DA504A", "F77E8395C14206FA0A5A32E1", );
+			"buildRules" = ();
+			"dependencies" = ();
+			"packageProductDependencies" = ("198002A94FC1BE137A132A63", "A0FD86901AE5D3BC400CF784", "D2C5E1587505A1E9569730AD", "FC0A923C76B0B3DB0BE90103", );
+			"productName" = "MountCheck";
+			"productReference" = "A8792157CB4F27FB949C035F";
+			"productType" = "com.apple.product-type.application";
+		};
+		"985959785319747668373CC6" = {
+			"isa" = "PBXProject";
+			"attributes" = {
+				"BuildIndependentTargetsInParallel" = "YES";
+				"LastUpgradeCheck" = "2710";
+				"TargetAttributes" = {
+					"C1E9827DB735CA9BAA54A540" = {
+						"CreatedOnToolsVersion" = "27.1";
+					};
+				};
+			};
+			"buildConfigurationList" = "9879E227F5AD614B3D33074F";
+			"compatibilityVersion" = "Xcode 14.0";
+			"developmentRegion" = "en";
+			"hasScannedForEncodings" = 0;
+			"knownRegions" = ("en", "Base", );
+			"mainGroup" = "EB814BE3CA3B78C0734C5605";
+			"packageReferences" = ("3732091E2CFE1C767411D1E5", "EA0EF9BE8F20531840862E12", );
+			"productRefGroup" = "4EDC8BFAFC6BD936B849F38C";
+			"projectDirPath" = "";
+			"projectRoot" = "";
+			"targets" = ("C1E9827DB735CA9BAA54A540", );
+		};
+		"F1E29A4B751E043A1BC240DE" = {
+			"isa" = "PBXFileReference";
+			"lastKnownFileType" = "text.xcconfig";
+			"path" = "Signing.xcconfig";
+			"sourceTree" = "<group>";
+		};
+	};
+	"rootObject" = "985959785319747668373CC6";
+}

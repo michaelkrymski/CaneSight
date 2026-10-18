@@ -16,9 +16,12 @@
   "estimate_hours": 1.0,
   "elapsed_window": "5–8",
   "owner": "michaelkrymski",
-  "status": "in_progress",
+  "status": "blocked",
   "branch": "claim/CS-015-michaelkrymski",
-  "pr_url": null,
-  "evidence": [],
-  "blocker": ""
+  "pr_url": "https://github.com/michaelkrymski/CaneSight/pull/70",
+  "evidence": [
+    "handoffs/CS-015-20261018-portrait-mapping.md",
+    "11 strict-concurrency Mac XCTest cases passed; new physical-iOS SDK bench/native build passed. No operator target mapping result yet."
+  ],
+  "blocker": "Signed phone bench launch and operator left/center/right plus rotation/stop/background reset evidence pending. Exact draft CS-014 source dependency #62 requires review/acceptance. Handheld portrait check does not establish final cane mount, physical motor sides or capture-clock bounds."
 }
