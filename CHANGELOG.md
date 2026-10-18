@@ -730,3 +730,27 @@ Add optional exclusive metadata-only run report and allowlisted terminal status 
 
 Validation: 152 edge tests pass with updated CS-040 modules via external overlay, no skips. Report tests cover allowlisting, private/exclusive files, symlink refusal, startup failure, normal completion and status without a press. Checked publisher runs shared checks; actual Pi integration pending.
 
+## 2026-10-18 — CS-027-REVIEW-SYNC-20261018: Resolve generated changelog conflict before software checkpoint review
+
+Author: bondmila (AI-assisted) · Task: CS-027
+
+Synchronize accepted GPS checkpoint from main 94ccaaf. Regenerate the conflicted log; menu, audio, GPIO, safety contracts and requirements unchanged. Await actual operator menu report without claiming a physical pass.
+
+Validation: 182 edge tests: 171 passed, 11 explicit draft narration/menu-audio dependency skips. Checked publisher runs shared validation, governance, changelog and whitespace checks; final CI inspected by exact head.
+
+## 2026-10-18 — CS-045-MEASUREMENT-ANALYSIS-20261018: Prepare offline bounded latency and depth-error analysis
+
+Author: Gavin (gmarcialcalleja) · Task: CS-045
+
+Add strict private measurement input, conservative latency bounds with median/p95/max, explicit failed-trial counts, sector/distance error and availability summaries, synthetic example and bench collection guide. Keep software command separate from measured physical onset; clock/provenance and physical acceptance remain independent review gates.
+
+Validation: 15 focused unit/CLI tests passed on Windows and network-disabled local Linux Python 3.12 Docker. Included example is deliberately synthetic and below the 20-observation requirement. No device, camera, GPIO or motor tests performed.
+
+## 2026-10-18 — CS-045-REVIEW-LINK-20261018: Link measurement-analysis software preparation PR
+
+Author: Gavin (gmarcialcalleja) · Task: CS-045
+
+Record PR #72 on the assigned task runtime. Physical timing, clock and measured-distance evidence gates remain explicit; no acceptance or device test claim added.
+
+Validation: Prior implementation publication passed all 128 repository tests and 15 focused tests on Windows/Linux. This update changes only the task link and new audit records; checked publisher reruns shared checks.
+
