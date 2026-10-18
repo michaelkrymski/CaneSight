@@ -938,6 +938,14 @@ Advance capture barriers before notifying consumers and after provider errors, p
 
 Validation: 15 portable Swift 6.0.3 Linux tests passed with complete strict concurrency and warnings as errors. Core Location/UIKit bodies excluded; contract, host integration and real-device gates remain.
 
+## 2026-10-18 — CS-019-SLEEP-CLOCK-GMARCIALCALLEJA-20261018: Keep GPS freshness time advancing through device sleep
+
+Author: Gavin (gmarcialcalleja) · Task: CS-019
+
+Replace awake-only uptime in Core Location with a ContinuousClock reader and preserve original fix age/recovery barriers. Add simulated sleep, expiry and real UTC-step regressions plus source-hashed evidence. Host dependency pin will select this reviewed fix; GPS protocol/receiver and device acceptance remain outstanding.
+
+Validation: 20 portable Swift XCTest cases passed using Swift 6.0.3 with complete strict concurrency and warnings as errors in local network-disabled Docker. Core Location/UIKit code excluded on Linux; no Apple SDK/device verification claimed. Checked publisher runs repository structure/shared tests/generated log/whitespace checks.
+
 ## 2026-10-18 — CS-025-PROVENANCE-RECOVERY-ADITSANGANI-20261018: Recover exact Swift fixture input manifest bytes for PR #75
 
 Author: aditsangani (AI-assisted; PM-delegated PR fix) · Task: CS-025

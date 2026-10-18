@@ -21,8 +21,8 @@
     },
     {
       "name": "CoarseLocation",
-      "pr": 67,
-      "commit": "6f0266dea8d7326b7541e28d0a8b817a19689142",
+      "pr": 87,
+      "commit": "f2ad95cd3c6e7c8086c210a342536a0b68cfeb87",
       "path": "ios/CoarseLocation"
     },
     {
