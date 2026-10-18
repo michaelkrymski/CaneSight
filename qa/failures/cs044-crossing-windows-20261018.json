@@ -1,0 +1,172 @@
+{
+  "task": "CS-044",
+  "scope": "pinned synthetic menu/audio composition",
+  "python": "3.14.7",
+  "platform": "win32",
+  "review_inputs": {
+    "notice": "Unmerged, exact review inputs; not accepted production integration. Materialized source is unmodified and temporary.",
+    "base": "94ccaaf14a88b990cc468433e55622b0b1e6681f",
+    "pull_requests": [
+      {
+        "number": 58,
+        "head": "8f4d52100fa3e7bfe93cf4a8a2faedfd4495bc49"
+      },
+      {
+        "number": 41,
+        "head": "ca88cd20205bc76dc88a06d1cd194689f5f05f90"
+      }
+    ],
+    "files": [
+      {
+        "path": "backend/__init__.py",
+        "commit": "94ccaaf14a88b990cc468433e55622b0b1e6681f",
+        "sha256": "8305412560ed6ebee4cc9bb81ebf1d8a5c508dfada5bf95970ec9b17059646da"
+      },
+      {
+        "path": "backend/context/__init__.py",
+        "commit": "94ccaaf14a88b990cc468433e55622b0b1e6681f",
+        "sha256": "04acbe31ab082f570bc3eda204a9618d54fbffeb5df5883a96fd2099a2ba3a91"
+      },
+      {
+        "path": "edge/context_menu.py",
+        "commit": "8f4d52100fa3e7bfe93cf4a8a2faedfd4495bc49",
+        "sha256": "10adaeb93c2086d5b431b1a2d7c71daa6648b349888a24ea845994564675763f"
+      },
+      {
+        "path": "edge/menu_bench.py",
+        "commit": "8f4d52100fa3e7bfe93cf4a8a2faedfd4495bc49",
+        "sha256": "30c31b492059630c7db521722d32ad9735c7ad588c1c0e81dc55ccbac0c2e3f6"
+      },
+      {
+        "path": "edge/context_report.py",
+        "commit": "8f4d52100fa3e7bfe93cf4a8a2faedfd4495bc49",
+        "sha256": "ddad95a5dd07be15d58d56c441725860c9416f3f261f67f5b2bb2287aab471b4"
+      },
+      {
+        "path": "backend/context/menu_audio.py",
+        "commit": "ca88cd20205bc76dc88a06d1cd194689f5f05f90",
+        "sha256": "3ffe80c58958394b99b233711d38421f6d38af974a3017004d899a09513c6e66"
+      },
+      {
+        "path": "backend/context/narration.py",
+        "commit": "ca88cd20205bc76dc88a06d1cd194689f5f05f90",
+        "sha256": "181fa40783af43f9c250af1e737cc341810c21115af03da535d0f231654ae192"
+      }
+    ],
+    "case_ids": [
+      "CompositionTests.test_2999_3000_entry_and_999_1000_confirmation_barriers",
+      "CompositionTests.test_audio_disconnect_reconnect_never_replays_or_reactivates",
+      "CompositionTests.test_cancel_on_down_edge_and_held_input_cannot_restart",
+      "CompositionTests.test_clock_failure_latches_and_recovery_does_not_restart",
+      "CompositionTests.test_consent_withdrawal_stops_speech_and_blocks_held_input",
+      "CompositionTests.test_default_real_capabilities_remain_unavailable",
+      "CompositionTests.test_each_epoch_component_cancels_without_old_speech",
+      "CompositionTests.test_inactivity_and_absolute_menu_cap_discard_selection",
+      "CompositionTests.test_no_audio_at_confirmation_never_activates",
+      "CompositionTests.test_no_default_three_spoken_labels_and_wrap",
+      "CompositionTests.test_priority_preempts_menu_and_does_not_resume",
+      "CompositionTests.test_short_release_context_compatibility_and_bounce",
+      "CompositionTests.test_shutdown_cancels_and_cannot_reopen",
+      "CompositionTests.test_source_failure_and_recovery_require_new_entry",
+      "CompositionTests.test_startup_held_has_no_context_or_menu",
+      "DelayedAudioTests.test_context_original_capture_deadline_is_not_rebased_on_delivery",
+      "DelayedAudioTests.test_menu_speech_expires_without_new_jobs_and_fixed_words_only",
+      "DelayedAudioTests.test_old_generation_or_epoch_event_cannot_replay",
+      "DelayedAudioTests.test_stalled_worker_result_cannot_restore_cancelled_narration"
+    ]
+  },
+  "cases": [
+    {
+      "id": "CompositionTests.test_2999_3000_entry_and_999_1000_confirmation_barriers",
+      "status": "pass"
+    },
+    {
+      "id": "CompositionTests.test_audio_disconnect_reconnect_never_replays_or_reactivates",
+      "status": "pass"
+    },
+    {
+      "id": "CompositionTests.test_cancel_on_down_edge_and_held_input_cannot_restart",
+      "status": "pass"
+    },
+    {
+      "id": "CompositionTests.test_clock_failure_latches_and_recovery_does_not_restart",
+      "status": "pass"
+    },
+    {
+      "id": "CompositionTests.test_consent_withdrawal_stops_speech_and_blocks_held_input",
+      "status": "pass"
+    },
+    {
+      "id": "CompositionTests.test_default_real_capabilities_remain_unavailable",
+      "status": "pass"
+    },
+    {
+      "id": "CompositionTests.test_each_epoch_component_cancels_without_old_speech",
+      "status": "pass"
+    },
+    {
+      "id": "CompositionTests.test_inactivity_and_absolute_menu_cap_discard_selection",
+      "status": "pass"
+    },
+    {
+      "id": "CompositionTests.test_no_audio_at_confirmation_never_activates",
+      "status": "pass"
+    },
+    {
+      "id": "CompositionTests.test_no_default_three_spoken_labels_and_wrap",
+      "status": "pass"
+    },
+    {
+      "id": "CompositionTests.test_priority_preempts_menu_and_does_not_resume",
+      "status": "pass"
+    },
+    {
+      "id": "CompositionTests.test_short_release_context_compatibility_and_bounce",
+      "status": "pass"
+    },
+    {
+      "id": "CompositionTests.test_shutdown_cancels_and_cannot_reopen",
+      "status": "pass"
+    },
+    {
+      "id": "CompositionTests.test_source_failure_and_recovery_require_new_entry",
+      "status": "pass"
+    },
+    {
+      "id": "CompositionTests.test_startup_held_has_no_context_or_menu",
+      "status": "pass"
+    },
+    {
+      "id": "DelayedAudioTests.test_context_original_capture_deadline_is_not_rebased_on_delivery",
+      "status": "pass"
+    },
+    {
+      "id": "DelayedAudioTests.test_menu_speech_expires_without_new_jobs_and_fixed_words_only",
+      "status": "pass"
+    },
+    {
+      "id": "DelayedAudioTests.test_old_generation_or_epoch_event_cannot_replay",
+      "status": "pass"
+    },
+    {
+      "id": "DelayedAudioTests.test_stalled_worker_result_cannot_restore_cancelled_narration",
+      "status": "pass"
+    }
+  ],
+  "all_software_passed": true,
+  "physical_acceptance": false,
+  "source_sha256": {
+    "qa/crossing_failure_suite.py": "e48e3389ef14027e3fd931690bd527323fbd90edf9488886a49a3b3980397238",
+    "qa/failures/crossing-review-inputs.json": "5a5bc2211f1a8eea8be5d000210152275c1808ee7ca9d3478d1a84ce00b22a67",
+    "tests/failures/crossing_cases.py": "c10e231d17e88ce0a2ecaf87591fec2e2278b091fdaabc4967d56c2b9d5e8bce"
+  },
+  "remaining_gates": [
+    "Production menu/request/result bridge absent from review inputs.",
+    "No real scenario result/track correlation integration tested.",
+    "Readiness/route/source loss is injected; no actual Bluetooth monitor.",
+    "No camera, Pi, network, GPIO, motor or physical speech timing test.",
+    "Accepted 500ms depth/1500ms vision age gates remain independent."
+  ],
+  "expected_cases": 19,
+  "source_unchanged": true
+}

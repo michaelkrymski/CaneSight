@@ -1,0 +1,9 @@
+{
+  "id": "CS-044-CROSSING-REVIEW-LINK-20261018",
+  "date": "2026-10-18",
+  "author": "Gavin (gmarcialcalleja)",
+  "task": "CS-044",
+  "summary": "Link crossing failure campaign PR",
+  "details": "Record PR #74 on the CS-044 runtime. Exact unmerged dependency pins and production/physical acceptance limits remain unchanged.",
+  "validation": "Implementation publication passed all 117 repository tests; 19 pinned campaign cases passed on Windows and local Linux. This follow-up changes the task PR URL and adds audit records only; checked publishing reruns shared checks."
+}
