@@ -1,0 +1,9 @@
+{
+  "notice": "Unmerged review inputs, not accepted main. No teammate source is modified.",
+  "packages": [
+    {"name": "DepthSectors", "pr": 62, "commit": "5f73dbf33ba9b2395f27b429c22344d41fb6162a", "path": "ios/DepthSectors"},
+    {"name": "Lifecycle", "pr": 63, "commit": "0edb2229977b93eae00df6842286d87d4870aea4", "path": "ios/Lifecycle"},
+    {"name": "CaneSightTelemetry", "pr": 64, "commit": "0433fc94af1a1e3edfe2d2bb28925cb3be6df1ee", "path": "ios/CaneSightTelemetry"},
+    {"name": "CoarseLocation", "pr": 67, "commit": "5d311229a183b35176c10bdf33b6553c0c52fbfd", "path": "ios/CoarseLocation"}
+  ]
+}

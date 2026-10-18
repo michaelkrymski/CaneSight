@@ -650,3 +650,11 @@ Assignment-only PM claim from accepted main 5dd5fa37009402b7eb7c9dbed3d20eacd434
 
 Validation: Assignment only; no app, signing, device, LiDAR or hardware acceptance claimed. Shared checks run by checked publishing.
 
+## 2026-10-18 — CS-013-XCODE-HOST-20261018: Build iPhone local depth host and verify deferred Swift packages with Xcode
+
+Author: michaelkrymski (AI-assisted) · Task: CS-013
+
+New SwiftUI iOS16+ host checks scene-depth support, requests camera permission and displays bounded local image-column depth. Epoch barriers, interruption invalidation and receipt-time UI expiry preserve unknowns. Pinned ignored review dependencies preserve draft PR source without modifying teammate tasks. Network/GPS/motors stay off. Initial PM claim PR #69 was author/diff verified before implementation.
+
+Validation: 59 package macOS XCTest cases, five host gate cases and four Swift/backend wire cases passed. Four package physical-iOS SDK builds and four iOS Simulator test-bundle builds passed. Unsigned host physical-iOS build passed. Simulator tests and physical phone/signing/clock/mapping/WSS acceptance remain pending; task blocked and PR draft. Checked publisher runs shared checks.
+

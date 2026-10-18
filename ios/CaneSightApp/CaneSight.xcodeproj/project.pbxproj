@@ -1,0 +1,291 @@
+// !$*UTF8*$!
+{
+	"archiveVersion" = 1;
+	"classes" = {
+	};
+	"objectVersion" = 56;
+	"objects" = {
+		"D70A3D048D076FF9FF96DB25" = {
+			"isa" = "PBXFileReference";
+			"lastKnownFileType" = "sourcecode.swift";
+			"path" = "CaneSightApp.swift";
+			"sourceTree" = "<group>";
+		};
+		"2EA1D5659CA1997FCEF2B3C2" = {
+			"isa" = "PBXBuildFile";
+			"fileRef" = "D70A3D048D076FF9FF96DB25";
+		};
+		"709163852BCDD888C6716E1C" = {
+			"isa" = "PBXFileReference";
+			"lastKnownFileType" = "sourcecode.swift";
+			"path" = "ContentView.swift";
+			"sourceTree" = "<group>";
+		};
+		"879FDE897C285471E1175FC8" = {
+			"isa" = "PBXBuildFile";
+			"fileRef" = "709163852BCDD888C6716E1C";
+		};
+		"EEFBE34ACFDFBA13D8254F64" = {
+			"isa" = "PBXFileReference";
+			"lastKnownFileType" = "sourcecode.swift";
+			"path" = "CameraController.swift";
+			"sourceTree" = "<group>";
+		};
+		"642456A429D61328C130A03F" = {
+			"isa" = "PBXBuildFile";
+			"fileRef" = "EEFBE34ACFDFBA13D8254F64";
+		};
+		"CAF85B0888D78F1F83771A07" = {
+			"isa" = "PBXGroup";
+			"children" = ("D70A3D048D076FF9FF96DB25", "709163852BCDD888C6716E1C", "EEFBE34ACFDFBA13D8254F64", );
+			"path" = "Sources";
+			"sourceTree" = "<group>";
+		};
+		"A8792157CB4F27FB949C035F" = {
+			"isa" = "PBXFileReference";
+			"explicitFileType" = "wrapper.application";
+			"includeInIndex" = 0;
+			"path" = "CaneSight.app";
+			"sourceTree" = "BUILT_PRODUCTS_DIR";
+		};
+		"4EDC8BFAFC6BD936B849F38C" = {
+			"isa" = "PBXGroup";
+			"children" = ("A8792157CB4F27FB949C035F", );
+			"name" = "Products";
+			"sourceTree" = "<group>";
+		};
+		"EB814BE3CA3B78C0734C5605" = {
+			"isa" = "PBXGroup";
+			"children" = ("CAF85B0888D78F1F83771A07", "4EDC8BFAFC6BD936B849F38C", );
+			"sourceTree" = "<group>";
+		};
+		"3732091E2CFE1C767411D1E5" = {
+			"isa" = "XCLocalSwiftPackageReference";
+			"relativePath" = "ReviewDependencies/DepthSectors";
+		};
+		"198002A94FC1BE137A132A63" = {
+			"isa" = "XCSwiftPackageProductDependency";
+			"package" = "3732091E2CFE1C767411D1E5";
+			"productName" = "CaneSightDepth";
+		};
+		"0B6B3DE7CF096D5473388111" = {
+			"isa" = "PBXBuildFile";
+			"productRef" = "198002A94FC1BE137A132A63";
+		};
+		"A0FD86901AE5D3BC400CF784" = {
+			"isa" = "XCSwiftPackageProductDependency";
+			"package" = "3732091E2CFE1C767411D1E5";
+			"productName" = "CaneSightDepthARKit";
+		};
+		"9A7C600D0B918516F56AF37A" = {
+			"isa" = "PBXBuildFile";
+			"productRef" = "A0FD86901AE5D3BC400CF784";
+		};
+		"510E87014C5DA1BEB2D91FF9" = {
+			"isa" = "XCLocalSwiftPackageReference";
+			"relativePath" = "ReviewDependencies/Lifecycle";
+		};
+		"0DA2BE54980CEA81B83DD028" = {
+			"isa" = "XCSwiftPackageProductDependency";
+			"package" = "510E87014C5DA1BEB2D91FF9";
+			"productName" = "CaneSightLifecycle";
+		};
+		"F24BE6F4F41C6BE515EE4ECF" = {
+			"isa" = "PBXBuildFile";
+			"productRef" = "0DA2BE54980CEA81B83DD028";
+		};
+		"3FCA288A45CA3089B5D53EBB" = {
+			"isa" = "XCSwiftPackageProductDependency";
+			"package" = "510E87014C5DA1BEB2D91FF9";
+			"productName" = "CaneSightARLifecycle";
+		};
+		"46654C0937CD69CB76335622" = {
+			"isa" = "PBXBuildFile";
+			"productRef" = "3FCA288A45CA3089B5D53EBB";
+		};
+		"5238442A466E7B51D0ECE0CD" = {
+			"isa" = "XCLocalSwiftPackageReference";
+			"relativePath" = "ReviewDependencies/CaneSightTelemetry";
+		};
+		"2062FC5059FCE2973915FF56" = {
+			"isa" = "XCSwiftPackageProductDependency";
+			"package" = "5238442A466E7B51D0ECE0CD";
+			"productName" = "CaneSightTelemetry";
+		};
+		"3429ABD8EC969B2AB8899E3E" = {
+			"isa" = "PBXBuildFile";
+			"productRef" = "2062FC5059FCE2973915FF56";
+		};
+		"0E30A6FB1BFB95E3CC07179D" = {
+			"isa" = "XCLocalSwiftPackageReference";
+			"relativePath" = "ReviewDependencies/CoarseLocation";
+		};
+		"BFCB1C10F793712751A6D1E6" = {
+			"isa" = "XCSwiftPackageProductDependency";
+			"package" = "0E30A6FB1BFB95E3CC07179D";
+			"productName" = "CaneSightCoarseLocation";
+		};
+		"B6740CB160450737CF3890DB" = {
+			"isa" = "PBXBuildFile";
+			"productRef" = "BFCB1C10F793712751A6D1E6";
+		};
+		"AE3CE06F1CF91617B656C01A" = {
+			"isa" = "XCSwiftPackageProductDependency";
+			"package" = "0E30A6FB1BFB95E3CC07179D";
+			"productName" = "CaneSightCoreLocation";
+		};
+		"6938368FC60E5C3895CBB9B2" = {
+			"isa" = "PBXBuildFile";
+			"productRef" = "AE3CE06F1CF91617B656C01A";
+		};
+		"7F5DC9505EB369EB976CA4C3" = {
+			"isa" = "XCLocalSwiftPackageReference";
+			"relativePath" = "PreviewState";
+		};
+		"A962B23C31648BA4492508D2" = {
+			"isa" = "XCSwiftPackageProductDependency";
+			"package" = "7F5DC9505EB369EB976CA4C3";
+			"productName" = "CaneSightPreviewState";
+		};
+		"E14A6CF2AB95C0499CDD325B" = {
+			"isa" = "PBXBuildFile";
+			"productRef" = "A962B23C31648BA4492508D2";
+		};
+		"6E05F42004B343A6E75C6AA6" = {
+			"isa" = "PBXSourcesBuildPhase";
+			"buildActionMask" = 2147483647;
+			"files" = ("2EA1D5659CA1997FCEF2B3C2", "879FDE897C285471E1175FC8", "642456A429D61328C130A03F", );
+			"runOnlyForDeploymentPostprocessing" = 0;
+		};
+		"EB53C7BC8B5458CC86DA504A" = {
+			"isa" = "PBXFrameworksBuildPhase";
+			"buildActionMask" = 2147483647;
+			"files" = ("0B6B3DE7CF096D5473388111", "9A7C600D0B918516F56AF37A", "F24BE6F4F41C6BE515EE4ECF", "46654C0937CD69CB76335622", "3429ABD8EC969B2AB8899E3E", "B6740CB160450737CF3890DB", "6938368FC60E5C3895CBB9B2", "E14A6CF2AB95C0499CDD325B", );
+			"runOnlyForDeploymentPostprocessing" = 0;
+		};
+		"F77E8395C14206FA0A5A32E1" = {
+			"isa" = "PBXResourcesBuildPhase";
+			"buildActionMask" = 2147483647;
+			"files" = ();
+			"runOnlyForDeploymentPostprocessing" = 0;
+		};
+		"CBE79372575C6BD5A9131E8F" = {
+			"isa" = "XCBuildConfiguration";
+			"name" = "Debug";
+			"buildSettings" = {
+				"SDKROOT" = "iphoneos";
+				"IPHONEOS_DEPLOYMENT_TARGET" = "16.0";
+				"CLANG_ENABLE_MODULES" = "YES";
+				"SWIFT_VERSION" = "5.0";
+				"SWIFT_STRICT_CONCURRENCY" = "complete";
+				"SWIFT_OPTIMIZATION_LEVEL" = "-Onone";
+				"DEBUG_INFORMATION_FORMAT" = "dwarf";
+				"SWIFT_ACTIVE_COMPILATION_CONDITIONS" = "DEBUG";
+			};
+		};
+		"51E8202AFD2FC3EEE6DD9FDD" = {
+			"isa" = "XCBuildConfiguration";
+			"name" = "Debug";
+			"buildSettings" = {
+				"PRODUCT_NAME" = "CaneSight";
+				"PRODUCT_BUNDLE_IDENTIFIER" = "com.michaelkrymski.CaneSight";
+				"CODE_SIGN_STYLE" = "Automatic";
+				"GENERATE_INFOPLIST_FILE" = "YES";
+				"INFOPLIST_KEY_NSCameraUsageDescription" = "CaneSight uses the rear camera and LiDAR for a local research depth preview. Images are not saved or sent by this build.";
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation" = "YES";
+				"INFOPLIST_KEY_UILaunchScreen_Generation" = "YES";
+				"INFOPLIST_KEY_UISupportedInterfaceOrientations" = "UIInterfaceOrientationPortrait";
+				"TARGETED_DEVICE_FAMILY" = "1";
+				"SUPPORTED_PLATFORMS" = "iphoneos iphonesimulator";
+				"SUPPORTS_MACCATALYST" = "NO";
+				"MARKETING_VERSION" = "0.1.0";
+				"CURRENT_PROJECT_VERSION" = "1";
+				"LD_RUNPATH_SEARCH_PATHS" = ("$(inherited)", "@executable_path/Frameworks", );
+				"SWIFT_EMIT_LOC_STRINGS" = "YES";
+			};
+		};
+		"2D49EBE4C1EF4247FC7BA12F" = {
+			"isa" = "XCBuildConfiguration";
+			"name" = "Release";
+			"buildSettings" = {
+				"SDKROOT" = "iphoneos";
+				"IPHONEOS_DEPLOYMENT_TARGET" = "16.0";
+				"CLANG_ENABLE_MODULES" = "YES";
+				"SWIFT_VERSION" = "5.0";
+				"SWIFT_STRICT_CONCURRENCY" = "complete";
+				"SWIFT_OPTIMIZATION_LEVEL" = "-O";
+				"DEBUG_INFORMATION_FORMAT" = "dwarf-with-dsym";
+				"SWIFT_ACTIVE_COMPILATION_CONDITIONS" = "";
+			};
+		};
+		"6FFB70182C414855445722B9" = {
+			"isa" = "XCBuildConfiguration";
+			"name" = "Release";
+			"buildSettings" = {
+				"PRODUCT_NAME" = "CaneSight";
+				"PRODUCT_BUNDLE_IDENTIFIER" = "com.michaelkrymski.CaneSight";
+				"CODE_SIGN_STYLE" = "Automatic";
+				"GENERATE_INFOPLIST_FILE" = "YES";
+				"INFOPLIST_KEY_NSCameraUsageDescription" = "CaneSight uses the rear camera and LiDAR for a local research depth preview. Images are not saved or sent by this build.";
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation" = "YES";
+				"INFOPLIST_KEY_UILaunchScreen_Generation" = "YES";
+				"INFOPLIST_KEY_UISupportedInterfaceOrientations" = "UIInterfaceOrientationPortrait";
+				"TARGETED_DEVICE_FAMILY" = "1";
+				"SUPPORTED_PLATFORMS" = "iphoneos iphonesimulator";
+				"SUPPORTS_MACCATALYST" = "NO";
+				"MARKETING_VERSION" = "0.1.0";
+				"CURRENT_PROJECT_VERSION" = "1";
+				"LD_RUNPATH_SEARCH_PATHS" = ("$(inherited)", "@executable_path/Frameworks", );
+				"SWIFT_EMIT_LOC_STRINGS" = "YES";
+			};
+		};
+		"9879E227F5AD614B3D33074F" = {
+			"isa" = "XCConfigurationList";
+			"buildConfigurations" = ("CBE79372575C6BD5A9131E8F", "2D49EBE4C1EF4247FC7BA12F", );
+			"defaultConfigurationIsVisible" = 0;
+			"defaultConfigurationName" = "Release";
+		};
+		"C5C73E6481A31CFC647F47AB" = {
+			"isa" = "XCConfigurationList";
+			"buildConfigurations" = ("51E8202AFD2FC3EEE6DD9FDD", "6FFB70182C414855445722B9", );
+			"defaultConfigurationIsVisible" = 0;
+			"defaultConfigurationName" = "Release";
+		};
+		"C1E9827DB735CA9BAA54A540" = {
+			"isa" = "PBXNativeTarget";
+			"name" = "CaneSight";
+			"buildConfigurationList" = "C5C73E6481A31CFC647F47AB";
+			"buildPhases" = ("6E05F42004B343A6E75C6AA6", "EB53C7BC8B5458CC86DA504A", "F77E8395C14206FA0A5A32E1", );
+			"buildRules" = ();
+			"dependencies" = ();
+			"packageProductDependencies" = ("198002A94FC1BE137A132A63", "A0FD86901AE5D3BC400CF784", "0DA2BE54980CEA81B83DD028", "3FCA288A45CA3089B5D53EBB", "2062FC5059FCE2973915FF56", "BFCB1C10F793712751A6D1E6", "AE3CE06F1CF91617B656C01A", "A962B23C31648BA4492508D2", );
+			"productName" = "CaneSight";
+			"productReference" = "A8792157CB4F27FB949C035F";
+			"productType" = "com.apple.product-type.application";
+		};
+		"985959785319747668373CC6" = {
+			"isa" = "PBXProject";
+			"attributes" = {
+				"BuildIndependentTargetsInParallel" = "YES";
+				"LastUpgradeCheck" = "2710";
+				"TargetAttributes" = {
+					"C1E9827DB735CA9BAA54A540" = {
+						"CreatedOnToolsVersion" = "27.1";
+					};
+				};
+			};
+			"buildConfigurationList" = "9879E227F5AD614B3D33074F";
+			"compatibilityVersion" = "Xcode 14.0";
+			"developmentRegion" = "en";
+			"hasScannedForEncodings" = 0;
+			"knownRegions" = ("en", "Base", );
+			"mainGroup" = "EB814BE3CA3B78C0734C5605";
+			"packageReferences" = ("3732091E2CFE1C767411D1E5", "510E87014C5DA1BEB2D91FF9", "5238442A466E7B51D0ECE0CD", "0E30A6FB1BFB95E3CC07179D", "7F5DC9505EB369EB976CA4C3", );
+			"productRefGroup" = "4EDC8BFAFC6BD936B849F38C";
+			"projectDirPath" = "";
+			"projectRoot" = "";
+			"targets" = ("C1E9827DB735CA9BAA54A540", );
+		};
+	};
+	"rootObject" = "985959785319747668373CC6";
+}

@@ -1,0 +1,5 @@
+ReviewDependencies/
+build/
+DerivedData/
+xcuserdata/
+*.xcuserstate

@@ -1,0 +1,84 @@
+{
+  "task": "CS-013",
+  "date": "2026-10-18",
+  "base": "5dd5fa37009402b7eb7c9dbed3d20eacd4346c90",
+  "claim_commit": "5e2a029aee9c1e8d36a352ec24ee190c9793a423",
+  "pr": 69,
+  "xcode": {
+    "version": "27.1",
+    "build": "27A9275",
+    "ios_sdk": "27.1"
+  },
+  "review_inputs": [
+    {
+      "name": "DepthSectors",
+      "pr": 62,
+      "commit": "5f73dbf33ba9b2395f27b429c22344d41fb6162a",
+      "path": "ios/DepthSectors"
+    },
+    {
+      "name": "Lifecycle",
+      "pr": 63,
+      "commit": "0edb2229977b93eae00df6842286d87d4870aea4",
+      "path": "ios/Lifecycle"
+    },
+    {
+      "name": "CaneSightTelemetry",
+      "pr": 64,
+      "commit": "0433fc94af1a1e3edfe2d2bb28925cb3be6df1ee",
+      "path": "ios/CaneSightTelemetry"
+    },
+    {
+      "name": "CoarseLocation",
+      "pr": 67,
+      "commit": "5d311229a183b35176c10bdf33b6553c0c52fbfd",
+      "path": "ios/CoarseLocation"
+    }
+  ],
+  "macos_xctest": {
+    "depth": 15,
+    "lifecycle": 10,
+    "telemetry": 21,
+    "location": 13,
+    "host_preview_state": 5,
+    "failures": 0
+  },
+  "swift_to_backend_tests": {
+    "passed": 4,
+    "failures": 0
+  },
+  "physical_ios_sdk_builds": {
+    "packages": [
+      "depth",
+      "lifecycle",
+      "telemetry",
+      "location"
+    ],
+    "host": "passed_unsigned"
+  },
+  "simulator_test_bundle_builds": {
+    "packages": [
+      "depth",
+      "lifecycle",
+      "telemetry",
+      "location"
+    ],
+    "status": "passed_compile_only",
+    "executed": false
+  },
+  "device": {
+    "model": "iPhone 17 Pro Max",
+    "os": "26.6.2",
+    "paired": true,
+    "app_launched": false,
+    "signing_accepted": false,
+    "lidar_verified": false
+  },
+  "limits": [
+    "No runtime simulator tests: no installed runtime at verification",
+    "Physical launch blocked at inspection by disabled Developer Mode and missing signing team",
+    "Local callback-recency timeout does not verify capture clock",
+    "No network, GPS sharing, motor or narration control enabled",
+    "All draft dependency PRs retain independent review and acceptance gates"
+  ]
+}
