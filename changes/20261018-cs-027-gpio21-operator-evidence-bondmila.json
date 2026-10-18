@@ -1,0 +1,9 @@
+{
+  "id": "CS-027-GPIO21-OPERATOR-EVIDENCE-BONDMILA-20261018",
+  "date": "2026-10-18",
+  "author": "bondmila (AI-assisted)",
+  "task": "CS-027",
+  "summary": "Record completed operator Pi GPIO21 input observation",
+  "details": "Preserve exact pasted report from combined 6dfda42: initially LOW, seven press/release edge pairs, 2965 samples, complete. Keep raw-input observation separate from application request/audio/electrical acceptance; verification flags unchanged.",
+  "validation": "Parsed report and checked counts/disabled subsystems; confirmed source commit contains the GPIO adapter. No new implementation or local hardware test. Checked publisher runs shared validation, tests, governance, changelog and whitespace."
+}

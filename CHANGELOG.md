@@ -658,6 +658,14 @@ Use issue #68 active-high BCM21/no-pull wiring in explicit input-only opt-in. Pr
 
 Validation: 164 combined edge tests pass with draft CS-040 modules, simulated GPIO and speech. Covers startup-held input, pending and speaking cancellation, stalled/failed reads, input cleanup, mutually exclusive CLI modes and private observer reports. No real GPIO or audio activated locally; checked publisher runs shared checks.
 
+## 2026-10-18 — CS-027-GPIO21-OPERATOR-EVIDENCE-BONDMILA-20261018: Record completed operator Pi GPIO21 input observation
+
+Author: bondmila (AI-assisted) · Task: CS-027
+
+Preserve exact pasted report from combined 6dfda42: initially LOW, seven press/release edge pairs, 2965 samples, complete. Keep raw-input observation separate from application request/audio/electrical acceptance; verification flags unchanged.
+
+Validation: Parsed report and checked counts/disabled subsystems; confirmed source commit contains the GPIO adapter. No new implementation or local hardware test. Checked publisher runs shared validation, tests, governance, changelog and whitespace.
+
 ## 2026-10-18 — CS-027-PRIVATE-RUN-REPORT-BONDMILA-20261018: Save private context run diagnostics for Pi verification
 
 Author: bondmila (AI-assisted) · Task: CS-027

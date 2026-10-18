@@ -1,0 +1,32 @@
+{
+  "task": "CS-027",
+  "reported_date": "2026-10-18",
+  "provenance": "Human operator pasted GPIO21 observer output and JSON from the Pi; no agent SSH or physical observation.",
+  "agent_observed_gpio": false,
+  "operator_console_summary": "Initially LOW; seven HIGH/LOW pairs were shown.",
+  "completed_report": {
+    "mode": "gpio21-input-observation",
+    "complete": true,
+    "physical_audio_accepted": false,
+    "phone_backend_verified": false,
+    "gpio_used": true,
+    "motor_gpio_used": false,
+    "build_commit": "6dfda420ff5fbf5b4377f3608bda8a22a25c5ea5",
+    "outcome": "finished",
+    "context_requests_used": false,
+    "camera_used": false,
+    "backend_used": false,
+    "gpio_input_verified": false,
+    "raw_rising_edges": 7,
+    "raw_falling_edges": 7,
+    "samples": 2965,
+    "audio_enabled": false,
+    "gpio_input_requested": true,
+    "initially_high": false
+  },
+  "limits": [
+    "Raw input reads only; no application debounce, request/cooldown/cancellation or electrical certification established.",
+    "No camera, backend, phone, audio or motor output used.",
+    "gpio_input_verified remains false pending independent PM review."
+  ]
+}
