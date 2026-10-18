@@ -15,10 +15,12 @@
   "suggested_role": "iOS",
   "estimate_hours": 1.0,
   "elapsed_window": "11–14",
-  "owner": null,
-  "status": "backlog",
-  "branch": null,
+  "owner": "gmarcialcalleja",
+  "status": "in_progress",
+  "branch": "claim/CS-019-gmarcialcalleja",
   "pr_url": null,
-  "evidence": [],
+  "evidence": [
+    "Assignment proposal only: implementation waits for Michael to merge this claim. CS-019 requires consented coarse GPS, fix age/accuracy, unavailable denied/stale fixes and no lane/signal association. CS-016 remains a dependency."
+  ],
   "blocker": ""
 }

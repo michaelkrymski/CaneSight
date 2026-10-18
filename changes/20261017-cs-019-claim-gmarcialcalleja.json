@@ -1,0 +1,9 @@
+{
+  "id": "CS-019-CLAIM-GMARCIALCALLEJA-20261017",
+  "date": "2026-10-17",
+  "author": "Gavin (gmarcialcalleja)",
+  "task": "CS-019",
+  "summary": "Claim consented coarse GPS telemetry for Gavin",
+  "details": "Propose gmarcialcalleja ownership and in_progress on a dedicated claim branch. Preserve acceptance, CS-016 dependency and ios/tests-ios scope. Implementation waits for Michael to merge ownership. No GPS implementation, Xcode/device verification or precise location data included.",
+  "validation": "Assignment metadata only; checked publishing runs repository structure, shared unittest discovery, generated changelog and staged whitespace checks. Actual results are reported in the claim PR; no GPS/device tests claimed."
+}
