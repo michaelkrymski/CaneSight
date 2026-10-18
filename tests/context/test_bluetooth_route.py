@@ -84,6 +84,49 @@ class ProbeTests(unittest.TestCase):
 
 
 class MonitorTests(unittest.TestCase):
+    def test_failure_diagnostics_preserve_reason_without_reprobing_or_rearming(self):
+        run = Mock(side_effect=[json.dumps([route()]), 'b true',
+            json.dumps([{'sink': 43, 'properties': {'media.name': 'fixture-stream'}}])])
+        probe = RouteProbe(SINK, DEVICE, run=run, stream=lambda: 'fixture-stream')
+        m = self.make(probe)
+        with self.assertRaises(ValueError): m.start()
+        calls = run.call_count
+        for _ in range(3):
+            diagnostic = m.diagnostics()
+            self.assertEqual(diagnostic['failure'], 'probe_rejected')
+            self.assertEqual(diagnostic['probe_stage'], 'stream_binding')
+            self.assertTrue(diagnostic['fault'])
+        self.assertEqual(run.call_count, calls)
+        text = json.dumps(diagnostic)
+        for private in (SINK, DEVICE, 'fixture-stream'):
+            self.assertNotIn(private, text)
+        probe.failure_stage = None
+        self.assertFalse(m.refresh())
+        self.assertEqual(m.diagnostics()['probe_stage'], 'stream_binding')
+
+    def test_query_error_and_stale_cache_have_distinct_closed_diagnostics(self):
+        probe = RouteProbe(SINK, DEVICE, run=Mock(side_effect=ValueError('PRIVATE-SENTINEL')))
+        m = self.make(probe)
+        with self.assertRaises(ValueError): m.start()
+        self.assertEqual(m.diagnostics()['failure'], 'probe_query_failed')
+        self.assertEqual(m.diagnostics()['probe_stage'], 'sink_query')
+        self.assertNotIn('PRIVATE-SENTINEL', json.dumps(m.diagnostics()))
+        m.close()
+        m = self.make(); m.start(); self.now += MAX_AGE_S+.001
+        self.assertFalse(m.ready())
+        self.assertEqual(m.diagnostics()['failure'], 'observation_expired')
+
+    def test_untrusted_probe_diagnostic_attribute_cannot_leak_or_prevent_latching(self):
+        class Probe:
+            def __call__(self): return False
+            @property
+            def failure_stage(self): raise ValueError('PRIVATE-SENTINEL')
+        m = self.make(Probe())
+        with self.assertRaises(ValueError): m.start()
+        self.assertTrue(m.diagnostics()['fault'])
+        self.assertIsNone(m.diagnostics()['probe_stage'])
+        self.loss.assert_called_once()
+
     def make(self, probe=lambda: True):
         self.now = 10.
         self.loss = Mock()
@@ -221,6 +264,21 @@ class MonitoredSpeechTests(unittest.TestCase):
         self.sink._route.ok = True
         self.assertFalse(self.sink.healthy())
         with self.assertRaises(ValueError): self.sink.speak('Description unavailable.')
+
+    def test_generator_failure_is_preserved_after_owned_process_cleanup(self):
+        self.engine.write_text('#!'+sys.executable+'\nimport sys\nsys.stdin.read()\nsys.exit(23)\n')
+        self.sink.speak('Description unavailable.')
+        self.sink._process.wait(timeout=2)
+        self.assertFalse(self.sink.healthy())
+        diagnostic = self.sink.diagnostics()
+        self.assertEqual(diagnostic['failure'], 'generator_exit')
+        self.assertEqual(diagnostic['exit_codes']['generator'], 23)
+        self.assertTrue(diagnostic['fault'])
+        self.assertTrue(diagnostic['automatic_route_monitoring'])
+        for private in (SINK, DEVICE, str(self.engine), str(self.player)):
+            self.assertNotIn(private, json.dumps(diagnostic))
+        self.sink.close()
+        self.assertEqual(self.sink.diagnostics()['exit_codes']['generator'], 23)
 
     def test_narration_cancels_pending_provider_and_cannot_deliver_after_route_reconnect(self):
         if __package__:

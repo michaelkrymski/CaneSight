@@ -7,7 +7,7 @@ import sys
 import tempfile
 import threading
 import unittest
-from unittest.mock import patch
+from unittest.mock import Mock, patch
 
 from backend.context import speaker_bench
 from backend.context.pi_speech import EspeakSink
@@ -29,6 +29,19 @@ class SilentSink:
 
 
 class SpeakerBenchTests(unittest.TestCase):
+    def test_diagnostic_failure_cannot_skip_audio_cleanup_or_expose_exception(self):
+        sink = Mock(spec=EspeakSink)
+        sink.diagnostics.side_effect = ValueError('PRIVATE-SENTINEL')
+        fixture = dict(complete=True, software_checks_passed=False,
+                       operator_reported_all_passed=False, physical_audio_accepted=False)
+        with patch.object(speaker_bench, 'EspeakSink', return_value=sink), \
+             patch.object(speaker_bench, 'run_bench', return_value=fixture), \
+             patch('sys.stdout', io.StringIO()) as output:
+            self.assertEqual(speaker_bench.main(['--speak']), 2)
+        sink.close.assert_called_once()
+        self.assertTrue(json.loads(output.getvalue())['sink_diagnostics_unavailable'])
+        self.assertNotIn('PRIVATE-SENTINEL', output.getvalue())
+
     def run_fixture(self, observation=True):
         sink = SilentSink()
         now = [100.0]
@@ -180,3 +193,5 @@ class SpeakerBenchTests(unittest.TestCase):
             self.assertTrue(result['complete'])
             self.assertTrue(result['software_checks_passed'])
             self.assertFalse(result['physical_audio_accepted'])
+            self.assertIn('sink_diagnostics', result)
+            self.assertFalse(result['sink_diagnostics']['closed'])

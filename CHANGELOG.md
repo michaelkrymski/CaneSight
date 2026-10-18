@@ -1170,6 +1170,14 @@ Synchronize accepted GPS checkpoint from main d1d8eb9 (GPS 94ccaaf plus CS-045 m
 
 Validation: 79 context tests passed. Checked publisher runs shared validation, governance, changelog and whitespace checks; final CI inspected by exact head.
 
+## 2026-10-18 — CS-040-SILENT-PLAYBACK-DIAGNOSTICS-20261018: Diagnose failed Pi monitored speech without relaxing the route guard
+
+Author: bondmila (AI-assisted) · Task: CS-040
+
+Preserve real no-speech/software failure and reported isolated playback observation. Expose cached closed route/probe/process failure codes in speaker bench reports; diagnostics cannot probe, rearm or skip cleanup. Original guard budgets and fail-closed behavior retained.
+
+Validation: Context/edge regression results recorded in handoff; checked publisher runs shared checks. Actual Pi diagnostic-build result and root cause remain pending; no successful monitored speech or audible cancellation claimed.
+
 ## 2026-10-18 — CS-040-SPEAKER-RECOVERY-BONDMILA-20261018: Prepare operator-guided Bluetooth cancellation and fresh-request recovery test
 
 Author: bondmila (AI-assisted) · Task: CS-040

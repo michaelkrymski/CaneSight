@@ -368,3 +368,27 @@ run. No actual Pi/BlueZ/paplay or audible verification was performed here.
 Implementation references: [BlueZ Device Connected property](https://github.com/bluez/bluez/blob/master/doc/org.bluez.Device.rst),
 [busctl property reads](https://www.freedesktop.org/software/systemd/man/257/busctl.html),
 and [eSpeak WAV stdout](https://espeak.sourceforge.net/commands.html).
+
+### Diagnosing silent monitored playback
+
+`speaker_bench` now includes cached `sink_diagnostics` before cleanup when using
+the native sink. `failure` distinguishes route, generator/player exit,
+launch/input and stop failures. Nonintentional observed process exit codes are
+retained; a process killed by an explicit stop is not reported as a natural exit.
+The nested route report distinguishes rejected probes, helper/query failure,
+probe duration, observation expiry and clock faults. Its closed `probe_stage`
+identifies sink query/binding/state, BlueZ query or stream query/binding/registration.
+These reports contain no device IDs, stream tags, command output or exception text.
+Reading diagnostics never runs helpers, polls processes, reads the clock, cancels
+or rearms the monitor. A diagnostic failure cannot skip audio cleanup.
+
+A successful idle route check alone does not establish monitored playback.
+The 18 October operator run observed an idle route in 63.7 ms but heard no
+monitored speech, with both software and operator checks false. A separate
+one-sentence playback diagnostic was reported audible. The cause remains unknown;
+do not extend the 100 ms helper, 350 ms observation or 200 ms registration limits,
+disable the guard, or label the failed run accepted based on that observation.
+Retain both failed and subsequent diagnostic reports with their source commits.
+Use the existing manual-only bench on this diagnostic build with the same private
+route configuration and a new exclusive output filename. Diagnostics identify
+which path to investigate; they are not physical acceptance or audible latency.

@@ -77,9 +77,11 @@ class RouteProbe:
         self.sink, self.device = target(sink, device)
         self.run, self.stream, self.clock = run, stream, clock
         self._missing = None
+        self.failure_stage = None
 
     def __call__(self):
         # paplay is explicitly bound to this sink; the global default is not used.
+        self.failure_stage = 'sink_query'
         raw = self.run(['/usr/bin/pactl', '--format=json', 'list', 'sinks'])
         if type(raw) is not str or len(raw.encode('utf-8')) > MAX_OUTPUT:
             return False
@@ -87,10 +89,12 @@ class RouteProbe:
         if type(sinks) is not list or not 1 <= len(sinks) <= 64:
             return False
         matches = [s for s in sinks if type(s) is dict and s.get('name') == self.sink]
+        self.failure_stage = 'sink_binding'
         if len(matches) != 1:
             return False
         sink = matches[0]
         volume = sink.get('volume')
+        self.failure_stage = 'sink_state'
         if (sink.get('state') not in ('RUNNING', 'IDLE', 'SUSPENDED')
                 or sink.get('mute') is not False
                 or type(sink.get('properties')) is not dict
@@ -99,15 +103,19 @@ class RouteProbe:
                 or any(type(v) is not dict or type(v.get('value')) is not int
                        or not 0 < v['value'] <= 2**31-1 for v in volume.values())):
             return False
+        self.failure_stage = 'device_query'
         connected = self.run(['/usr/bin/busctl', '--system', 'get-property', 'org.bluez',
             self.device, 'org.bluez.Device1', 'Connected'])
         if type(connected) is not str or connected.strip() != 'b true':
             return False
+        self.failure_stage = 'stream_state'
         active = self.stream()
         if active is None:
             self._missing = None
+            self.failure_stage = None
             return True
         # A server can move a live stream even when the original sink survives.
+        self.failure_stage = 'stream_query'
         raw = self.run(['/usr/bin/pactl', '--format=json', 'list', 'sink-inputs'])
         if type(raw) is not str or len(raw.encode('utf-8')) > MAX_OUTPUT:
             return False
@@ -116,20 +124,26 @@ class RouteProbe:
             return False
         matches = [i for i in inputs if type(i) is dict and type(i.get('properties')) is dict
                    and i['properties'].get('media.name') == active]
+        self.failure_stage = 'stream_binding'
         if len(matches) > 1:
             return False
         if matches:
             self._missing = None
-            return (type(sink.get('index')) is int and type(matches[0].get('sink')) is int
-                    and matches[0]['sink'] == sink['index'])
+            valid = (type(sink.get('index')) is int and type(matches[0].get('sink')) is int
+                     and matches[0]['sink'] == sink['index'])
+            if valid: self.failure_stage = None
+            return valid
         # Stream registration/completion can race the observation. Bound missing
         # registration to 200ms; a hung player cannot preserve readiness forever.
+        self.failure_stage = 'stream_registration'
         now = self.clock()
         if type(now) not in (int, float) or not math.isfinite(now):
             return False
         if self._missing is None or self._missing[0] != active:
             self._missing = (active, now)
-        return 0 <= now-self._missing[1] < .200
+        valid = 0 <= now-self._missing[1] < .200
+        if valid: self.failure_stage = None
+        return valid
 
 
 class BluetoothRouteMonitor:
@@ -145,6 +159,13 @@ class BluetoothRouteMonitor:
         self._started = self._closed = self._fault = False
         self._observed = self._last = None
         self._threads = ()
+        self._failure = self._probe_stage = None
+
+    def diagnostics(self):
+        """Cached closed codes only; no clock read, queries, device IDs or callbacks."""
+        with self._lock:
+            return dict(fault=self._fault, closed=self._closed,
+                        failure=self._failure, probe_stage=self._probe_stage)
 
     def _now(self):
         with self._lock:
@@ -156,9 +177,19 @@ class BluetoothRouteMonitor:
             self._last = value
             return value
 
-    def _fail(self):
+    def _fail(self, reason='probe_rejected'):
         with self._lock:
             notify = not (self._fault or self._closed)
+            if notify:
+                self._failure = reason
+                # Never serialize arbitrary attributes from an injected probe.
+                try:
+                    stage = getattr(self.probe, 'failure_stage', None)
+                except Exception:
+                    stage = None
+                self._probe_stage = stage if type(stage) is str and stage in {
+                    'sink_query', 'sink_binding', 'sink_state', 'device_query',
+                    'stream_state', 'stream_query', 'stream_binding', 'stream_registration'} else None
             self._fault = True
             self._observed = None
         if notify:
@@ -173,18 +204,21 @@ class BluetoothRouteMonitor:
             if self._fault or self._closed:
                 return False
         try:
+            stage = 'clock'
             began = self._now()
+            stage = 'probe'
             valid = self.probe() is True
+            stage = 'clock'
             ended = self._now()
             if not valid or not 0 <= ended-began < MAX_AGE_S:
-                return self._fail()
+                return self._fail('probe_rejected' if not valid else 'probe_too_slow')
             with self._lock:
                 if self._fault or self._closed:
                     return False
                 self._observed = began
             return True
         except Exception:
-            return self._fail()
+            return self._fail('probe_query_failed' if stage == 'probe' else 'clock_invalid')
 
     def ready(self):
         try:
@@ -193,9 +227,9 @@ class BluetoothRouteMonitor:
                 if not self._started or self._closed or self._fault:
                     return False
                 fresh = self._observed is not None and 0 <= now-self._observed < MAX_AGE_S
-            return True if fresh else self._fail()
+            return True if fresh else self._fail('observation_expired')
         except Exception:
-            return self._fail()
+            return self._fail('clock_invalid')
 
     def start(self):
         with self._lock:

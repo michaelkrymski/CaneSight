@@ -22,7 +22,7 @@
   "owner": "bondmila",
   "status": "blocked",
   "branch": "task/CS-040-bluetooth-route",
-  "pr_url": "https://github.com/michaelkrymski/CaneSight/pull/80",
+  "pr_url": null,
   "evidence": [
     "backend/context/narration.py: closed object vocabulary, uncertain <=20-word template, capture-based expiry, single-use request tickets, cancellation and hazard/unavailable priority.",
     "15 isolated context unit tests passed; no Gemini API, physical audio, VoiceOver, GPIO or end-to-end device acceptance claimed.",
@@ -43,7 +43,8 @@
     "Operator confirmed the requested new GPIO21 spoken-menu sequence was run and stated \"skip paste. it worked\". Recorded as broad operator-reported working behavior, not invented per-case JSON, timing, exact device-build or full acceptance. In-scope menu code is unchanged from prepared 04f660b. User authorized completing review preparation; ready-for-review is a software checkpoint, not task Done. See tests/context/evidence/CS-040-menu-operator-confirmation-20261018.json.",
     "Completed-gesture request API and two bounded optional-speech channels prepared for the CS-027 production menu bridge. 83 context tests passed on macOS, including one-slot/cooldown/expiry/priority and independent speech-owner stop tests. See handoffs/CS-040-gesture-dispatch-20261018.md.",
     "Opt-in automatic Linux Bluetooth route monitor prepared: bounded read-only pactl/BlueZ probes, independent stale-cache watchdog and latched observed loss. Monitored eSpeak WAV is piped to explicitly selected paplay; active stream binding is checked. Loss stops owned playback/generation and reconnect cannot clear the latch. 100 context tests and 205 edge tests passed on macOS/Python 3.13 with synthetic OS evidence and real owned helper/audio fixture processes. No real Pi/BlueZ/paplay or audible verification. See handoffs/CS-040-bluetooth-route-20261018.md.",
-    "Software review PR #80. Checked publication passed all 212 shared/root tests and repository/governance/generated-log checks; exact-head CI inspected separately. No deployment or Pi audio test performed."
+    "Software review PR #80. Checked publication passed all 212 shared/root tests and repository/governance/generated-log checks; exact-head CI inspected separately. No deployment or Pi audio test performed.",
+    "2026-10-18 Pi monitored-speech run at f2a6dca6df87ffe1daf0a9f265590ca9ba6a393e failed both software and operator checks; operator reports no speech. Idle route query passed in 63.7ms, and a later isolated short-sentence playback diagnostic was reported audible. Preserve failure in tests/context/evidence/CS-040-monitored-speech-failure-20261018.json. Add cached closed diagnostic codes for route/query/stream stages and child exits to the sink/bench; no monitoring limits or replay behavior changed. Cause remains unverified; see handoffs/CS-040-silent-playback-diagnostics-20261018.md."
   ],
-  "blocker": "Software route-monitoring checkpoint prepared for independent review. Controlled Pi validation of actual pactl/BlueZ/paplay format, query latency/CPU cost, audible cancellation/buffering and reconnect behavior remains pending. The poll monitor latches observed loss but may miss outages between observations. Evaluated scenario adapters, real paired phone/backend/provider freshness and full physical acceptance remain open; operator confirmation alone is not route monitoring."
+  "blocker": "Actual Pi monitored playback produced no speech and failed software/operator checks despite a successful idle route query. Isolated fixed-sentence playback was reported audible. Await diagnostic-build report to identify route/query/registration/process failure; do not claim a fix, relax guard budgets or accept Bluetooth cancellation/reconnect. Paired phone/backend/provider/scenario and PM physical acceptance gates remain open."
 }
