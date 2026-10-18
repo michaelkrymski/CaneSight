@@ -227,7 +227,7 @@ async def read_parts(request):
 
 
 def create_app(*, ingress=None, dependency_health=None, session_manager=None,
-               inference_worker=None, traffic_limits=None):
+               inference_worker=None, traffic_limits=None, _install_bonds=True):
     """Inject CS-029 grants and a truthful CS-031/034 health provider.
 
     Default app has no enrolled sources or model/worker. Health is liveness
@@ -251,6 +251,13 @@ def create_app(*, ingress=None, dependency_health=None, session_manager=None,
     app.add_middleware(TrafficGuard, limits=traffic_limits)
     app.state.inference_worker = inference_worker
     app.state.sessions = session_manager
+    import os
+    bond_registry = os.environ.get('CANESIGHT_BOND_REGISTRY')
+    if bond_registry and _install_bonds:
+        if session_manager is None or not Path(bond_registry).is_absolute():
+            raise ValueError('Bond enrollment requires paired sessions and an absolute registry path')
+        from .bonds import install_bonds
+        install_bonds(app, session_manager, bond_registry)
     if session_manager is not None and inference_worker is not None:
         session_manager.bind_inference_worker(inference_worker)
     # Reject overload before reading/parsing/decompressing request bodies.
@@ -311,4 +318,6 @@ def create_app(*, ingress=None, dependency_health=None, session_manager=None,
     return app
 
 
-app = create_app()
+# Legacy unconfigured app must be importable before the environment-configured
+# session factory constructs its manager. Only that factory installs bond auth.
+app = create_app(_install_bonds=False)

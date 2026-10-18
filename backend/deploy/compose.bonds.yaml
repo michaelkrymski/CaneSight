@@ -1,0 +1,12 @@
+# Append AFTER the existing production overlays. Use an image containing this code.
+services:
+  backend:
+    environment:
+      CANESIGHT_BOND_REGISTRY: /run/canesight/registry.json
+    volumes:
+      - type: bind
+        source: ${CANESIGHT_BOND_REGISTRY_HOST:?Set the absolute host registry path}
+        target: /run/canesight/registry.json
+        read_only: true
+        bind:
+          create_host_path: false

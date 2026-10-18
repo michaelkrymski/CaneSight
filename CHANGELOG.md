@@ -1186,6 +1186,14 @@ User requested deployment and live verification. Uploaded accepted source a239e2
 
 Validation: 20 generated JPEG-to-native-result samples passed with original lineage, role/session isolation, expiry and revocation. Separate session probe passed readiness while enrolled, acknowledgment, duplicate/expired credential rejection and peer disconnect/reconnect replay rejection. Server backend suite: 128 tests, OK with 6 optional skips. Candidate launch was rejected by automatic approval review; candidate not activated. No real-device/detection-accuracy/hardware acceptance.
 
+## 2026-10-18 — CS-033-PERSISTENT-BOND-REVIEW-GMARCIALCALLEJA-20261018: Prepare opt-in persistent device bond backend and deployment layer
+
+Author: Gavin (gmarcialcalleja) · Task: CS-033
+
+Review supplied local draft, fix cold configured import, add additive exact-parent image recipe and read-only persistent registry overlay. New enrollment authorization and renewable transport lease await explicit PM interface review; production bond activation and device integration remain pending. Registry/device data are outside Git.
+
+Validation: 14 bond/TLS tests pass, including cold session-factory import. Exact-parent candidate built on Vultr and passed network-disabled, read-only service-UID factory/registry smoke; parent command/environment/user/healthcheck preserved. Original draft review: 141 backend (7 skips), 223 edge (8 skips), 228 shared (11 skips), no failures. Final checked publication reruns shared checks; Apple/depth/clock/device acceptance not claimed.
+
 ## 2026-10-18 — CS-037-CHANGELOG-CONFLICT-ADITSANGANI-20261018: Resolve PR79 generated changelog merge conflict
 
 Author: aditsangani (AI-assisted) · Task: CS-037
