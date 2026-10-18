@@ -21,8 +21,8 @@
   "elapsed_window": "11\u201314",
   "owner": "bondmila",
   "status": "blocked",
-  "branch": "task/CS-040-restricted-narration",
-  "pr_url": "https://github.com/michaelkrymski/CaneSight/pull/41",
+  "branch": "task/CS-040-gesture-dispatch",
+  "pr_url": "https://github.com/michaelkrymski/CaneSight/pull/77",
   "evidence": [
     "backend/context/narration.py: closed object vocabulary, uncertain <=20-word template, capture-based expiry, single-use request tickets, cancellation and hazard/unavailable priority.",
     "15 isolated context unit tests passed; no Gemini API, physical audio, VoiceOver, GPIO or end-to-end device acceptance claimed.",
@@ -40,7 +40,8 @@
     "Merged PR #71 acceptance fetched from main 5dbb6ad. Added FixedMenuAudio closed entry/three-label/confirmation/cancel/unavailable phrases with explicit readiness/priority, epoch/generation fences, no replay on recovery, 15s optional speech expiry and clock/engine failure latch. EspeakSink permits only these exact menu phrases in addition to existing object templates. All 78 context tests pass; silent fixtures only. CS-027 synthetic bench composes the APIs; production menu/request bridge and automatic route monitoring are not installed.",
     "Menu readiness follow-up: clock failure during the expiry tick inside update now returns unavailable immediately, not a previously computed ready value. Regression and all 79 context tests pass; no device test or behavior acceptance claim.",
     "Review preparation sync: merged accepted main d1d8eb9 (including GPS 94ccaaf and CS-045 measurement analysis), resolved generated CHANGELOG with renderer, no menu/speech implementation edits. 79 context tests passed. Combined verification and current-head CI inspected after publishing. Operator says new menu run completed; actual report still pending, no new physical pass claimed.",
-    "Operator confirmed the requested new GPIO21 spoken-menu sequence was run and stated \"skip paste. it worked\". Recorded as broad operator-reported working behavior, not invented per-case JSON, timing, exact device-build or full acceptance. In-scope menu code is unchanged from prepared 04f660b. User authorized completing review preparation; ready-for-review is a software checkpoint, not task Done. See tests/context/evidence/CS-040-menu-operator-confirmation-20261018.json."
+    "Operator confirmed the requested new GPIO21 spoken-menu sequence was run and stated \"skip paste. it worked\". Recorded as broad operator-reported working behavior, not invented per-case JSON, timing, exact device-build or full acceptance. In-scope menu code is unchanged from prepared 04f660b. User authorized completing review preparation; ready-for-review is a software checkpoint, not task Done. See tests/context/evidence/CS-040-menu-operator-confirmation-20261018.json.",
+    "Completed-gesture request API and two bounded optional-speech channels prepared for the CS-027 production menu bridge. 83 context tests passed on macOS, including one-slot/cooldown/expiry/priority and independent speech-owner stop tests. See handoffs/CS-040-gesture-dispatch-20261018.md."
   ],
   "blocker": "Software checkpoint prepared for independent review after operator menu confirmation. Full task acceptance still requires production menu/request integration, trusted automatic audio-route readiness, evaluated observation adapters and real paired phone/backend freshness. Broad operator confirmation has no supplied JSON, measured audible latency or detailed clarity assessment; retain prior negative/unknown evidence and PM physical-acceptance review."
 }

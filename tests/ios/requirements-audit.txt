@@ -1,0 +1,3 @@
+# Optional source grammar audit only; not needed by the Swift package or backend.
+tree-sitter==0.26.0
+tree-sitter-swift==0.7.4
