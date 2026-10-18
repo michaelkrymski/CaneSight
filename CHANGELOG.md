@@ -922,6 +922,14 @@ Record PR #75 on the task runtime; retain native host/device-clock and physical 
 
 Validation: Implementation publication passed all 132 root tests and seven focused integration tests; Swift Linux compilation/generation passed. Checked publishing reruns shared checks for this task-link and audit-only follow-up.
 
+## 2026-10-18 — CS-027-ACCEPTANCE-RECHECK-20261018: Recheck merged button/menu implementation and identify physical acceptance gates
+
+Author: bondmila (AI-assisted) · Task: CS-027
+
+Record merged PR #78 approval and fresh isolated-environment verification. User will run current-main GPIO21/spoken-menu checks. Keep task blocked pending actual report, PM physical acceptance and separate route/scenario integration; no implementation changes.
+
+Validation: 205 edge, 83 context and 195 shared tests passed with pinned requirements; repository and generated-log checks passed. Initial unpinned-environment failures are disclosed. No new physical pass claimed.
+
 ## 2026-10-18 — CS-027-CROSSING-MENU-BONDMILA-20261018: Implement merged crossing observation gesture component and synthetic bench
 
 Author: bondmila (AI-assisted) · Task: CS-027
