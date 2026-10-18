@@ -1,0 +1,95 @@
+{
+  "task": "CS-025",
+  "date": "2026-10-18",
+  "mode": "exact-generating-manifest-recovery",
+  "delegated_pr": 75,
+  "authorization": "https://github.com/michaelkrymski/CaneSight/pull/75#issuecomment-6247261989",
+  "reviewed_head": "d0f2cc4a5cb5f0a3113a1727e343931761551a7b",
+  "accepted_main": "d7f2a4f8eb663e88152cfdb10029a31004872b78",
+  "manifest_before_sha256": "485e784c3af7cf1d6569b6fb8650e2566aa5d4b2d7f78810b65889ea7af03941",
+  "manifest_recovered_sha256": "0dc93b079a96ed76857d536c578e4b2e8572cda3be223bbe966e8fc5c48e723e",
+  "recovery": "Only LF to CRLF conversion of the identical JSON; no semantic/pin/expected-digest change. File-local -text preserves raw Git bytes. cr-at-eol recognizes the recorded line endings for whitespace checks.",
+  "json_semantics_unchanged": true,
+  "fixture_source_hashes_verified": 4,
+  "pinned_swift_source_commit": "0433fc94af1a1e3edfe2d2bb28925cb3be6df1ee",
+  "pinned_swift_source_files_verified": [
+    {
+      "path": "ios/CaneSightTelemetry/Package.swift",
+      "sha256": "474f860935824fbd0741bbbd06c758be9485948b9cd6c5c64419b878dee3e2c9"
+    },
+    {
+      "path": "ios/CaneSightTelemetry/Sources/CaneSightTelemetry/NativeWebSocket.swift",
+      "sha256": "70e7f1d25329887707c5aed7aa3f867daaa341e2a263799ea0763b0c90c13edc"
+    },
+    {
+      "path": "ios/CaneSightTelemetry/Sources/CaneSightTelemetry/TelemetryClient.swift",
+      "sha256": "2706e8d18faa67b210fa9acaf601e644f025b98bde3fd5fbe61e47e1a245748a"
+    },
+    {
+      "path": "ios/CaneSightTelemetry/Sources/CaneSightTelemetry/TelemetryCore.swift",
+      "sha256": "6b91e0b501f2b36dfaee7a271637cee50f227e2d39a4141d388734f4d816300d"
+    },
+    {
+      "path": "ios/CaneSightTelemetry/Sources/CaneSightTelemetry/Wire.swift",
+      "sha256": "fefac72a19d86ce8eee716dbfaf960402cfb9d6fa13a1a9539f926abee7dca5f"
+    },
+    {
+      "path": "ios/CaneSightTelemetry/Sources/TelemetryFixtures/main.swift",
+      "sha256": "0dcf0d980d9f260617e0eb02ca8e6ae59caa7478ef964c321de74b8ba604567e"
+    },
+    {
+      "path": "ios/CaneSightTelemetry/Tests/CaneSightTelemetryTests/ClientTests.swift",
+      "sha256": "afeb626a0c62bda1be615e9a24dae8421493c124128c812ad6df685ea3c26768"
+    },
+    {
+      "path": "ios/CaneSightTelemetry/Tests/CaneSightTelemetryTests/CoreTests.swift",
+      "sha256": "9da5d24bb415bbcadd12f461d7ee9eee240ca30b2473e0029284949aaee3636c"
+    }
+  ],
+  "synthetic_wire_sha256": "effea45373d64e3038f3af2779e75df505dd281c614e5bd03d1766e72dea3bcc",
+  "synthetic_wire_unchanged": true,
+  "new_swift_or_docker_generation": "not_run; recovery route explicitly authorized by PM; existing compiler-image record retained for unchanged original artifact",
+  "git_staged_manifest_verified": true,
+  "test_results": {
+    "focused": {
+      "command": "python -m unittest discover -s tests/edge -p test_swift_policy.py -v",
+      "run": 7,
+      "passed": 7,
+      "skipped": 0,
+      "failed": 0
+    },
+    "edge": {
+      "command": "python -m unittest discover -s tests/edge -v",
+      "run": 193,
+      "passed": 185,
+      "skipped": 8,
+      "failed": 0,
+      "skip_reasons": "Seven private-report POSIX-permission cases and one POSIX SIGTERM case are explicitly skipped on Windows."
+    },
+    "shared": {
+      "command": "python -m unittest discover -s tests -v",
+      "run": 191,
+      "passed": 184,
+      "skipped": 7,
+      "failed": 0,
+      "skip_reasons": "POSIX speech process-group/silent executable/private report cases are explicitly skipped on Windows."
+    },
+    "repository_validation": "passed",
+    "generated_changelog_check": "passed",
+    "git_whitespace_check": "passed"
+  },
+  "limits": [
+    "Synthetic replay only.",
+    "No phone, native socket, Pi, GPIO, motor or physical timing evidence.",
+    "Overall task owner remains gmarcialcalleja; Adit is assigned only this PR fix."
+  ],
+  "git_staged_all_four_input_hashes_verified": true,
+  "trusted_base_scope_governance": {
+    "result": "passed",
+    "base": "d7f2a4f8eb663e88152cfdb10029a31004872b78",
+    "actual_existing_pr_author": "gmarcialcalleja",
+    "verified_pr_assignee": "aditsangani",
+    "protected_change": false,
+    "notice": "Actual existing PR metadata matches server governance context; PM delegated only this fix. No identity substitution, helper/CI edit or ownership transfer."
+  }
+}

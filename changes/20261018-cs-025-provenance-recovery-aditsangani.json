@@ -1,0 +1,9 @@
+{
+  "id": "CS-025-PROVENANCE-RECOVERY-ADITSANGANI-20261018",
+  "date": "2026-10-18",
+  "author": "aditsangani (AI-assisted; PM-delegated PR fix)",
+  "task": "CS-025",
+  "summary": "Recover exact Swift fixture input manifest bytes for PR #75",
+  "details": "Under Michael's explicit PR75 assignment, restore the exact CRLF generating-manifest bytes matching the unchanged artifact's recorded SHA-256. Pin only that manifest against text normalization in a fixture-local Git attribute. All four generator input hashes and eight pinned Swift source blobs verify; synthetic-wire.json, expected digests, original tests, task ownership and requirements remain unchanged. Integrate current main and render the union changelog. Gavin's commits/authorship are preserved.",
+  "validation": "The original failure was reproduced on a Git archive (6/7 passed). After exact-byte recovery, all seven focused tests pass. Full edge/shared suites, committed/index byte checks, repository/changelog/whitespace and current-head CI are verified separately. No new Swift/Docker generation or physical-device evidence is claimed."
+}

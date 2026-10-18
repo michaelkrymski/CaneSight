@@ -834,6 +834,30 @@ Advance capture barriers before notifying consumers and after provider errors, p
 
 Validation: 15 portable Swift 6.0.3 Linux tests passed with complete strict concurrency and warnings as errors. Core Location/UIKit bodies excluded; contract, host integration and real-device gates remain.
 
+## 2026-10-18 — CS-025-PROVENANCE-RECOVERY-ADITSANGANI-20261018: Recover exact Swift fixture input manifest bytes for PR #75
+
+Author: aditsangani (AI-assisted; PM-delegated PR fix) · Task: CS-025
+
+Under Michael's explicit PR75 assignment, restore the exact CRLF generating-manifest bytes matching the unchanged artifact's recorded SHA-256. Pin only that manifest against text normalization in a fixture-local Git attribute. All four generator input hashes and eight pinned Swift source blobs verify; synthetic-wire.json, expected digests, original tests, task ownership and requirements remain unchanged. Integrate current main and render the union changelog. Gavin's commits/authorship are preserved.
+
+Validation: The original failure was reproduced on a Git archive (6/7 passed). After exact-byte recovery, all seven focused tests pass. Full edge/shared suites, committed/index byte checks, repository/changelog/whitespace and current-head CI are verified separately. No new Swift/Docker generation or physical-device evidence is claimed.
+
+## 2026-10-18 — CS-025-SWIFT-POLICY-20261018: Test actual Swift telemetry bytes through accepted relay and simulated policy
+
+Author: Gavin (gmarcialcalleja) · Task: CS-025
+
+Compile an unchanged pinned CS-016 review package to generate synthetic left/center/right, clock, health and limited-tracking wire data. Add seven integration checks for role binding, original capture age, channel mapping, cancellation, expiry and replay/epoch rejection. Preserve explicit native-transport, lifecycle, device-clock and physical acceptance gaps.
+
+Validation: Swift 6.0.3 Linux Docker compilation/generation passed with strict concurrency and warnings as errors, network disabled. Seven focused Python integration tests passed on Windows. No real phone, Pi, camera, network device, GPIO or motor used.
+
+## 2026-10-18 — CS-025-SWIFT-REVIEW-LINK-20261018: Link Swift replay policy integration PR
+
+Author: Gavin (gmarcialcalleja) · Task: CS-025
+
+Record PR #75 on the task runtime; retain native host/device-clock and physical acceptance blockers. No fixture or implementation change.
+
+Validation: Implementation publication passed all 132 root tests and seven focused integration tests; Swift Linux compilation/generation passed. Checked publishing reruns shared checks for this task-link and audit-only follow-up.
+
 ## 2026-10-18 — CS-027-CROSSING-MENU-BONDMILA-20261018: Implement merged crossing observation gesture component and synthetic bench
 
 Author: bondmila (AI-assisted) · Task: CS-027
