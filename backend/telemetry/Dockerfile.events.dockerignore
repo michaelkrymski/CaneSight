@@ -1,0 +1,10 @@
+**
+!backend/
+!backend/telemetry/
+!backend/telemetry/requirements-events.txt
+!backend/telemetry/event_store.py
+!backend/telemetry/event_writer.py
+!backend/telemetry/logging_app.py
+!backend/telemetry/event_schema.sql
+!backend/telemetry/Dockerfile.events
+!backend/telemetry/Dockerfile.events.dockerignore
