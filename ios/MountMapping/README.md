@@ -112,3 +112,20 @@ installed/launched on the paired iPhone 17 Pro Max / iOS 26.6.2 through Apple's
 device tools. Required CI passed on that implementation. The operator received
 the target/reset procedure above; physical results are pending and not prefilled.
 The original CaneSight app/#69 source remains unchanged.
+
+## Operator update — 18 October 2026
+
+Michael confirmed Left 3/3, Center 3/3 and Right 3/3 on the installed handheld
+portrait bench. Rotation/Stop/background resets remain pending. This report
+supersedes the earlier pending-target checkpoint without changing its history.
+
+The operator also observed floor influence making all three distances similar,
+including when kneeling. Each column spans the full viewport height and uses
+CS-014's near 10th percentile of eligible samples; floor samples are included.
+There is no ground-plane removal or floor/obstacle classifier. Similar values do
+not identify what surface was measured. This target test checks side mapping in
+the reported setup, not general obstacle detection, measured surface accuracy,
+curb/drop detection or a final cane/grip/motor configuration.
+
+Sanitized report and executed native dependency test results:
+`tests/ios/evidence/CS-015-operator-runtime-20261018.json`.

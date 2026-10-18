@@ -24,7 +24,10 @@
     "11 strict-concurrency Mac XCTest cases passed; new physical-iOS SDK bench/native build passed. No operator target mapping result yet.",
     "handoffs/CS-015-20261018-bench-install.md",
     "tests/ios/evidence/CS-015-bench-install-20261018.json",
-    "Signed build, strict signature verification and separate Mount Check installation/launch passed on iPhone 17 Pro Max / iOS 26.6.2. Required CI green on tested implementation bd99b6c. Physical target/reset observations requested and pending."
+    "Signed build, strict signature verification and separate Mount Check installation/launch passed on iPhone 17 Pro Max / iOS 26.6.2. Required CI green on tested implementation bd99b6c. Physical target/reset observations requested and pending.",
+    "handoffs/CS-015-20261018-operator-runtime.md",
+    "tests/ios/evidence/CS-015-operator-runtime-20261018.json",
+    "Operator confirmed Left 3/3, Center 3/3 and Right 3/3 in handheld portrait; resets not tested yet. Floor can produce similar distances across full-height columns. Executed 61 iOS Simulator tests across exact pinned depth/lifecycle/telemetry/location review packages, all passed."
   ],
-  "blocker": "Separate signed bench installed/launched; operator three-left/three-center/three-right plus rotation/Stop/background reset observations pending. Draft CS-014 dependency #62 still needs review/acceptance. No final cane/grip/motor mapping or capture-clock calibration claimed."
+  "blocker": "Portrait target counts confirmed by operator. Rotation/Stop/background reset observations still pending; CS-014 dependency #62 still needs review/acceptance. Full-height sectors include floor; no floor classification, final cane/grip/motor mapping or capture-clock calibration claimed."
 }

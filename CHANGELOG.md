@@ -658,6 +658,14 @@ Separate Mount Check app built with local Personal Team signing, passed strict d
 
 Validation: Signed build, strict codesign, installation and launch passed. All 11 mapping XCTest cases, 110 shared checks and required CI passed on tested implementation bd99b6cf043122d2d4548f4e97bfa70bbf868409. This evidence-only checkpoint reruns shared checks; task blocked and PR draft pending physical observations and review.
 
+## 2026-10-18 — CS-015-OPERATOR-RUNTIME-20261018: Record portrait target counts, floor limitation and executed native package tests
+
+Author: michaelkrymski (AI-assisted) · Task: CS-015
+
+Operator explicitly confirmed Left/Center/Right each reached 3/3; reset checks remain pending. Document full-height sectors including floor samples. Persist 61 passing iOS Simulator tests from pinned review packages, including correction of a telemetry product-scheme build that initially contained no tests. Integrated accepted main; no app or teammate source changed.
+
+Validation: 61 executed Simulator tests passed (15 depth, 12 lifecycle, 21 telemetry, 13 location), zero failed/skipped. Prior 11 mapping tests and signed phone build remain applicable to unchanged source. Shared checks run by checked publisher. Physical claims limited to operator report; no measured accuracy, capture clock, final mount or motor verification.
+
 ## 2026-10-18 — CS-015-PM-CLAIM-20261018: Assign camera orientation and mount mapping verification to Michael
 
 Author: michaelkrymski (AI-assisted) · Task: CS-015
