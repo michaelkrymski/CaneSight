@@ -1,0 +1,9 @@
+{
+  "id": "CS-016-PHONE-HOST-20261018",
+  "date": "2026-10-18",
+  "author": "michaelkrymski (AI-assisted)",
+  "task": "CS-016",
+  "summary": "Host telemetry tests on the physical iPhone and sample live depth timestamps",
+  "details": "Add a signed CaneSightTransport app-hosted scheme using existing core/client tests and actual depth adapter source; bind host telemetry to current sibling package and retain five other pinned review inputs. Record two bounded 30-frame ARKit runs, paused/restarted, and local camera UI recovery. No live app streaming enabled.",
+  "validation": "Physical phone: 22 hosted tests passed, one public HTTPS timeout skipped; one real camera Stop/background UI case passed without skip. Strict signature verification passed. Source/media-clock deltas are short-run observations only, not clock calibration, Pi latency or electrical proof. Public origin timed out from Mac and phone."
+}

@@ -1,0 +1,9 @@
+{
+  "id": "CS-016-BOUNDED-TELEMETRY-BONDMILA-20261017",
+  "date": "2026-10-17",
+  "author": "bondmila (AI-assisted)",
+  "task": "CS-016",
+  "summary": "Implement bounded timestamped phone telemetry software checkpoint",
+  "details": "Add isolated Swift package with latest-only 10 Hz depth transport, original capture timestamps, role-bound native WSS, independent sequence streams, strict clock probes, watchdog cancellation and reconnect without queue replay. Keep task blocked and PR draft pending producer/app integration and deferred iOS device evidence; no shared contract or baseline changes.",
+  "validation": "21 host Swift tests and strict-concurrency build pass; 4 generated Swift replay-to-accepted-backend/schema tests pass. Repository validator and 110 root tests pass; checked publishing reruns shared checks. No iOS app build/signing, physical phone, live WSS or electrical verification claimed."
+}

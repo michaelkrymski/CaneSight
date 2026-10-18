@@ -1,0 +1,67 @@
+{
+  "task": "CS-016",
+  "date": "2026-10-18",
+  "tested_source_commit": "6762777adb2e7cb4ad9d4affeb04a5ea81756c40",
+  "phone_observation": "Direct signed physical-iPhone Xcode test result",
+  "phone_test": {
+    "name": "LiveDepthPairTests/testRealDepthPairPauseReconnect",
+    "result": "Passed",
+    "passed": 1,
+    "failed": 0,
+    "skipped": 0,
+    "duration_seconds": 13.489,
+    "depth_sent": 80,
+    "connections": 2,
+    "processed_frames": 181,
+    "pause_assertions": "No pending depth after suspension and no new completed depth sends during 1.2-second suspension"
+  },
+  "Pi_observation": "Final summary operator-reported by Michael; dedicated Pi checkout previously reported at 8a6c7b2, then instructed to fetch published 6762777; final Pi revision not independently inspected",
+  "Pi_summary": {
+    "real_depth_transport_only": true,
+    "connections": 2,
+    "per_connection": [
+      {
+        "depth_packets": 40,
+        "heartbeats": 6,
+        "depth_before_ready_heartbeat": 5,
+        "source_capture_rate_hz": 9.066,
+        "receiver_arrival_rate_hz": 9.08
+      },
+      {
+        "depth_packets": 40,
+        "heartbeats": 7,
+        "depth_before_ready_heartbeat": 6,
+        "source_capture_rate_hz": 9.066,
+        "receiver_arrival_rate_hz": 9.078
+      }
+    ],
+    "strict_sequence_order": true,
+    "strictly_increasing_captures": true,
+    "clock_round_trip": {
+      "count": 8,
+      "median_ms": 41.049,
+      "max_ms": 145.109
+    },
+    "clock_exchange_width_diagnostic": {
+      "count": 8,
+      "median_ms": 33.396,
+      "max_ms": 141.986
+    },
+    "capture_age_eligibility": "unknown",
+    "drift_budget_justified": false,
+    "pi_camera_used": false,
+    "gpio_used": false,
+    "physical_guidance_verified": false
+  },
+  "source_sha256": {
+    "ios/CaneSightApp/DeviceTests/LiveDepthPairTests.swift": "8971a9e0fb9cc085c18d43b188cec04f955eb9fd5dc193b0ef1a504dfbbce5e8",
+    "tests/ios/pi_phone_depth_probe.py": "3dc697c3b444ca85d9fcbb60da34eb8f03a60ca3697323c9503722c504248f7a"
+  },
+  "limits": [
+    "Measured source rate 9.066 Hz per connection; do not claim exact 10 Hz delivery.",
+    "Eleven depth packets preceded ready heartbeat receipt and were counted for transport diagnostics only, never granted guidance eligibility.",
+    "Clock exchange RTT/width diagnostics are not source capture age, one-way latency or a justified joint drift bound.",
+    "Foreground pause/restart/reconnect is not an actual phone lock/sleep test or forced stalled-network backlog test.",
+    "Normal app streaming remains disabled; no Pi camera/GPIO, electrical or physical guidance acceptance."
+  ]
+}
