@@ -698,6 +698,14 @@ Compile an unchanged pinned CS-016 review package to generate synthetic left/cen
 
 Validation: Swift 6.0.3 Linux Docker compilation/generation passed with strict concurrency and warnings as errors, network disabled. Seven focused Python integration tests passed on Windows. No real phone, Pi, camera, network device, GPIO or motor used.
 
+## 2026-10-18 — CS-025-SWIFT-REVIEW-LINK-20261018: Link Swift replay policy integration PR
+
+Author: Gavin (gmarcialcalleja) · Task: CS-025
+
+Record PR #75 on the task runtime; retain native host/device-clock and physical acceptance blockers. No fixture or implementation change.
+
+Validation: Implementation publication passed all 132 root tests and seven focused integration tests; Swift Linux compilation/generation passed. Checked publishing reruns shared checks for this task-link and audit-only follow-up.
+
 ## 2026-10-18 — CS-044-CROSSING-CAMPAIGN-20261018: Add pinned crossing-menu and audio failure campaign
 
 Author: Gavin (gmarcialcalleja) · Task: CS-044
