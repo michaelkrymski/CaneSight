@@ -1,0 +1,9 @@
+{
+  "id": "CS-014-CLAIM-ADITSANGANI-20261017",
+  "date": "2026-10-17",
+  "author": "aditsangani (AI-assisted)",
+  "task": "CS-014",
+  "summary": "Request CS-014 assignment for depth-sector software preparation",
+  "details": "Claim only, from main 18884a5914e8f0476a2877a9c63ff37a24291306. Human requests coding confidence-aware depth sectors now and deferring Xcode/Mac/device verification. Scope is CS-014 numerical filtering, confidence/coverage, percentile aggregation, unknown values, source timestamps and synthetic test inputs within ios/ and tests/ios/. CS-013 remains an unchanged prerequisite; physical support/signing, ARKit build, orientation/mount acceptance and real-device accuracy are not claimed. Implementation waits for Michael to merge this assignment.",
+  "validation": "Checked publishing runs repository validation, shared unit tests, generated changelog consistency and whitespace checks. No Swift build, Xcode, iOS simulator or device tests are claimed by this assignment."
+}
