@@ -842,6 +842,22 @@ Use native ARKit display transform with exact paired depth/confidence rotation a
 
 Validation: 11 XCTest cases pass with strict concurrency and warnings as errors. New app/core/native iOS SDK build passes. Physical mapping and signed device bench results remain pending; task blocked/PR draft. Shared checks run through checked publishing.
 
+## 2026-10-18 — CS-016-PR81-MAIN-REFRESH-20261018: Refresh ownership-transfer PR #81 with accepted main
+
+Author: gmarcialcalleja (AI-assisted) · Task: CS-016
+
+Merge accepted main 3769c4bc46b81afb5fcf8d2f475fc0b2d06363fa into the existing proposal without changing its task runtime/static fields or CR. Preserve both histories and regenerate the log. The ownership transfer remains proposed; Michael must renew exact-head authorization after this push.
+
+Validation: Repository structure valid; unittest discovery ran 212 tests successfully with 11 platform/optional skips on Windows. Generated-log and whitespace checks passed. No Swift/device/electrical acceptance was performed in this refresh.
+
+## 2026-10-18 — CS-016-TRANSFER-PROPOSAL-20261018: Propose reviewed telemetry ownership transfer from Mila to Michael
+
+Author: michaelkrymski (AI-assisted) · Task: CS-016
+
+Michael requested CS-016; bondmila published a stopped-work handoff on #64. Accepted main still names bondmila. Propose runtime-only assignment/evidence transfer with new CR; preserve all static requirements and existing implementation history. No new implementation or completion claim.
+
+Validation: 195 repository tests, structure/rendered-log/whitespace checks passed. Existing unchanged telemetry: 21 strict Swift tests, four replay wire/backend tests and unsigned physical-iOS SDK build passed. HTTPS health request to documented origin timed out from this Mac. Ownership amendment requires exact-head PM authorization and normal independent reviewed merge; no new implementation or live paired acceptance claimed.
+
 ## 2026-10-18 — CS-017-CLEANUP-REENTRANCY-20261018: Fence lifecycle cleanup and latch clock-fault notifications
 
 Author: Gavin (gmarcialcalleja) · Task: CS-017
