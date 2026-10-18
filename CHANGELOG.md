@@ -922,6 +922,14 @@ Record PR #75 on the task runtime; retain native host/device-clock and physical 
 
 Validation: Implementation publication passed all 132 root tests and seven focused integration tests; Swift Linux compilation/generation passed. Checked publishing reruns shared checks for this task-link and audit-only follow-up.
 
+## 2026-10-18 — CS-027-ACCEPTANCE-RECHECK-20261018: Recheck merged button/menu implementation and identify physical acceptance gates
+
+Author: bondmila (AI-assisted) · Task: CS-027
+
+Record merged PR #78 approval and fresh isolated-environment verification. User will run current-main GPIO21/spoken-menu checks. Keep task blocked pending actual report, PM physical acceptance and separate route/scenario integration; no implementation changes.
+
+Validation: 205 edge, 83 context and 195 shared tests passed with pinned requirements; repository and generated-log checks passed. Initial unpinned-environment failures are disclosed. No new physical pass claimed.
+
 ## 2026-10-18 — CS-027-CROSSING-MENU-BONDMILA-20261018: Implement merged crossing observation gesture component and synthetic bench
 
 Author: bondmila (AI-assisted) · Task: CS-027
@@ -945,6 +953,14 @@ Author: bondmila (AI-assisted) · Task: CS-027
 Preserve exact pasted report from combined 6dfda42: initially LOW, seven press/release edge pairs, 2965 samples, complete. Keep raw-input observation separate from application request/audio/electrical acceptance; verification flags unchanged.
 
 Validation: Parsed report and checked counts/disabled subsystems; confirmed source commit contains the GPIO adapter. No new implementation or local hardware test. Checked publisher runs shared validation, tests, governance, changelog and whitespace.
+
+## 2026-10-18 — CS-027-MENU-DEVICE-EVIDENCE-20261018: Record Pi button/menu confirmation and qualitative speech cancellation evidence
+
+Author: bondmila (AI-assisted) · Task: CS-027
+
+Preserve initial zero-confirmation snapshot and focused confirmation/activation/cancel snapshot separately. Operator reports exact checkout SHA, clear speech and prompt stop without noticeable tail. Integrate accepted route-monitoring dependency; physical runs did not enable it. Keep full task blocked for PM acceptance and remaining integration.
+
+Validation: Operator-reported GPIO input and no fault on both snapshots; no agent-observed hardware run, measured audible latency, automatic route-loss, live scenario/phone/backend or motor result. Software rerun results recorded in handoff; checked publisher runs shared checks.
 
 ## 2026-10-18 — CS-027-MENU-OPERATOR-CONFIRMATION-20261018: Record operator menu confirmation for software checkpoint review
 
