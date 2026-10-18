@@ -21,12 +21,13 @@
   "owner": "bondmila",
   "status": "blocked",
   "branch": "task/CS-039-deployment-composition",
-  "pr_url": null,
+  "pr_url": "https://github.com/michaelkrymski/CaneSight/pull/94",
   "evidence": [
     "backend/context/: opt-in paired-session context service with server-only key, bounded JPEG reencoding, one active child plus one pending slot, eight-second server deadline, cooldown and cancellation/revocation suppression.",
     "23 context tests passed with generated JPEG/provider fixtures, including real hung-child termination. Backend regression: 128 tests ran, nine optional/environment-specific skips; remaining tests passed. Root suite and publishing checks recorded in handoff.",
     "2026-10-17: real gemini-3.1-flash-lite metadata plus structured-image generation verified within the eight-second probe using a generated neutral JPEG. No real scene or credentials retained. No deployed context, real-device speech/button, model accuracy or electrical acceptance claimed.",
-    "Deployment composition prepared: explicit sessions/vision, dashboard or logging base factory, one shared native session manager and nested lifespans. Restricted immutable-parent context image layer and concrete rollout/re-enrollment/rollback proposal remain within backend/context. 106 context tests passed; backend 128 ran with 119 passed and nine existing environment/optional skips. Synthetic provider/writer/model inputs, real local ASGI HTTP/WSS routing; no actual container build, key provisioning, public activation or Pi/provider acceptance. See handoffs/CS-039-deployment-composition-20261018.md."
+    "Deployment composition prepared: explicit sessions/vision, dashboard or logging base factory, one shared native session manager and nested lifespans. Restricted immutable-parent context image layer and concrete rollout/re-enrollment/rollback proposal remain within backend/context. 106 context tests passed; backend 128 ran with 119 passed and nine existing environment/optional skips. Synthetic provider/writer/model inputs, real local ASGI HTTP/WSS routing; no actual container build, key provisioning, public activation or Pi/provider acceptance. See handoffs/CS-039-deployment-composition-20261018.md.",
+    "Software review PR #94. Checked publication passed all 228 shared/root tests and repository/governance/generated-log checks. No container/deployment acceptance is inferred from those tests."
   ],
   "blocker": "Deployment software checkpoint prepared for review. Docker unavailable locally; candidate image build/digest, actual active base-image/factory selection and deployment-owner review of service image/command/private environment are pending. Server-only key/model verification on deployed account, coordinated restart/fresh enrollments and public HTTPS/WSS/context plus real Pi/provider/audio acceptance remain unverified. No deployment files or running service changed."
 }

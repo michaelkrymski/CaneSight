@@ -56,3 +56,8 @@ rather than replace the service with standalone context. Re-enroll after restart
 This PR is software review preparation, not an authorization to change deployment
 files or a claim that merely merging it activates Gemini. Provider startup failure
 keeps native service operational; context availability is separate from /readyz.
+
+Full accepted base: a239e221b1d51d7673a78e8fb84e6df274b36e39.
+Review PR: https://github.com/michaelkrymski/CaneSight/pull/94.
+Checked publication passed all 228 shared/root tests and repository/governance/
+generated-log checks. Current-head CI is inspected after final evidence push.
