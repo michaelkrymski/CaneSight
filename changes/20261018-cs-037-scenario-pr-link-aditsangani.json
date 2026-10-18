@@ -1,0 +1,9 @@
+{
+  "id": "CS-037-SCENARIO-PR-LINK-ADITSANGANI-20261018",
+  "date": "2026-10-18",
+  "author": "aditsangani (AI-assisted)",
+  "task": "CS-037",
+  "summary": "Record CS-037 scenario-adapter follow-up PR #79",
+  "details": "Link the published software checkpoint and actual checks in task runtime evidence. Full task remains blocked; no implementation, scope or ownership changes.",
+  "validation": "Before first publication, all 80 vision tests passed and shared suite ran 195 with 188 passed, 7 platform skips, zero failures; repository/governance/changelog/whitespace checks passed. Current-head CI inspected after metadata publication."
+}
