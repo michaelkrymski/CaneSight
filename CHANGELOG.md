@@ -890,6 +890,14 @@ Prevent synchronous disconnect/UI cleanup callbacks from recursively invalidatin
 
 Validation: 12 portable Swift 6.0.3 Linux tests passed with complete strict concurrency and warnings as errors; 3 Python consumer expiry/reconnect tests passed. No current-head Apple SDK or physical test claimed.
 
+## 2026-10-18 — CS-017-CURRENT-TELEMETRY-20261018: Prepare lifecycle verification for current CS-016 actor and accepted sibling layout
+
+Author: gmarcialcalleja (AI-assisted) · Task: CS-017
+
+Integrate accepted main into existing lifecycle PR #84. Add an exact telemetry-ref input to the network-disabled Swift integration harness without changing host pins or teammate code. When CS-016 adopts the accepted sibling package and removes its duplicate review pin, the default harness uses the exact HEAD telemetry package. Missing package fails closed. Preserve existing actor/coordinator and capture-clock requirements.
+
+Validation: 13 actual coordinator/CS-016 actor tests passed against review commit 8a6c7b2 under Swift 6.0.3 complete strict concurrency and warnings as errors, with fake clocks/sockets. Three Pi receiver lifecycle regressions passed. Main integration checks passed: structure/log/whitespace and 222 shared tests with 11 Windows/platform skips. No new Apple SDK, phone/Pi or motor acceptance.
+
 ## 2026-10-18 — CS-017-TRANSPORT-FENCE-20261018: Fence host telemetry synchronously on capture and application lifecycle loss
 
 Author: Gavin (gmarcialcalleja, AI-assisted) · Task: CS-017

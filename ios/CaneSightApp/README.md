@@ -93,6 +93,21 @@ Apple SDKs. This changed host still needs an Apple build and physical phone/Pi
 background, lock, interruption and reconnect measurements with verified clock
 bounds. Earlier phone results below cover their recorded build, not this change.
 
+To verify compatibility with a specific newer CS-016 review head without changing
+host review pins or copying teammate source into the checkout:
+
+```sh
+python tests/ios/run_lifecycle_transport.py --telemetry-ref FULL_CS016_COMMIT --output NEW_EVIDENCE.json
+```
+
+The harness resolves an exact commit, archives only its telemetry package, and
+records all source hashes. Once CS-016 removes the duplicate telemetry review
+pin in favor of its accepted sibling package, the default harness archives the
+current HEAD package instead. Missing packages fail before running a container.
+On 18 October, all 13 coordinator/actor tests also passed against CS-016 review
+commit 8a6c7b2 with strict concurrency and warnings as errors. This verifies actor
+API compatibility and fake-socket lifecycle behavior, not an Apple host build.
+
 ## Verification — 18 October 2026 integration checkpoint
 
 - Signed physical-iOS SDK build with Xcode 27.1; strict signature verification,
