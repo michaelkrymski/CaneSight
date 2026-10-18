@@ -5,6 +5,133 @@
 	};
 	"objectVersion" = 56;
 	"objects" = {
+        "F67FB2B029D74BB97222A7B9" = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "../DepthTelemetry/Sources/CaneSightDepthTelemetry/DepthTelemetryAdapter.swift"; sourceTree = SOURCE_ROOT; };
+        "36EC466538A380A87F3CD36D" = { isa = PBXBuildFile; fileRef = "F67FB2B029D74BB97222A7B9"; };
+
+		"563222D4390971E0C214826A" = {
+			"isa" = "PBXFileReference";
+			"lastKnownFileType" = "sourcecode.swift";
+			"path" = "DeviceTests/TelemetryDeviceTests.swift";
+			"sourceTree" = "SOURCE_ROOT";
+		};
+		"8FF8F0E6AB10D6D4C0D0678A" = {
+			"isa" = "PBXBuildFile";
+			"fileRef" = "563222D4390971E0C214826A";
+		};
+		"4CA8D90C7BD0F56F7ABFF437" = {
+			"isa" = "PBXFileReference";
+			"lastKnownFileType" = "sourcecode.swift";
+			"path" = "../CaneSightTelemetry/Tests/CaneSightTelemetryTests/CoreTests.swift";
+			"sourceTree" = "SOURCE_ROOT";
+		};
+		"C9A26A87A0D43C6E0CD557F9" = {
+			"isa" = "PBXBuildFile";
+			"fileRef" = "4CA8D90C7BD0F56F7ABFF437";
+		};
+		"44CA7CEB83B47620CA523988" = {
+			"isa" = "PBXFileReference";
+			"lastKnownFileType" = "sourcecode.swift";
+			"path" = "../CaneSightTelemetry/Tests/CaneSightTelemetryTests/ClientTests.swift";
+			"sourceTree" = "SOURCE_ROOT";
+		};
+		"D047595531C16CF9ECDBEAD0" = {
+			"isa" = "PBXBuildFile";
+			"fileRef" = "44CA7CEB83B47620CA523988";
+		};
+		"C1C535EB837231B8F36DC748" = {
+			"isa" = "PBXGroup";
+			"name" = "Transport device tests";
+			"children" = ("563222D4390971E0C214826A", "4CA8D90C7BD0F56F7ABFF437", "44CA7CEB83B47620CA523988", "F67FB2B029D74BB97222A7B9", );
+			"sourceTree" = "<group>";
+		};
+		"79A7C07EA5EB48CF8472F597" = {
+			"isa" = "PBXFileReference";
+			"explicitFileType" = "wrapper.cfbundle";
+			"path" = "CaneSightTransportTests.xctest";
+			"sourceTree" = "BUILT_PRODUCTS_DIR";
+			"includeInIndex" = 0;
+		};
+		"9B35CC0005B27BB85565161D" = {
+			"isa" = "PBXSourcesBuildPhase";
+			"buildActionMask" = 2147483647;
+			"files" = ("8FF8F0E6AB10D6D4C0D0678A", "C9A26A87A0D43C6E0CD557F9", "D047595531C16CF9ECDBEAD0", "36EC466538A380A87F3CD36D", );
+			"runOnlyForDeploymentPostprocessing" = 0;
+		};
+		"BBD1051C7DFC1F7B720CDBBD" = {
+			"isa" = "PBXBuildFile";
+			"productRef" = "2062FC5059FCE2973915FF56";
+		};
+		"76DAD5D86B7847881F66DDFC" = {
+			"isa" = "PBXBuildFile";
+			"productRef" = "198002A94FC1BE137A132A63";
+		};
+		"9B7C62FACF1EE02FEA551880" = {
+			"isa" = "PBXBuildFile";
+			"productRef" = "A0FD86901AE5D3BC400CF784";
+		};
+		"6DD5E8EC4B5B140304EFD345" = {
+			"isa" = "PBXFrameworksBuildPhase";
+			"buildActionMask" = 2147483647;
+			"files" = ("BBD1051C7DFC1F7B720CDBBD", "76DAD5D86B7847881F66DDFC", "9B7C62FACF1EE02FEA551880", );
+			"runOnlyForDeploymentPostprocessing" = 0;
+		};
+		"8F21985F995AF1E266ECA9AE" = {
+			"isa" = "PBXResourcesBuildPhase";
+			"buildActionMask" = 2147483647;
+			"files" = ();
+			"runOnlyForDeploymentPostprocessing" = 0;
+		};
+		"02707DFBDB2148AEFAA40886" = {
+			"isa" = "XCBuildConfiguration";
+			"name" = "Debug";
+			"baseConfigurationReference" = "F1E29A4B751E043A1BC240DE";
+			"buildSettings" = {
+				"CODE_SIGN_STYLE" = "Automatic";
+				"GENERATE_INFOPLIST_FILE" = "YES";
+				"PRODUCT_BUNDLE_IDENTIFIER" = "com.michaelkrymski.CaneSight.TransportTests";
+				"PRODUCT_NAME" = "$(TARGET_NAME)";
+				"TEST_HOST" = "$(BUILT_PRODUCTS_DIR)/CaneSight.app/CaneSight";
+				"BUNDLE_LOADER" = "$(TEST_HOST)";
+				"TARGETED_DEVICE_FAMILY" = "1";
+				"SUPPORTED_PLATFORMS" = "iphoneos iphonesimulator";
+				"IPHONEOS_DEPLOYMENT_TARGET" = "17.0";
+			};
+		};
+		"FAF83185A0DC9EF8DA6DE4D5" = {
+			"isa" = "XCBuildConfiguration";
+			"name" = "Release";
+			"baseConfigurationReference" = "F1E29A4B751E043A1BC240DE";
+			"buildSettings" = {
+				"CODE_SIGN_STYLE" = "Automatic";
+				"GENERATE_INFOPLIST_FILE" = "YES";
+				"PRODUCT_BUNDLE_IDENTIFIER" = "com.michaelkrymski.CaneSight.TransportTests";
+				"PRODUCT_NAME" = "$(TARGET_NAME)";
+				"TEST_HOST" = "$(BUILT_PRODUCTS_DIR)/CaneSight.app/CaneSight";
+				"BUNDLE_LOADER" = "$(TEST_HOST)";
+				"TARGETED_DEVICE_FAMILY" = "1";
+				"SUPPORTED_PLATFORMS" = "iphoneos iphonesimulator";
+				"IPHONEOS_DEPLOYMENT_TARGET" = "17.0";
+			};
+		};
+		"A67E18274643C81F5EE95E56" = {
+			"isa" = "XCConfigurationList";
+			"buildConfigurations" = ("02707DFBDB2148AEFAA40886", "FAF83185A0DC9EF8DA6DE4D5", );
+			"defaultConfigurationIsVisible" = 0;
+			"defaultConfigurationName" = "Release";
+		};
+		"6142E232A1E1434D791447C0" = {
+			"isa" = "PBXNativeTarget";
+			"name" = "CaneSightTransportTests";
+			"productName" = "CaneSightTransportTests";
+			"productType" = "com.apple.product-type.bundle.unit-test";
+			"productReference" = "79A7C07EA5EB48CF8472F597";
+			"buildPhases" = ("9B35CC0005B27BB85565161D", "6DD5E8EC4B5B140304EFD345", "8F21985F995AF1E266ECA9AE", );
+			"dependencies" = ("1BF8FC93BCC851ACFF1DE168", );
+			"buildRules" = ();
+			"buildConfigurationList" = "A67E18274643C81F5EE95E56";
+			"packageProductDependencies" = ("2062FC5059FCE2973915FF56", "198002A94FC1BE137A132A63", "A0FD86901AE5D3BC400CF784", );
+		};
+
 		"D70A3D048D076FF9FF96DB25" = {
 			"isa" = "PBXFileReference";
 			"lastKnownFileType" = "sourcecode.swift";
@@ -51,13 +178,13 @@
 		"4EDC8BFAFC6BD936B849F38C" = {
 			"isa" = "PBXGroup";
 			"name" = "Products";
-			"children" = ("A8792157CB4F27FB949C035F", "5B342194C8B3D4F15A68FED5", );
+			"children" = ("A8792157CB4F27FB949C035F", "5B342194C8B3D4F15A68FED5", "79A7C07EA5EB48CF8472F597", );
 			"sourceTree" = "<group>";
 		};
 		"EB814BE3CA3B78C0734C5605" = {
 			"isa" = "PBXGroup";
 			"sourceTree" = "<group>";
-			"children" = ("CAF85B0888D78F1F83771A07", "4EDC8BFAFC6BD936B849F38C", "F1E29A4B751E043A1BC240DE", "0EFCB3FC24BEFD1CE5E62497", "9D04E53819FDC3F806FF0C5A", );
+			"children" = ("CAF85B0888D78F1F83771A07", "4EDC8BFAFC6BD936B849F38C", "F1E29A4B751E043A1BC240DE", "0EFCB3FC24BEFD1CE5E62497", "9D04E53819FDC3F806FF0C5A", "C1C535EB837231B8F36DC748", );
 		};
 		"3732091E2CFE1C767411D1E5" = {
 			"isa" = "XCLocalSwiftPackageReference";
@@ -105,7 +232,7 @@
 		};
 		"5238442A466E7B51D0ECE0CD" = {
 			"isa" = "XCLocalSwiftPackageReference";
-			"relativePath" = "ReviewDependencies/CaneSightTelemetry";
+			"relativePath" = "../CaneSightTelemetry";
 		};
 		"2062FC5059FCE2973915FF56" = {
 			"isa" = "XCSwiftPackageProductDependency";
@@ -271,7 +398,7 @@
 		"985959785319747668373CC6" = {
 			"buildConfigurationList" = "9879E227F5AD614B3D33074F";
 			"packageReferences" = ("3732091E2CFE1C767411D1E5", "510E87014C5DA1BEB2D91FF9", "5238442A466E7B51D0ECE0CD", "0E30A6FB1BFB95E3CC07179D", "7F5DC9505EB369EB976CA4C3", "CBF909DF012CE798AAF1A792", "02B647E1B69D63BD942A5673", );
-			"targets" = ("C1E9827DB735CA9BAA54A540", "C2F60B6345DACF45C0AE5516", );
+			"targets" = ("C1E9827DB735CA9BAA54A540", "C2F60B6345DACF45C0AE5516", "6142E232A1E1434D791447C0", );
 			"developmentRegion" = "en";
 			"knownRegions" = ("en", "Base", );
 			"isa" = "PBXProject";

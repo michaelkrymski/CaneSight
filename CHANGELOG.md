@@ -890,6 +890,14 @@ Preserve Mila telemetry history from PR #64, merge accepted transfer #81, add ex
 
 Validation: Seven strict macOS bridge tests and seven iOS Simulator tests passed; iOS SDK build passed. Twenty-one existing transport tests passed; two separately invoked native URLSession cases passed, four Swift/backend contract tests and 217 repository tests passed. No successful native trusted WSS, physical phone/Pi clock/rate, motor or electrical acceptance claimed.
 
+## 2026-10-18 — CS-016-PHONE-HOST-20261018: Host telemetry tests on the physical iPhone and sample live depth timestamps
+
+Author: michaelkrymski (AI-assisted) · Task: CS-016
+
+Add a signed CaneSightTransport app-hosted scheme using existing core/client tests and actual depth adapter source; bind host telemetry to current sibling package and retain five other pinned review inputs. Record two bounded 30-frame ARKit runs, paused/restarted, and local camera UI recovery. No live app streaming enabled.
+
+Validation: Physical phone: 22 hosted tests passed, one public HTTPS timeout skipped; one real camera Stop/background UI case passed without skip. Strict signature verification passed. Source/media-clock deltas are short-run observations only, not clock calibration, Pi latency or electrical proof. Public origin timed out from Mac and phone.
+
 ## 2026-10-18 — CS-016-PR81-MAIN-REFRESH-20261018: Refresh ownership-transfer PR #81 with accepted main
 
 Author: gmarcialcalleja (AI-assisted) · Task: CS-016
