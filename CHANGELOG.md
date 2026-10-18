@@ -850,6 +850,14 @@ Prevent synchronous disconnect/UI cleanup callbacks from recursively invalidatin
 
 Validation: 12 portable Swift 6.0.3 Linux tests passed with complete strict concurrency and warnings as errors; 3 Python consumer expiry/reconnect tests passed. No current-head Apple SDK or physical test claimed.
 
+## 2026-10-18 — CS-017-TRANSPORT-FENCE-20261018: Fence host telemetry synchronously on capture and application lifecycle loss
+
+Author: Gavin (gmarcialcalleja, AI-assisted) · Task: CS-017
+
+Add opt-in host coordinator around the pinned unmodified CS-016 actor, synchronous native socket cancellation, capture-admission tickets, bounded cleanup/recovery and original capture timestamps. Preserve sequence history and reject late connections, old workers, missing mappings and clock reversal. Default preview remains local until reviewed enrollment and verified clock configuration are supplied.
+
+Validation: 13 portable Swift transport tests passed with complete strict concurrency and warnings as errors; Xcode project plist syntax validated. Apple SDK compilation and paired phone/Pi measurements remain pending. No camera, Pi or motor access.
+
 ## 2026-10-18 — CS-018-ACCEPTED-HOST-EVIDENCE-20261018: Reconcile accessible-status acceptance with the merged phone host
 
 Author: Adit (aditsangani, AI-assisted) · Task: CS-018

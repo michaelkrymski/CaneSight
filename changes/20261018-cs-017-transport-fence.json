@@ -1,0 +1,9 @@
+{
+  "id": "CS-017-TRANSPORT-FENCE-20261018",
+  "date": "2026-10-18",
+  "author": "Gavin (gmarcialcalleja, AI-assisted)",
+  "task": "CS-017",
+  "summary": "Fence host telemetry synchronously on capture and application lifecycle loss",
+  "details": "Add opt-in host coordinator around the pinned unmodified CS-016 actor, synchronous native socket cancellation, capture-admission tickets, bounded cleanup/recovery and original capture timestamps. Preserve sequence history and reject late connections, old workers, missing mappings and clock reversal. Default preview remains local until reviewed enrollment and verified clock configuration are supplied.",
+  "validation": "13 portable Swift transport tests passed with complete strict concurrency and warnings as errors; Xcode project plist syntax validated. Apple SDK compilation and paired phone/Pi measurements remain pending. No camera, Pi or motor access."
+}

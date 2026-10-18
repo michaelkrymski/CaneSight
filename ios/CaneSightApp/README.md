@@ -31,11 +31,20 @@ its native UI test runner targets iOS 17+. Local signing remains in ignored
   uncertainty, not coordinates. Opt-out purges the host snapshot and provider
   context. No location is saved, transmitted or associated with lanes/signals.
 
-These are local app features. Telemetry remains unavailable: no TelemetryClient,
-backend enrollment, credential store or network request is instantiated. Before
-live streaming, review capture-clock alignment/uncertainty, pairing, original-age
-bounds and accepted dependency integration. GPS requires its separately reviewed
-wire contract. No Pi, motor, crossing permission or generative narration control.
+These remain local features by default. CS-017 adds an opt-in lifecycle transport
+coordinator using the exact CS-016 review actor. Reviewed integration can call
+`CameraController.configureTelemetry(session:clock:)` once with a phone-only
+enrolled `PhoneSession` and independently verified `VerifiedCaptureClock`. No
+caller, enrollment UI, credential store or assumed ARFrame/host clock equivalence
+is supplied. Start alone never creates a network client. GPS requires its
+separately reviewed wire contract. No motor or crossing permission is produced.
+
+The coordinator synchronously cancels the socket before actor cleanup on loss,
+background, Stop or interruption. Capture-time tickets reject old worker results;
+recovery clears the mailbox and requires a new normal frame, valid clock bounds
+and a new connection. Wire sequence history survives reconnect. Missing mapping
+blocks recovery; clock reversal requires new enrollment. Already transmitted
+bytes remain subject to the Pi's independent original capture-age gate.
 
 ## Exact dependency preparation
 
@@ -65,13 +74,24 @@ transform. Original source timestamps are preserved and must increase.
 
 The 500 ms local callback-recency deadline is a stall detector, not sensor capture-
 age calibration. Source-clock bounds, capture-to-Pi timing, final mount/motors and
-paired transport remain unverified. Accepted CS-017 bridge code forwards native
-lifecycle events; this preview does not mark its transport guard connected or
-clock-mapped. Unknown values never mean an empty path.
+paired transport remain unverified. The opt-in coordinator only admits captures
+after its configured socket and clock gate become ready. The default preview
+does not configure that transport. Unknown values never mean an empty path.
 
 `PrivacyInfo.xcprivacy` declares on-device elapsed-time/timer use of system boot
-APIs under 35F9.1. No boot-time-derived information leaves this build. Reaudit
-before enabling transport; see [Apple required-reason API documentation](https://developer.apple.com/documentation/bundleresources/app-privacy-configuration/nsprivacyaccessedapitypes/nsprivacyaccessedapitype).
+APIs under 35F9.1. No boot-time-derived information leaves the default preview.
+Privacy/clock review is required before supplying the opt-in transport config;
+see [Apple required-reason API documentation](https://developer.apple.com/documentation/bundleresources/app-privacy-configuration/nsprivacyaccessedapitypes/nsprivacyaccessedapitype).
+
+## CS-017 transport checkpoint
+
+`python tests/ios/run_lifecycle_transport.py` compiles the production coordinator
+with the unmodified pinned CS-016 actor and accepted lifecycle package. Thirteen
+Linux XCTest cases pass under complete strict concurrency and warnings as errors,
+using fake sockets/clocks. The harness does not compile CameraController against
+Apple SDKs. This changed host still needs an Apple build and physical phone/Pi
+background, lock, interruption and reconnect measurements with verified clock
+bounds. Earlier phone results below cover their recorded build, not this change.
 
 ## Verification — 18 October 2026 integration checkpoint
 
