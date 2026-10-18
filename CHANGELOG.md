@@ -58,6 +58,14 @@ Claim only, from main 18884a5914e8f0476a2877a9c63ff37a24291306. Human requests c
 
 Validation: Checked publishing runs repository validation, shared unit tests, generated changelog consistency and whitespace checks. No Swift build, Xcode, iOS simulator or device tests are claimed by this assignment.
 
+## 2026-10-17 — CS-016-CLAIM-BONDMILA-20261017: Request CS-016 bounded phone telemetry assignment
+
+Author: bondmila (AI-assisted) · Task: CS-016
+
+Assignment-only proposal after confirming accepted main has no owner and no matching open claim PR. Preserve task requirements/dependencies/allowed paths. Implementation waits for merged ownership; depth producer CS-014 and physical phone evidence are pending. No telemetry or device completion claim.
+
+Validation: Checked publishing runs repository validation, root tests, governance, generated changelog and whitespace checks. No task implementation or physical-phone test performed.
+
 ## 2026-10-17 — CS-017-CLAIM-GMARCIALCALLEJA-20261017: Claim AR interruption and app suspension handling for Gavin
 
 Author: Gavin (gmarcialcalleja) · Task: CS-017
