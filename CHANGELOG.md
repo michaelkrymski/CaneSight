@@ -922,6 +922,14 @@ Record PR #75 on the task runtime; retain native host/device-clock and physical 
 
 Validation: Implementation publication passed all 132 root tests and seven focused integration tests; Swift Linux compilation/generation passed. Checked publishing reruns shared checks for this task-link and audit-only follow-up.
 
+## 2026-10-18 — CS-027-ACCEPTANCE-RECHECK-20261018: Recheck merged button/menu implementation and identify physical acceptance gates
+
+Author: bondmila (AI-assisted) · Task: CS-027
+
+Record merged PR #78 approval and fresh isolated-environment verification. User will run current-main GPIO21/spoken-menu checks. Keep task blocked pending actual report, PM physical acceptance and separate route/scenario integration; no implementation changes.
+
+Validation: 205 edge, 83 context and 195 shared tests passed with pinned requirements; repository and generated-log checks passed. Initial unpinned-environment failures are disclosed. No new physical pass claimed.
+
 ## 2026-10-18 — CS-027-CROSSING-MENU-BONDMILA-20261018: Implement merged crossing observation gesture component and synthetic bench
 
 Author: bondmila (AI-assisted) · Task: CS-027
@@ -945,6 +953,14 @@ Author: bondmila (AI-assisted) · Task: CS-027
 Preserve exact pasted report from combined 6dfda42: initially LOW, seven press/release edge pairs, 2965 samples, complete. Keep raw-input observation separate from application request/audio/electrical acceptance; verification flags unchanged.
 
 Validation: Parsed report and checked counts/disabled subsystems; confirmed source commit contains the GPIO adapter. No new implementation or local hardware test. Checked publisher runs shared validation, tests, governance, changelog and whitespace.
+
+## 2026-10-18 — CS-027-MENU-DEVICE-EVIDENCE-20261018: Record Pi button/menu confirmation and qualitative speech cancellation evidence
+
+Author: bondmila (AI-assisted) · Task: CS-027
+
+Preserve initial zero-confirmation snapshot and focused confirmation/activation/cancel snapshot separately. Operator reports exact checkout SHA, clear speech and prompt stop without noticeable tail. Integrate accepted route-monitoring dependency; physical runs did not enable it. Keep full task blocked for PM acceptance and remaining integration.
+
+Validation: Operator-reported GPIO input and no fault on both snapshots; no agent-observed hardware run, measured audible latency, automatic route-loss, live scenario/phone/backend or motor result. Software rerun results recorded in handoff; checked publisher runs shared checks.
 
 ## 2026-10-18 — CS-027-MENU-OPERATOR-CONFIRMATION-20261018: Record operator menu confirmation for software checkpoint review
 
@@ -1001,6 +1017,14 @@ Author: aditsangani (AI-assisted) · Task: CS-037
 Integrate accepted main 3baf4de into the existing CS-037 branch and resolve only CHANGELOG.md by rendering all immutable fragments. No scenario implementation, tests, acceptance, owner or protected paths changed. Full CS-037 live/model/device acceptance remains blocked; this clears the PR integration obstacle only.
 
 Validation: 80 explicit vision tests passed with no failures/skips after merge. No unmerged paths remain; source/test/QA/task bytes unchanged before own handoff/fragment. Checked publishing reruns shared/repository/governance/changelog/whitespace checks and current-head CI is inspected after push.
+
+## 2026-10-18 — CS-037-INTEGRATION-REFRESH-ADITSANGANI-20261018: Refresh PR79 against accepted Pi evidence merge
+
+Author: aditsangani (AI-assisted) · Task: CS-037
+
+Merge accepted main 46b65c3 after concurrent PR83 landed during CI. Only accepted task/evidence/log records arrive; all scenario source and tests remain unchanged. Render union log; preserve history and full live-acceptance blocker.
+
+Validation: Conflict-resolution head d2d7c43 had green repository/governance/security checks, all 80 vision tests passed, and 212 shared tests ran with 201 passed and 11 platform skips. The incoming change contains no implementation edits; checked publication reruns required shared checks and current-head CI is inspected.
 
 ## 2026-10-18 — CS-037-MAIN-SYNC-ADITSANGANI-20261018: Integrate accepted main into CS-037 scenario adapter review
 
