@@ -3,7 +3,7 @@
   "title": "Create isolated Gemini context service",
   "category": "Gemini & Context",
   "priority": "P1",
-  "acceptance": "Verify model availability; server-only key, compressed frame, separate queue, 8 s starting deadline.",
+  "acceptance": "Verify model availability; server-only key, compressed frame, separate queue, 8 s starting deadline. Preserve the restricted uncertain-object Gemini service for optional scene descriptions in explicitly selected crossing scenarios. Do not turn its current object-list output into signal classification or stopped/yielding-traffic decisions. Preserve consent, independent queue, cancellation and original-age limits; no production wire change in this amendment.",
   "dependencies": [
     "CS-029",
     "CS-035"
@@ -17,7 +17,7 @@
   "trello_url": "https://trello.com/c/q7RYPsF5/39-p1-cs-039-create-isolated-gemini-context-service",
   "suggested_role": "Backend",
   "estimate_hours": 1.0,
-  "elapsed_window": "11\u201314",
+  "elapsed_window": "11–14",
   "owner": "bondmila",
   "status": "review",
   "branch": "task/CS-039-gemini-context",
