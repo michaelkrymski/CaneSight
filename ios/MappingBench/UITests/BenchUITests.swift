@@ -120,3 +120,87 @@ final class BenchUITests: XCTestCase {
         }
     }
 }
+
+/// Operator must stage the named real surface before selecting one test. Names
+/// express the requested condition; UI automation cannot identify the material.
+/// Outputs are UI snapshots, not synchronized sensor frames or accuracy trials.
+final class SurfaceUITests: XCTestCase {
+    @MainActor func testGlassObservation() throws { try observe("glass") }
+    @MainActor func testDarkObjectObservation() throws { try observe("dark_object") }
+    @MainActor func testIndoorGlareObservation() throws { try observe("indoor_glare") }
+    @MainActor func testBlockedViewObservation() throws { try observe("blocked_view") }
+
+    @MainActor private func observe(_ condition: String) throws {
+        continueAfterFailure = false
+        let app = XCUIApplication()
+        app.launch()
+        let toggle = app.buttons["cameraToggle"]
+        reveal(toggle, in: app)
+        XCTAssertTrue(toggle.waitForExistence(timeout: 10))
+        guard toggle.isEnabled else { throw XCTSkip("Scene depth unsupported; no physical surface evidence.") }
+        defer {
+            if app.state == .runningForeground && toggle.exists && toggle.label == "Stop camera" {
+                reveal(toggle, in: app)
+                if toggle.isHittable { toggle.tap() }
+            }
+        }
+        XCTAssertEqual(toggle.label, "Start portrait check")
+        toggle.tap()
+        XCTAssertEqual(toggle.label, "Stop camera")
+        let start = ProcessInfo.processInfo.systemUptime
+        // Each accessibility query is a separate UI read; do not infer that all
+        // sectors came from one capture, or that successive reads are new frames.
+        for sample in 0..<5 {
+            let status = app.staticTexts["mappingStatus"]
+            reveal(status, in: app)
+            XCTAssertTrue(status.exists)
+            for text in app.staticTexts.allElementsBoundByIndex {
+                let wording = text.label.lowercased()
+                XCTAssertFalse(["safe to cross", "all clear", "path clear", "go ahead"].contains(where: { wording.contains($0) }),
+                               "Surface UI must not issue a permissive message")
+            }
+            var sectors: [[String: Any]] = []
+            for column in 0..<3 {
+                let reading = app.staticTexts["distance\(column)"]
+                let detail = app.staticTexts["depthDetail\(column)"]
+                XCTAssertTrue(reading.exists)
+                XCTAssertTrue(detail.exists)
+                let label = reading.label
+                let unknown = label.hasSuffix("Unknown")
+                var sector: [String: Any] = ["column": column, "reading": label,
+                                             "detail": detail.label, "unknown": unknown]
+                if unknown { sector["displayed_metres"] = NSNull() }
+                else {
+                    XCTAssertTrue(label.hasSuffix(" m"), "Unexpected reading: \(label)")
+                    let value = try XCTUnwrap(label.split(separator: " ").dropLast().last.flatMap { Double($0) })
+                    XCTAssertTrue(value.isFinite && value > 0, "Missing depth must not become zero/infinite distance")
+                    sector["displayed_metres"] = value
+                }
+                sectors.append(sector)
+            }
+            let row: [String: Any] = ["requested_condition": condition, "ui_sample": sample,
+                "elapsed_test_seconds": ProcessInfo.processInfo.systemUptime - start,
+                "status": status.label, "sectors": sectors,
+                "material_verified_by_automation": false, "capture_age_measured": false]
+            let data = try JSONSerialization.data(withJSONObject: row, options: [.sortedKeys])
+            print("CS020_SNAPSHOT " + String(decoding: data, as: UTF8.self))
+        }
+        reveal(toggle, in: app)
+        toggle.tap()
+        for column in 0..<3 {
+            XCTAssertTrue(app.staticTexts["distance\(column)"].label.hasSuffix("Unknown"))
+        }
+        XCTAssertTrue(app.staticTexts["mappingStatus"].label.hasPrefix("Stopped;"))
+    }
+
+    @MainActor private func reveal(_ element: XCUIElement, in app: XCUIApplication) {
+        for _ in 0..<5 {
+            if element.exists && element.isHittable { return }
+            app.swipeUp()
+        }
+        for _ in 0..<5 {
+            if element.exists && element.isHittable { return }
+            app.swipeDown()
+        }
+    }
+}

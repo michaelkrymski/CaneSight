@@ -15,11 +15,15 @@
   "trello_url": "https://trello.com/c/BObrY5HC/20-p1-cs-020-test-challenging-lidar-surfaces",
   "suggested_role": "QA",
   "estimate_hours": 0.5,
-  "elapsed_window": "11–14",
-  "owner": null,
-  "status": "backlog",
-  "branch": null,
-  "pr_url": null,
-  "evidence": [],
-  "blocker": ""
+  "elapsed_window": "11\u201314",
+  "owner": "michaelkrymski",
+  "status": "blocked",
+  "branch": "claim/CS-020-michaelkrymski",
+  "pr_url": "https://github.com/michaelkrymski/CaneSight/pull/90",
+  "evidence": [
+    "handoffs/CS-020-20261018-surface-preparation.md",
+    "tests/ios/evidence/CS-020-surface-preparation-20261018.json",
+    "Signed physical-iOS test build passed; 15 depth and 11 mapping XCTest cases passed on Mac with complete strict concurrency. Prepared operator-assisted glass/dark/glare/blocked-view snapshot checks and procedure. No physical surface tests executed; paused for CS-016 exclusive phone use."
+  ],
+  "blocker": "Paused by Michael: CS-016 is top priority and another chat is using the iPhone. No surface test has run. Resume only when Michael releases the phone and stages each named condition; CS-017 integrated recovery remains a full-acceptance dependency."
 }

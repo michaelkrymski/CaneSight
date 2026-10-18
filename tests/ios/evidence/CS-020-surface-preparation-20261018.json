@@ -1,0 +1,48 @@
+{
+  "task": "CS-020",
+  "date": "2026-10-18",
+  "base_commit": "0925c3af5d83d7ca86c091643f8e6fd5b5b7d5c9",
+  "assignment_pr": "https://github.com/michaelkrymski/CaneSight/pull/90",
+  "initial_claim_commit": "ff4cfcf68781ac09648458c8bc6d21bf2268a747",
+  "verified_pr_author": "michaelkrymski",
+  "test_source_sha256": "625ddc1e4e6949ad60ff9da76e1f5ffd03b11b7e90f153961e104e0959648c7f",
+  "depth_review_pin": "5f73dbf33ba9b2395f27b429c22344d41fb6162a",
+  "software_checks": {
+    "signed_physical_ios_test_build": "passed; built only, not executed",
+    "xcode": "27.1 (27A9275)",
+    "strict_mac_depth_tests_passed": 15,
+    "strict_mac_mapping_tests_passed": 11
+  },
+  "operator_report": "Michael reports glass, dark object and glare materials available; exact items, distances and conditions not yet recorded. Glass ready prompt not confirmed. Michael paused this task because CS-016 has priority and another chat is using the phone.",
+  "surface_trials": [
+    {
+      "condition": "glass",
+      "status": "not_tested",
+      "observations": []
+    },
+    {
+      "condition": "dark_object",
+      "status": "not_tested",
+      "observations": []
+    },
+    {
+      "condition": "indoor_glare",
+      "status": "not_tested",
+      "observations": []
+    },
+    {
+      "condition": "blocked_view",
+      "status": "not_tested",
+      "observations": []
+    }
+  ],
+  "physical_test_count": 0,
+  "limits": [
+    "No material/surface acceptance or runtime UI result from this checkpoint.",
+    "No iPhone surface test launched; do not contend with the CS-016 phone session.",
+    "CS-017 integrated recovery dependency remains pending.",
+    "No depth accuracy, capture-age, latency, telemetry, motor, electrical or road-use evidence.",
+    "Draft preparation only; no Done claim."
+  ],
+  "integrated_main": "0fa978dc2dc62ee697f900fd1c0b352514a95e0e"
+}
