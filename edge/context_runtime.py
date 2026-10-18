@@ -67,6 +67,7 @@ class ManualContext:
         self._menu = self._menu_audio = None
         self._route_lost = False
         self._menu_last_level = False
+        self._menu_usable = False
         self._route_ready = audio_ready if audio_ready is not None else lambda: False
         self._binding = {key: session[key] for key in ('session_id', 'source_id', 'boot_id', 'mode')}
         self._client = client if client is not None else ContextClient(session, ca_file=ca_file)
@@ -122,7 +123,7 @@ class ManualContext:
     def _audio_priority(self):
         ready, _, hazard, _ = self._state()
         if self._menu is not None:
-            ready = ready and self._menu.state == 'idle' and self._audio_route_ready()
+            ready = ready and self._menu.state == 'idle' and self._menu_usable and self._audio_route_ready()
         return ready, hazard
 
     def _audio_route_ready(self):
@@ -214,6 +215,7 @@ class ManualContext:
             self._menu_last_level = level
             usable = self._menu_audio.update(audio_ready=self._audio_route_ready(),
                 priority_clear=consent is True and hazard is False, epoch=epoch)
+            self._menu_usable = usable
             if not usable:
                 self._stop_request()
             try:

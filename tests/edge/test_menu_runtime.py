@@ -155,6 +155,11 @@ class MenuRuntimeTests(unittest.TestCase):
         self.assertEqual(self.runtime.snapshot()['menu']['state'], 'failed')
         self.assertIsNone(self.sink.current)
 
+    def test_failed_fixed_audio_gate_cannot_dispatch_even_with_route_confirmation(self):
+        with patch.object(self.runtime._menu_audio, 'update', return_value=False):
+            self.level(True); self.level(False)
+        self.assertEqual(self.jobs, [])
+
     def test_clock_failure_closes_menu_and_cancels_pending_work(self):
         self.enter()
         self.now = -100

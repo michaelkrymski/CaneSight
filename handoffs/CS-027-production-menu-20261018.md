@@ -46,3 +46,13 @@ open. No acceptance/baseline/contract changes and no motor GPIO.
 Standalone accepted-main dependency run: 204 cases, 195 passed and nine explicitly
 skipped for the unmerged CS-040 menu bridge dependency. No unsupported API
 was copied into this branch. Combined source run: all 204 pass, no skips.
+
+Final review checkpoint: PR #78, dependency PR #77 at
+42ab48567de81bc93a85070d97337f17f40e7cf6. Added a fixed-audio-gate refusal
+regression and tied request eligibility to that gate, so route confirmation
+alone cannot admit a request while menu audio is failed/unavailable. Extended
+allowlist privacy coverage for arbitrary menu metadata. Final combined run:
+205 edge tests passed, no skips. One preceding run hit the existing receiver TLS
+fixture's Capture clock mismatch from timestamp truncation; no production/test
+budget was changed, and the complete rerun passed. No failed run is counted as
+passing. Shared publisher previously passed 191 tests; publishing reruns them.
