@@ -658,6 +658,14 @@ Separate Mount Check app built with local Personal Team signing, passed strict d
 
 Validation: Signed build, strict codesign, installation and launch passed. All 11 mapping XCTest cases, 110 shared checks and required CI passed on tested implementation bd99b6cf043122d2d4548f4e97bfa70bbf868409. This evidence-only checkpoint reruns shared checks; task blocked and PR draft pending physical observations and review.
 
+## 2026-10-18 — CS-015-DEPTH-DIAGNOSTICS-20261018: Expose per-column depth evidence to investigate intermittent Unknown readings
+
+Author: michaelkrymski (AI-assisted) · Task: CS-015
+
+Record operator rotation/Stop passes and unresolved left-column Unknown report. Add coverage/reason beneath each distance using existing CS-014 sector evidence; preserve every confidence, freshness and mapping rule. Signed diagnostic app installed/launched; background reset and diagnostic result pending.
+
+Validation: Signed iOS build, strict deep signature check, install and launch passed. Core mapping/dependencies unchanged; prior 11 mapping and 61 Simulator cases remain applicable. Shared checks run through checked publisher; no sensor fix or new physical pass claimed.
+
 ## 2026-10-18 — CS-015-OPERATOR-RUNTIME-20261018: Record portrait target counts, floor limitation and executed native package tests
 
 Author: michaelkrymski (AI-assisted) · Task: CS-015

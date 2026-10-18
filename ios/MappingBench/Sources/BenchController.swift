@@ -11,6 +11,7 @@ import CaneSightMountMappingARKit
     @Published private(set) var status = "Camera stopped; mapping unverified."
     @Published private(set) var image: CGImage?
     @Published private(set) var distances: [Double?] = [nil,nil,nil]
+    @Published private(set) var depthDetails = [String](repeating: "Waiting for a new depth frame.", count: 3)
     @Published private(set) var counts = [0,0,0]
     @Published private(set) var target: Int? = 0
     @Published private(set) var requested = false
@@ -92,8 +93,11 @@ import CaneSightMountMappingARKit
         epoch=UUID(); capture.stop()
         if pause { session.pause() }
         timer?.invalidate(); timer=nil
-        sample=nil; image=nil; distances=[nil,nil,nil]; lastSource=nil; lastLoss=0
+        sample=nil; image=nil; distances=[nil,nil,nil]; clearDepthDetails(); lastSource=nil; lastLoss=0
         resetCheck(); status=reason
+    }
+    private func clearDepthDetails() {
+        depthDetails = [String](repeating: "Waiting for a new depth frame.", count: 3)
     }
     func resetCheck() {
         check.reset()
@@ -105,7 +109,7 @@ import CaneSightMountMappingARKit
         guard let sample else { return }
         let now=CACurrentMediaTime()
         if !now.isFinite || now < sample.receipt || now-sample.receipt >= 0.5 {
-            self.sample=nil; image=nil; distances=[nil,nil,nil]; resetCheck()
+            self.sample=nil; image=nil; distances=[nil,nil,nil]; clearDepthDetails(); resetCheck()
             status="No recent frame; depth unknown and check reset."
         }
     }
@@ -118,7 +122,7 @@ import CaneSightMountMappingARKit
         }
         if event.loss != lastLoss { check.reset(); lastLoss=event.loss }
         guard let value=event.sample else {
-            sample=nil; image=nil; distances=[nil,nil,nil]; syncProgress()
+            sample=nil; image=nil; distances=[nil,nil,nil]; clearDepthDetails(); syncProgress()
             status="Waiting for valid depth/tracking; check reset."
             return
         }
@@ -126,11 +130,26 @@ import CaneSightMountMappingARKit
         guard now.isFinite, now >= value.receipt, now-value.receipt < 0.5,
               let source=value.observation.summary.captureTimestampSeconds,
               lastSource.map({ source > $0 }) ?? true else {
-            sample=nil; image=nil; distances=[nil,nil,nil]; resetCheck()
+            sample=nil; image=nil; distances=[nil,nil,nil]; clearDepthDetails(); resetCheck()
             status="Delayed frame; depth unknown and check reset."; return
         }
         lastSource=source; sample=value; image=value.image
         distances=value.observation.summary.sectors.map(\.distanceMetres)
+        let configuration = try! DepthSectorConfiguration()
+        depthDetails=value.observation.summary.sectors.map { sector in
+            let coverage = Int((sector.validFraction ?? 0) * 100)
+            switch sector.evidence {
+            case .measured:
+                return "High-confidence depth: \(coverage)% of this column."
+            case .insufficientCoverage:
+                let minimum = Int(configuration.minimumValidFraction * 100)
+                return "Not enough high-confidence depth: \(coverage)%; need \(minimum)%."
+            case .insufficientSamples:
+                return "Too few usable depth samples: \(sector.validSamples); need \(configuration.minimumValidSamples)."
+            case .unavailable:
+                return "Depth unavailable for this column."
+            }
+        }
         check.observeGeometry(value.observation.geometry); syncProgress()
         status=check.complete ? "Portrait target check complete for this session." : "Live portrait view; physical mapping unverified until target check."
     }

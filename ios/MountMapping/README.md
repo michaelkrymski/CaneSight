@@ -129,3 +129,10 @@ curb/drop detection or a final cane/grip/motor configuration.
 
 Sanitized report and executed native dependency test results:
 `tests/ios/evidence/CS-015-operator-runtime-20261018.json`.
+
+The operator subsequently confirmed rotation and Stop reset behavior. Background
+reset remains unconfirmed: he instead reported View left intermittently Unknown.
+The diagnostic UI now shows each column's existing high-confidence coverage or
+sample-count reason. Thresholds and depth rules are unchanged. Diagnostic
+follow-up is pending; no sensor fix is claimed. See
+`tests/ios/evidence/CS-015-depth-diagnostics-20261018.json`.

@@ -17,12 +17,14 @@
       "right": 3
     },
     "provenance": "Operator explicitly confirmed all three reached 3/3 in chat; no video or raw depth retained.",
-    "rotation_reset": null,
-    "stop_reset": null,
+    "rotation_reset": true,
+    "stop_reset": true,
     "background_reset": null,
-    "floor_observation": "Operator reported the floor makes all three readings similar, including when kneeling. No numerical measurements or camera pitch recorded."
+    "floor_observation": "Operator reported the floor makes all three readings similar, including when kneeling. No numerical measurements or camera pitch recorded.",
+    "reset_provenance": "Operator explicitly confirmed sideways/upright clears counters, then recording a fresh 1/3 and Stop clears counters and all distances to Unknown. Background pending.",
+    "background_followup": "Instead of confirming the background reset, operator reported View left mostly Unknown with occasional numerical flashes. Main status was live portrait view; physical mapping unverified until target check. Other column behavior not confirmed."
   },
-  "interpretation": "Operator-reported target placement success for this handheld configuration only. Full-height near-percentile sectors include floor samples; no floor/obstacle classification. Reset checks pending.",
+  "interpretation": "Operator-reported target placement, rotation reset and Stop reset success for this handheld configuration only. Full-height near-percentile sectors include floor samples; no floor/obstacle classification. Background reset pending. Intermittent left unknown report is unresolved; no background pass inferred.",
   "final_cane_mount_verified": false,
   "motor_mapping_verified": false,
   "capture_clock_verified": false,

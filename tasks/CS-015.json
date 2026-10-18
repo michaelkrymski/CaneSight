@@ -27,7 +27,10 @@
     "Signed build, strict signature verification and separate Mount Check installation/launch passed on iPhone 17 Pro Max / iOS 26.6.2. Required CI green on tested implementation bd99b6c. Physical target/reset observations requested and pending.",
     "handoffs/CS-015-20261018-operator-runtime.md",
     "tests/ios/evidence/CS-015-operator-runtime-20261018.json",
-    "Operator confirmed Left 3/3, Center 3/3 and Right 3/3 in handheld portrait; resets not tested yet. Floor can produce similar distances across full-height columns. Executed 61 iOS Simulator tests across exact pinned depth/lifecycle/telemetry/location review packages, all passed."
+    "Operator confirmed Left 3/3, Center 3/3 and Right 3/3 in handheld portrait; resets not tested yet. Floor can produce similar distances across full-height columns. Executed 61 iOS Simulator tests across exact pinned depth/lifecycle/telemetry/location review packages, all passed.",
+    "handoffs/CS-015-20261018-depth-diagnostics.md",
+    "tests/ios/evidence/CS-015-depth-diagnostics-20261018.json",
+    "Operator confirmed rotation resets counts and Stop resets counts plus all distances to Unknown. Background reset not confirmed: operator instead reported intermittent View left Unknown. Installed signed diagnostic UI showing coverage/reason; follow-up pending."
   ],
-  "blocker": "Portrait target counts confirmed by operator. Rotation/Stop/background reset observations still pending; CS-014 dependency #62 still needs review/acceptance. Full-height sectors include floor; no floor classification, final cane/grip/motor mapping or capture-clock calibration claimed."
+  "blocker": "Intermittent View left Unknown needs diagnostic follow-up; background reset still unconfirmed. Target counts, rotation and Stop passed by operator report on prior build. CS-014 #62 review/acceptance remains required before integration. No floor classification, final cane/motor mapping or calibrated capture clock."
 }

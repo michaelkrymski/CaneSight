@@ -35,8 +35,11 @@ struct BenchView: View {
                     }.frame(width: 180,height: 320).frame(maxWidth: .infinity)
                     Text(bench.status).accessibilityIdentifier("mappingStatus")
                     ForEach(0..<3) { index in
-                        LabeledContent("View \(names[index].lowercased())",
-                            value: bench.distances[index].map { String(format: "%.2f m", $0) } ?? "Unknown")
+                        VStack(alignment: .leading, spacing: 3) {
+                            LabeledContent("View \(names[index].lowercased())",
+                                value: bench.distances[index].map { String(format: "%.2f m", $0) } ?? "Unknown")
+                            Text(bench.depthDetails[index]).font(.caption).foregroundStyle(.secondary)
+                        }
                     }
                     Button(bench.requested ? "Stop camera" : "Start portrait check") {
                         bench.requested ? bench.stop() : bench.start()
