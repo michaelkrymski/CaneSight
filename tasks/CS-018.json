@@ -16,9 +16,15 @@
   "estimate_hours": 0.5,
   "elapsed_window": "8–11",
   "owner": "aditsangani",
-  "status": "in_progress",
-  "branch": "claim/CS-018-aditsangani",
+  "status": "blocked",
+  "branch": "task/CS-018-accessible-status",
   "pr_url": null,
-  "evidence": [],
-  "blocker": ""
+  "evidence": [
+    "Merged ownership: https://github.com/michaelkrymski/CaneSight/pull/66",
+    "ios/AccessibleStatus: typed unknown/disconnected/depth/audio status, large SwiftUI controls, VoiceOver labels/values/hints and manual local cancellation seam. No host or teammate code modified.",
+    "17 portable Swift tests plus 2 actual accepted CS-017 lifecycle hook integration tests passed on Swift 6.0.3 Ubuntu/WSL with complete strict concurrency and warnings as errors. Linux excludes SwiftUI body.",
+    "tests/ios/evidence/CS-018-status-20261018.json",
+    "handoffs/CS-018-accessible-status-20261018.md"
+  ],
+  "blocker": "Awaiting current-head Apple SwiftUI/iOS SDK build, host integration with Michael's CS-013 app and accepted CS-017 lifecycle, real CS-040 local cancellation adapter, VoiceOver/Dynamic Type device checks and observed audible cancellation/buffering evidence. Portable logic and accepted lifecycle hook tests pass; no physical silence or task Done claim."
 }

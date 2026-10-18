@@ -674,6 +674,14 @@ Prevent synchronous disconnect/UI cleanup callbacks from recursively invalidatin
 
 Validation: 12 portable Swift 6.0.3 Linux tests passed with complete strict concurrency and warnings as errors; 3 Python consumer expiry/reconnect tests passed. No current-head Apple SDK or physical test claimed.
 
+## 2026-10-18 — CS-018-ACCESSIBLE-STATUS-20261018: Prepare accessible phone status and local audio cancellation controls
+
+Author: aditsangani (AI-assisted) · Task: CS-018
+
+Add standalone CaneSightStatus/SwiftUI products with explicit unknown, disconnected and narration states, image-column labels, optional 60pt camera controls, large cancel control and accessibility Escape. Preserve original display deadlines and fence late/reentrant callbacks; cancellation uses a synchronous local adapter even offline and reports requests without asserting physical silence. Use accepted CS-017 directly in integration tests after its merge. Host app, speech engine, protocol, hardware and other owners' code remain unchanged. Initial base 5dbb6adc6f7c8984e1beb624fc7c8fe1a4cdfafa; publication base 94ccaaf14a88b990cc468433e55622b0b1e6681f.
+
+Validation: 17 portable Swift tests and 2 actual lifecycle integration tests passed on official Swift 6.0.3 in Ubuntu/WSL with strict concurrency and warnings as errors. Six Swift files passed syntax audit. Native SwiftUI/Apple SDK, VoiceOver/layout, actual host/speech path and audible speaker stop remain unrun; keep draft/blocked. Checked publishing runs shared repository/changelog/whitespace validation.
+
 ## 2026-10-18 — CS-019-CLOCK-FAULT-NOTIFICATION-20261018: Make GPS clock-fault purge notification idempotent
 
 Author: Gavin (gmarcialcalleja) · Task: CS-019
