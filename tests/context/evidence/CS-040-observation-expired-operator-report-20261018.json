@@ -1,0 +1,56 @@
+{
+  "task": "CS-040",
+  "reported_date": "2026-10-18",
+  "provenance": "User attached Pi terminal output showing checkout of 9a62621, one completed diagnostic run, two later attempts refused at the existing report path, and cat of the unchanged first report. Duplicate first report retained once.",
+  "reported_bench": {
+    "mode": "synthetic-speaker-bench",
+    "priority_input": "synthetic",
+    "capture_input": "synthetic",
+    "phone_used": false,
+    "backend_used": false,
+    "gemini_used": false,
+    "gpio_used": false,
+    "physical_audio_accepted": false,
+    "bluetooth_disconnect_reconnect_verified": false,
+    "complete": true,
+    "records": [
+      {
+        "repetition": 1,
+        "case": "manual_cancel",
+        "software_pass": false,
+        "stop_call_ms": 0.063,
+        "operator_pass": null
+      }
+    ],
+    "case_selection": "manual-only",
+    "timer_fault": false,
+    "software_checks_passed": false,
+    "operator_reported_all_passed": false,
+    "sink_diagnostics": {
+      "fault": true,
+      "closed": false,
+      "failure": "route",
+      "exit_codes": {
+        "generator": -13,
+        "playback": null
+      },
+      "automatic_route_monitoring": true,
+      "route": {
+        "fault": true,
+        "closed": false,
+        "failure": "observation_expired",
+        "probe_stage": "stream_query"
+      }
+    },
+    "build_commit": "9a626216bd6395ddf84a126951aad79979806c27"
+  },
+  "subsequent_attempts": {
+    "count": 2,
+    "complete": false,
+    "error": "Bench unavailable; inspect installation/output and rerun",
+    "interpretation": "Command reused the exclusive original report filename. Existing-report refusal occurs before constructing speech; original report is preserved. Not two additional monitored-playback observations."
+  },
+  "agent_observed_hardware": false,
+  "physical_audio_accepted": false,
+  "interpretation": "Guard latched observation_expired while the stream query was in progress. Serial query timing is reproducibly incompatible with the existing cache age budget; a parallel candidate is tested locally, but its actual Pi result is pending."
+}

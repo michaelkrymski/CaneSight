@@ -1,0 +1,45 @@
+{
+  "task": "CS-040",
+  "reported_date": "2026-10-18",
+  "provenance": "Operator supplied complete monitored-speech.json from Pi after configuring the privately selected Bluetooth route, then explicitly reported no speech at all. Duplicate pasted report retained once.",
+  "reported_route_precheck": {
+    "route_observed": true,
+    "probe_elapsed_ms": 63.7,
+    "private_config_saved": true,
+    "audio_played": false
+  },
+  "operator_statement": "No speech at all",
+  "reported_bench": {
+    "mode": "synthetic-speaker-bench",
+    "priority_input": "synthetic",
+    "capture_input": "synthetic",
+    "phone_used": false,
+    "backend_used": false,
+    "gemini_used": false,
+    "gpio_used": false,
+    "physical_audio_accepted": false,
+    "bluetooth_disconnect_reconnect_verified": false,
+    "complete": true,
+    "records": [
+      {
+        "repetition": 1,
+        "case": "manual_cancel",
+        "software_pass": false,
+        "stop_call_ms": 0.065,
+        "operator_pass": false
+      }
+    ],
+    "case_selection": "manual-only",
+    "timer_fault": false,
+    "software_checks_passed": false,
+    "operator_reported_all_passed": false,
+    "build_commit": "f2a6dca6df87ffe1daf0a9f265590ca9ba6a393e"
+  },
+  "diagnosis": null,
+  "physical_audio_accepted": false,
+  "limitations": [
+    "A single successful idle route query does not verify continuous monitoring, playback or audible cancellation.",
+    "The 0.065ms software stop call is not audible latency and does not imply that a process was still playing.",
+    "Both software and operator checks failed; retain failure, do not classify as acceptance."
+  ]
+}
