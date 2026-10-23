@@ -42,3 +42,5 @@ The preexisting mode-600 fixture now has the same explicit POSIX-only test guard
 as its adjacent permissions test. This changes only test platform applicability,
 not the credential loader; Linux CI still executes the test. Root discovery was
 repeated after that portability correction. Publication/CI results follow remotely.
+
+Solo CI feedback now considers only repository-checks for the owner, so the retired governance status cannot block the helper. Five focused solo cases and 23 legacy governance/publisher cases pass; final repeated root suite: 245 cases OK, 15 skips.

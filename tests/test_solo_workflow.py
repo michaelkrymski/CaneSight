@@ -8,6 +8,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
 from governance import inspect_changes
 from publish_task import validate_branch
 from validate_repo import validate
+from ci_feedback import required_result
 
 
 class SoloWorkflowTests(unittest.TestCase):
@@ -46,6 +47,12 @@ class SoloWorkflowTests(unittest.TestCase):
             self.assertEqual(validate(root), [])
             (root/'governance.json').write_text(json.dumps(dict(self.policy, collaboration_mode='team')))
             self.assertTrue(validate(root))
+
+    def test_solo_ci_does_not_wait_for_retired_governance_status(self):
+        checks=[{'id':1,'name':'repository-checks','status':'completed','conclusion':'success'}]
+        statuses=[{'id':2,'context':'governance','state':'failure'}]
+        self.assertEqual(required_result(checks,statuses,contexts=('repository-checks',)), 'success')
+        self.assertEqual(required_result(checks,statuses), 'failure')
 
 
 if __name__ == '__main__':
