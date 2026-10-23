@@ -1,3 +1,5 @@
+> Historical team workflow. Superseded on October 23, 2026 by AGENTS.md and docs/operations/SOLO_DEVELOPMENT.md. Claim, ownership and extra-review requirements below do not apply to Michael in solo mode.
+
 # Team operating system
 
 ## Source of truth

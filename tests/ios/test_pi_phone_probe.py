@@ -38,6 +38,7 @@ class PiPhoneProbeTests(unittest.TestCase):
                 state.receive(self.packet(**update))
             self.assertEqual(state.heartbeats, 0)
 
+    @unittest.skipUnless(os.name == 'posix', 'POSIX private-file modes; Windows ACLs are not chmod 600')
     def test_role_file_matches_exact_process_and_contains_only_pi_grant(self):
         with tempfile.TemporaryDirectory() as folder:
             path = Path(folder)/'private.json'

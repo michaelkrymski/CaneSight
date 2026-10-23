@@ -1,3 +1,5 @@
+> Historical team workflow. Superseded on October 23, 2026 by AGENTS.md and docs/operations/SOLO_DEVELOPMENT.md. Claim, ownership and extra-review requirements below do not apply to Michael in solo mode.
+
 # Automatic task publishing
 
 After this amendment merges, fetch/pull accepted main before starting a fresh task branch. Existing branches should incorporate accepted main without resetting work. Read AGENTS.md again in the teammate's own active Codex session. Until merge, use the existing checks and ordinary task-branch Git operations; these helper commands are not on main yet.

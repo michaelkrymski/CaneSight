@@ -1378,3 +1378,11 @@ Add ten synthetic cross-component isolation cases, a fixed 43-case QA runner wit
 
 Validation: 43 Python campaign cases and 15 portable GPS Swift tests passed with no skips/failures. Strict Swift concurrency complete and warnings as errors. Checked publishing runs current repository checks. Native device/permission/provider/transport/audio acceptance remains explicitly unverified; task is not Done.
 
+## 2026-10-23 — SOLO-WORKFLOW-LIDAR-PLAN-20261023: Replace team allocation gates with solo maintenance and plan calibrated cane LiDAR
+
+Author: michaelkrymski (AI-assisted) · Task: CS-001
+
+Michael explicitly authorized removing claim/ownership/second-review blockers. Add trusted solo-owner exemption, optional task IDs and named-branch flexibility in the checked publisher, simpler optional task metadata and authoritative solo instructions. Existing task history, runtime safeguards and test workflows remain. Add the Mac/iPhone calibration implementation prompt and Windows/Pi/backend integration plan; no LiDAR runtime code changed.
+
+Validation: Four new solo-workflow and 23 governance/publisher tests passed. Final Windows root discovery: 244 tests OK, 15 skips, after adding an explicit POSIX-only marker to the existing chmod-600 test; the credential loader is unchanged and Linux still runs that case. Structure/changelog/whitespace passed. GitHub settings were updated and verified: no required extra review/admin enforcement/conversation resolution; repository-checks retained, force/deletion blocked. Remote CI/publication recorded in the PR. No LiDAR runtime or physical-device changes.
+
