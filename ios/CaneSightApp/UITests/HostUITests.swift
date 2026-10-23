@@ -215,7 +215,7 @@ final class HostUITests: XCTestCase {
         let status=app.staticTexts["mountCalibrationStatus"];reveal(status,in:app)
         XCTAssertTrue(status.waitForExistence(timeout:5))
         XCTAssertTrue(status.label.contains("fresh depth"))
-        let moved=app.buttons["mountMoved"];reveal(moved,in:app);moved.tap()
+        let moved=app.buttons["mountMoved"];reveal(moved,in:app);moved.tap();app.buttons["Invalidate calibration and start again"].tap()
         let profile=app.staticTexts["mountProfileStatus"];reveal(profile,in:app)
         XCTAssertTrue(profile.label.contains("required"))
         for i in 0..<3 {
@@ -223,10 +223,20 @@ final class HostUITests: XCTestCase {
             XCTAssertEqual(distance.label.split(separator:",").last?.trimmingCharacters(in:.whitespaces),"Unknown")
         }
     }
+    @MainActor func testRemountRequiresExplicitConfirmationAndCanBeCancelled() {
+        let app=XCUIApplication();app.launch()
+        let calibrate=app.buttons["calibrateMount"];reveal(calibrate,in:app);calibrate.tap()
+        let before=app.staticTexts["mountCalibrationStatus"];reveal(before,in:app)
+        let message=before.label
+        let moved=app.buttons["mountMoved"];reveal(moved,in:app);moved.tap()
+        let keep=app.buttons["Keep calibration"]
+        XCTAssertTrue(keep.waitForExistence(timeout:5));keep.tap()
+        reveal(before,in:app);XCTAssertEqual(before.label,message)
+    }
     @MainActor func testMountInvalidationStaysRequiredAcrossBackgroundAndRelaunch() {
         let app=XCUIApplication();app.launch()
         let moved=app.buttons["mountMoved"];reveal(moved,in:app)
-        XCTAssertTrue(moved.waitForExistence(timeout:10));moved.tap()
+        XCTAssertTrue(moved.waitForExistence(timeout:10));moved.tap();app.buttons["Invalidate calibration and start again"].tap()
         XCUIApplication(bundleIdentifier:"com.apple.springboard").activate();app.activate()
         let status=app.staticTexts["mountProfileStatus"];reveal(status,in:app)
         XCTAssertTrue(status.label.contains("required"))

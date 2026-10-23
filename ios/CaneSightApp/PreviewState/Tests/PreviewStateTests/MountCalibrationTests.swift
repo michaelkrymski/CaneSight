@@ -229,6 +229,33 @@ final class MountCalibrationTests: XCTestCase {
         XCTAssertThrowsError(try CalibratedMountGeometry.validate(confirmed(),camera:different,pose:neutral,height:1))
         XCTAssertThrowsError(try MountProfile.load(Data("{}".utf8)))
     }
+    func testFocusAndCropChangesUseCurrentProjectionWithoutDeclaringRemount() throws {
+        var k=camera.k;k[0]*=1.04;k[1]*=1.04
+        var display=camera.display;display[4]+=0.002
+        let focused=MountCamera(device:camera.device,imageWidth:1920,imageHeight:1440,
+            depthWidth:256,depthHeight:192,k:k,display:display)
+        XCTAssertTrue(camera.compatible(with:focused))
+        let p=confirmed(),reloaded=try MountProfile.load(p.data())
+        XCTAssertNoThrow(try CalibratedMountGeometry.validate(reloaded,camera:focused,pose:neutral,height:1))
+        let n=focused.depthWidth*focused.depthHeight
+        let selected=CalibratedMountGeometry.select(profile:p,camera:focused,pose:neutral,
+            metres:Array(repeating:1,count:n),confidence:Array(repeating:2,count:n),floorIndices:[],height:1)
+        XCTAssertTrue(selected.metres.allSatisfy { $0.contains { $0.isFinite } })
+        XCTAssertTrue(selected.exclusions.contains { $0[2]==3 })
+        XCTAssertTrue(selected.exclusions.allSatisfy { $0[2]==3 })
+    }
+    func testUniformDiagnosticSamplesDistinguishUsableDepthAndRejections() {
+        let p=profile(),n=camera.depthWidth*camera.depthHeight
+        var levels=Array(repeating:UInt8(2),count:n)
+        for y in 0..<camera.depthHeight { for x in 0..<camera.depthWidth where x<112 {
+            levels[y*camera.depthWidth+x]=0
+        } }
+        let result=CalibratedMountGeometry.select(profile:p,camera:camera,pose:neutral,
+            metres:Array(repeating:1,count:n),confidence:levels,floorIndices:[],height:1)
+        XCTAssertTrue(result.exclusions.contains { $0[2]==1 })
+        XCTAssertTrue(result.exclusions.contains { $0[2]==3 })
+        XCTAssertLessThanOrEqual(result.exclusions.count,768)
+    }
     func testNeutralWindowRejectsOldAndFutureCapturesEvenWhenOrdered() {
         var w=StableMountWindow()
         XCTAssertFalse(w.observe(timestamp:1,now:2,pose:neutral,height:1,usable:true))

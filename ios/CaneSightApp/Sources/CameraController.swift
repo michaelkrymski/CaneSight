@@ -56,6 +56,14 @@ import CaneSightARLifecycle
     private lazy var capture = CameraCapture(device:calibration.device,receive: { [weak self] event in self?.receive(event) },
         receiveQuality: { [weak self] quality in self?.receiveQuality(quality) })
     private var qualityCapture: Double?
+    private var previewReceipt: Double?
+    private var sessionRuns=0,validDepthFrames=0,unavailableDepthFrames=0,delayedDepthFrames=0
+    var captureDiagnostics: [String:Any] {
+        ["session_runs":sessionRuns,"valid_depth_frames":validDepthFrames,
+         "unavailable_depth_frames":unavailableDepthFrames,"delayed_depth_frames":delayedDepthFrames,
+         "thermal_state":ProcessInfo.processInfo.thermalState.rawValue,
+         "preview_age_ms":previewReceipt.map { max(0,(CACurrentMediaTime()-$0)*1000) as Any } ?? NSNull()]
+    }
     var qualityAgeMS: Double? { qualityCapture.map { max(0, (CACurrentMediaTime() - $0) * 1000) } }
     private func receiveQuality(_ value: CameraQuality) {
         guard value.epoch == epoch, active, requested, portrait, sample != nil,
@@ -79,7 +87,7 @@ import CaneSightARLifecycle
 
     private func clearCalibrationSource() {
         accessible.invalidateDepth(.unknown)
-        epoch=UUID();capture.stop();summary=nil;sample=nil;distances=[nil,nil,nil]
+        epoch=UUID();capture.stop();summary=nil;sample=nil;image=nil;previewReceipt=nil;distances=[nil,nil,nil]
         inputQuality=[];floorDiagnostics=[:];clearDepthDetails();resetCheck()
         calibration.resetTransient()
     }
@@ -142,6 +150,7 @@ import CaneSightARLifecycle
         configuration.worldAlignment = .gravity
         configuration.frameSemantics.insert(.sceneDepth)
         configuration.planeDetection = [.horizontal]
+        sessionRuns+=1
         session.run(configuration,options: [.resetTracking,.removeExistingAnchors])
         timer=Timer.scheduledTimer(withTimeInterval: 0.1,repeats: true) { [weak self] _ in
             MainActor.assumeIsolated { self?.tick() }
@@ -153,7 +162,7 @@ import CaneSightARLifecycle
         epoch=UUID(); capture.stop()
         if pause { session.pause() }
         timer?.invalidate(); timer=nil
-        sample=nil; image=nil; distances=[nil,nil,nil]; if summary != nil { summary=nil }; inputQuality=[]; floorDiagnostics=[:]; floorStatus="Floor unavailable; waiting for fresh tracking."; clearDepthDetails(); lastSource=nil; lastLoss=0
+        sample=nil; image=nil; previewReceipt=nil; distances=[nil,nil,nil]; if summary != nil { summary=nil }; inputQuality=[]; floorDiagnostics=[:]; floorStatus="Floor unavailable; waiting for fresh tracking."; clearDepthDetails(); lastSource=nil; lastLoss=0
         resetCheck(); status=reason
     }
     private func clearDepthDetails() {
@@ -175,10 +184,13 @@ import CaneSightARLifecycle
         synchronizeDisplay()
         accessible.tick()
         capture.updateDisplayToken(accessible.depthToken)
-        guard let sample else { return }
         let now=CACurrentMediaTime()
+        if let receipt=previewReceipt, !now.isFinite || now<receipt || now-receipt>=0.5 {
+            image=nil;previewReceipt=nil
+        }
+        guard let sample else { return }
         if !now.isFinite || now < sample.receipt || now-sample.receipt >= 0.5 {
-            accessible.invalidateDepth(.stale); calibration.resetTransient(); self.sample=nil; image=nil; distances=[nil,nil,nil]; if summary != nil { summary=nil }; inputQuality=[]; floorDiagnostics=[:]; floorStatus="Floor unavailable; waiting for fresh tracking."; clearDepthDetails(); resetCheck()
+            accessible.invalidateDepth(.stale); calibration.resetTransient(); self.sample=nil; distances=[nil,nil,nil]; if summary != nil { summary=nil }; inputQuality=[]; floorDiagnostics=[:]; floorStatus="Floor unavailable; waiting for fresh tracking."; clearDepthDetails(); resetCheck()
             status="No recent frame; depth unknown and check reset."
         }
     }
@@ -188,11 +200,17 @@ import CaneSightARLifecycle
             bridge.sessionWasInterrupted()
             return
         }
+        let previewNow=CACurrentMediaTime()
+        if let preview=event.preview,let receipt=event.previewReceipt,
+           previewNow.isFinite,previewNow>=receipt,previewNow-receipt<0.5 {
+            image=preview;previewReceipt=receipt
+        }
         if event.loss != lastLoss { check.reset(); lastLoss=event.loss }
         guard let value=event.sample else {
+            unavailableDepthFrames+=1
             calibration.trackingReset()
             accessible.invalidateDepth(.unknown)
-            sample=nil; image=nil; distances=[nil,nil,nil]; if summary != nil { summary=nil }; inputQuality=[]; floorDiagnostics=[:]; floorStatus="Floor unavailable; waiting for fresh tracking."; clearDepthDetails(); syncProgress()
+            sample=nil; distances=[nil,nil,nil]; if summary != nil { summary=nil }; inputQuality=[]; floorDiagnostics=[:]; floorStatus="Floor unavailable; waiting for fresh tracking."; clearDepthDetails(); syncProgress()
             status="Waiting for valid depth/tracking; check reset."
             return
         }
@@ -200,11 +218,13 @@ import CaneSightARLifecycle
         guard now.isFinite, now >= value.receipt, now-value.receipt < 0.5,
               let source=value.observation.summary.captureTimestampSeconds,
               lastSource.map({ source > $0 }) ?? true else {
+            delayedDepthFrames+=1
             accessible.invalidateDepth(.unknown)
-            sample=nil; image=nil; distances=[nil,nil,nil]; if summary != nil { summary=nil }; inputQuality=[]; floorDiagnostics=[:]; floorStatus="Floor unavailable; waiting for fresh tracking."; clearDepthDetails(); resetCheck()
+            sample=nil; distances=[nil,nil,nil]; if summary != nil { summary=nil }; inputQuality=[]; floorDiagnostics=[:]; floorStatus="Floor unavailable; waiting for fresh tracking."; clearDepthDetails(); resetCheck()
             status="Delayed frame; depth unknown and check reset."; return
         }
-        lastSource=source;sample=value;image=value.image
+        validDepthFrames+=1
+        lastSource=source;sample=value
         calibration.observe(value.mountFrame,timestamp:source)
         // A callback may have replaced the source epoch while observing this frame.
         guard epoch == event.epoch else { return }
@@ -275,6 +295,8 @@ struct CameraEvent: @unchecked Sendable {
     let sample: CameraSample?
     let loss: UInt64
     var interrupted=false
+    var preview: CGImage?=nil
+    var previewReceipt: Double?=nil
 }
 
 /// Two bounded frame slots and a latest-only main delivery. Loss serials survive
@@ -329,18 +351,16 @@ final class CameraCapture: NSObject, ARSessionDelegate, @unchecked Sendable {
             pending=nil; let current=epoch==input.1; let profile=mountProfile,region=mountRegion;lock.unlock()
             guard current else { continue }
             var sample: CameraSample?
-            if let observation=try? PortraitDepth.process(input.0) {
-                let source=CIImage(cvPixelBuffer: input.0.capturedImage)
-                let t=observation.geometry.mapping
-                let w=source.extent.width,h=source.extent.height
-                // ARKit uses normalized top-left coordinates; CoreImage uses
-                // pixel bottom-left coordinates. Convert both ends explicitly.
-                let normalized = CGAffineTransform(a:t.a,b:t.b,c:t.c,d:t.d,tx:t.tx,ty:t.ty)
-                guard let pixels = try? PortraitPreviewTransform.pixels(imageWidth:w,imageHeight:h,
-                    previewWidth:180,previewHeight:320,normalized:normalized) else {
-                    emit(nil,epoch:input.1); continue
-                }
-                if let image=context.createCGImage(source.transformed(by: pixels),from: CGRect(x: 0,y: 0,width: 180,height: 320)) {
+            // RGB preview does not depend on scene-depth/tracking validity.
+            // Both retain the same epoch and bounded callback-recency checks.
+            let source=CIImage(cvPixelBuffer:input.0.capturedImage)
+            let normalized=input.0.displayTransform(for:.portrait,viewportSize:PortraitDepth.viewport)
+            var preview: CGImage?
+            if let pixels=try? PortraitPreviewTransform.pixels(imageWidth:source.extent.width,imageHeight:source.extent.height,
+                previewWidth:180,previewHeight:320,normalized:normalized) {
+                preview=context.createCGImage(source.transformed(by:pixels),from:CGRect(x:0,y:0,width:180,height:320))
+            }
+            if let observation=try? PortraitDepth.process(input.0),let image=preview {
                     let mount=MountFrameProcessor.process(input.0,observation:observation,profile:profile,region:region,device:device)
                     sample=CameraSample(observation:observation,image:image,mountFrame:mount,receipt:input.2,displayToken:input.3)
                     // Diagnostics own one bounded slot on a separate low-priority queue.
@@ -357,9 +377,8 @@ final class CameraCapture: NSObject, ARSessionDelegate, @unchecked Sendable {
                             if current { DispatchQueue.main.async { self.receiveQuality(value) } }
                         }
                     }
-                }
             }
-            emit(sample,epoch: input.1)
+            emit(sample,epoch:input.1,preview:preview,previewReceipt:input.2)
         }
     }
     /// Optional read-only histogram. Reuses the exact display permutation/crop;
@@ -430,11 +449,11 @@ final class CameraCapture: NSObject, ARSessionDelegate, @unchecked Sendable {
             return result
         }
     }
-    private func emit(_ sample: CameraSample?,epoch value: UUID) {
+    private func emit(_ sample: CameraSample?,epoch value: UUID,preview: CGImage?=nil,previewReceipt: Double?=nil) {
         lock.lock()
         guard epoch==value else { lock.unlock(); return }
         if sample==nil { loss &+= 1 }
-        delivery=CameraEvent(epoch: value,sample: sample,loss: loss)
+        delivery=CameraEvent(epoch:value,sample:sample,loss:loss,preview:preview,previewReceipt:previewReceipt)
         let launch = !scheduled; scheduled=true; lock.unlock()
         if launch {
             DispatchQueue.main.async {

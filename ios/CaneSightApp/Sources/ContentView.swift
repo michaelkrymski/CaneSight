@@ -103,9 +103,9 @@ struct MountCalibrationPreview: View {
                     .position(x:CGFloat(mount.region.x+MountRegion.width/2)*180,
                               y:CGFloat(mount.region.y+mount.region.height/2)*320)
             }
-            if mount.wizard {
+            if camera.inspectionEnabled {
                 ForEach(Array(mount.exclusions.enumerated()),id:\.offset) { item in
-                    Circle().fill(item.element[2] == 2 ? Color.blue : Color.red).frame(width:2,height:2)
+                    Circle().fill(item.element[2] == 3 ? Color.green : item.element[2] == 2 ? Color.blue : Color.red).frame(width:2,height:2)
                         .position(x:CGFloat(item.element[0])*180,y:CGFloat(item.element[1])*320)
                 }
             }
@@ -114,7 +114,7 @@ struct MountCalibrationPreview: View {
             .gesture(SpatialTapGesture().onEnded { value in
                 mount.moveRegion(y:Float(value.location.y/320))
             },including:mount.step == .position ? .all : .subviews)
-            .accessibilityLabel("Yellow calibrated region; three obstacle sectors. Red exclusions are confidence; blue are floor.")
+            .accessibilityLabel("Yellow calibrated region; three obstacle sectors. Debug samples: green usable, red invalid or low confidence, blue excluded floor. Not object outlines.")
             .accessibilityIdentifier("mountRegionPreview")
             .frame(maxWidth:.infinity)
     }
@@ -123,6 +123,7 @@ struct MountCalibrationPreview: View {
 struct MountCalibrationControls: View {
     @ObservedObject var camera: CameraController
     @ObservedObject var mount: MountCalibrationController
+    @State private var confirmRemount=false
     var body: some View {
         Section("Mount calibration") {
             Text(mount.profileStatus).accessibilityIdentifier("mountProfileStatus")
@@ -134,12 +135,20 @@ struct MountCalibrationControls: View {
             }
             Button("Calibrate mount") { camera.beginMountCalibration() }
                 .frame(minHeight:50).accessibilityIdentifier("calibrateMount")
-            Button("Mount moved / recalibrate",role:.destructive) { camera.mountMoved() }
+            Button("Mount moved / recalibrate",role:.destructive) { confirmRemount=true }
                 .frame(minHeight:50).accessibilityIdentifier("mountMoved")
+                .alert("Has the phone moved in its mount?",isPresented:$confirmRemount) {
+                    Button("Invalidate calibration and start again",role:.destructive) { camera.mountMoved() }
+                    Button("Keep calibration",role:.cancel) {}
+                } message: { Text("Normal cane motion does not need recalibration. Continue only after changing or doubting the phone's mounting angle.") }
+            Toggle("Show depth sample diagnostics",isOn:$camera.inspectionEnabled)
+            if camera.inspectionEnabled {
+                Text("Green: usable depth samples. Red: invalid or low confidence. Blue: excluded floor. These are sampled depth points, not detected object outlines.").font(.caption)
+            }
             if mount.wizard {
                 Toggle("Sighted helper present; normal cane grip on level ground",isOn:$mount.helperPresent)
                     .accessibilityIdentifier("mountHelperPresent")
-                Text("Adjust the phone mount angle, then tap the preview to position the full-width yellow band away from the floor, hand and cane. Adjust its height explicitly below. Keep the assembly still for capture. Red dots: low confidence. Blue: excluded floor.").font(.caption)
+                Text("Adjust the phone mount angle, then tap the preview to position the full-width yellow band away from the floor, hand and cane. Adjust its height explicitly below. Keep the assembly still for capture. Optional sample diagnostics explain accepted depth and exclusions.").font(.caption)
                 Text("Setup only · selected distances: \(mount.localDistances.map { $0.map { String(format:"%.2f m",$0) } ?? "Unknown" }.joined(separator:" / "))")
                     .accessibilityIdentifier("mountSetupDistances")
                 if mount.step == .position {

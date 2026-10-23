@@ -307,8 +307,12 @@ Only the unconfirmed band position/height is also kept in Documents/mount-setup-
 A valid profile loads automatically on ordinary relaunch. Fresh gravity pose,
 current floor model, compatible camera geometry and fresh depth must still be
 rebuilt before any source is ready. Changing/doubting the physical mount requires
-**Mount moved / recalibrate**. That action clears the source epoch, displayed
-values, local eligibility and stored profile immediately. A persisted invalidation
+**Mount moved / recalibrate**. After explicit confirmation, that action clears
+the source epoch, displayed values, local eligibility and stored profile immediately.
+Cancel leaves calibration intact. Temporary camera/intrinsics changes do not call
+this destructive action. Focusing/crop changes use the actual current frame's
+intrinsics/display transform against the saved neutral physical rays; unsupported
+camera/device dimensions gate observations while retaining the saved profile. A persisted invalidation
 flag prevents ordinary restart from silently restoring a removed profile. The
 phone IMU does not distinguish a slipping mount from normal cane movement.
 
@@ -330,10 +334,13 @@ steps, changes in ground level or large cane translations are not validated.
 Pixels beyond the observed floor boundary remain observations, not inferred ground.
 Removing floor points cannot be described as detecting a safe path or a drop-off.
 
-Calibration setup distances/coloured exclusions are local diagnostics only. Until
+Calibration setup distances/coloured samples are local diagnostics only. Until
 helper save, Status/Demo/transport distances stay unknown and producer state is
-existing degraded/starting. Red preview marks are low-confidence selections; blue
-marks are floor exclusions. The raw read-only `current_input_quality` journal
+existing degraded/starting. Optional uniform debug samples are green for usable
+high-confidence depth, red for invalid/low-confidence/range/visibility exclusions,
+and blue for floor exclusions. These are not object outlines. The former bounded
+first-120 exclusions could concentrate on one edge and were misleading; diagnostics
+are now explicitly toggled and include accepted samples across the region. The raw read-only `current_input_quality` journal
 is not the compensated production ROI. `floor_filter` records selected sample
 counts, visibility, conservative denominator and processing duration. Calibration
 metadata stays in `mount_calibration` of the local journal, not v1 wire packets.
@@ -371,3 +378,15 @@ the old 6864-row input's `invalidDimensions`, then verifies bounded 2D sector ti
 preserve all samples, numeric 2.7 m summaries and original capture time. The packet
 schema and confidence gates are unchanged. This fixes the newly found tall-band
 packing failure; it does not prove every earlier distance/confidence issue resolved.
+
+### Preview and depth availability
+
+RGB preview is rendered from the same ARFrame independently of whether its depth
+or tracking qualifies. Depth loss immediately clears measurements/eligibility,
+while a fresh RGB image may remain live. Preview still has its own 500 ms callback
+recency limit and epoch fencing, and is removed on Stop/background/interruption.
+No frozen frame is accepted as depth. Local `camera_capture` diagnostics record
+session starts, good/unavailable/delayed depth deliveries and iOS thermal state
+(0 nominal, 1 fair, 2 serious, 3 critical); these are not temperature measurements.
+The optional expensive raw histogram starts disabled in ordinary launches. Camera
+projection validation is performed once per selection rather than per source pixel.

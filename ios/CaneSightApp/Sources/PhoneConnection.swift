@@ -141,6 +141,7 @@ private struct SectorQualityTally {
         let value: [String: Any] = ["status": message, "wss_connected": connected,
             "depth_sends": sentDepth, "diagnostic_depth_enabled": diagnosticDepth,
             "connection_requested": requested, "foreground_active": active,
+            "camera_capture":camera?.captureDiagnostics ?? [:],
             "camera_requested": camera?.requested ?? false, "camera_status": camera?.status ?? "Unavailable",
             "sender_elapsed_ms": senderElapsedMS, "source_capture_count": sourceCaptures,
             "source_capture_span_ms": (lastSourceCapture ?? 0) - (firstSourceCapture ?? 0),

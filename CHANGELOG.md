@@ -1482,6 +1482,14 @@ Add ten synthetic cross-component isolation cases, a fixed 43-case QA runner wit
 
 Validation: 43 Python campaign cases and 15 portable GPS Swift tests passed with no skips/failures. Strict Swift concurrency complete and warnings as errors. Checked publishing runs current repository checks. Native device/permission/provider/transport/audio acceptance remains explicitly unverified; task is not Done.
 
+## 2026-10-23 — MAC-CALIBRATION-USABILITY-20261023: Retain mount calibration through camera variation and separate RGB preview from depth loss
+
+Author: michaelkrymski (AI-assisted) · Task: CS-013
+
+Stop translating temporary camera mismatches into destructive Mount moved. Use actual per-frame intrinsics/crop while retaining physical neutral rays, keep hardware dimension/device compatibility, and add explicit confirmation before user remount invalidation. RGB preview has independent fresh delivery and clears on Stop/background/interruption/stall while rejected depth remains Unknown. Replace first-120 red exclusion bias with optional uniformly sampled usable/invalid/floor points and explanatory legend. Cache camera projection parameters outside raster loop; record local thermal/capture counters. No protocol/receiver/motor/drift changes or confidence relaxation.
+
+Validation: 35 geometry/state tests, four processor integration cases, 10 transport/fence tests and 257 repository checks pass. Signed physical build, strict signature and install pass; launch blocked by locked phone. Simulator explicit invalidation/background/relaunch passed; cancellation alert rerun passed. No physical thermal, preview continuity, restored calibration or joint guidance acceptance claimed.
+
 ## 2026-10-23 — MAC-MOUNT-CALIBRATION-20261023: Add persistent helper mount calibration and gravity-compensated obstacle sectors
 
 Author: michaelkrymski (AI-assisted) · Task: CS-013

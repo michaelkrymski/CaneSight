@@ -33,8 +33,9 @@ public struct MountCamera: Codable, Equatable, Sendable {
     public func compatible(with other: Self) -> Bool {
         guard valid,other.valid,device==other.device,imageWidth==other.imageWidth,imageHeight==other.imageHeight,
               depthWidth==other.depthWidth,depthHeight==other.depthHeight else { return false }
-        return zip(k,other.k).allSatisfy { abs($0-$1)<=0.03*max(abs($0),0.1) } &&
-            zip(display,other.display).allSatisfy { abs($0-$1)<0.001 }
+        // Intrinsics/crop may change with focusing. Current frame projection uses
+        // its own k/display; this is not evidence of a physical remount.
+        return true
     }
     public func viewport(_ p: SIMD3<Float>) -> SIMD2<Float>? {
         guard valid, p.z < -0.001 else { return nil }
@@ -183,7 +184,7 @@ public enum CalibratedMountGeometry {
         public var confidence=[[UInt8](),[UInt8](),[UInt8]()]
         public var lowObstacleHighPixels=0
         public var quality=[[String:Int](),[String:Int](),[String:Int]()]
-        /// Bounded display markers: u,v and exclusion code (1 confidence,2 floor).
+        /// Bounded uniform debug samples: u,v and code (1 invalid/confidence,2 floor,3 usable).
         public var exclusions=[[Float]]()
     }
     public struct PackedSamples: Sendable {
@@ -215,7 +216,9 @@ public enum CalibratedMountGeometry {
         let fractions=(try? visibleFractions(profile,camera:camera,pose:pose)) ?? [0,0,0]
         let visible=fractions.map { $0>=minimumVisibleFraction }
         let toNeutral=simd_transpose(profile.neutral)*pose,r=profile.region
-        let nk=profile.camera.k,nd=profile.camera.display
+        let nk=profile.camera.k,nd=profile.camera.display,cd=camera.display
+        let inverseWidth=1/Float(camera.depthWidth),inverseHeight=1/Float(camera.depthHeight)
+        let fx=camera.k[0],fy=camera.k[1],cx=camera.k[2],cy=camera.k[3]
         func neutralViewport(_ p: SIMD3<Float>) -> SIMD2<Float>? {
             guard p.z < -0.001 else { return nil }
             let u=p.x/(-p.z)*nk[0]+nk[2],v = -p.y/(-p.z)*nk[1]+nk[3]
@@ -225,9 +228,11 @@ public enum CalibratedMountGeometry {
             let i=y*camera.depthWidth+x,z=metres[i]
             // A direction selects the region even when its depth is invalid;
             // unknown samples stay in coverage denominators.
-            let ray=SIMD3<Float>((Float(x)/Float(camera.depthWidth)-camera.k[2])/camera.k[0],
-                -(Float(y)/Float(camera.depthHeight)-camera.k[3])/camera.k[1],-1)
-            guard let view=camera.viewport(ray),view.x>=0,view.x<=1,view.y>=0,view.y<=1,
+            let u=Float(x)*inverseWidth,v=Float(y)*inverseHeight
+            let ray=SIMD3<Float>((u-cx)/fx,-(v-cy)/fy,-1)
+            // Camera validity is checked once above, not for every raster pixel.
+            let view=SIMD2(cd[0]*u+cd[2]*v+cd[4],cd[1]*u+cd[3]*v+cd[5])
+            guard view.x>=0,view.x<=1,view.y>=0,view.y<=1,
                   let uv=neutralViewport(toNeutral*ray),uv.x>=r.x,uv.x<r.x+MountRegion.width,
                   uv.y>=r.y,uv.y<r.y+r.height else { continue }
             let sector=min(2,Int((uv.x-r.x)/MountRegion.width*3)),point=ray*z,range=simd_length(point)
@@ -252,8 +257,11 @@ public enum CalibratedMountGeometry {
                 let aboveFloor=height+(pose*point).y
                 if aboveFloor>=profile.minimumLowObstacleHeight && aboveFloor<=0.20 { result.lowObstacleHighPixels+=1 }
             }
-            if result.exclusions.count<120,(floor || confidence[i] != 2),let view=camera.viewport(ray) {
-                result.exclusions.append([view.x,view.y,floor ? 2:1])
+            // Uniform raster sampling avoids the old first-120-pixels bias,
+            // which could look like a detected outline at one object edge.
+            if x%8==0,y%8==0,result.exclusions.count<768 {
+                let code: Float = floor ? 2 : (usable && confidence[i]==2 ? 3 : 1)
+                result.exclusions.append([view.x,view.y,code])
             }
         } }
         // Account for unseen area conservatively in the unchanged processor's

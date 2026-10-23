@@ -35,7 +35,7 @@ enum MountFrameProcessor {
             k:[k.columns.0.x/Float(size.width),k.columns.1.y/Float(size.height),k.columns.2.x/Float(size.width),k.columns.2.y/Float(size.height)],
             display:[Float(t.a),Float(t.b),Float(t.c),Float(t.d),Float(t.tx),Float(t.ty)])
         if let profile,!profile.camera.compatible(with:camera) {
-            out.problem="Camera or orientation changed; recalibrate mount";out.incompatible=true;return out
+            out.problem="Camera configuration unavailable; saved calibration retained";out.incompatible=true;return out
         }
         let transform=frame.camera.transform
         guard let pose=CalibratedMountGeometry.cameraToLevel(simd_float3x3(columns:(
@@ -194,7 +194,12 @@ enum MountFrameProcessor {
             if (quality["outside_range"] ?? 0)>0 { return "\(name): samples outside 0.25–4 m range; \(coverage)% usable" }
             return "\(name): \(coverage)% usable high-confidence depth (need 25% and 32 samples)"
         }) ?? []
-        if value.incompatible,profile != nil { moved();return }
+        // A temporary camera configuration mismatch cannot establish a slipped
+        // mount. Retain the confirmed profile; unsupported frames stay gated.
+        if value.incompatible,profile != nil {
+            message="Camera configuration unavailable; saved calibration retained"
+            window.reset();progress=0;return
+        }
         if let problem=value.problem { message=problem;window.reset();progress=0;return }
         if step == .stable,let pose=value.pose,let height=value.height {
             if let draft {
