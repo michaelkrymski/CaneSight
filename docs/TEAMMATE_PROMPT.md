@@ -1,3 +1,5 @@
+> Historical team workflow. Superseded on October 23, 2026 by AGENTS.md and docs/operations/SOLO_DEVELOPMENT.md. Claim, ownership and extra-review requirements below do not apply to Michael in solo mode.
+
 # Copy into each teammate's own AI session
 
 Replace the bracketed values before starting. If this chat cannot access the repository, attach the listed files and a current source snapshot.

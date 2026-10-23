@@ -9,6 +9,7 @@ ROOT = Path(__file__).resolve().parents[1]
 def validate(root=ROOT):
     errors = []
     policy = json.loads((root / 'governance.json').read_text(encoding='utf-8'))
+    solo = policy.get('collaboration_mode') == 'solo'
     tasks = {}
     for path in sorted((root / 'tasks').glob('CS-*.json')):
         t = json.loads(path.read_text(encoding='utf-8'))
@@ -18,22 +19,23 @@ def validate(root=ROOT):
         if task_id in tasks:
             errors.append(f'{task_id}: duplicate')
         tasks[task_id] = t
-        for field in policy['task_static_fields'] + policy['runtime_fields']:
+        for field in ([] if solo else policy['task_static_fields'] + policy['runtime_fields']):
             if field not in t:
                 errors.append(f'{task_id}: missing {field}')
-        if t.get('status') not in policy['statuses']:
+        if t.get('status', 'backlog' if solo else None) not in policy['statuses']:
             errors.append(f'{task_id}: invalid status')
         if t.get('owner') is not None and not re.fullmatch(r'[A-Za-z0-9-]+', t['owner']):
             errors.append(f'{task_id}: owner must be a GitHub login')
-        if t.get('status') != 'backlog' and not t.get('owner'):
+        if not solo and t.get('status') != 'backlog' and not t.get('owner'):
             errors.append(f'{task_id}: active task must have owner')
-        if t.get('status') == 'done' and not t.get('evidence'):
+        if not solo and t.get('status') == 'done' and not t.get('evidence'):
             errors.append(f'{task_id}: done requires evidence')
-        if t.get('status') == 'blocked' and not t.get('blocker'):
+        if not solo and t.get('status') == 'blocked' and not t.get('blocker'):
             errors.append(f'{task_id}: blocked requires explanation')
-        if not t.get('allowed_paths') or any(p.startswith('/') or '..' in p.split('/') for p in t.get('allowed_paths', [])):
+        if ((not solo and not t.get('allowed_paths'))
+                or any(p.startswith('/') or '..' in p.split('/') for p in t.get('allowed_paths', []))):
             errors.append(f'{task_id}: invalid scope')
-        if not t.get('trello_url', '').startswith('https://trello.com/c/'):
+        if not solo and not t.get('trello_url', '').startswith('https://trello.com/c/'):
             errors.append(f'{task_id}: missing card mapping')
     visiting, seen = set(), set()
 

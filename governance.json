@@ -1,5 +1,6 @@
 {
   "schema_version": 1,
+  "collaboration_mode": "solo",
   "pm_github": "michaelkrymski",
   "protected_prefixes": ["docs/master/", "docs/reference/", "shared/", ".github/", "scripts/", "tests/test_governance.py"],
   "protected_files": ["AGENTS.md", "governance.json", "trello-sync.json"],

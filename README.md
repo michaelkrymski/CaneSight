@@ -1,3 +1,5 @@
+> **Solo development:** Michael is the sole maintainer. Start with [the solo workflow](docs/operations/SOLO_DEVELOPMENT.md); older team allocation instructions below are historical.
+
 # CaneSight team workspace
 
 PM and lead developer: **Michael Krymski (`@michaelkrymski`)**.

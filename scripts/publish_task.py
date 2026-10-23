@@ -19,7 +19,11 @@ def git(*args, root=ROOT, required=True):
     return result
 
 
-def validate_branch(branch, task):
+def validate_branch(branch, task, *, solo=False):
+    if solo:
+        if branch in ('HEAD', ''):
+            raise ValueError('Use a named branch, not detached HEAD.')
+        return
     if branch in ('main', 'master', 'HEAD', '') or not re.fullmatch(r'(task|claim)/CS-\d{3}-[A-Za-z0-9._/-]+', branch):
         raise ValueError('Use a named task/CS-NNN-name or claim/CS-NNN-name branch; never main or detached HEAD.')
     if not branch.startswith(('task/' + task + '-', 'claim/' + task + '-')):
@@ -77,8 +81,10 @@ def run_checks(root=ROOT):
 
 
 def publish(args, root=ROOT):
+    policy = json.loads((root / 'governance.json').read_text(encoding='utf-8'))
+    solo = policy.get('collaboration_mode') == 'solo' and args.user == policy['pm_github']
     branch = git('branch', '--show-current', root=root).stdout.strip()
-    validate_branch(branch, args.task)
+    validate_branch(branch, args.task, solo=solo)
     validate_remote(git('remote', 'get-url', 'origin', root=root).stdout.strip())
     selected = normalize_files(args.files, root)
     staged_before = set(filter(None, git('diff', '--cached', '--name-only', '-z', root=root).stdout.split('\0')))
@@ -108,7 +114,7 @@ def publish(args, root=ROOT):
     errors, protected_change = inspect_changes(rows,
         json.loads(read_git_file('origin/main', 'governance.json', root)),
         lambda p: read_git_file('origin/main', p, root),
-        lambda p: read_git_file('', p, root), args.user, [args.task])
+        lambda p: read_git_file('', p, root), args.user, [args.task] if args.task else [])
     if protected_change:
         errors.append('Protected amendment: use the explicit PM-reviewed PR route, not routine autopublish.')
     if errors:
@@ -119,7 +125,7 @@ def publish(args, root=ROOT):
     if changed not in (0, 1):
         raise RuntimeError('Unable to inspect staged changes.')
     if changed:
-        git('commit', '-m', '[' + args.task + '] ' + args.message, root=root)
+        git('commit', '-m', ('[' + args.task + '] ' if args.task else '') + args.message, root=root)
     elif not git('rev-list', 'origin/main..HEAD', root=root).stdout.strip():
         raise ValueError('No task checkpoint to publish.')
     git('push', '--set-upstream', 'origin', 'HEAD:refs/heads/' + branch, root=root)
@@ -136,14 +142,19 @@ def publish(args, root=ROOT):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--task', required=True)
-    parser.add_argument('--user', required=True, help='Your GitHub login, not an email or display name')
+    parser.add_argument('--task', help='Optional for the owner in solo mode')
+    parser.add_argument('--user', help='GitHub login; defaults to repository owner in solo mode')
     parser.add_argument('--message', required=True)
     parser.add_argument('--files', nargs='+', required=True)
     parser.add_argument('--pr', type=int)
     parser.add_argument('--dry-run', action='store_true')
     args = parser.parse_args()
-    if not re.fullmatch(r'CS-\d{3}', args.task) or not re.fullmatch(r'[A-Za-z0-9-]+', args.user) or not args.message.strip():
+    policy = json.loads((ROOT / 'governance.json').read_text(encoding='utf-8'))
+    if args.user is None and policy.get('collaboration_mode') == 'solo':
+        args.user = policy['pm_github']
+    solo = policy.get('collaboration_mode') == 'solo' and args.user == policy['pm_github']
+    if ((args.task is None and not solo) or (args.task is not None and not re.fullmatch(r'CS-\d{3}', args.task))
+            or not args.user or not re.fullmatch(r'[A-Za-z0-9-]+', args.user) or not args.message.strip()):
         parser.error('Valid task ID, GitHub login and nonempty message are required.')
     try:
         publish(args)
