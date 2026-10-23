@@ -1,0 +1,68 @@
+{
+  "task": "CS-013",
+  "date": "2026-10-18",
+  "physical_lifecycle": {
+    "automatic_background_stop_demo_tests_passed": 2,
+    "manual_lock_test_passed": 1,
+    "failed": 0,
+    "skipped": 0,
+    "lock_duration": "Operator instructed/reported about 20 seconds; kernel deep sleep not proven",
+    "lock_test_seconds": 38.894,
+    "actual_state_records": [
+      {
+        "active": 0,
+        "knownAfter": 0,
+        "knownBefore": 0
+      },
+      {
+        "knownBefore": 0,
+        "knownAfter": 0,
+        "active": 1
+      },
+      {
+        "knownAfter": 0,
+        "active": 0,
+        "knownBefore": 3
+      },
+      {
+        "knownAfter": 0,
+        "active": 1,
+        "knownBefore": 0
+      },
+      {
+        "active": 0,
+        "knownAfter": 0,
+        "knownBefore": 0
+      },
+      {
+        "knownBefore": 0,
+        "active": 0,
+        "knownAfter": 0
+      },
+      {
+        "active": 1,
+        "knownBefore": 0,
+        "knownAfter": 0
+      }
+    ],
+    "inactive_with_three_known_then_zero": true,
+    "reactivation_starts_unknown_before_real_depth_recovery": true
+  },
+  "clock_characterization_preparation": {
+    "signed_physical_iOS_build": "Passed",
+    "software_tests_passed": 6,
+    "real_phone_Pi_characterization": "Pending fresh role enrollment and run"
+  },
+  "source_sha256": {
+    "ios/CaneSightApp/Sources/AppServices.swift": "f17626176c9ac28012ebba0b518e5fcc59e327bbb736b7c94318a61981e8a7ef",
+    "ios/CaneSightApp/UITests/HostUITests.swift": "5bbb9e4301fa08a64e5bc82cabc6580554be8660aa97bf4c0fca7d95ec8ac754",
+    "ios/CaneSightApp/DeviceTests/LiveDepthPairTests.swift": "5213c31303c049c27b1d6aa47c4cbe90e0a935d8255d0423c787d1dc37dcb4ef",
+    "tests/ios/clock_characterization.py": "2ffe222f7077d20897443b5c4726e7c349413a48019a13c836bec6a6bd1c79df",
+    "tests/ios/pi_clock_characterization.py": "840d48eacc3ee9a636c819bf2fbb14509520a6a4a43ac36aea28d5971028e131"
+  },
+  "limits": [
+    "Actual local phone lifecycle verified; paired receiver expiry/recovery across lock not yet measured.",
+    "Affine constant-rate model gives finite-run slope constraints, not a guaranteed hardware oscillator tolerance.",
+    "No guessed/default live drift, no production receiver gate activation, no GPIO or guidance acceptance."
+  ]
+}

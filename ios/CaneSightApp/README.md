@@ -132,3 +132,17 @@ preserves capture seconds multiplied by 1000. Only elapsed candidate timestamp
 deltas are printed, never absolute uptime. Two short runs do not prove the source
 clock's epoch, sensor accuracy, sleep/background behavior, a clock drift bound or
 phone-to-Pi latency. Keep live networking disabled pending those gates.
+
+## Local real-depth response demo
+
+The **Demo** tab uses the same real depth snapshot and invalidation as the Camera
+tab. Start depth demo, hold portrait upright/rear cameras forward, and place a
+broad object in the left, center or right image column. At 1.2 m or closer its
+orange card reads Near · simulated response; larger valid values read Above demo
+threshold. Missing/nonfinite/nonpositive values stay Unknown. Stop, stale preview,
+orientation loss or background clears the source readings and thus the indicators.
+No pulses, movement guidance, Pi, credentials or network are used. This visual
+threshold is not the edge/haptic policy and establishes no CS-025 acceptance.
+The floor may trigger several columns. Physical motor mapping and calibrated
+capture age remain unverified. Launch argument --depth-demo selects this tab only;
+it does not inject data, grant permission or start capture.

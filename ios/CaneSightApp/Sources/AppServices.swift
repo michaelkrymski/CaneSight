@@ -12,6 +12,7 @@ import CaneSightCoreLocation
     let statusUI: AccessibleStatusModel
     let camera: CameraController
     let location: LocalLocationController
+    private var lifecycleProof = [[String: Int]]()
 
     init() {
         let speech = LocalStatusSpeech()
@@ -25,10 +26,20 @@ import CaneSightCoreLocation
         location=LocalLocationController()
     }
     func setActive(_ active: Bool) {
+        let before = camera.distances.compactMap { $0 }.count
         status.setSceneActive(active)
         camera.setActive(active)
         location.setActive(active)
         if !active { _ = speech.cancel() }
+        // Opt-in test evidence only: counts/booleans, never readings or timestamps.
+        if ProcessInfo.processInfo.arguments.contains("--lifecycle-probe"), lifecycleProof.count < 24 {
+            lifecycleProof.append(["active": active ? 1 : 0, "knownBefore": before,
+                "knownAfter": camera.distances.compactMap { $0 }.count])
+            if let folder = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first,
+               let data = try? JSONSerialization.data(withJSONObject: lifecycleProof) {
+                try? data.write(to: folder.appendingPathComponent("cs013-lifecycle-proof.json"), options: .atomic)
+            }
+        }
     }
     func readStatus() {
         status.cancelAudio()

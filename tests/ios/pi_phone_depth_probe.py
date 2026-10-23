@@ -14,7 +14,10 @@ from websockets.exceptions import ConnectionClosed
 
 
 class DepthState:
-    def __init__(self, session, phone_source, phone_boot):
+    def __init__(self, session, phone_source, phone_boot, *, maximum_depth=600):
+        if not 1 <= maximum_depth <= 900:
+            raise ValueError("Depth counter bound required")
+        self.maximum_depth = maximum_depth
         self.session, self.phone_source, self.phone_boot = session, phone_source, phone_boot
         self.last_seq = {}
         self.last_capture = -1
@@ -71,7 +74,7 @@ class DepthState:
                 raise ValueError('Heartbeat bound exceeded')
             return
         capture = value['capture_monotonic_ms']
-        if capture <= self.last_capture or row['depth'] >= 600:
+        if capture <= self.last_capture or row['depth'] >= self.maximum_depth:
             raise ValueError('Non-increasing capture or depth bound exceeded')
         self.last_capture = capture
         if not self.ready:

@@ -738,6 +738,22 @@ Add a targeted master-plan subsection, implementation brief and CR for 3-second 
 
 Validation: Planning-only change. Repository validation, generated changelog consistency, whitespace and shared unit suite are checked before publication. No button/audio/vision implementation, training, live traffic, GPIO or physical acceptance claimed. Protected plan/task amendments require exact-head GitHub approval.
 
+## 2026-10-18 — CS-013-clock-publication-refresh-20261018: Preserve concurrent PM refresh and make lock test opt-in
+
+Author: michaelkrymski · Task: CS-013
+
+Normal merge retains both remote accepted-main refresh and local lifecycle/clock work after rejected non-fast-forward push. Assisted lock test requires explicit runner flag so unattended suites do not wait for operator.
+
+Validation: First clock checkpoint passed 250 shared tests; actual prior lock result retained and attributed before selection guard. Fresh checked publication required.
+
+## 2026-10-18 — CS-013-depth-demo-20261018: Demonstrate real LiDAR with simulated three-column responses
+
+Author: michaelkrymski · Task: CS-013
+
+Add local Demo tab with per-column 1.2 m visual response threshold and explicit Unknown/simulation labels; source snapshot already clears on lifecycle/recency loss. No motors, network or movement guidance.
+
+Validation: Seven strict Mac tests and signed physical-iPhone UI test passed without skips. Actual 0.92/0.62/0.84 m snapshot triggered visual Near responses; Stop cleared all. No controlled target accuracy/mapping acceptance.
+
 ## 2026-10-18 — CS-013-DEVICE-INSTALL-20261018: Sign and install iPhone host while keeping team configuration local
 
 Author: michaelkrymski (AI-assisted) · Task: CS-013
@@ -753,6 +769,22 @@ Author: michaelkrymski (AI-assisted) · Task: CS-013
 PM-authorized host integration uses exact unchanged module inputs. Add portrait image/depth/confidence and session side checks; captured display epochs; accessible large controls; one fixed local status utterance with synchronous cancellation; foreground-only coarse location off each launch and opt-out purge. No telemetry or GPS network path enabled.
 
 Validation: Signed app and actual phone suite: 5 passed/0 skipped; Simulator UI: 2 passed; strict Mac cases: 60 passed; current lifecycle native Simulator: 14 passed. One-time local GPS fix and opt-out observed without coordinates in evidence. Corrected real button hit-area bug, Debug simulator architecture, and test-only free-profile/knob targeting setup. Current shared checks run by publisher. Review only, no full-system or measured timing/accuracy claims.
+
+## 2026-10-18 — CS-013-lifecycle-clock-prep-20261018: Verify phone lifecycle and prepare measured clock characterization
+
+Author: michaelkrymski · Task: CS-013
+
+Actual background and operator lock recovery tests plus bounded state-clear evidence. Add causal affine rate model with separate holdout and conditional receiver-age diagnostics; no hardware drift guarantee or production gate activation.
+
+Validation: Three actual phone UI tests passed without skips; signed clock-test build succeeded. Six characterization tests and six Pi helper tests passed. Actual clock enrollment/run pending.
+
+## 2026-10-18 — CS-013-measured-receiver-harness-20261018: Exercise existing receiver with held-out measured clock model
+
+Author: michaelkrymski · Task: CS-013
+
+After calibration and separate holdout, isolated measurement receiver uses derived candidate ppm, its own fresh calibration/health gates, independent expiry and close clearing. No production configuration or guidance activation.
+
+Validation: Six synthetic characterization/receiver tests passed; actual phone/Pi measurement pending. Earlier actual local phone background/lock tests passed and remain separately attributed.
 
 ## 2026-10-18 — CS-013-PHONE-CHECKS-20261018: Record operator phone checks and prepare iPhone host for review
 

@@ -1,0 +1,38 @@
+{
+  "task": "CS-013",
+  "date": "2026-10-18",
+  "base_commit": "86a8783",
+  "unit_tests": {
+    "passed": 7,
+    "failed": 0,
+    "scope": "Synthetic threshold, unknown and local-preview expiry/invalidation"
+  },
+  "physical_iPhone_UI_test": {
+    "name": "HostUITests/testRealDepthDemoAndStop",
+    "passed": 1,
+    "failed": 0,
+    "skipped": 0,
+    "scope": "Actual depth measurements present, visual demo rows, Stop clears all response/distance rows to Unknown"
+  },
+  "observed_real_snapshot_metres": {
+    "left": 0.92,
+    "center": 0.62,
+    "right": 0.84
+  },
+  "observed_simulated_indicators": [
+    "near",
+    "near",
+    "near"
+  ],
+  "source_sha256": {
+    "ios/CaneSightApp/Sources/ContentView.swift": "ace3d7b574e1c067034f027ce01e06125b5ad177cf4437f882008bfa5d20fd68",
+    "ios/CaneSightApp/PreviewState/Sources/CaneSightPreviewState/LocalDepthResponse.swift": "0e92ee41365d3386f6daa5aaea25baa7f4a111ce71857e025c2bd67c8d33e79d",
+    "ios/CaneSightApp/UITests/HostUITests.swift": "73459bebe30251733c11fc6a927dc63bb997170bb0d282fae73b3ab557c52bf8"
+  },
+  "limits": [
+    "Visual demo only, independent threshold per camera column.",
+    "No Pi/GPIO/motor policy, physical mapping, sensor accuracy or calibrated capture age acceptance.",
+    "Actual separate known-target placements not performed by automation.",
+    "Screenshot kept private locally, not in Git."
+  ]
+}

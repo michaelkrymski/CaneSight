@@ -1,18 +1,22 @@
 import SwiftUI
 import CaneSightStatusUI
+import CaneSightPreviewState
 
 struct ContentView: View {
     @ObservedObject var services: AppServices
+    @State private var selectedTab = ProcessInfo.processInfo.arguments.contains("--depth-demo") ? 3 : 0
     var body: some View {
-        TabView {
+        TabView(selection: $selectedTab) {
             NavigationStack { CameraView(camera: services.camera).navigationTitle("CaneSight") }
-                .tabItem { Label("Camera",systemImage: "camera") }
+                .tabItem { Label("Camera",systemImage: "camera") }.tag(0)
             NavigationStack {
                 StatusPage(services: services,camera: services.camera)
                     .navigationTitle("Status")
-            }.tabItem { Label("Status",systemImage: "accessibility") }
+            }.tabItem { Label("Status",systemImage: "accessibility") }.tag(1)
             NavigationStack { LocationView(location: services.location).navigationTitle("Local location") }
-                .tabItem { Label("Location",systemImage: "location") }
+                .tabItem { Label("Location",systemImage: "location") }.tag(2)
+            NavigationStack { DepthDemoView(camera: services.camera).navigationTitle("Depth demo") }
+                .tabItem { Label("Demo",systemImage: "waveform") }.tag(3)
         }
     }
 }
@@ -116,5 +120,50 @@ struct StatusPage: View {
                 requested: camera.requested, supported: camera.supported,
                 start: { camera.start() }, stop: { camera.stop() }))
         }.onAppear { camera.synchronizeDisplay() }
+    }
+}
+
+
+struct DepthDemoView: View {
+    @ObservedObject var camera: CameraController
+    private let names = ["Left", "Center", "Right"]
+    var body: some View {
+        ScrollView {
+            VStack(alignment: .leading, spacing: 16) {
+                Text("Real LiDAR → simulated responses").font(.title2.bold())
+                Text("Visual demo only · no motors or movement guidance")
+                    .font(.headline).accessibilityIdentifier("demoScope")
+                Text("Near = 1.2 m or closer. Hold portrait upright, rear cameras forward. Place a broad object in one image column at a time.")
+                Text(camera.status).font(.caption).accessibilityIdentifier("demoCaptureStatus")
+                Button(camera.requested ? "Stop depth demo" : "Start depth demo") {
+                    camera.requested ? camera.stop() : camera.start()
+                }.buttonStyle(.borderedProminent).font(.title2.bold())
+                    .frame(minHeight: 60).disabled(!camera.supported && !camera.requested)
+                    .accessibilityIdentifier("demoCaptureToggle")
+                ForEach(0..<3) { index in
+                    let distance = camera.distances[index]
+                    let response = LocalDepthResponse(distanceMetres: distance)
+                    VStack(alignment: .leading, spacing: 8) {
+                        HStack {
+                            Image(systemName: response == .near ? "circle.inset.filled" : "circle")
+                                .foregroundStyle(response == .near ? Color.orange : Color.secondary)
+                                .accessibilityHidden(true)
+                            Text(names[index]).font(.title2.bold())
+                            Spacer()
+                            Text(distance.map { String(format: "%.2f m", $0) } ?? "Unknown")
+                                .monospacedDigit().accessibilityIdentifier("demoDistance\(index)")
+                        }
+                        Text(response.rawValue).font(.headline)
+                            .accessibilityIdentifier("demoResponse\(index)")
+                    }.padding().frame(maxWidth: .infinity, alignment: .leading)
+                        .background(response == .near ? Color.orange.opacity(0.18) : Color.secondary.opacity(0.08))
+                        .clipShape(RoundedRectangle(cornerRadius: 14))
+                }
+                Text("Unknown never means clear. These are image columns, not verified motor sides. The floor can activate multiple columns; no floor or drop-off classification.")
+                    .font(.caption)
+                Text("Runs locally. No backend, Pi or credential needed. Preview recency is checked; sensor capture-age calibration remains unverified.")
+                    .font(.caption)
+            }.padding()
+        }
     }
 }

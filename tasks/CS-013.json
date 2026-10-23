@@ -14,11 +14,11 @@
   "trello_url": "https://trello.com/c/LYtgxAlY/13-p0-cs-013-build-and-sign-app-on-physical-lidar-phone",
   "suggested_role": "iOS",
   "estimate_hours": 1.0,
-  "elapsed_window": "0–2",
+  "elapsed_window": "0\u20132",
   "owner": "michaelkrymski",
   "status": "review",
   "branch": "claim/CS-013-michaelkrymski",
-  "pr_url": "https://github.com/michaelkrymski/CaneSight/pull/69",
+  "pr_url": "https://github.com/michaelkrymski/CaneSight/pull/97",
   "evidence": [
     "handoffs/CS-013-20261018-xcode-host.md",
     "tests/ios/evidence/CS-013-apple-builds-20261018.json",
@@ -32,7 +32,9 @@
     "Michael reported all three image-column values updating except very close objects, Stop clearing every value to Unknown, and lock/background recovery waiting for fresh frames. Operator observations only; no timing/accuracy/mapping measurement. Host ready for independent review; pinned draft dependency acceptance and full telemetry remain separate gates.",
     "handoffs/CS-013-20261018-integrated-app.md",
     "tests/ios/evidence/CS-013-integrated-app-20261018.json",
-    "PM requested broader iOS host integration. Portrait camera/confidence/side-check, accessible status, fixed local status speech/cancel and foreground opt-in local coarse GPS integrated using unchanged pinned modules. Five actual phone UI tests, two Simulator UI tests, 60 strict Mac cases and 14 current lifecycle iOS Simulator cases passed. Physical coarse fix observed, opt-out clears quality. No network GPS, transport readiness, source-clock calibration or full-system Done claim."
+    "PM requested broader iOS host integration. Portrait camera/confidence/side-check, accessible status, fixed local status speech/cancel and foreground opt-in local coarse GPS integrated using unchanged pinned modules. Five actual phone UI tests, two Simulator UI tests, 60 strict Mac cases and 14 current lifecycle iOS Simulator cases passed. Physical coarse fix observed, opt-out clears quality. No network GPS, transport readiness, source-clock calibration or full-system Done claim.",
+    "PM requested real depth -> simulated left/center/right demonstration. Local Demo tab uses real camera columns and existing invalidation; 1.2 m visual threshold, explicit simulation/unknown labels, no hardware or network. Seven strict Mac preview/indicator tests passed; actual signed phone UI test passed without skips, observed 0.92/0.62/0.84 m and three Near indicators, then verified Stop clears every indicator/distance to Unknown. No physical target/motor or CS-025 acceptance. See tests/ios/evidence/CS-013-depth-demo-20261018.json and handoffs/CS-013-20261018-depth-demo.md.",
+    "Actual lifecycle follow-up: two automatic physical-iPhone UI tests passed (background/return and Demo Stop), plus operator-assisted lock/unlock/reopen test passed 1/1 without skips. Device-only count journal proves known columns 3->0 on inactive and 0 at reactivation before real depth recovery. Signed 65-second clock measurement test builds; six synthetic characterization tests pass, including asymmetric-delay affine constraints, separate holdout, clock-jump failure and conditional-age/no guidance. Real Pi clock run pending; see tests/ios/evidence/CS-013-lifecycle-clock-prep-20261018.json."
   ],
   "blocker": ""
 }
