@@ -1,0 +1,9 @@
+{
+  "id": "CS-013-local-native-bond-20261018",
+  "date": "2026-10-18",
+  "author": "michaelkrymski",
+  "task": "CS-013",
+  "summary": "Prepare native saved-bond phone connection locally",
+  "details": "Add existing phone credential import into device-only Keychain, native bond polling/WSS, explicit diagnostic depth and synchronous invalidation. Reuse existing private phone enrollment; no Mac helper, credential generation, protected contract changes or GitHub operations. No receiver-age/drift or motor readiness claim.",
+  "validation": "Signed build and missing-bond phone UI check passed. Eight pairing tests and 21 telemetry regressions passed; two native loopback cases skipped. Native phone HTTPS and positioned sensor test passed with 60 processed frames. Live pairing authenticated but waited for Pi; WSS expectation failed and no depth was sent. See local native-bond handoff for exact limits/current status. Subsequent backend access timed out from phone (-1001) and Mac TCP 443 (HTTP 000); foreground retry added, final signed build/strict signature and eight package tests passed."
+}

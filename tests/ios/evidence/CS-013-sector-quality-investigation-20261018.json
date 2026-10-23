@@ -1,0 +1,223 @@
+{
+  "task": "CS-013",
+  "date": "2026-10-18",
+  "base_commit": "c34520b60e85d6cd4b5efe18c94659ee236208c4",
+  "thresholds_unchanged": true,
+  "minimum_confidence": "high",
+  "minimum_valid_fraction": 0.25,
+  "minimum_valid_samples": 32,
+  "before_reposition": {
+    "source_captures": 204,
+    "source_quality": {
+      "imageRight": {
+        "last_total_samples": 12288,
+        "numeric_frames": 204,
+        "insufficient_coverage": 0,
+        "insufficient_samples": 0,
+        "max_high_confidence_valid_fraction": 0.5367838541666666,
+        "last_valid_samples": 6195,
+        "min_high_confidence_valid_fraction": 0.3855794270833333,
+        "max_valid_samples": 6596,
+        "frames": 204,
+        "min_valid_samples": 4738,
+        "mean_high_confidence_valid_fraction": 0.5141920700571894,
+        "unavailable": 0
+      },
+      "imageCenter": {
+        "min_valid_samples": 4327,
+        "last_total_samples": 12288,
+        "mean_high_confidence_valid_fraction": 0.39610699422998363,
+        "frames": 204,
+        "insufficient_samples": 0,
+        "numeric_frames": 204,
+        "last_valid_samples": 4732,
+        "min_high_confidence_valid_fraction": 0.3521321614583333,
+        "insufficient_coverage": 0,
+        "unavailable": 0,
+        "max_high_confidence_valid_fraction": 0.5257975260416666,
+        "max_valid_samples": 6461
+      },
+      "imageLeft": {
+        "frames": 204,
+        "mean_high_confidence_valid_fraction": 0.26402509973404253,
+        "last_valid_samples": 2862,
+        "numeric_frames": 73,
+        "last_total_samples": 12032,
+        "insufficient_samples": 0,
+        "min_high_confidence_valid_fraction": 0.2215757978723404,
+        "max_valid_samples": 5582,
+        "max_high_confidence_valid_fraction": 0.46392952127659576,
+        "insufficient_coverage": 131,
+        "min_valid_samples": 2666,
+        "unavailable": 0
+      }
+    },
+    "completed_wire_quality": {
+      "completed_native_depth_sends": 202,
+      "right_numeric_sends": 202,
+      "all_three_numeric_sends": 71,
+      "left_numeric_sends": 71,
+      "center_numeric_sends": 202
+    },
+    "current_input_quality": [
+      {
+        "positive_finite_low": 5792,
+        "position": "imageLeft",
+        "confidence_high": 2862,
+        "positive_finite_medium": 3378,
+        "invalid_depth": 0,
+        "invalid_confidence": 0,
+        "confidence_low": 5792,
+        "confidence_medium": 3378,
+        "total_samples": 12032,
+        "positive_finite_high": 2862
+      },
+      {
+        "invalid_depth": 0,
+        "total_samples": 12288,
+        "invalid_confidence": 0,
+        "positive_finite_high": 4732,
+        "confidence_low": 5928,
+        "confidence_high": 4732,
+        "confidence_medium": 1628,
+        "positive_finite_low": 5928,
+        "position": "imageCenter",
+        "positive_finite_medium": 1628
+      },
+      {
+        "position": "imageRight",
+        "confidence_high": 6195,
+        "positive_finite_low": 3542,
+        "confidence_medium": 2551,
+        "positive_finite_medium": 2551,
+        "total_samples": 12288,
+        "confidence_low": 3542,
+        "positive_finite_high": 6195,
+        "invalid_depth": 0,
+        "invalid_confidence": 0
+      }
+    ]
+  },
+  "room_facing_window": {
+    "seconds": 36.70026762500033,
+    "wire": {
+      "left_numeric_sends": 175,
+      "center_numeric_sends": 175,
+      "completed_native_depth_sends": 175,
+      "right_numeric_sends": 175,
+      "all_three_numeric_sends": 175
+    },
+    "send_rate_hz": 4.768357598591175,
+    "quality": {
+      "imageRight": {
+        "frames": 175,
+        "numeric_frames": 175,
+        "insufficient_coverage": 0,
+        "insufficient_samples": 0,
+        "unavailable": 0,
+        "mean_valid_high_confidence_fraction": 0.6768726748511894
+      },
+      "imageCenter": {
+        "frames": 175,
+        "numeric_frames": 175,
+        "insufficient_coverage": 0,
+        "insufficient_samples": 0,
+        "unavailable": 0,
+        "mean_valid_high_confidence_fraction": 0.8860291108630973
+      },
+      "imageLeft": {
+        "frames": 175,
+        "numeric_frames": 175,
+        "insufficient_coverage": 0,
+        "insufficient_samples": 0,
+        "unavailable": 0,
+        "mean_valid_high_confidence_fraction": 0.8051586246200598
+      }
+    },
+    "current_input_quality": [
+      {
+        "confidence_medium": 1758,
+        "position": "imageLeft",
+        "confidence_low": 316,
+        "positive_finite_medium": 1758,
+        "positive_finite_low": 316,
+        "positive_finite_high": 9958,
+        "invalid_confidence": 0,
+        "confidence_high": 9958,
+        "total_samples": 12032,
+        "invalid_depth": 0
+      },
+      {
+        "position": "imageCenter",
+        "confidence_high": 10533,
+        "positive_finite_low": 541,
+        "confidence_medium": 1214,
+        "positive_finite_medium": 1214,
+        "total_samples": 12288,
+        "confidence_low": 541,
+        "positive_finite_high": 10533,
+        "invalid_depth": 0,
+        "invalid_confidence": 0
+      },
+      {
+        "position": "imageRight",
+        "positive_finite_high": 8746,
+        "positive_finite_low": 949,
+        "invalid_confidence": 0,
+        "confidence_high": 8746,
+        "confidence_low": 949,
+        "confidence_medium": 2593,
+        "positive_finite_medium": 2593,
+        "total_samples": 12288,
+        "invalid_depth": 0
+      }
+    ],
+    "max_local_capture_delta_ms": 259.4893750064075,
+    "max_media_continuous_discrepancy_ms": 0.1583329974055232,
+    "local_clock_observations": 39613,
+    "clock_replies_sent": 0,
+    "local_clock_guard_failed": false,
+    "foreground_active": true,
+    "wss_connected": true,
+    "depth_enabled": true
+  },
+  "earlier_Pi_run_operator_report": {
+    "run_ended_before_Pi_reboot": true,
+    "duration_seconds": 15.23,
+    "depth_packets": 71,
+    "received_rate_hz": 4.77,
+    "heartbeats": 15,
+    "all_tracking_normal": true,
+    "strictly_increasing_captures": true,
+    "all_three_numeric_packets": 1,
+    "capture_age_verified": false,
+    "relative_drift_bound": "unknown/not configured",
+    "motors_activated": false
+  },
+  "old_null_packet_fields_available": false,
+  "cross_device_drift_measured_for_new_boot": false,
+  "receiver_clock_helper_executed": false,
+  "Pi_copy": {
+    "destination": "/home/interfere/canesight-local-demo/clock-bench/",
+    "verification": "Michael confirmed installer printed Copy verified after remote SHA-256 checks",
+    "code_document_schema_files": 36,
+    "manifest_files": 1,
+    "credentials_copied": false,
+    "test_started": false
+  },
+  "limits": [
+    "Scene repositioning correlates with recovered confidence; bed material vs distance/angle not isolated.",
+    "Current source/wire null counts reproduce confidence gate failures; old 71-packet rejection details were not retained.",
+    "Local media/continuous elapsed discrepancy is not a phone/Pi drift bound.",
+    "Pi receiver clock procedure prepared/copied only; no new matched exchanges or production drift configuration.",
+    "After copy, the reconnected phone sent nine clock replies to its existing peer; receiver t4/model results are not available here, so no matched-rate/drift verdict follows. The transfer script did not start the Pi test."
+  ],
+  "post_copy_phone_reconnect": {
+    "status": "Paired \u00b7 WSS connected \u00b7 depth sends: 57",
+    "foreground_active": true,
+    "diagnostic_depth_enabled": true,
+    "depth_sends": 57,
+    "clock_replies_sent": 9,
+    "local_clock_guard_failed": false
+  }
+}

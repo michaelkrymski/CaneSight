@@ -1,0 +1,190 @@
+{
+  "task": "CS-013",
+  "base_commit": "c34520b60e85d6cd4b5efe18c94659ee236208c4",
+  "operator_action": "Phone fixed; target moved about one foot closer; solid surface retapped; operator confirmed ready. Approximate physical distances not independently measured.",
+  "samples": [
+    {
+      "status": "Paired \u00b7 WSS connected \u00b7 depth sends: 1746",
+      "camera_status": "Live portrait view; repeat target check after remounting.",
+      "sends": 1746,
+      "elapsed_ms": 390129.19008333236,
+      "age_ms": 668.8768333406188,
+      "patch_column": 7,
+      "patch_row": 4,
+      "total": 512,
+      "high": 512,
+      "all": {
+        "count": 512,
+        "min_m": 1.0068359375,
+        "p10_m": 1.01171875,
+        "median_m": 1.0224609375,
+        "under_1_25_m": 512
+      },
+      "retained": {
+        "under_1_25_m": 512,
+        "count": 512,
+        "p10_m": 1.01171875,
+        "median_m": 1.0224609375,
+        "min_m": 1.0068359375
+      },
+      "sector_p10": {
+        "imageLeft": 0.90966796875,
+        "imageCenter": 0.8876953125,
+        "imageRight": 0.87451171875
+      }
+    },
+    {
+      "status": "Paired \u00b7 WSS connected \u00b7 depth sends: 1756",
+      "camera_status": "Live portrait view; repeat target check after remounting.",
+      "sends": 1756,
+      "elapsed_ms": 392217.7297916636,
+      "age_ms": 656.6690420077066,
+      "patch_column": 7,
+      "patch_row": 4,
+      "total": 512,
+      "high": 512,
+      "all": {
+        "min_m": 1.0068359375,
+        "count": 512,
+        "under_1_25_m": 512,
+        "p10_m": 1.0107421875,
+        "median_m": 1.0205078125
+      },
+      "retained": {
+        "p10_m": 1.0107421875,
+        "median_m": 1.0205078125,
+        "min_m": 1.0068359375,
+        "under_1_25_m": 512,
+        "count": 512
+      },
+      "sector_p10": {
+        "imageLeft": 0.93115234375,
+        "imageCenter": 0.91015625,
+        "imageRight": 0.8984375
+      }
+    },
+    {
+      "status": "Paired \u00b7 WSS connected \u00b7 depth sends: 1766",
+      "camera_status": "Live portrait view; repeat target check after remounting.",
+      "sends": 1766,
+      "elapsed_ms": 394401.1399583332,
+      "age_ms": 722.6748750072147,
+      "patch_column": 7,
+      "patch_row": 4,
+      "total": 512,
+      "high": 512,
+      "all": {
+        "min_m": 1.0107421875,
+        "under_1_25_m": 512,
+        "count": 512,
+        "median_m": 1.0234375,
+        "p10_m": 1.0146484375
+      },
+      "retained": {
+        "min_m": 1.0107421875,
+        "median_m": 1.0234375,
+        "p10_m": 1.0146484375,
+        "count": 512,
+        "under_1_25_m": 512
+      },
+      "sector_p10": {
+        "imageLeft": 0.9267578125,
+        "imageCenter": 0.90625,
+        "imageRight": 0.8974609375
+      }
+    },
+    {
+      "status": "Paired \u00b7 WSS connected \u00b7 depth sends: 1776",
+      "camera_status": "Live portrait view; repeat target check after remounting.",
+      "sends": 1776,
+      "elapsed_ms": 396454.37420833483,
+      "age_ms": 675.150000006397,
+      "patch_column": 7,
+      "patch_row": 4,
+      "total": 512,
+      "high": 512,
+      "all": {
+        "min_m": 1.0087890625,
+        "count": 512,
+        "p10_m": 1.0126953125,
+        "under_1_25_m": 512,
+        "median_m": 1.0234375
+      },
+      "retained": {
+        "p10_m": 1.0126953125,
+        "under_1_25_m": 512,
+        "count": 512,
+        "median_m": 1.0234375,
+        "min_m": 1.0087890625
+      },
+      "sector_p10": {
+        "imageLeft": 0.94384765625,
+        "imageCenter": 0.92529296875,
+        "imageRight": 0.9091796875
+      }
+    },
+    {
+      "status": "Paired \u00b7 WSS connected \u00b7 depth sends: 1786",
+      "camera_status": "Live portrait view; repeat target check after remounting.",
+      "sends": 1786,
+      "elapsed_ms": 398539.0424166657,
+      "age_ms": 659.0810006709944,
+      "patch_column": 7,
+      "patch_row": 4,
+      "total": 512,
+      "high": 512,
+      "all": {
+        "under_1_25_m": 512,
+        "count": 512,
+        "median_m": 1.0224609375,
+        "p10_m": 1.01171875,
+        "min_m": 1.005859375
+      },
+      "retained": {
+        "p10_m": 1.01171875,
+        "median_m": 1.0224609375,
+        "count": 512,
+        "min_m": 1.005859375,
+        "under_1_25_m": 512
+      },
+      "sector_p10": {
+        "imageLeft": 0.96435546875,
+        "imageCenter": 0.9404296875,
+        "imageRight": 0.93017578125
+      }
+    }
+  ],
+  "comparison": {
+    "baseline_patch_median_m": 1.5380859375,
+    "closer_patch_median_m": 1.0224609375,
+    "closer_last_right_sector_p10_m": 0.93017578125,
+    "right_min_retained_above_bottom_row_m": 0.984375,
+    "right_retained_total": 11089,
+    "right_retained_bottom_row": 1536,
+    "bottom_row_medians_m": {
+      "imageLeft": [
+        0.8935546875,
+        0.892578125,
+        0.89111328125
+      ],
+      "imageCenter": [
+        0.8896484375,
+        0.8876953125,
+        0.88330078125
+      ],
+      "imageRight": [
+        0.87890625,
+        0.8759765625,
+        0.873046875
+      ]
+    }
+  },
+  "findings": [
+    "Same selected patch cell (7,4) responds to target movement; supports local correspondence, not full calibration.",
+    "All 512 selected patch pixels high confidence in five samples; no confidence exclusion of selected surface.",
+    "Final right-sector p10 lower than every retained pixel above the bottom grid row; its nearest percentile is supplied by bottom row. Broad near strip across all columns is consistent with floor; surface identity not independently verified.",
+    "Original chair confidence/mapping failure and absolute range discrepancy remain unresolved."
+  ],
+  "production_drift_configured": false,
+  "motor_controls_changed": false
+}

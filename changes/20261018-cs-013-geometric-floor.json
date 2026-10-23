@@ -1,0 +1,9 @@
+{
+  "id": "CS-013-geometric-floor-20261018",
+  "date": "2026-10-18",
+  "author": "michaelkrymski",
+  "task": "CS-013",
+  "summary": "Exclude depth points on observed ARKit floor geometry locally",
+  "details": "Enable horizontal plane detection and mask only high-confidence points within 2 cm of current classified near-horizontal floor, at least 5 cm inside detected boundary. Use scaled camera intrinsics and camera-to-plane transform. Preserve sector ROI, confidence policy and coverage denominator, allowing floor-only sectors to become Unknown. Add floor status and local before/after diagnostics; no fixed image crop, shared dependency edits, experimental drift configuration, motor controls or GitHub operations.",
+  "validation": "Four geometric masking cases plus ten existing PreviewState tests pass. Production-processor integration case verifies floor-only columns Unknown while raised right obstacle remains measured; two existing chair counterexamples pass. Signed physical-device build installed. First new session paired/WSS connected but numeric depth stopped while tracking was unavailable; operator sweep requested and physical effectiveness pending. Evidence and final state recorded in dedicated handoff."
+}

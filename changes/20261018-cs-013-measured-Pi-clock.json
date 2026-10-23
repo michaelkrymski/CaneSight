@@ -1,0 +1,9 @@
+{
+  "id": "CS-013-measured-Pi-clock-20261018",
+  "date": "2026-10-18",
+  "author": "michaelkrymski",
+  "task": "CS-013",
+  "summary": "Record controlled real Pi clock characterization and restore normal stream",
+  "details": "Record operator-reported stable 75.17-second real phone/Pi run with 61 exchanges, 20 calibration rows, 41 consistent holdouts and explicit finite-run affine assumption. Preserve production drift/capture-age/guidance unknown/disabled. Independently read 61 completed phone replies; reconnect saved phone bond after normal Pi peer restoration. No implementation thresholds, credentials, motor controls, production settings or GitHub operations changed.",
+  "validation": "Reported source/receiver rates 4.752/4.758 Hz with 355 packets; observed affine interval [-1518.614,1355.032] ppm. Isolated receiver accepted 70, cleared on close; conditional budget 202 accepted vs153 rejected/unmapped. Aggregate counts/candidate magnitude checked for consistency. Device read confirmed new foreground WSS stream with positive sends. Structural/whitespace checks passed; no unchanged software suite rerun or hardware-bound claim."
+}

@@ -16,7 +16,7 @@
   "estimate_hours": 1.0,
   "elapsed_window": "0\u20132",
   "owner": "michaelkrymski",
-  "status": "review",
+  "status": "in_progress",
   "branch": "claim/CS-013-michaelkrymski",
   "pr_url": "https://github.com/michaelkrymski/CaneSight/pull/97",
   "evidence": [
@@ -34,7 +34,27 @@
     "tests/ios/evidence/CS-013-integrated-app-20261018.json",
     "PM requested broader iOS host integration. Portrait camera/confidence/side-check, accessible status, fixed local status speech/cancel and foreground opt-in local coarse GPS integrated using unchanged pinned modules. Five actual phone UI tests, two Simulator UI tests, 60 strict Mac cases and 14 current lifecycle iOS Simulator cases passed. Physical coarse fix observed, opt-out clears quality. No network GPS, transport readiness, source-clock calibration or full-system Done claim.",
     "PM requested real depth -> simulated left/center/right demonstration. Local Demo tab uses real camera columns and existing invalidation; 1.2 m visual threshold, explicit simulation/unknown labels, no hardware or network. Seven strict Mac preview/indicator tests passed; actual signed phone UI test passed without skips, observed 0.92/0.62/0.84 m and three Near indicators, then verified Stop clears every indicator/distance to Unknown. No physical target/motor or CS-025 acceptance. See tests/ios/evidence/CS-013-depth-demo-20261018.json and handoffs/CS-013-20261018-depth-demo.md.",
-    "Actual lifecycle follow-up: two automatic physical-iPhone UI tests passed (background/return and Demo Stop), plus operator-assisted lock/unlock/reopen test passed 1/1 without skips. Device-only count journal proves known columns 3->0 on inactive and 0 at reactivation before real depth recovery. Signed 65-second clock measurement test builds; six synthetic characterization tests pass, including asymmetric-delay affine constraints, separate holdout, clock-jump failure and conditional-age/no guidance. Real Pi clock run pending; see tests/ios/evidence/CS-013-lifecycle-clock-prep-20261018.json."
+    "Actual lifecycle follow-up: two automatic physical-iPhone UI tests passed (background/return and Demo Stop), plus operator-assisted lock/unlock/reopen test passed 1/1 without skips. Device-only count journal proves known columns 3->0 on inactive and 0 at reactivation before real depth recovery. Signed 65-second clock measurement test builds; six synthetic characterization tests pass, including asymmetric-delay affine constraints, separate holdout, clock-jump failure and conditional-age/no guidance. Real Pi clock run pending; see tests/ios/evidence/CS-013-lifecycle-clock-prep-20261018.json.",
+    "handoffs/CS-013-20261018-local-native-bond.md",
+    "Backend-restored local retry: existing Keychain phone bond paired and WSS connected on two device status reads spanning a renewal interval; zero depth sends, diagnostic depth off. See latest section in handoffs/CS-013-20261018-local-native-bond.md. No motor or capture-age/drift verification.",
+    "handoffs/CS-013-20261018-real-native-stream.md",
+    "tests/ios/evidence/CS-013-local-native-stream-20261018.json",
+    "Authorized ongoing real ARKit diagnostic streaming on native phone with saved bond: 267 completed depth sends / 56.053906 seconds = 4.763272 Hz; fresh capture rate 4.753794 Hz. Local guards did not fail; max observed diagnostic capture delta 276.447667 ms. Zero completed clock replies; Pi receipt/capture-age/drift not independently verified. App left foregrounded with streaming enabled and idle sleep disabled while active. No motor controls or GitHub operations.",
+    "handoffs/CS-013-20261018-sector-quality-clock-copy.md",
+    "tests/ios/evidence/CS-013-sector-quality-investigation-20261018.json",
+    "After operator-confirmed code-only Pi copy, restored saved-bond foreground streaming: 57 completed depth sends and nine completed clock replies at final check. No Pi clock test was started by the transfer; receiver clock/drift results remain pending.",
+    "handoffs/CS-013-20261018-measured-Pi-clock.md",
+    "tests/ios/evidence/CS-013-Pi-clock-measured-20261018.json",
+    "Michael reported one stable 75.17-second Pi run: 355 depth packets, rates 4.752/4.758 Hz, 61 matched exchanges, 20 calibration/41 consistent holdouts. Observed affine interval [-1518.614,1355.032] ppm is finite-run conditional evidence only. Isolated receiver accepted 70 observations and cleared them on transport close; 202 packets met conditional age/halfwidth budget, 153 rejected/unmapped. Phone independently counted 61 completed replies. Restored normal-peer foreground streaming using existing bond after session rejection; production drift/configuration/guidance remains disabled/unverified.",
+    "handoffs/CS-013-20261018-chair-inspection-recovery.md",
+    "tests/ios/evidence/CS-013-chair-inspection-recovery-20261018.json",
+    "handoffs/CS-013-20261018-trash-can-patch.md",
+    "tests/ios/evidence/CS-013-trash-can-patch-20261018.json",
+    "handoffs/CS-013-20261018-trash-can-motion.md",
+    "tests/ios/evidence/CS-013-trash-can-motion-20261018.json",
+    "handoffs/CS-013-20261018-geometric-floor.md",
+    "tests/ios/evidence/CS-013-geometric-floor-live-20261018.json",
+    "handoffs/CS-013-20261018-geometric-floor-live.md"
   ],
-  "blocker": ""
+  "blocker": "Controlled Pi clock characterization now has operator-reported consistent calibration/holdout evidence and isolated age acceptance/close clearing. Hardware drift limit and production capture-age/clock eligibility remain unverified; candidate 1518.614 ppm is not configured for production. Normal saved-bond phone stream restored. All work remains local/unpublished; no GitHub contact."
 }

@@ -1,0 +1,9 @@
+{
+  "id": "CS-013-trash-can-motion-20261018",
+  "date": "2026-10-18",
+  "author": "michaelkrymski",
+  "task": "CS-013",
+  "summary": "Measure target patch motion and identify bottom-row sector dominance",
+  "details": "Moving trash can closer changes selected patch median from 1.538 to 1.022 m with all pixels retained. Final right-sector percentile comes from bottom image row; broad near strip across all sectors is consistent with floor but not visually confirmed. Absolute range calibration and original chair cause unresolved. No thresholds, production drift, motors or GitHub changes.",
+  "validation": "Five independently refreshed snapshots and 40 completed native sends over 8.409852 s; local measurement evidence saved. No new app code or automated tests."
+}

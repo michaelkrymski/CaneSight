@@ -2,6 +2,76 @@ import XCTest
 
 /// Real controls/sensor only; no injected capture, progress, enrollment or consent.
 final class HostUITests: XCTestCase {
+    @MainActor func testExistingPhoneBondNativePairing() throws {
+        #if !CS013_NATIVE_PAIRING_BENCH
+        throw XCTSkip("Explicit local native-pairing bench build required; never authenticate from routine tests")
+        #else
+        continueAfterFailure = false
+        let app = XCUIApplication(); app.launch()
+        app.tabBars.buttons["Connection"].tap()
+        let connect = app.buttons["phoneConnect"]
+        XCTAssertTrue(connect.waitForExistence(timeout: 10))
+        connect.tap()
+        let status = app.staticTexts["connectionStatus"]
+        let paired = NSPredicate { _, _ in status.label.contains("WSS connected") }
+        let result = XCTWaiter.wait(for: [XCTNSPredicateExpectation(predicate: paired, object: status)], timeout: 40)
+        print("CS013_PHONE_PAIRING_STATUS " + status.label)
+        XCTAssertEqual(result, .completed, "Phone status: " + status.label)
+        XCTAssertTrue(status.label.contains("depth sends: 0"))
+        #if CS013_NATIVE_DEPTH_BENCH
+        // Operator explicitly authorized this stationary diagnostic transport run.
+        app.tabBars.buttons["Camera"].tap()
+        let camera = app.buttons["captureToggle"]
+        XCTAssertTrue(camera.waitForExistence(timeout: 10)); camera.tap()
+        app.tabBars.buttons["Connection"].tap()
+        let disarmed = app.switches["diagnosticConsentConfirmation"]
+        disarmed.switches.firstMatch.exists ? disarmed.switches.firstMatch.tap() : disarmed.tap()
+        let diagnostic = app.switches["diagnosticDepth"]
+        diagnostic.switches.firstMatch.exists ? diagnostic.switches.firstMatch.tap() : diagnostic.tap()
+        let depthSent = NSPredicate { _, _ in
+            let label = status.label
+            guard label.contains("WSS connected"), let count = UInt64(label.components(separatedBy: "depth sends: ").last ?? "") else { return false }
+            return count >= 10
+        }
+        let depthResult = XCTWaiter.wait(for: [XCTNSPredicateExpectation(predicate: depthSent, object: status)], timeout: 35)
+        print("CS013_PHONE_DIAGNOSTIC_DEPTH_STATUS " + status.label)
+        XCTAssertEqual(depthResult, .completed, "Phone status: " + status.label)
+        diagnostic.switches.firstMatch.exists ? diagnostic.switches.firstMatch.tap() : diagnostic.tap()
+        #endif
+        // Real OS foreground/background with the native bond controller. No
+        // claim about receiver expiration, sensor drift, or physical guidance.
+        XCUIApplication(bundleIdentifier: "com.apple.springboard").activate()
+        app.activate()
+        app.tabBars.buttons["Connection"].tap()
+        let recovered = XCTWaiter.wait(for: [XCTNSPredicateExpectation(predicate: paired, object: status)], timeout: 40)
+        print("CS013_PHONE_PAIRING_RECOVERY " + status.label)
+        XCTAssertEqual(recovered, .completed, "Phone status: " + status.label)
+        XCTAssertEqual(app.switches["diagnosticConsentConfirmation"].value as? String, "0")
+        XCTAssertEqual(app.switches["diagnosticDepth"].value as? String, "0")
+        XCTAssertTrue(status.label.contains("depth sends: 0"))
+        #endif
+    }
+
+    @MainActor func testPhonePairingMissingBondFailsClosed() throws {
+        continueAfterFailure = false
+        let app = XCUIApplication(); app.launch()
+        app.tabBars.buttons["Connection"].tap()
+        let connect = app.buttons["phoneConnect"]
+        XCTAssertTrue(connect.waitForExistence(timeout: 10))
+        reveal(connect, in: app)
+        // Existing real credentials must never be replaced or removed by a test.
+        let status = app.staticTexts["connectionStatus"]
+        guard status.label.contains("no phone bond") else {
+            throw XCTSkip("Existing phone bond present; no authentication or credential mutation from this UI test")
+        }
+        let diagnostic = app.switches["diagnosticDepth"]
+        XCTAssertFalse(diagnostic.isEnabled)
+        connect.tap()
+        XCTAssertEqual(status.label, "Existing private phone-bond.json is missing; import it first")
+        XCTAssertEqual(connect.label, "Connect")
+        XCTAssertFalse(diagnostic.isEnabled)
+    }
+
     @MainActor func testOperatorLockAndFreshDepthRecovery() throws {
         guard ProcessInfo.processInfo.environment["CANESIGHT_OPERATOR_LOCK_TEST"] == "1" else {
             throw XCTSkip("Operator lock test requires explicit runner opt-in")

@@ -1,0 +1,81 @@
+{
+  "task": "CS-013",
+  "date": "2026-10-18",
+  "base_commit": "c34520b60e85d6cd4b5efe18c94659ee236208c4",
+  "provenance": "Pi result operator-reported by Michael; aggregate clock fit not independently recomputed from raw exchanges",
+  "sample_seconds": 75.17,
+  "stable_measured_connections": 1,
+  "depth_packets": 355,
+  "heartbeats": 75,
+  "source_rate_hz": 4.752,
+  "receiver_rate_hz": 4.758,
+  "strict_sequence_order": true,
+  "strictly_increasing_capture_timestamps": true,
+  "clock_exchanges": 61,
+  "rtt_ms": {
+    "median": 40.973,
+    "max": 142.738
+  },
+  "exchange_width_ms": {
+    "median": 35.323,
+    "max": 135.338
+  },
+  "calibration": {
+    "exchanges": 20,
+    "span_seconds": 23.014
+  },
+  "holdouts": {
+    "exchanges": 41,
+    "consistent": true
+  },
+  "observed_affine_rate_interval_ppm": [
+    -1518.614,
+    1355.032
+  ],
+  "candidate_absolute_drift_ppm": 1518.614,
+  "model_assumption": "constant relative affine clock rate during this sampled run",
+  "isolated_measurement_receiver": {
+    "eligible_depth_count": 70,
+    "minimum_age_lower_ms": 105.832,
+    "maximum_age_upper_ms": 358.728,
+    "transport_close_cleared_observations": true
+  },
+  "conditional_age_diagnostics": {
+    "within_500ms_and_100ms_halfwidth": 202,
+    "rejected_or_unmapped": 153
+  },
+  "hardware_drift_limit_verified": false,
+  "production_drift_configured": false,
+  "receiver_guidance_eligible": false,
+  "production_capture_age_eligibility": "unknown",
+  "partial_attempt_discarded_on_peer_or_session_change": true,
+  "final_run_uninterrupted": true,
+  "normal_Pi_polling_restored_and_paired": "operator reported",
+  "phone_before_reconnect": {
+    "diagnostic_depth_enabled": false,
+    "foreground_active": true,
+    "status": "WSS stopped (rejected) \u00b7 reconnect required; saved bond retained",
+    "local_clock_guard_failed": false,
+    "clock_replies_sent": 61,
+    "depth_sends": 417
+  },
+  "phone_after_restore": {
+    "depth_sends": 115,
+    "clock_replies_sent": 0,
+    "foreground_active": true,
+    "diagnostic_depth_enabled": true,
+    "local_clock_guard_failed": false,
+    "status": "Paired \u00b7 WSS connected \u00b7 depth sends: 115"
+  },
+  "credentials_regenerated": false,
+  "production_configuration_changed": false,
+  "motor_controls_changed": false,
+  "github_contacted": false,
+  "limits": [
+    "Finite-run feasible interval includes exchange uncertainty and is not a guaranteed oscillator drift tolerance.",
+    "Observed RTT/width are not one-way sensor capture latency.",
+    "Rejected or unmapped packets cannot all be classified as stale without their individual intervals/reasons.",
+    "70 isolated receiver acceptances and 202 conditional-budget packets are different counters/stages; neither makes the production receiver eligible.",
+    "Restoring the normal Pi peer rotates the session; new phone counters do not extend this measured model."
+  ]
+}

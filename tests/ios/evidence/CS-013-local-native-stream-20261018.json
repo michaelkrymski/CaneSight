@@ -1,0 +1,43 @@
+{
+  "task": "CS-013",
+  "date": "2026-10-18",
+  "base_commit": "c34520b60e85d6cd4b5efe18c94659ee236208c4",
+  "branch": "claim/CS-013-michaelkrymski",
+  "scope": "Actual signed iPhone ARKit to native WSS send completions; Pi receipt not independently observed",
+  "synthetic_capture_used": false,
+  "existing_bond_reused": true,
+  "credential_regenerated": false,
+  "github_contacted": false,
+  "window_seconds": 56.05390616666526,
+  "completed_depth_sends": 267,
+  "measured_send_rate_hz": 4.76327196906007,
+  "fresh_source_captures": 266,
+  "measured_source_rate_hz": 4.753793803344901,
+  "max_observed_local_capture_delta_ms": 276.4476666711271,
+  "local_clock_guard_failed": false,
+  "local_guard_limits_ms": {
+    "capture_to_local_loop": 500,
+    "media_vs_continuous_elapsed": 100
+  },
+  "limits_are_diagnostic_not_calibrated_bounds": true,
+  "clock_replies_sent": 0,
+  "receiver_capture_age_checks": "unverified; awaiting Pi evidence",
+  "receiver_drift_bounds": "unverified",
+  "pi_depth_receipt": "not independently observed",
+  "foreground_active": true,
+  "wss_connected": true,
+  "streaming_left_enabled": true,
+  "idle_sleep_disabled_while_active_streaming": true,
+  "motor_controls_changed": false,
+  "physical_motor_state_verified": false,
+  "tests": {
+    "phone_pairing_package": {
+      "passed": 9,
+      "failed": 0
+    },
+    "signed_build": "passed",
+    "strict_signature": "passed",
+    "repo_structure": "passed",
+    "diff_whitespace": "passed"
+  }
+}

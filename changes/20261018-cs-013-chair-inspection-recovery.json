@@ -1,0 +1,9 @@
+{
+  "id": "CS-013-chair-inspection-recovery-20261018",
+  "date": "2026-10-18",
+  "author": "michaelkrymski",
+  "task": "CS-013",
+  "summary": "Audit portrait preview mapping and isolate optional target inspection from live depth",
+  "details": "Add rendered marker mapping tests and synthetic target confidence/percentile counterexamples. Add local per-patch depth distributions and exact sector crop diagnostics. After operator reported crash/black preview/WSS cycling, disable inspection to restore streaming, then move inspection to a bounded utility queue at most once per second and rate-limit local probe writes. Production thresholds, shared dependencies and drift configuration unchanged. Local work only; no GitHub operations or motor controls.",
+  "validation": "Signed physical iPhone build and strict signature passed. Ten PreviewState tests (including three rendered mapping cases) and two synthetic target processor tests passed. No matching device crash report found; cause unconfirmed. Restored no-inspection run had 523 sends (517 all-three numeric); corrected inspection run initially had 66 sends with live portrait camera and local clock guard passing. Final observation recorded in dedicated handoff/evidence. Physical chair causation remains unverified."
+}

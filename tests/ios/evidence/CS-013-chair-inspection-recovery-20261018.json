@@ -1,0 +1,35 @@
+{
+  "task": "CS-013",
+  "base_commit": "c34520b60e85d6cd4b5efe18c94659ee236208c4",
+  "local_only": true,
+  "motors_controlled": false,
+  "production_drift_configured": false,
+  "crash_cause": "unconfirmed; no matching device crash log found",
+  "recovery_with_inspection_enabled": {
+    "status": "Paired \u00b7 WSS connected \u00b7 depth sends: 149",
+    "camera_status": "Live portrait view; repeat target check after remounting.",
+    "depth_sends": 149,
+    "sender_elapsed_ms": 33589.93254166469,
+    "source_capture_count": 151,
+    "source_capture_span_ms": 31972.888584002852,
+    "wire_depth_quality": {
+      "all_three_numeric_sends": 149,
+      "right_numeric_sends": 149,
+      "center_numeric_sends": 149,
+      "left_numeric_sends": 149,
+      "completed_native_depth_sends": 149
+    },
+    "input_quality_age_ms": 1242.5546666745504,
+    "local_clock_guard_failed": false,
+    "max_local_capture_delta_ms": 242.9132506735623,
+    "interval_depth_sends": 83,
+    "interval_seconds": 17.40984799999744,
+    "interval_rate_hz": 4.767416694276263
+  },
+  "physical_chair_cause_verified": false,
+  "tests": {
+    "preview_state": 10,
+    "synthetic_target_processor": 2,
+    "failures": 0
+  }
+}

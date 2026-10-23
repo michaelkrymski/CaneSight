@@ -738,6 +738,14 @@ Add a targeted master-plan subsection, implementation brief and CR for 3-second 
 
 Validation: Planning-only change. Repository validation, generated changelog consistency, whitespace and shared unit suite are checked before publication. No button/audio/vision implementation, training, live traffic, GPIO or physical acceptance claimed. Protected plan/task amendments require exact-head GitHub approval.
 
+## 2026-10-18 — CS-013-chair-inspection-recovery-20261018: Audit portrait preview mapping and isolate optional target inspection from live depth
+
+Author: michaelkrymski · Task: CS-013
+
+Add rendered marker mapping tests and synthetic target confidence/percentile counterexamples. Add local per-patch depth distributions and exact sector crop diagnostics. After operator reported crash/black preview/WSS cycling, disable inspection to restore streaming, then move inspection to a bounded utility queue at most once per second and rate-limit local probe writes. Production thresholds, shared dependencies and drift configuration unchanged. Local work only; no GitHub operations or motor controls.
+
+Validation: Signed physical iPhone build and strict signature passed. Ten PreviewState tests (including three rendered mapping cases) and two synthetic target processor tests passed. No matching device crash report found; cause unconfirmed. Restored no-inspection run had 523 sends (517 all-three numeric); corrected inspection run initially had 66 sends with live portrait camera and local clock guard passing. Final observation recorded in dedicated handoff/evidence. Physical chair causation remains unverified.
+
 ## 2026-10-18 — CS-013-clock-publication-refresh-20261018: Preserve concurrent PM refresh and make lock test opt-in
 
 Author: michaelkrymski · Task: CS-013
@@ -762,6 +770,22 @@ Developer Mode enabled and Apple account sign-in completed by the user. Personal
 
 Validation: Signed iOS build and strict deep codesign verification passed; devicectl installation succeeded on iPhone 17 Pro Max / iOS 26.6.2. Published implementation checkpoint 3e9e781 had green repository/governance checks. Signing-only follow-up receives SDK build and checked publishing. Prior 64 Swift and four backend conformance tests are unchanged.
 
+## 2026-10-18 — CS-013-geometric-floor-live-20261018: Observe real floor exclusion and continued native depth streaming
+
+Author: michaelkrymski · Task: CS-013
+
+Final signed app detects one ARKit floor and excludes 7342 high-confidence pixels in initial live frame, changing centre/right sector range. Followup near-surface scene preserves left/centre about 0.15 m and right Unknown without floor removal. No all-clear, full target accuracy, motor, receiver freshness or production drift claim. Local only.
+
+Validation: Initial 24 sends numeric in three sectors; subsequent interval 41 sends across 8.636902 s (~4.747 Hz) with current right Unknown. Local freshness guard passing; real mask runtime initially 52.886 ms. Seventeen relevant tests passed and repository validation passed.
+
+## 2026-10-18 — CS-013-geometric-floor-20261018: Exclude depth points on observed ARKit floor geometry locally
+
+Author: michaelkrymski · Task: CS-013
+
+Enable horizontal plane detection and mask only high-confidence points within 2 cm of current classified near-horizontal floor, at least 5 cm inside detected boundary. Use scaled camera intrinsics and camera-to-plane transform. Preserve sector ROI, confidence policy and coverage denominator, allowing floor-only sectors to become Unknown. Add floor status and local before/after diagnostics; no fixed image crop, shared dependency edits, experimental drift configuration, motor controls or GitHub operations.
+
+Validation: Four geometric masking cases plus ten existing PreviewState tests pass. Production-processor integration case verifies floor-only columns Unknown while raised right obstacle remains measured; two existing chair counterexamples pass. Signed physical-device build installed. First new session paired/WSS connected but numeric depth stopped while tracking was unavailable; operator sweep requested and physical effectiveness pending. Evidence and final state recorded in dedicated handoff.
+
 ## 2026-10-18 — CS-013-INTEGRATED-APP-20261018: Integrate portrait camera, accessible status, local speech and opt-in local GPS
 
 Author: michaelkrymski (AI-assisted) · Task: CS-013
@@ -777,6 +801,30 @@ Author: michaelkrymski · Task: CS-013
 Actual background and operator lock recovery tests plus bounded state-clear evidence. Add causal affine rate model with separate holdout and conditional receiver-age diagnostics; no hardware drift guarantee or production gate activation.
 
 Validation: Three actual phone UI tests passed without skips; signed clock-test build succeeded. Six characterization tests and six Pi helper tests passed. Actual clock enrollment/run pending.
+
+## 2026-10-18 — CS-013-local-native-bond-20261018: Prepare native saved-bond phone connection locally
+
+Author: michaelkrymski · Task: CS-013
+
+Add existing phone credential import into device-only Keychain, native bond polling/WSS, explicit diagnostic depth and synchronous invalidation. Reuse existing private phone enrollment; no Mac helper, credential generation, protected contract changes or GitHub operations. No receiver-age/drift or motor readiness claim.
+
+Validation: Signed build and missing-bond phone UI check passed. Eight pairing tests and 21 telemetry regressions passed; two native loopback cases skipped. Native phone HTTPS and positioned sensor test passed with 60 processed frames. Live pairing authenticated but waited for Pi; WSS expectation failed and no depth was sent. See local native-bond handoff for exact limits/current status. Subsequent backend access timed out from phone (-1001) and Mac TCP 443 (HTTP 000); foreground retry added, final signed build/strict signature and eight package tests passed.
+
+## 2026-10-18 — CS-013-local-real-native-stream-20261018: Measure ongoing native phone ARKit depth streaming locally
+
+Author: michaelkrymski · Task: CS-013
+
+Reuse saved phone bond and existing bounded sender for explicitly authorized diagnostic streaming. Correct consent label so it does not assert Pi motors are disarmed. Add elapsed/count-only rate and clock-reply diagnostics; keep phone awake only during active diagnostic streaming. No motor controls, credential generation, shared contract changes or GitHub contact. Receiver drift/capture-age and physical guidance remain unverified.
+
+Validation: Signed build/strict signature and nine pairing package cases passed. Actual physical-phone window: 267 completed depth sends over 56.053906 s (4.763272 Hz), fresh source 4.753794 Hz. No local clock-guard failure, max diagnostic capture delta 276.447667 ms. Zero clock replies; no Pi receiver acceptance inferred. Streaming left foregrounded/enabled. See local stream handoff and sanitized evidence.
+
+## 2026-10-18 — CS-013-measured-Pi-clock-20261018: Record controlled real Pi clock characterization and restore normal stream
+
+Author: michaelkrymski · Task: CS-013
+
+Record operator-reported stable 75.17-second real phone/Pi run with 61 exchanges, 20 calibration rows, 41 consistent holdouts and explicit finite-run affine assumption. Preserve production drift/capture-age/guidance unknown/disabled. Independently read 61 completed phone replies; reconnect saved phone bond after normal Pi peer restoration. No implementation thresholds, credentials, motor controls, production settings or GitHub operations changed.
+
+Validation: Reported source/receiver rates 4.752/4.758 Hz with 355 packets; observed affine interval [-1518.614,1355.032] ppm. Isolated receiver accepted 70, cleared on close; conditional budget 202 accepted vs153 rejected/unmapped. Aggregate counts/candidate magnitude checked for consistency. Device read confirmed new foreground WSS stream with positive sends. Structural/whitespace checks passed; no unchanged software suite rerun or hardware-bound claim.
 
 ## 2026-10-18 — CS-013-measured-receiver-harness-20261018: Exercise existing receiver with held-out measured clock model
 
@@ -809,6 +857,30 @@ Author: michaelkrymski (AI-assisted) · Task: CS-013
 Assignment-only PM claim from accepted main 5dd5fa37009402b7eb7c9dbed3d20eacd4346c90. User authorized creating the Xcode host and resuming deferred Apple verification. Requirements, dependencies and allowed paths are unchanged. Implementation begins only after verifying the PM-authored claim PR.
 
 Validation: Assignment only; no app, signing, device, LiDAR or hardware acceptance claimed. Shared checks run by checked publishing.
+
+## 2026-10-18 — CS-013-sector-quality-clock-copy-20261018: Measure sector confidence rejection and stage Pi clock bench locally
+
+Author: michaelkrymski · Task: CS-013
+
+Add read-only source confidence histograms, sector rejection tallies, actual outbound numeric/null counters and local elapsed-clock discrepancy diagnostics. Preserve all thresholds and protocol fields. Reconnect to new Pi boot; controlled room-facing comparison recovered numeric sectors. Prepare existing-bond isolated Pi clock receiver and source-only checked-copy script; operator confirmed copy to requested Pi path, without credentials or test execution. No GitHub contact or physical guidance/drift acceptance.
+
+Validation: Signed Apple build/strict signature passed. Ten pairing/wire counter tests and seven clock-model/binding cases passed in existing local runtimes. Source archive extracted/imported successfully and copy script syntax checked. Live pre-reposition 131/204 left coverage rejections; controlled room-facing 175/175 outbound packets had three numeric sectors over 36.700268 seconds (4.768358 Hz). Local clock max discrepancy 0.158333 ms, no failure; zero clock replies and no new Pi drift bound. Remote code SHA-256 verification operator-confirmed; clock test not started.
+
+## 2026-10-18 — CS-013-trash-can-motion-20261018: Measure target patch motion and identify bottom-row sector dominance
+
+Author: michaelkrymski · Task: CS-013
+
+Moving trash can closer changes selected patch median from 1.538 to 1.022 m with all pixels retained. Final right-sector percentile comes from bottom image row; broad near strip across all sectors is consistent with floor but not visually confirmed. Absolute range calibration and original chair cause unresolved. No thresholds, production drift, motors or GitHub changes.
+
+Validation: Five independently refreshed snapshots and 40 completed native sends over 8.409852 s; local measurement evidence saved. No new app code or automated tests.
+
+## 2026-10-18 — CS-013-trash-can-patch-20261018: Record trash-can patch confidence and range discrepancy locally
+
+Author: michaelkrymski · Task: CS-013
+
+Five patch snapshots retain 71.9–99.0% high-confidence pixels with identical all-confidence/retained p10, while whole-sector nearer pixels dominate distance. Operator estimates 3.5 ft but patch median is about 1.53 m; physical correspondence remains unresolved and controlled motion requested. No GitHub, credentials, motor controls, threshold or drift changes.
+
+Validation: Measurement-only checkpoint: 40 completed native depth sends across 8.301798 s. Local snapshot evidence recorded; no new code tests.
 
 ## 2026-10-18 — CS-013-XCODE-HOST-20261018: Build iPhone local depth host and verify deferred Swift packages with Xcode
 

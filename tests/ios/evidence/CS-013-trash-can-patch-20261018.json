@@ -1,0 +1,158 @@
+{
+  "task": "CS-013",
+  "base_commit": "c34520b60e85d6cd4b5efe18c94659ee236208c4",
+  "local_only": true,
+  "target": "trash can; operator says patch inside solid surface",
+  "operator_distance_ft": 3.5,
+  "operator_distance_m": 1.0668,
+  "samples": [
+    {
+      "sends": 1349,
+      "elapsed_ms": 307034.48695833236,
+      "age_ms": 1337.6394170081767,
+      "patch_column": 7,
+      "patch_row": 4,
+      "total": 512,
+      "high": 488,
+      "all": {
+        "count": 512,
+        "median_m": 1.541015625,
+        "under_1_25_m": 0,
+        "min_m": 1.501953125,
+        "p10_m": 1.509765625
+      },
+      "retained": {
+        "min_m": 1.501953125,
+        "count": 488,
+        "under_1_25_m": 0,
+        "p10_m": 1.509765625,
+        "median_m": 1.5380859375
+      },
+      "sector_p10": {
+        "imageLeft": 0.8984375,
+        "imageCenter": 0.8955078125,
+        "imageRight": 0.8828125
+      }
+    },
+    {
+      "sends": 1359,
+      "elapsed_ms": 309114.378041666,
+      "age_ms": 1333.434334006597,
+      "patch_column": 7,
+      "patch_row": 4,
+      "total": 512,
+      "high": 507,
+      "all": {
+        "under_1_25_m": 0,
+        "median_m": 1.55078125,
+        "min_m": 1.5029296875,
+        "p10_m": 1.51171875,
+        "count": 512
+      },
+      "retained": {
+        "under_1_25_m": 0,
+        "median_m": 1.5498046875,
+        "min_m": 1.5029296875,
+        "count": 507,
+        "p10_m": 1.51171875
+      },
+      "sector_p10": {
+        "imageLeft": 0.88671875,
+        "imageCenter": 0.88525390625,
+        "imageRight": 0.8740234375
+      }
+    },
+    {
+      "sends": 1369,
+      "elapsed_ms": 311197.331249997,
+      "age_ms": 1315.6195423398458,
+      "patch_column": 7,
+      "patch_row": 4,
+      "total": 512,
+      "high": 368,
+      "all": {
+        "under_1_25_m": 0,
+        "p10_m": 1.498046875,
+        "min_m": 1.4833984375,
+        "count": 512,
+        "median_m": 1.5341796875
+      },
+      "retained": {
+        "min_m": 1.4833984375,
+        "count": 368,
+        "under_1_25_m": 0,
+        "p10_m": 1.498046875,
+        "median_m": 1.5244140625
+      },
+      "sector_p10": {
+        "imageLeft": 0.8896484375,
+        "imageCenter": 0.88916015625,
+        "imageRight": 0.8671875
+      }
+    },
+    {
+      "sends": 1379,
+      "elapsed_ms": 313272.4975833334,
+      "age_ms": 1306.704250673647,
+      "patch_column": 7,
+      "patch_row": 4,
+      "total": 512,
+      "high": 497,
+      "all": {
+        "count": 512,
+        "min_m": 1.498046875,
+        "p10_m": 1.5048828125,
+        "median_m": 1.5478515625,
+        "under_1_25_m": 0
+      },
+      "retained": {
+        "count": 497,
+        "median_m": 1.546875,
+        "min_m": 1.498046875,
+        "p10_m": 1.5048828125,
+        "under_1_25_m": 0
+      },
+      "sector_p10": {
+        "imageLeft": 0.88623046875,
+        "imageCenter": 0.88427734375,
+        "imageRight": 0.86181640625
+      }
+    },
+    {
+      "sends": 1389,
+      "elapsed_ms": 315336.2849999964,
+      "age_ms": 1286.4170423381438,
+      "patch_column": 7,
+      "patch_row": 4,
+      "total": 512,
+      "high": 504,
+      "all": {
+        "under_1_25_m": 0,
+        "p10_m": 1.50390625,
+        "min_m": 1.494140625,
+        "count": 512,
+        "median_m": 1.5322265625
+      },
+      "retained": {
+        "min_m": 1.494140625,
+        "count": 504,
+        "under_1_25_m": 0,
+        "p10_m": 1.50390625,
+        "median_m": 1.53125
+      },
+      "sector_p10": {
+        "imageLeft": 0.8916015625,
+        "imageCenter": 0.890625,
+        "imageRight": 0.87255859375
+      }
+    }
+  ],
+  "findings": [
+    "Selected patch all-confidence and retained p10 nearly identical; confidence filtering does not explain selected patch distance in these samples.",
+    "Patch median 1.524\u20131.550 m differs from operator approximate 1.067 m distance; real preview/depth correspondence remains unverified.",
+    "Whole right-sector p10 0.862\u20130.883 m is nearer than selected patch; other retained sector pixels determine percentile.",
+    "Controlled target movement requested; do not infer original chair failure cause."
+  ],
+  "production_drift_configured": false,
+  "motor_controls_changed": false
+}

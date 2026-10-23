@@ -12,7 +12,9 @@ import CaneSightCoreLocation
     let statusUI: AccessibleStatusModel
     let camera: CameraController
     let location: LocalLocationController
+    let connection: PhoneConnection
     private var lifecycleProof = [[String: Int]]()
+    private var connectedFromLaunch = false
 
     init() {
         let speech = LocalStatusSpeech()
@@ -24,12 +26,24 @@ import CaneSightCoreLocation
         statusUI=AccessibleStatusModel(controller: status)
         camera=CameraController(statusController: status)
         location=LocalLocationController()
+        connection=PhoneConnection(camera: camera)
     }
     func setActive(_ active: Bool) {
         let before = camera.distances.compactMap { $0 }.count
+        connection.setActive(active)
+        let args = ProcessInfo.processInfo.arguments
+        let startStream = active && !connectedFromLaunch && args.contains("--stream-saved-phone")
+        if active, !connectedFromLaunch, args.contains("--connect-saved-phone") || startStream {
+            connectedFromLaunch = true; connection.connect()
+        }
         status.setSceneActive(active)
         camera.setActive(active)
         location.setActive(active)
+        if startStream {
+            connection.diagnosticConsent = true
+            connection.setDiagnosticDepth(true)
+            camera.start()
+        }
         if !active { _ = speech.cancel() }
         // Opt-in test evidence only: counts/booleans, never readings or timestamps.
         if ProcessInfo.processInfo.arguments.contains("--lifecycle-probe"), lifecycleProof.count < 24 {

@@ -1,0 +1,9 @@
+{
+  "id": "CS-013-geometric-floor-live-20261018",
+  "date": "2026-10-18",
+  "author": "michaelkrymski",
+  "task": "CS-013",
+  "summary": "Observe real floor exclusion and continued native depth streaming",
+  "details": "Final signed app detects one ARKit floor and excludes 7342 high-confidence pixels in initial live frame, changing centre/right sector range. Followup near-surface scene preserves left/centre about 0.15 m and right Unknown without floor removal. No all-clear, full target accuracy, motor, receiver freshness or production drift claim. Local only.",
+  "validation": "Initial 24 sends numeric in three sectors; subsequent interval 41 sends across 8.636902 s (~4.747 Hz) with current right Unknown. Local freshness guard passing; real mask runtime initially 52.886 ms. Seventeen relevant tests passed and repository validation passed."
+}

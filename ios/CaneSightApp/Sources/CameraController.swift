@@ -4,6 +4,8 @@ import CoreImage
 import QuartzCore
 import SwiftUI
 import CaneSightDepth
+import CaneSightDepthARKit
+import CaneSightPreviewState
 import CaneSightMountMapping
 import CaneSightMountMappingARKit
 import CaneSightStatus
@@ -13,6 +15,24 @@ import CaneSightARLifecycle
 @MainActor final class CameraController: ObservableObject, DepthLifecycleEvents {
     let accessible: StatusController
     @Published private(set) var summary: DepthSectorSummary?
+    @Published private(set) var floorStatus = "Floor not mapped; using full depth columns."
+    private(set) var floorDiagnostics: [String:Any] = [:]
+    private(set) var inputQuality = [[String: Any]]()
+    @Published var inspectionEnabled = ProcessInfo.processInfo.arguments.contains("--target-inspection") {
+        didSet { capture.setDiagnostics(inspectionEnabled || ProcessInfo.processInfo.arguments.contains("--sector-quality-probe")) }
+    }
+    @Published var inspectionColumn = 7
+    @Published var inspectionRow = 3
+    var inspectionSnapshot: [String: Any] {
+        guard let age=qualityAgeMS, age < 2000 else { return [:] }
+        for sector in inputQuality {
+            if let cells = sector["cells"] as? [[String: Any]],
+               let cell = cells.first(where: { $0["column"] as? Int == inspectionColumn && $0["row"] as? Int == inspectionRow }) {
+                return cell
+            }
+        }
+        return [:]
+    }
     private lazy var bridge = ARLifecycleBridge(lifecycle: self)
     @Published private(set) var status = "Camera stopped; mapping unverified."
     @Published private(set) var image: CGImage?
@@ -32,7 +52,17 @@ import CaneSightARLifecycle
     private var lastSource: Double?
     private var timer: Timer?
     private var orientationObserver: NSObjectProtocol?
-    private lazy var capture = CameraCapture { [weak self] event in self?.receive(event) }
+    private lazy var capture = CameraCapture(receive: { [weak self] event in self?.receive(event) },
+        receiveQuality: { [weak self] quality in self?.receiveQuality(quality) })
+    private var qualityCapture: Double?
+    var qualityAgeMS: Double? { qualityCapture.map { max(0, (CACurrentMediaTime() - $0) * 1000) } }
+    private func receiveQuality(_ value: CameraQuality) {
+        guard value.epoch == epoch, active, requested, portrait, sample != nil,
+              CACurrentMediaTime() - value.capture < 2 else { return }
+        objectWillChange.send()
+        inputQuality = value.values
+        qualityCapture = value.capture
+    }
 
     init(statusController: StatusController) {
         accessible = statusController
@@ -93,6 +123,7 @@ import CaneSightARLifecycle
         session.delegate=capture; session.delegateQueue=capture.callbacks
         let configuration=ARWorldTrackingConfiguration()
         configuration.frameSemantics.insert(.sceneDepth)
+        configuration.planeDetection = [.horizontal]
         session.run(configuration,options: [.resetTracking,.removeExistingAnchors])
         timer=Timer.scheduledTimer(withTimeInterval: 0.1,repeats: true) { [weak self] _ in
             MainActor.assumeIsolated { self?.tick() }
@@ -103,7 +134,7 @@ import CaneSightARLifecycle
         epoch=UUID(); capture.stop()
         if pause { session.pause() }
         timer?.invalidate(); timer=nil
-        sample=nil; image=nil; distances=[nil,nil,nil]; summary=nil; clearDepthDetails(); lastSource=nil; lastLoss=0
+        sample=nil; image=nil; distances=[nil,nil,nil]; summary=nil; inputQuality=[]; floorDiagnostics=[:]; floorStatus="Floor unavailable; waiting for fresh tracking."; clearDepthDetails(); lastSource=nil; lastLoss=0
         resetCheck(); status=reason
     }
     private func clearDepthDetails() {
@@ -128,7 +159,7 @@ import CaneSightARLifecycle
         guard let sample else { return }
         let now=CACurrentMediaTime()
         if !now.isFinite || now < sample.receipt || now-sample.receipt >= 0.5 {
-            accessible.invalidateDepth(.stale); self.sample=nil; image=nil; distances=[nil,nil,nil]; summary=nil; clearDepthDetails(); resetCheck()
+            accessible.invalidateDepth(.stale); self.sample=nil; image=nil; distances=[nil,nil,nil]; summary=nil; inputQuality=[]; floorDiagnostics=[:]; floorStatus="Floor unavailable; waiting for fresh tracking."; clearDepthDetails(); resetCheck()
             status="No recent frame; depth unknown and check reset."
         }
     }
@@ -141,31 +172,35 @@ import CaneSightARLifecycle
         if event.loss != lastLoss { check.reset(); lastLoss=event.loss }
         guard let value=event.sample else {
             accessible.invalidateDepth(.unknown)
-            sample=nil; image=nil; distances=[nil,nil,nil]; summary=nil; clearDepthDetails(); syncProgress()
+            sample=nil; image=nil; distances=[nil,nil,nil]; summary=nil; inputQuality=[]; floorDiagnostics=[:]; floorStatus="Floor unavailable; waiting for fresh tracking."; clearDepthDetails(); syncProgress()
             status="Waiting for valid depth/tracking; check reset."
             return
         }
         let now=CACurrentMediaTime()
         guard now.isFinite, now >= value.receipt, now-value.receipt < 0.5,
-              let source=value.observation.summary.captureTimestampSeconds,
+              let source=value.filteredSummary.captureTimestampSeconds,
               lastSource.map({ source > $0 }) ?? true else {
             accessible.invalidateDepth(.unknown)
-            sample=nil; image=nil; distances=[nil,nil,nil]; summary=nil; clearDepthDetails(); resetCheck()
+            sample=nil; image=nil; distances=[nil,nil,nil]; summary=nil; inputQuality=[]; floorDiagnostics=[:]; floorStatus="Floor unavailable; waiting for fresh tracking."; clearDepthDetails(); resetCheck()
             status="Delayed frame; depth unknown and check reset."; return
         }
-        let result=value.observation.summary
+        let result=value.filteredSummary
         let sectors=DisplaySectors(imageLeft: result.sectors[0].distanceMetres,
             imageCenter: result.sectors[1].distanceMetres, imageRight: result.sectors[2].distanceMetres)
         guard accessible.showLocalPreview(sectors, sourceMilliseconds: source*1000,
             receiptMilliseconds: value.receipt*1000, token: value.displayToken) else {
             accessible.invalidateDepth(.unknown)
-            sample=nil; image=nil; distances=[nil,nil,nil]; summary=nil; clearDepthDetails(); resetCheck()
+            sample=nil; image=nil; distances=[nil,nil,nil]; summary=nil; inputQuality=[]; floorDiagnostics=[:]; floorStatus="Floor unavailable; waiting for fresh tracking."; clearDepthDetails(); resetCheck()
             status="Waiting for a new display frame."; return
         }
+        floorDiagnostics=value.floorDiagnostics
+        let removed=value.floorDiagnostics["excluded_high_confidence_pixels"] as? Int ?? 0
+        let mapped=value.floorDiagnostics["mask_applied"] as? Bool ?? false
+        floorStatus=mapped ? "Floor mapped · \(removed) floor pixels excluded." : "Floor not mapped; using full depth columns."
         lastSource=source; sample=value; image=value.image; summary=result
         distances=result.sectors.map(\.distanceMetres)
         let configuration = try! DepthSectorConfiguration()
-        depthDetails=value.observation.summary.sectors.map { sector in
+        depthDetails=result.sectors.map { sector in
             let coverage = Int((sector.validFraction ?? 0) * 100)
             switch sector.evidence {
             case .measured:
@@ -197,7 +232,7 @@ import CaneSightARLifecycle
     func record() {
         guard let sample else { status="Need a new valid frame."; return }
         do {
-            try check.record(summary: sample.observation.summary, geometry: sample.observation.geometry,
+            try check.record(summary: sample.filteredSummary, geometry: sample.observation.geometry,
                              receipt: sample.receipt,now: CACurrentMediaTime())
             syncProgress()
             status=check.complete ? "Portrait target check complete for this session." : "Recorded. Keep the phone fixed; follow the next target prompt."
@@ -211,8 +246,15 @@ import CaneSightARLifecycle
 struct CameraSample: @unchecked Sendable {
     let observation: PortraitObservation
     let image: CGImage
+    let filteredSummary: DepthSectorSummary
+    let floorDiagnostics: [String:Any]
     let receipt: Double
     let displayToken: DepthDisplayToken
+}
+struct CameraQuality: @unchecked Sendable {
+    let epoch: UUID
+    let capture: Double
+    let values: [[String: Any]]
 }
 struct CameraEvent: @unchecked Sendable {
     let epoch: UUID
@@ -226,6 +268,10 @@ struct CameraEvent: @unchecked Sendable {
 final class CameraCapture: NSObject, ARSessionDelegate, @unchecked Sendable {
     let callbacks=DispatchQueue(label: "MountCheck.ARCallbacks")
     private let worker=DispatchQueue(label: "MountCheck.Worker")
+    private let qualityWorker=DispatchQueue(label: "MountCheck.Quality", qos: .utility)
+    private var qualityBusy=false
+    private var nextQuality: Double=0
+    private let receiveQuality: @MainActor @Sendable (CameraQuality)->Void
     private let context=CIContext(options: [.cacheIntermediates:false])
     private let lock=NSLock()
     private var epoch: UUID?
@@ -236,8 +282,14 @@ final class CameraCapture: NSObject, ARSessionDelegate, @unchecked Sendable {
     private var scheduled=false
     private var loss: UInt64=0
     private var next: Double=0
+    private var diagnosticsEnabled = ProcessInfo.processInfo.arguments.contains("--sector-quality-probe") ||
+        ProcessInfo.processInfo.arguments.contains("--target-inspection")
+    func setDiagnostics(_ enabled: Bool) { lock.withLock { diagnosticsEnabled = enabled } }
     private let receive: @MainActor @Sendable (CameraEvent)->Void
-    init(receive: @escaping @MainActor @Sendable (CameraEvent)->Void) { self.receive=receive }
+    init(receive: @escaping @MainActor @Sendable (CameraEvent)->Void,
+         receiveQuality: @escaping @MainActor @Sendable (CameraQuality)->Void) {
+        self.receive=receive; self.receiveQuality=receiveQuality
+    }
     func begin(_ value: UUID, token: DepthDisplayToken) {
         lock.lock(); epoch=value; displayToken=token; loss=0; next=0; lock.unlock()
     }
@@ -266,13 +318,138 @@ final class CameraCapture: NSObject, ARSessionDelegate, @unchecked Sendable {
                 let w=source.extent.width,h=source.extent.height
                 // ARKit uses normalized top-left coordinates; CoreImage uses
                 // pixel bottom-left coordinates. Convert both ends explicitly.
-                let pixels=CGAffineTransform(a: 180*t.a/w,b: -320*t.b/w,
-                    c: -180*t.c/h,d: 320*t.d/h,tx: 180*(t.c+t.tx),ty: 320*(1-t.d-t.ty))
+                let normalized = CGAffineTransform(a:t.a,b:t.b,c:t.c,d:t.d,tx:t.tx,ty:t.ty)
+                guard let pixels = try? PortraitPreviewTransform.pixels(imageWidth:w,imageHeight:h,
+                    previewWidth:180,previewHeight:320,normalized:normalized) else {
+                    emit(nil,epoch:input.1); continue
+                }
                 if let image=context.createCGImage(source.transformed(by: pixels),from: CGRect(x: 0,y: 0,width: 180,height: 320)) {
-                    sample=CameraSample(observation: observation,image: image,receipt: input.2,displayToken: input.3)
+                    let floor=Self.filterFloor(input.0, observation:observation)
+                    sample=CameraSample(observation: observation,image: image,filteredSummary:floor.0,
+                        floorDiagnostics:floor.1,receipt: input.2,displayToken: input.3)
+                    // Diagnostics own one bounded slot on a separate low-priority queue.
+                    // Never delay the frame delivery or production freshness fence.
+                    let inspect = lock.withLock { () -> Bool in
+                        guard diagnosticsEnabled, !qualityBusy, input.2 >= nextQuality else { return false }
+                        qualityBusy=true; nextQuality=input.2+1; return true
+                    }
+                    if inspect {
+                        qualityWorker.async {
+                            let values=Self.inputQuality(input.0, mapping: observation.geometry.mapping)
+                            let value=CameraQuality(epoch:input.1,capture:input.0.timestamp,values:values)
+                            let current=self.lock.withLock { self.qualityBusy=false; return self.epoch==input.1 && self.diagnosticsEnabled }
+                            if current { DispatchQueue.main.async { self.receiveQuality(value) } }
+                        }
+                    }
                 }
             }
             emit(sample,epoch: input.1)
+        }
+    }
+    /// Current-frame geometry only; no stored floor model survives lifecycle changes.
+    private static func filterFloor(_ frame: ARFrame, observation: PortraitObservation) -> (DepthSectorSummary,[String:Any]) {
+        let anchors: [ARPlaneAnchor] = frame.anchors.compactMap { $0 as? ARPlaneAnchor }
+        let floors: [ARPlaneAnchor] = anchors.filter { plane in
+            guard plane.alignment == .horizontal, plane.classification == .floor else { return false }
+            let upright = abs(plane.transform.columns.1.y) > Float(0.996)
+            let cameraHeight = frame.camera.transform.columns.3.y - plane.transform.columns.3.y
+            return upright && cameraHeight > Float(0.25)
+        }
+        var info:[String:Any] = ["classified_floor_planes":floors.count,"excluded_high_confidence_pixels":0,"mask_applied":false,
+            "raw_sector_distance_m":observation.summary.sectors.map { $0.distanceMetres.map { $0 as Any } ?? NSNull() }]
+        guard !floors.isEmpty, floors.count <= 8, let depth=frame.sceneDepth, let confidence=depth.confidenceMap,
+              let raw=try? DepthPixelBufferReader.copyFrame(depth:depth.depthMap,confidence:confidence,
+                captureTimestampSeconds:frame.timestamp,mode:.live,tracking:.normal),let levels=raw.confidence else {
+            return (observation.summary,info)
+        }
+        let resolution=frame.camera.imageResolution, k=frame.camera.intrinsics
+        let sx=Float(raw.width)/Float(resolution.width), sy=Float(raw.height)/Float(resolution.height)
+        let planes=floors.map { anchor in
+            FloorSurfaceMask.Plane(cameraToPlane:simd_inverse(anchor.transform)*frame.camera.transform,
+                boundary:anchor.geometry.boundaryVertices.map { SIMD2<Float>($0.x,$0.z) })
+        }
+        let maskStarted=CACurrentMediaTime()
+        let indices=FloorSurfaceMask.indices(width:raw.width,height:raw.height,metres:raw.metres,confidence:levels,
+            intrinsics:SIMD4(k.columns.0.x*sx,k.columns.1.y*sy,k.columns.2.x*sx,k.columns.2.y*sy),planes:planes)
+        var masked=raw.metres
+        for index in indices { masked[index] = .nan }
+        let filtered=DepthFrame(width:raw.width,height:raw.height,metres:masked,confidence:levels,
+            captureTimestampSeconds:raw.captureTimestampSeconds,mode:raw.mode,tracking:raw.tracking)
+        info["excluded_high_confidence_pixels"]=indices.count
+        info["mask_processing_ms"]=(CACurrentMediaTime()-maskStarted)*1000
+        // Original ROI and coverage denominator retained: floor-only can become Unknown.
+        let result=(try? observation.geometry.mapping.process(filtered)) ??
+            DepthSectorSummary.unavailable(mode:raw.mode,captureTimestampSeconds:raw.captureTimestampSeconds,reason:.invalidDimensions)
+        info["mask_applied"]=true
+        info["filtered_sector_distance_m"]=result.sectors.map { $0.distanceMetres.map { $0 as Any } ?? NSNull() }
+        return (result,info)
+    }
+    /// Optional read-only histogram. Reuses the exact display permutation/crop;
+    /// never changes confidence, distances, thresholds or outbound observations.
+    private static func inputQuality(_ frame: ARFrame, mapping: DisplayMapping) -> [[String: Any]] {
+        guard let depth = frame.sceneDepth, let confidence = depth.confidenceMap,
+              let packed = try? DepthPixelBufferReader.copyFrame(depth: depth.depthMap, confidence: confidence,
+                captureTimestampSeconds: frame.timestamp, mode: .live, tracking: .normal),
+              let oriented = try? mapping.prepare(packed), let levels = oriented.frame.confidence else { return [] }
+        let input = oriented.frame, roi = oriented.region
+        let x0 = Int(ceil(roi.xMin * Double(input.width))), x1 = Int(floor(roi.xMax * Double(input.width)))
+        let y0 = Int(ceil(roi.yMin * Double(input.height))), y1 = Int(floor(roi.yMax * Double(input.height)))
+        guard x1-x0 >= 9, y1-y0 >= 8 else { return [] }
+        func distribution(_ values: [Float], histogram: Bool = false) -> [String: Any] {
+            let sorted = values.sorted(), count = values.count
+            var result: [String: Any] = ["count": count,
+                "min_m": sorted.first.map { Double($0) as Any } ?? NSNull(),
+                "p10_m": count > 0 ? Double(sorted[max(0,Int(ceil(0.1*Double(count)))-1)]) as Any : NSNull(),
+                "median_m": count > 0 ? Double(sorted[(count-1)/2]) as Any : NSNull(),
+                "under_1_25_m": sorted.prefix { $0 <= 1.25 }.count]
+            if histogram {
+                result["cumulative_under_m"] = Dictionary(uniqueKeysWithValues:
+                    [0.5,1,1.25,1.5,2,2.5,3,4,6].map { edge in
+                        (String(edge), sorted.prefix { Double($0) <= edge }.count)
+                    })
+            }
+            return result
+        }
+        func inspect(_ start: Int, _ end: Int, _ top: Int, _ bottom: Int, histogram: Bool) -> [String: Any] {
+            var counts = [0,0,0], positive = [[Float](),[Float](),[Float]()], badConfidence=0, badDepth=0
+            for y in top..<bottom { for x in start..<end {
+                let offset=y*input.width+x, level=Int(levels[offset]), value=input.metres[offset]
+                let valid=value.isFinite && value>0
+                if !valid { badDepth += 1 }
+                if level<=2 { counts[level] += 1; if valid { positive[level].append(value) } }
+                else { badConfidence += 1 }
+            } }
+            let accepted = positive[2].count
+            return ["total_samples": (end-start)*(bottom-top), "confidence_low": counts[0],
+                "confidence_medium": counts[1], "confidence_high": counts[2],
+                "positive_finite_low": positive[0].count, "positive_finite_medium": positive[1].count,
+                "positive_finite_high": accepted, "invalid_depth": badDepth, "invalid_confidence": badConfidence,
+                "all_confidence": distribution(positive.flatMap { $0 },histogram:histogram),
+                "medium_and_high": distribution(positive[1]+positive[2],histogram:histogram),
+                "high_only": distribution(positive[2],histogram:histogram),
+                "production_p10_rank": Int(ceil(0.1*Double(accepted)))]
+        }
+        return DepthImageSector.allCases.enumerated().map { index, position in
+            let start=x0+(x1-x0)*index/3, end=x0+(x1-x0)*(index+1)/3
+            var result=inspect(start,end,y0,y1,histogram:true)
+            result["position"]=position.rawValue
+            result["geometry"]=["depth_width":packed.width,"depth_height":packed.height,
+                "oriented_width":input.width,"oriented_height":input.height,
+                "display_transform":[mapping.a,mapping.b,mapping.c,mapping.d,mapping.tx,mapping.ty],
+                "normalized_roi":[roi.xMin,roi.yMin,roi.xMax,roi.yMax],
+                "pixel_rect":[start,y0,end,y1],
+                "actual_viewport_x_edges":[(Double(start)/Double(input.width)-roi.xMin)/(roi.xMax-roi.xMin),
+                                          (Double(end)/Double(input.width)-roi.xMin)/(roi.xMax-roi.xMin)]] as [String:Any]
+            var cells=[[String:Any]]()
+            for localColumn in 0..<3 { for row in 0..<8 {
+                let left=start+(end-start)*localColumn/3, right=start+(end-start)*(localColumn+1)/3
+                let top=y0+(y1-y0)*row/8, bottom=y0+(y1-y0)*(row+1)/8
+                var cell=inspect(left,right,top,bottom,histogram:false)
+                cell["column"]=index*3+localColumn; cell["row"]=row; cell["sector"]=position.rawValue
+                cells.append(cell)
+            } }
+            result["cells"]=cells
+            return result
         }
     }
     private func emit(_ sample: CameraSample?,epoch value: UUID) {

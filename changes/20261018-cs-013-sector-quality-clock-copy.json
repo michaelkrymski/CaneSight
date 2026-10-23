@@ -1,0 +1,9 @@
+{
+  "id": "CS-013-sector-quality-clock-copy-20261018",
+  "date": "2026-10-18",
+  "author": "michaelkrymski",
+  "task": "CS-013",
+  "summary": "Measure sector confidence rejection and stage Pi clock bench locally",
+  "details": "Add read-only source confidence histograms, sector rejection tallies, actual outbound numeric/null counters and local elapsed-clock discrepancy diagnostics. Preserve all thresholds and protocol fields. Reconnect to new Pi boot; controlled room-facing comparison recovered numeric sectors. Prepare existing-bond isolated Pi clock receiver and source-only checked-copy script; operator confirmed copy to requested Pi path, without credentials or test execution. No GitHub contact or physical guidance/drift acceptance.",
+  "validation": "Signed Apple build/strict signature passed. Ten pairing/wire counter tests and seven clock-model/binding cases passed in existing local runtimes. Source archive extracted/imported successfully and copy script syntax checked. Live pre-reposition 131/204 left coverage rejections; controlled room-facing 175/175 outbound packets had three numeric sectors over 36.700268 seconds (4.768358 Hz). Local clock max discrepancy 0.158333 ms, no failure; zero clock replies and no new Pi drift bound. Remote code SHA-256 verification operator-confirmed; clock test not started."
+}

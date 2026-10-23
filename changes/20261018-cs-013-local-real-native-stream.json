@@ -1,0 +1,9 @@
+{
+  "id": "CS-013-local-real-native-stream-20261018",
+  "date": "2026-10-18",
+  "author": "michaelkrymski",
+  "task": "CS-013",
+  "summary": "Measure ongoing native phone ARKit depth streaming locally",
+  "details": "Reuse saved phone bond and existing bounded sender for explicitly authorized diagnostic streaming. Correct consent label so it does not assert Pi motors are disarmed. Add elapsed/count-only rate and clock-reply diagnostics; keep phone awake only during active diagnostic streaming. No motor controls, credential generation, shared contract changes or GitHub contact. Receiver drift/capture-age and physical guidance remain unverified.",
+  "validation": "Signed build/strict signature and nine pairing package cases passed. Actual physical-phone window: 267 completed depth sends over 56.053906 s (4.763272 Hz), fresh source 4.753794 Hz. No local clock-guard failure, max diagnostic capture delta 276.447667 ms. Zero clock replies; no Pi receiver acceptance inferred. Streaming left foregrounded/enabled. See local stream handoff and sanitized evidence."
+}

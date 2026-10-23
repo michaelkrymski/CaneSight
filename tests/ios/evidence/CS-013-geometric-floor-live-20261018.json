@@ -1,0 +1,200 @@
+{
+  "task": "CS-013",
+  "base_commit": "c34520b60e85d6cd4b5efe18c94659ee236208c4",
+  "first_live_snapshot": {
+    "status": "Paired \u00b7 WSS connected \u00b7 depth sends: 24",
+    "camera_status": "Live portrait view; repeat target check after remounting.",
+    "sender_elapsed_ms": 7432.181500002742,
+    "floor_filter": {
+      "raw_sector_distance_m": [
+        3.345703125,
+        2.09765625,
+        1.3046875
+      ],
+      "classified_floor_planes": 1,
+      "mask_processing_ms": 52.88575000304263,
+      "filtered_sector_distance_m": [
+        3.345703125,
+        3.009765625,
+        1.6201171875
+      ],
+      "mask_applied": true,
+      "excluded_high_confidence_pixels": 7342
+    },
+    "wire_depth_quality": {
+      "all_three_numeric_sends": 24,
+      "completed_native_depth_sends": 24,
+      "center_numeric_sends": 24,
+      "left_numeric_sends": 24,
+      "right_numeric_sends": 24
+    },
+    "max_local_capture_delta_ms": 333.7882923409343,
+    "local_clock_guard_failed": false
+  },
+  "followup_snapshots": [
+    {
+      "status": "Paired \u00b7 WSS connected \u00b7 depth sends: 75",
+      "camera_status": "Live portrait view; repeat target check after remounting.",
+      "depth_sends": 75,
+      "sender_elapsed_ms": 19407.018750000745,
+      "floor_filter": {
+        "filtered_sector_distance_m": [
+          0.1549072265625,
+          0.1490478515625,
+          null
+        ],
+        "classified_floor_planes": 1,
+        "excluded_high_confidence_pixels": 0,
+        "mask_applied": true,
+        "mask_processing_ms": 6.5262499992968515,
+        "raw_sector_distance_m": [
+          0.1549072265625,
+          0.1490478515625,
+          null
+        ]
+      },
+      "wire_depth_quality": {
+        "completed_native_depth_sends": 75,
+        "all_three_numeric_sends": 25,
+        "center_numeric_sends": 75,
+        "right_numeric_sends": 25,
+        "left_numeric_sends": 75
+      },
+      "max_local_capture_delta_ms": 333.7882923409343,
+      "local_clock_guard_failed": false
+    },
+    {
+      "status": "Paired \u00b7 WSS connected \u00b7 depth sends: 86",
+      "camera_status": "Live portrait view; repeat target check after remounting.",
+      "depth_sends": 86,
+      "sender_elapsed_ms": 21667.682041671127,
+      "floor_filter": {
+        "excluded_high_confidence_pixels": 0,
+        "mask_processing_ms": 6.443666665290948,
+        "mask_applied": true,
+        "raw_sector_distance_m": [
+          0.155517578125,
+          0.1485595703125,
+          null
+        ],
+        "filtered_sector_distance_m": [
+          0.155517578125,
+          0.1485595703125,
+          null
+        ],
+        "classified_floor_planes": 1
+      },
+      "wire_depth_quality": {
+        "all_three_numeric_sends": 25,
+        "left_numeric_sends": 86,
+        "completed_native_depth_sends": 86,
+        "right_numeric_sends": 25,
+        "center_numeric_sends": 86
+      },
+      "max_local_capture_delta_ms": 333.7882923409343,
+      "local_clock_guard_failed": false
+    },
+    {
+      "status": "Paired \u00b7 WSS connected \u00b7 depth sends: 96",
+      "camera_status": "Live portrait view; repeat target check after remounting.",
+      "depth_sends": 96,
+      "sender_elapsed_ms": 23748.331666667014,
+      "floor_filter": {
+        "mask_processing_ms": 6.270124998991378,
+        "filtered_sector_distance_m": [
+          0.155517578125,
+          0.1484375,
+          null
+        ],
+        "classified_floor_planes": 1,
+        "mask_applied": true,
+        "excluded_high_confidence_pixels": 0,
+        "raw_sector_distance_m": [
+          0.155517578125,
+          0.1484375,
+          null
+        ]
+      },
+      "wire_depth_quality": {
+        "left_numeric_sends": 96,
+        "center_numeric_sends": 96,
+        "right_numeric_sends": 25,
+        "completed_native_depth_sends": 96,
+        "all_three_numeric_sends": 25
+      },
+      "max_local_capture_delta_ms": 333.7882923409343,
+      "local_clock_guard_failed": false
+    },
+    {
+      "status": "Paired \u00b7 WSS connected \u00b7 depth sends: 106",
+      "camera_status": "Live portrait view; repeat target check after remounting.",
+      "depth_sends": 106,
+      "sender_elapsed_ms": 25839.0903333351,
+      "floor_filter": {
+        "classified_floor_planes": 1,
+        "filtered_sector_distance_m": [
+          0.155517578125,
+          0.149658203125,
+          null
+        ],
+        "excluded_high_confidence_pixels": 0,
+        "mask_applied": true,
+        "raw_sector_distance_m": [
+          0.155517578125,
+          0.149658203125,
+          null
+        ],
+        "mask_processing_ms": 6.167583331261994
+      },
+      "wire_depth_quality": {
+        "all_three_numeric_sends": 25,
+        "right_numeric_sends": 25,
+        "completed_native_depth_sends": 106,
+        "left_numeric_sends": 106,
+        "center_numeric_sends": 106
+      },
+      "max_local_capture_delta_ms": 333.7882923409343,
+      "local_clock_guard_failed": false
+    },
+    {
+      "status": "Paired \u00b7 WSS connected \u00b7 depth sends: 116",
+      "camera_status": "Live portrait view; repeat target check after remounting.",
+      "depth_sends": 116,
+      "sender_elapsed_ms": 28043.921208333224,
+      "floor_filter": {
+        "filtered_sector_distance_m": [
+          0.1556396484375,
+          0.1492919921875,
+          null
+        ],
+        "excluded_high_confidence_pixels": 0,
+        "classified_floor_planes": 1,
+        "raw_sector_distance_m": [
+          0.1556396484375,
+          0.1492919921875,
+          null
+        ],
+        "mask_applied": true,
+        "mask_processing_ms": 6.056208334484836
+      },
+      "wire_depth_quality": {
+        "completed_native_depth_sends": 116,
+        "all_three_numeric_sends": 25,
+        "center_numeric_sends": 116,
+        "right_numeric_sends": 25,
+        "left_numeric_sends": 116
+      },
+      "max_local_capture_delta_ms": 333.7882923409343,
+      "local_clock_guard_failed": false
+    }
+  ],
+  "followup_rate_hz": 4.747072251631732,
+  "findings": [
+    "Current ARKit floor classification observed; initial snapshot excluded 7342 high-confidence floor pixels and changed centre/right sector distance.",
+    "Followup scene showed raw left/centre ~0.15 m and right Unknown; zero floor pixels excluded, values preserved rather than inventing known readings. Scene identity not independently verified.",
+    "Stream remained active with local guard passing. No new receiver-side receipt/clock/physical motor evidence."
+  ],
+  "production_drift_configured": false,
+  "physical_guidance_verified": false,
+  "github_contacted": false
+}

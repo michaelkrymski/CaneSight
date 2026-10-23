@@ -1,10 +1,11 @@
 import SwiftUI
 import CaneSightStatusUI
 import CaneSightPreviewState
+import UniformTypeIdentifiers
 
 struct ContentView: View {
     @ObservedObject var services: AppServices
-    @State private var selectedTab = ProcessInfo.processInfo.arguments.contains("--depth-demo") ? 3 : 0
+    @State private var selectedTab = ProcessInfo.processInfo.arguments.contains("--target-inspection") ? 0 : ProcessInfo.processInfo.arguments.contains("--connect-saved-phone") || ProcessInfo.processInfo.arguments.contains("--stream-saved-phone") ? 4 : (ProcessInfo.processInfo.arguments.contains("--depth-demo") ? 3 : 0)
     var body: some View {
         TabView(selection: $selectedTab) {
             NavigationStack { CameraView(camera: services.camera).navigationTitle("CaneSight") }
@@ -17,6 +18,8 @@ struct ContentView: View {
                 .tabItem { Label("Location",systemImage: "location") }.tag(2)
             NavigationStack { DepthDemoView(camera: services.camera).navigationTitle("Depth demo") }
                 .tabItem { Label("Demo",systemImage: "waveform") }.tag(3)
+            NavigationStack { ConnectionView(connection: services.connection).navigationTitle("Connection") }
+                .tabItem { Label("Connection", systemImage: "network") }.tag(4)
         }
     }
 }
@@ -37,9 +40,33 @@ struct CameraView: View {
                     Color.black
                     if let image=camera.image { Image(decorative: image,scale: 1).resizable() }
                     HStack(spacing: 0) { ForEach(0..<3) { _ in Rectangle().stroke(.white,lineWidth: 1) } }
-                }.frame(width: 180,height: 320).frame(maxWidth: .infinity)
+                    if camera.inspectionEnabled {
+                        Rectangle().stroke(.yellow,lineWidth:2).frame(width:20,height:40)
+                            .position(x:CGFloat(camera.inspectionColumn)*20+10,y:CGFloat(camera.inspectionRow)*40+20)
+                    }
+                }.frame(width: 180,height: 320)
                     .accessibilityLabel("Portrait camera preview; three vertical depth columns")
+                    .contentShape(Rectangle())
+                    .gesture(DragGesture(minimumDistance:0).onChanged { value in
+                        guard camera.inspectionEnabled else { return }
+                        camera.inspectionColumn=max(0,min(8,Int(value.location.x/20)))
+                        camera.inspectionRow=max(0,min(7,Int(value.location.y/40)))
+                    })
+                    .frame(maxWidth:.infinity)
+                Toggle("Inspect target patch",isOn:$camera.inspectionEnabled)
+                if camera.inspectionEnabled {
+                    Text("Tap the target in the preview. Yellow patch is diagnostic only; it does not change the transmitted columns.").font(.caption)
+                    let patch=camera.inspectionSnapshot
+                    if let total=patch["total_samples"] as? Int, let high=patch["positive_finite_high"] as? Int {
+                        Text("Patch high confidence: \(high)/\(total) pixels")
+                        if let all=patch["all_confidence"] as? [String:Any], let filtered=patch["high_only"] as? [String:Any] {
+                            Text("Patch 10th percentile · all confidence: \(metres(all["p10_m"])) · high only: \(metres(filtered["p10_m"]))").font(.caption)
+                        }
+                    }
+                }
                 Text(camera.status).accessibilityIdentifier("captureStatus")
+                Text(camera.floorStatus).font(.caption)
+                Text("Floor exclusion is experimental; very low obstacles can be missed. Unknown does not mean clear.").font(.caption)
                 Button {
                     camera.requested ? camera.stop() : camera.start()
                 } label: {
@@ -75,9 +102,41 @@ struct CameraView: View {
                 Button("Reset side check") { camera.resetCheck() }.frame(minHeight: 60)
             }
             Section("Connection") {
-                Text("Not paired · telemetry unavailable").accessibilityIdentifier("connectionStatus")
-                Text("Capture-clock verification and paired enrollment are required before streaming. Local camera and location stay on this phone.").font(.caption)
+                Text("Open the Connection tab for phone pairing and diagnostic transport.")
             }
+        }
+    }
+    private func metres(_ value: Any?) -> String {
+        guard let distance=value as? Double else { return "Unknown" }
+        return String(format:"%.2f m",distance)
+    }
+
+}
+
+struct ConnectionView: View {
+    @ObservedObject var connection: PhoneConnection
+    @State private var importingBond = false
+    var body: some View {
+        List {
+            Section("Connection") {
+                Text(connection.message).accessibilityIdentifier("connectionStatus")
+                Button("Import existing phone bond") { importingBond = true }
+                    .frame(minHeight: 60).accessibilityIdentifier("importPhoneBond")
+                Button(connection.requested ? "Disconnect" : "Connect") {
+                    connection.requested ? connection.disconnect() : connection.connect()
+                }.frame(minHeight: 60).accessibilityIdentifier("phoneConnect")
+                Toggle("Allow stationary diagnostic transport", isOn: $connection.diagnosticConsent)
+                    .accessibilityIdentifier("diagnosticConsentConfirmation")
+                Toggle("Send diagnostic depth", isOn: Binding(get: { connection.diagnosticDepth },
+                    set: { connection.setDiagnosticDepth($0) }))
+                    .disabled(!connection.requested || !connection.diagnosticConsent)
+                    .accessibilityIdentifier("diagnosticDepth")
+                Text("Start the camera separately. Sends depth summaries only; no images or location. Capture-age and drift bounds remain unverified. Diagnostic transport is not guidance readiness. This does not arm, disarm or verify Pi motor outputs.")
+                    .font(.caption)
+                Text("Pairing runs on this phone. No Mac helper required. Backgrounding stops depth; enable it again after returning.").font(.caption)
+            }
+        }.fileImporter(isPresented: $importingBond, allowedContentTypes: [.json]) { result in
+            if case .success(let url) = result { connection.importFile(url) }
         }
     }
 }

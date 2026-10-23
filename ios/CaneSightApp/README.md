@@ -38,11 +38,14 @@ The product-only Swift package scheme cannot run tool-hosted tests on a phone.
   uncertainty, not coordinates. Opt-out purges the host snapshot and provider
   context. No location is saved, transmitted or associated with lanes/signals.
 
-These are local app features. Telemetry remains unavailable: no TelemetryClient,
-backend enrollment, credential store or network request is instantiated. Before
-live streaming, review capture-clock alignment/uncertainty, pairing, original-age
-bounds and accepted dependency integration. GPS requires its separately reviewed
-wire contract. No Pi, motor, crossing permission or generative narration control.
+The normal launch keeps networking disconnected. The **Connection** tab now
+imports an existing phone-role bond file, saves it in this device's unlocked-only,
+non-synchronizing Keychain, and explicitly connects to the fixed Vultr backend.
+No bond or operator credential is generated. The native phone polls the existing
+`/v1/bonds/connect` interface and uses the existing header-authenticated WSS sender;
+**no persistent Mac helper is required**. A saved bond alone does not start a
+connection or prove depth readiness. See the local integration checkpoint below.
+GPS remains local and no image upload or Gemini request is wired into this host.
 
 ## Exact dependency preparation
 
@@ -74,8 +77,8 @@ transform. Original source timestamps are preserved and must increase.
 The 500 ms local callback-recency deadline is a stall detector, not sensor capture-
 age calibration. Source-clock bounds, capture-to-Pi timing, final mount/motors and
 paired transport remain unverified. Accepted CS-017 bridge code forwards native
-lifecycle events; this preview does not mark its transport guard connected or
-clock-mapped. Unknown values never mean an empty path.
+lifecycle events; local preview does not mark its lifecycle guard clock-mapped. The optional
+diagnostic connection uses its own explicitly unverified elapsed epoch. Unknown values never mean an empty path.
 
 `PrivacyInfo.xcprivacy` declares on-device elapsed-time/timer use of system boot
 APIs under 35F9.1. The normal app sends no boot-time-derived information. The opt-in CS-016
@@ -146,3 +149,153 @@ threshold is not the edge/haptic policy and establishes no CS-025 acceptance.
 The floor may trigger several columns. Physical motor mapping and calibrated
 capture age remain unverified. Launch argument --depth-demo selects this tab only;
 it does not inject data, grant permission or start capture.
+
+## CS-013 local native bond integration — 18 October 2026
+
+This is a local, uncommitted integration checkpoint. No GitHub contact, fetch,
+publish or PR operation was performed. Shared contracts, lifecycle modules and
+motor policy were not changed.
+
+Earlier phone telemetry came from `CaneSightTransport` device tests, not the
+normal UI. `testNativeStartingHeartbeatAndReconnect` consumed the private
+`Documents/cs016-phone-pair.json` file and sent only starting heartbeats.
+`LiveDepthPairTests.testRealDepthPairPauseReconnect` consumed
+`Documents/cs016-depth-pair.json`, ran actual ARKit, rebased capture/send/probe
+values to one diagnostic epoch and sent actual depth over two WSS connections.
+Those files were single-use session grants and were deleted by their tests.
+Neither path implemented durable bond import or a persistent Mac helper.
+The only other pending local worktree edits found were CS-017 test wiring and
+checkpoint records, not a newer persistent phone integration.
+
+### Existing credential and connection
+
+Use **Connection → Import existing phone bond** to select the original
+`phone-bond.json` for the Pi's existing enrollment. It must be schema version 1,
+role `phone`, and contain only `schema_version`, `base_url`, `bond_id`, `role`,
+`source_id` and `token`. The host pins this import to `https://64.177.50.116`.
+Never paste its token into source, UI text, logs or a report. There is no token
+editor or provisioning button. Alternatively deliver the existing file over USB
+into the app's `Documents/phone-bond.json`; Connect validates and saves it to
+Keychain, then removes the device-side staging file. Keep the original private
+file in secure storage. This host does not import a Pi/operator credential.
+
+Connect polls every two seconds while waiting and every ten seconds while paired.
+Both saved-bond clients must poll the same bond within the backend's 20-second
+presence window. HTTP 202 means authenticated/waiting, not an open WSS or live
+depth. Network failures pause WSS/depth and retry while foreground; rejected credentials
+or a rotated session retain the bond but require Connect again. A rotated
+session currently stops the connection and requires Connect again. In-process
+WSS retries retain sender sequence/capture high-water marks. A fresh foreground
+or explicit connection gets a new boot binding and diagnostic clock epoch;
+credentials and old observations are never regenerated/replayed.
+
+### Diagnostic depth only
+
+Connect initially sends no depth. For an explicitly authorized stationary transport test, enable **Allow stationary
+diagnostic transport**, enable **Send diagnostic depth**, and start the Camera
+separately. The consent checkbox records permission to transmit; it makes no
+assertion about the Pi motor state and does not control GPIO. The app never arms or operates GPIO.
+The existing portrait summary is reused, including coverage/unknowns; the current
+preview produces at most about five new summaries per second. The unchanged
+sender caps wire sends at ten Hz; a five-Hz producer is not a ten-Hz measurement.
+No image, precise position, motor command or crossing permission is sent.
+
+A fixed local epoch is subtracted from original capture and sender/probe clocks;
+new captures must follow connection/readiness and remain within the diagnostic
+500 ms guard. Observed media/continuous-clock discrepancies over 100 ms fail this
+diagnostic run. Those guards are inherited bench assumptions, **not calibrated
+sensor capture-age uncertainty or receiver drift bounds**. Receiver capture-age
+eligibility remains unknown. Producer `ready` here means a fresh local diagnostic
+source only; it must not be treated as permission for physical guidance.
+
+Stop, unknown/degraded source, interruption and background invalidate depth
+permission synchronously and cancel the current socket. Actor queues are closed
+asynchronously; bytes already handed to the OS cannot be recalled. Independent
+receiver expiry remains required. Backgrounding also clears the depth opt-in and
+transport consent. Foreground recovery re-pairs for heartbeat transport;
+depth must be enabled again. No cached summary is restored.
+
+Routine tests never authenticate with a real saved bond. The native UI bench is
+opt-in using Swift define `CS013_NATIVE_PAIRING_BENCH`; diagnostic-depth actions
+also require `CS013_NATIVE_DEPTH_BENCH` after explicit operator authorization of that diagnostic run. `--connect-saved-phone` selects Connection and starts one explicit saved-
+bond connection at launch; it never enables depth. Optional launch argument
+`--phone-connection-probe` writes only the latest status, WSS boolean, send count,
+depth opt-in and unverified-age flags to `Documents/phone-connection-probe.json`.
+The streaming probe also records elapsed source/send spans, original-capture
+local delta maxima, successful clock-reply counts and foreground/camera booleans.
+These are diagnostic intervals, not raw uptime or calibrated drift evidence.
+It records no credentials, identities, depth values, absolute clock values, images or GPS.
+This local journal is diagnostic evidence, never a readiness input.
+
+Validation and current live status are recorded in
+`handoffs/CS-013-20261018-local-native-bond.md`. A successful SDK build or pairing
+must not be reported as verified real phone-to-Pi depth delivery or physical
+motor guidance. No clock/drift acceptance has been established by this change.
+
+### Authorized ongoing streaming launch
+
+`--stream-saved-phone` selects Connection, reuses the saved bond, starts the real
+camera and enables diagnostic depth for an explicitly authorized stationary test.
+It generates no bond and does not arm/disarm Pi outputs. The phone's idle timer is
+disabled only while diagnostic streaming is active; backgrounding/disconnect still
+stops depth and restores normal idle behavior. Returning from background requires
+a new explicit depth opt-in. Ordinary launches still default to disconnected.
+The operator's authorization to use connected motors is not recorded as evidence
+that they are disarmed or that physical guidance is safe.
+
+Measured send rate is the change in successfully completed native depth-send
+count divided by the phone's elapsed interval. Source rate is the change in fresh
+processed capture count divided by the corresponding original-capture span.
+Successful clock-reply counts prove sends only; Pi receipt, mapping uncertainty
+and drift/capture-age eligibility need independent receiver evidence. Zero clock
+replies is not a passed clock exchange. Unknown capture-age remains unknown even
+while the native socket sends live ARKit summaries.
+
+### Local chair/preview inspection
+
+`--target-inspection --stream-saved-phone --phone-connection-probe` opens Camera
+with a tappable yellow 1/9-width by 1/8-height inspection patch. Patch distributions
+compare all finite positive depth with retained high-confidence depth. Sector
+geometry records the actual pixel crop and viewport boundaries; the diagnostic
+1.25 m count is a reference for the near-chair experiment, not a new threshold.
+No RGB images or private credentials are written to the local probe.
+
+Inspection uses one bounded background job at most once per second, independently
+of production capture delivery. Its local snapshot includes `input_quality_age_ms`;
+patch values expire after two seconds and are never used for telemetry or readiness.
+The probe file is written at most once per second. An earlier synchronous inspection
+build was reported to crash/show a black camera and cycle WSS; disabling inspection
+restored real sends. No matching device crash report was found. Queue separation
+addresses the identified capture-path coupling, without proving a crash cause.
+
+Rendered marker tests cover both portrait quarter turns, identity, half turn and
+aspect-fill cropping. Synthetic production-processor cases demonstrate how low
+confidence near pixels can be excluded while a high confidence distant background
+keeps a sector numeric, and how fewer than 10% retained near pixels can miss the
+production percentile. These are explanations to test against a chair patch, not
+proof of the physical chair's cause. Thresholds and experimental drift settings
+remain unchanged.
+
+### Experimental geometric floor exclusion
+
+The native AR session now enables horizontal plane detection. Only current-frame
+ARKit anchors classified as floor are eligible; near-horizontal orientation and a
+camera at least 25 cm above that plane are required. The adapter unprojects each
+high-confidence depth pixel with the depth-scaled camera intrinsics and transforms
+it into the plane's coordinates. It excludes only points within a 2 cm slab and
+at least 5 cm inside the observed boundary. It does not remove a fixed bottom band
+or lower confidence thresholds. Table/seat/unclassified planes are not floor masks.
+
+Masked samples become non-finite before the unchanged sector processor, retaining
+its original ROI and coverage denominator. Floor-only or poorly covered sectors
+can become Unknown; missing observations never imply clear space. Very low
+obstacles within the experimental slab can be missed. Classification and plane
+accuracy are not physically validated safety guarantees.
+
+When floor geometry is unavailable, the original depth columns remain and the UI
+explicitly says “Floor not mapped.” No floor model is retained separately across
+tracking/lifecycle resets. `floor_filter` in the opt-in local probe contains raw
+pre-mask sector distances, current classified floor count, excluded pixel count
+and mask runtime. The inspection patch and `current_input_quality` describe raw
+input depth; transmitted and displayed sector summaries use the masked input.
+Floor filter behavior does not establish receiver capture-age or drift eligibility.

@@ -1,0 +1,9 @@
+{
+  "id": "CS-013-trash-can-patch-20261018",
+  "date": "2026-10-18",
+  "author": "michaelkrymski",
+  "task": "CS-013",
+  "summary": "Record trash-can patch confidence and range discrepancy locally",
+  "details": "Five patch snapshots retain 71.9–99.0% high-confidence pixels with identical all-confidence/retained p10, while whole-sector nearer pixels dominate distance. Operator estimates 3.5 ft but patch median is about 1.53 m; physical correspondence remains unresolved and controlled motion requested. No GitHub, credentials, motor controls, threshold or drift changes.",
+  "validation": "Measurement-only checkpoint: 40 completed native depth sends across 8.301798 s. Local snapshot evidence recorded; no new code tests."
+}
