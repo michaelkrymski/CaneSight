@@ -1,0 +1,9 @@
+{
+  "id": "MAC-MOUNT-EDGE-20261023",
+  "date": "2026-10-23",
+  "author": "michaelkrymski (AI-assisted)",
+  "task": "CS-013",
+  "summary": "Keep observed side depth available through small calibrated band edge losses",
+  "details": "Replace all-corners-inside sector rejection with explicit minimum 90% projected preview area. Clip sector polygons to the preview, use only real preview-visible source pixels, pad estimated unseen samples NaN/zero confidence in the unchanged processor denominator, and keep sectors below 90% wholly Unknown. Preserve physical neutral sector mapping, profile, range/confidence thresholds and wire contract. No receiver/motor/drift changes.",
+  "validation": "33 geometry/state tests pass including 1-degree edge loss and substantial-loss rejection; four existing processor integration cases pass. Signed iPhone build, strict signature, install and launch pass. Phone authenticated waiting for Pi with zero uncalibrated depth sends, awaiting fresh tracking/neutral capture after restart. Physical post-neutral edge-loss verification pending."
+}

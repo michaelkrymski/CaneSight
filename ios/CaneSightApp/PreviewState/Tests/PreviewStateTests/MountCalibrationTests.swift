@@ -115,9 +115,44 @@ final class MountCalibrationTests: XCTestCase {
         let n=camera.depthWidth*camera.depthHeight
         let result=CalibratedMountGeometry.select(profile:p,camera:camera,pose:pose,
             metres:Array(repeating:1,count:n),confidence:Array(repeating:2,count:n),floorIndices:[],height:1)
+        let fractions=try CalibratedMountGeometry.visibleFractions(p,camera:camera,pose:pose)
         for sector in 0..<3 {
-            if visible[sector] { XCTAssertTrue(result.metres[sector].contains { $0.isFinite }) }
-            else { XCTAssertTrue(result.metres[sector].allSatisfy { $0.isNaN }) }
+            if fractions[sector]>=CalibratedMountGeometry.minimumVisibleFraction {
+                XCTAssertTrue(result.metres[sector].contains { $0.isFinite })
+            } else { XCTAssertTrue(result.metres[sector].allSatisfy { $0.isNaN }) }
+            if fractions[sector]<0.999 {
+                XCTAssertGreaterThan(result.quality[sector]["offscreen_unknown_padding"] ?? 0,0)
+            }
+        }
+    }
+    func testTinyTiltKeepsSideMeasurementsAndPadsUnseenPixelsUnknown() throws {
+        let p=profile(MountRegion(y:0.2372,height:0.5568))
+        let pose=rotation([0,0,1],1)*neutral
+        let fractions=try CalibratedMountGeometry.visibleFractions(p,camera:camera,pose:pose)
+        XCTAssertTrue(fractions.allSatisfy { $0>=0.90 })
+        XCTAssertTrue(fractions.contains { $0<0.999 })
+        let n=camera.depthWidth*camera.depthHeight
+        let result=CalibratedMountGeometry.select(profile:p,camera:camera,pose:pose,
+            metres:Array(repeating:1,count:n),confidence:Array(repeating:2,count:n),floorIndices:[],height:1)
+        for sector in 0..<3 {
+            XCTAssertGreaterThan(result.metres[sector].filter { $0.isFinite }.count,32)
+            let missing=result.quality[sector]["offscreen_unknown_padding"] ?? 0
+            if missing>0 {
+                XCTAssertTrue(result.metres[sector].suffix(missing).allSatisfy { $0.isNaN })
+                XCTAssertTrue(result.confidence[sector].suffix(missing).allSatisfy { $0==0 })
+            }
+        }
+    }
+    func testSubstantialOffscreenLossKeepsAffectedSectorsEntirelyUnknown() throws {
+        let p=profile(MountRegion(y:0,height:1)),pose=rotation([0,0,1],30)*neutral
+        let fractions=try CalibratedMountGeometry.visibleFractions(p,camera:camera,pose:pose)
+        XCTAssertTrue(fractions.contains { $0<CalibratedMountGeometry.minimumVisibleFraction })
+        let n=camera.depthWidth*camera.depthHeight
+        let result=CalibratedMountGeometry.select(profile:p,camera:camera,pose:pose,
+            metres:Array(repeating:1,count:n),confidence:Array(repeating:2,count:n),floorIndices:[],height:1)
+        for sector in 0..<3 where fractions[sector]<CalibratedMountGeometry.minimumVisibleFraction {
+            XCTAssertTrue(result.metres[sector].allSatisfy { $0.isNaN })
+            XCTAssertTrue(result.confidence[sector].allSatisfy { $0==0 })
         }
     }
     func testBandHeightChangesAreExplicitAndPositionIsClamped() {

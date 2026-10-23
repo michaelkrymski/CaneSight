@@ -314,7 +314,10 @@ phone IMU does not distinguish a slipping mount from normal cane movement.
 
 Initial envelope: level floor only (normal within 3° of gravity), camera height
 0.3–2 m with change ≤10 cm from neutral; pitch change ≤15°, roll change ≤10°;
-measured slant ranges 0.25–4 m. A partial off-screen sector is entirely Unknown;
+measured slant ranges 0.25–4 m. A sector requires at least 90% of its projected area inside the preview.
+Smaller edge losses use only real visible pixels, with NaN/zero-confidence padding
+for the estimated unseen area in the coverage denominator; larger losses make
+the entire sector Unknown;
 a visible sector may remain usable. The preview draws the actual physical region
 projection, clipped to the real camera image. Ordinary supported tilt is not a
 reason to delete the saved mount profile. Unsupported height/angle/visibility

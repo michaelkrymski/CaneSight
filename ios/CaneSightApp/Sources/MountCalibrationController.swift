@@ -82,12 +82,14 @@ enum MountFrameProcessor {
         var selected=CalibratedMountGeometry.select(profile:chosen,camera:camera,pose:pose,
             metres:raw.metres,confidence:levels,floorIndices:Set(mask),height:height)
         let visible=(try? CalibratedMountGeometry.visibility(chosen,camera:camera,pose:pose)) ?? [false,false,false]
-        for sector in 0..<3 where !visible[sector] {
+        let fractions=(try? CalibratedMountGeometry.visibleFractions(chosen,camera:camera,pose:pose)) ?? [0,0,0]
+        let supported=fractions.map { $0>=CalibratedMountGeometry.minimumVisibleFraction }
+        for sector in 0..<3 where !supported[sector] {
             selected.metres[sector]=Array(repeating:.nan,count:selected.metres[sector].count)
             selected.confidence[sector]=Array(repeating:0,count:selected.confidence[sector].count)
         }
-        // A partly offscreen sector is wholly unknown; never extrapolate its unseen pixels.
-        out.lowPixels=visible.allSatisfy({ $0 }) ? selected.lowObstacleHighPixels : 0
+        // Low-target evidence requires all sectors to meet the documented visibility envelope.
+        out.lowPixels=supported.allSatisfy({ $0 }) ? selected.lowObstacleHighPixels : 0
         out.exclusions=selected.exclusions
         let counts=selected.metres.map(\.count),rows=counts.max() ?? 0
         guard rows>=32 else { out.problem="Too few pixels in selected region";return out }
@@ -99,7 +101,7 @@ enum MountFrameProcessor {
         out.diagnostics=["mask_applied":true,"classified_floor_planes":floors.count,
             "excluded_high_confidence_pixels":mask.count,"selected_sector_pixels":counts,
             "coverage_denominator_per_sector":packed.denominator,"packed_dimensions":[packed.width,packed.height],"summary_reason":out.summary!.reason.rawValue,"processing_ms":(CACurrentMediaTime()-started)*1000,
-            "low_obstacle_high_pixels":out.lowPixels,"fully_visible_sectors":visible,"sector_input_quality":selected.quality,
+            "low_obstacle_high_pixels":out.lowPixels,"fully_visible_sectors":visible,"visible_area_fraction":fractions,"supported_sectors":supported,"sector_input_quality":selected.quality,
             "selected_distance_m":out.summary!.sectors.map { $0.distanceMetres.map { $0 as Any } ?? NSNull() }]
         return out
     }

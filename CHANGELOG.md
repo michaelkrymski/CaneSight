@@ -1490,6 +1490,14 @@ Preserve Mac integration in a recoverable checkpoint and merge fetched solo main
 
 Validation: 31 geometry/profile/window tests, 4 processor integration cases, 10 pairing/fence tests, 257 repository tests and 145 backend tests (6 skips) passed; replay passed. Two Simulator UI cases passed separately after scroll/snapshot fixes. Signed physical builds/signatures/installs ran. Fixed tall-band packing dimension overflow; four real phone snapshots now produce approximately 2.33/2.34/2.49 m selected sectors with high-confidence depth beyond 2 m. Uncalibrated source sends zero depth packets; phone authenticated waiting for Pi. Full-band helper side/low/save/restart and joint receiver checks remain pending; no guidance or capture-age acceptance claimed.
 
+## 2026-10-23 — MAC-MOUNT-EDGE-20261023: Keep observed side depth available through small calibrated band edge losses
+
+Author: michaelkrymski (AI-assisted) · Task: CS-013
+
+Replace all-corners-inside sector rejection with explicit minimum 90% projected preview area. Clip sector polygons to the preview, use only real preview-visible source pixels, pad estimated unseen samples NaN/zero confidence in the unchanged processor denominator, and keep sectors below 90% wholly Unknown. Preserve physical neutral sector mapping, profile, range/confidence thresholds and wire contract. No receiver/motor/drift changes.
+
+Validation: 33 geometry/state tests pass including 1-degree edge loss and substantial-loss rejection; four existing processor integration cases pass. Signed iPhone build, strict signature, install and launch pass. Phone authenticated waiting for Pi with zero uncalibrated depth sends, awaiting fresh tracking/neutral capture after restart. Physical post-neutral edge-loss verification pending.
+
 ## 2026-10-23 — SOLO-WORKFLOW-LIDAR-PLAN-20261023: Replace team allocation gates with solo maintenance and plan calibrated cane LiDAR
 
 Author: michaelkrymski (AI-assisted) · Task: CS-001

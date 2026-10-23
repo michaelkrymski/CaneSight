@@ -125,8 +125,8 @@ public enum CalibratedMountGeometry {
         let a=angles(pose,camera:camera),n=angles(profile.neutral,camera:profile.camera)
         let roll=atan2(sin(a.y-n.y),cos(a.y-n.y))
         guard a.x.isFinite,roll.isFinite,abs(a.x-n.x)<=15 * .pi/180,abs(roll)<=10 * .pi/180 else { throw CalibrationError.angle }
-        let visible=try visibility(profile,camera:camera,pose:pose)
-        guard visible.contains(true) else { throw CalibrationError.outOfView }
+        let fractions=try visibleFractions(profile,camera:camera,pose:pose)
+        guard fractions.contains(where: { $0>=minimumVisibleFraction }) else { throw CalibrationError.outOfView }
     }
     /// Four corners of each actual sector's projected physical ray frustum.
     public static func projection(_ profile: MountProfile,camera: MountCamera,pose: simd_float3x3) throws -> [[SIMD2<Float>]] {
@@ -144,6 +144,38 @@ public enum CalibratedMountGeometry {
     public static func visibility(_ profile: MountProfile,camera: MountCamera,pose: simd_float3x3) throws -> [Bool] {
         try projection(profile,camera:camera,pose:pose).map { corners in
             corners.allSatisfy { $0.x>=(-0.00001) && $0.x<=1.00001 && $0.y>=(-0.00001) && $0.y<=1.00001 }
+        }
+    }
+    /// A sector may lose at most 10% of its projected area. Missing pixels are
+    /// represented by NaN padding, never inferred from the visible remainder.
+    public static let minimumVisibleFraction: Float = 0.90
+    public static func visibleFractions(_ profile: MountProfile,camera: MountCamera,pose: simd_float3x3) throws -> [Float] {
+        func area(_ points: [SIMD2<Float>]) -> Float {
+            guard points.count>=3 else { return 0 }
+            return abs(points.indices.reduce(Float(0)) { sum,i in
+                let a=points[i],b=points[(i+1)%points.count]
+                return sum+a.x*b.y-b.x*a.y
+            })/2
+        }
+        return try projection(profile,camera:camera,pose:pose).map { polygon in
+            let total=area(polygon)
+            guard total.isFinite,total>0.000001 else { return 0 }
+            var clipped=polygon
+            for (axis,bound,lower) in [(0,Float(0),true),(0,Float(1),false),(1,Float(0),true),(1,Float(1),false)] {
+                let input=clipped;clipped=[]
+                guard !input.isEmpty else { break }
+                for i in input.indices {
+                    let a=input[i],b=input[(i+1)%input.count]
+                    let insideA=lower ? a[axis]>=bound : a[axis]<=bound
+                    let insideB=lower ? b[axis]>=bound : b[axis]<=bound
+                    if insideA { clipped.append(a) }
+                    if insideA != insideB {
+                        let t=(bound-a[axis])/(b[axis]-a[axis])
+                        clipped.append(a+t*(b-a))
+                    }
+                }
+            }
+            return max(0,min(1,area(clipped)/total))
         }
     }
     public struct Selection: Sendable {
@@ -180,7 +212,8 @@ public enum CalibratedMountGeometry {
         var result=Selection()
         guard profile.valid,camera.valid,metres.count==camera.depthWidth*camera.depthHeight,
               confidence.count==metres.count else { return result }
-        let visible=(try? visibility(profile,camera:camera,pose:pose)) ?? [false,false,false]
+        let fractions=(try? visibleFractions(profile,camera:camera,pose:pose)) ?? [0,0,0]
+        let visible=fractions.map { $0>=minimumVisibleFraction }
         let toNeutral=simd_transpose(profile.neutral)*pose,r=profile.region
         let nk=profile.camera.k,nd=profile.camera.display
         func neutralViewport(_ p: SIMD3<Float>) -> SIMD2<Float>? {
@@ -194,7 +227,8 @@ public enum CalibratedMountGeometry {
             // unknown samples stay in coverage denominators.
             let ray=SIMD3<Float>((Float(x)/Float(camera.depthWidth)-camera.k[2])/camera.k[0],
                 -(Float(y)/Float(camera.depthHeight)-camera.k[3])/camera.k[1],-1)
-            guard let uv=neutralViewport(toNeutral*ray),uv.x>=r.x,uv.x<r.x+MountRegion.width,
+            guard let view=camera.viewport(ray),view.x>=0,view.x<=1,view.y>=0,view.y<=1,
+                  let uv=neutralViewport(toNeutral*ray),uv.x>=r.x,uv.x<r.x+MountRegion.width,
                   uv.y>=r.y,uv.y<r.y+r.height else { continue }
             let sector=min(2,Int((uv.x-r.x)/MountRegion.width*3)),point=ray*z,range=simd_length(point)
             let floor=floorIndices.contains(i)
@@ -222,6 +256,17 @@ public enum CalibratedMountGeometry {
                 result.exclusions.append([view.x,view.y,floor ? 2:1])
             }
         } }
+        // Account for unseen area conservatively in the unchanged processor's
+        // coverage denominator. No depth/confidence is created for this padding.
+        for sector in 0..<3 where fractions[sector]>0 && fractions[sector]<1 {
+            let count=result.metres[sector].count
+            let missing=Int(ceil(Float(count)*(1/fractions[sector]-1)))
+            if missing>0,missing<=camera.depthWidth*camera.depthHeight {
+                result.metres[sector].append(contentsOf:repeatElement(Float.nan,count:missing))
+                result.confidence[sector].append(contentsOf:repeatElement(UInt8(0),count:missing))
+                result.quality[sector]["offscreen_unknown_padding"]=missing
+            }
+        }
         return result
     }
 }
