@@ -1,0 +1,168 @@
+{
+  "branch": "codex/mac-lidar-calibration",
+  "accepted_main_fetched": "33aee60",
+  "original_mac_base": "c34520b60e85d6cd4b5efe18c94659ee236208c4",
+  "preservation_commit": "2f6285d",
+  "merge_checkpoint": "7c4083d",
+  "schema_changes": false,
+  "receiver_changes": false,
+  "production_clock_drift_configured": false,
+  "motor_commands_issued": false,
+  "new_helper_profile_format": 2,
+  "geometry_decision": "Operator clarified old 20x40 inspection patch was too tiny; use full-width band, three preview thirds, explicit height control.",
+  "software_checks": {
+    "preview_geometry": {
+      "tests": 31,
+      "failures": 0,
+      "hardware": false
+    },
+    "pairing_wire_fence": {
+      "tests": 10,
+      "failures": 0
+    },
+    "repository": {
+      "tests": 257,
+      "failures": 0,
+      "note": "Rerun selecting full Xcode DEVELOPER_DIR after initial CLT XCTest import failure."
+    },
+    "backend": {
+      "tests": 145,
+      "skipped": 6,
+      "failures": 0
+    },
+    "simulator_ui": {
+      "tests": 2,
+      "failures": 0,
+      "cases": [
+        "mount invalidation persists background/relaunch",
+        "cannot save without real measurements"
+      ],
+      "limits": "UI/selector fixes rerun separately, no synthetic calibration eligibility or sensor injection."
+    },
+    "signed_iphone_build": true,
+    "strict_signature": true,
+    "local_replay": true,
+    "processor_regressions": {
+      "swift_tests": 4,
+      "failures": 0,
+      "permanent_wrapper_passed": true,
+      "hardware": false
+    }
+  },
+  "device_observations": {
+    "before_final_install": {
+      "status": "Phone authenticated \u00b7 waiting for Pi",
+      "camera_status": "Stopped; depth unknown and check reset.",
+      "mount_calibration": {
+        "status": "Pose outside supported gravity geometry",
+        "eligible_locally": false,
+        "low_count": 0,
+        "region": [
+          0,
+          0.23721063137054443,
+          1,
+          0.5568287372589111
+        ],
+        "wizard_step": "idle",
+        "stable_frames": 0,
+        "side_counts": [
+          0,
+          0,
+          0
+        ],
+        "profile_loaded": false
+      }
+    },
+    "initial_uncalibrated_depth_sends": 0,
+    "initial_uncalibrated_eligible": false,
+    "initial_diagnostic_ranges_m": [
+      2.547914981842041,
+      3.4577889442443848,
+      3.1888442039489746
+    ],
+    "initial_ranges_limit": "Earlier narrow diagnostic region, unconfirmed; not final full-band acceptance or calibrated range accuracy.",
+    "post_packing_fix": {
+      "snapshots": 4,
+      "status": "Phone authenticated \u00b7 waiting for Pi",
+      "depth_sends": 0,
+      "profile_loaded": false,
+      "summary_reasons": [
+        "processedFrame",
+        "processedFrame",
+        "processedFrame",
+        "processedFrame"
+      ],
+      "selected_distance_m": [
+        [
+          2.3278422355651855,
+          2.3399198055267334,
+          2.489753246307373
+        ],
+        [
+          2.3278844356536865,
+          2.3406546115875244,
+          2.491006374359131
+        ],
+        [
+          2.328228235244751,
+          2.341857671737671,
+          2.491018056869507
+        ],
+        [
+          2.3286399841308594,
+          2.341343879699707,
+          2.491638422012329
+        ]
+      ],
+      "packed_dimensions": [
+        [
+          96,
+          215
+        ],
+        [
+          96,
+          219
+        ],
+        [
+          96,
+          219
+        ],
+        [
+          96,
+          215
+        ]
+      ],
+      "high_confidence_over_2m_per_sector": [
+        [
+          6864,
+          6864,
+          6864
+        ],
+        [
+          7007,
+          6864,
+          6864
+        ],
+        [
+          7007,
+          6864,
+          6864
+        ],
+        [
+          6864,
+          6864,
+          6864
+        ]
+      ],
+      "limit": "Local setup diagnostics, not transmitted calibrated observations; no independent distance accuracy calibration."
+    }
+  },
+  "backend_public_health_http": 200,
+  "physical_acceptance": {
+    "narrow_neutral_capture": "operator reported LEFT prompt; obsolete geometry not credited to full-band profile",
+    "full_band_side_low_save_restart_verified": false,
+    "far_wall_failure_diagnosed": true,
+    "capture_age_receiver_eligible": "unknown",
+    "reason": "Tall-band packing exceeded processor dimension limit; bounded tile packing now yields numeric 2.33/2.34/2.49 m sectors in four real phone snapshots. Full-band helper side/low/save/restart checks remain pending. Phone authenticated waiting for Pi; zero depth sends before confirmed calibration."
+  }
+}

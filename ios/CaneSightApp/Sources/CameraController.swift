@@ -14,6 +14,7 @@ import CaneSightARLifecycle
 
 @MainActor final class CameraController: ObservableObject, DepthLifecycleEvents {
     let accessible: StatusController
+    let calibration=MountCalibrationController()
     @Published private(set) var summary: DepthSectorSummary?
     @Published private(set) var floorStatus = "Floor not mapped; using full depth columns."
     private(set) var floorDiagnostics: [String:Any] = [:]
@@ -52,7 +53,7 @@ import CaneSightARLifecycle
     private var lastSource: Double?
     private var timer: Timer?
     private var orientationObserver: NSObjectProtocol?
-    private lazy var capture = CameraCapture(receive: { [weak self] event in self?.receive(event) },
+    private lazy var capture = CameraCapture(device:calibration.device,receive: { [weak self] event in self?.receive(event) },
         receiveQuality: { [weak self] quality in self?.receiveQuality(quality) })
     private var qualityCapture: Double?
     var qualityAgeMS: Double? { qualityCapture.map { max(0, (CACurrentMediaTime() - $0) * 1000) } }
@@ -66,6 +67,8 @@ import CaneSightARLifecycle
 
     init(statusController: StatusController) {
         accessible = statusController
+        calibration.onInvalidate = { [weak self] in self?.clearCalibrationSource() }
+        calibration.onChange = { [weak self] in self?.configureCalibrationSource() }
         UIDevice.current.beginGeneratingDeviceOrientationNotifications()
         orientationObserver = NotificationCenter.default.addObserver(
             forName: UIDevice.orientationDidChangeNotification, object: nil, queue: .main) { [weak self] _ in
@@ -74,6 +77,20 @@ import CaneSightARLifecycle
         portrait = UIDevice.current.orientation == .portrait
     }
 
+    private func clearCalibrationSource() {
+        accessible.invalidateDepth(.unknown)
+        epoch=UUID();capture.stop();summary=nil;sample=nil;distances=[nil,nil,nil]
+        inputQuality=[];floorDiagnostics=[:];clearDepthDetails();resetCheck()
+        calibration.resetTransient()
+    }
+    private func configureCalibrationSource() {
+        clearCalibrationSource()
+        if active && requested {
+            capture.begin(epoch,token:accessible.depthToken,profile:calibration.geometryProfile,region:calibration.region)
+        }
+    }
+    func beginMountCalibration() { calibration.begin();if !requested { start() } }
+    func mountMoved() { calibration.moved();if !requested { start() } }
     private func updateOrientation(autoRestart: Bool = true) {
         let value = UIDevice.current.orientation == .portrait
         guard value != portrait else { return }
@@ -119,9 +136,10 @@ import CaneSightARLifecycle
     }
     private func run() {
         halt("Starting; waiting for portrait depth.")
-        capture.begin(epoch, token: accessible.depthToken)
+        capture.begin(epoch, token: accessible.depthToken,profile:calibration.geometryProfile,region:calibration.region)
         session.delegate=capture; session.delegateQueue=capture.callbacks
         let configuration=ARWorldTrackingConfiguration()
+        configuration.worldAlignment = .gravity
         configuration.frameSemantics.insert(.sceneDepth)
         configuration.planeDetection = [.horizontal]
         session.run(configuration,options: [.resetTracking,.removeExistingAnchors])
@@ -131,10 +149,11 @@ import CaneSightARLifecycle
     }
     private func halt(_ reason: String, pause: Bool=true, depthReason: DepthStatus = .unknown) {
         accessible.invalidateDepth(depthReason)
+        calibration.trackingReset()
         epoch=UUID(); capture.stop()
         if pause { session.pause() }
         timer?.invalidate(); timer=nil
-        sample=nil; image=nil; distances=[nil,nil,nil]; summary=nil; inputQuality=[]; floorDiagnostics=[:]; floorStatus="Floor unavailable; waiting for fresh tracking."; clearDepthDetails(); lastSource=nil; lastLoss=0
+        sample=nil; image=nil; distances=[nil,nil,nil]; if summary != nil { summary=nil }; inputQuality=[]; floorDiagnostics=[:]; floorStatus="Floor unavailable; waiting for fresh tracking."; clearDepthDetails(); lastSource=nil; lastLoss=0
         resetCheck(); status=reason
     }
     private func clearDepthDetails() {
@@ -159,7 +178,7 @@ import CaneSightARLifecycle
         guard let sample else { return }
         let now=CACurrentMediaTime()
         if !now.isFinite || now < sample.receipt || now-sample.receipt >= 0.5 {
-            accessible.invalidateDepth(.stale); self.sample=nil; image=nil; distances=[nil,nil,nil]; summary=nil; inputQuality=[]; floorDiagnostics=[:]; floorStatus="Floor unavailable; waiting for fresh tracking."; clearDepthDetails(); resetCheck()
+            accessible.invalidateDepth(.stale); calibration.resetTransient(); self.sample=nil; image=nil; distances=[nil,nil,nil]; if summary != nil { summary=nil }; inputQuality=[]; floorDiagnostics=[:]; floorStatus="Floor unavailable; waiting for fresh tracking."; clearDepthDetails(); resetCheck()
             status="No recent frame; depth unknown and check reset."
         }
     }
@@ -171,51 +190,47 @@ import CaneSightARLifecycle
         }
         if event.loss != lastLoss { check.reset(); lastLoss=event.loss }
         guard let value=event.sample else {
+            calibration.trackingReset()
             accessible.invalidateDepth(.unknown)
-            sample=nil; image=nil; distances=[nil,nil,nil]; summary=nil; inputQuality=[]; floorDiagnostics=[:]; floorStatus="Floor unavailable; waiting for fresh tracking."; clearDepthDetails(); syncProgress()
+            sample=nil; image=nil; distances=[nil,nil,nil]; if summary != nil { summary=nil }; inputQuality=[]; floorDiagnostics=[:]; floorStatus="Floor unavailable; waiting for fresh tracking."; clearDepthDetails(); syncProgress()
             status="Waiting for valid depth/tracking; check reset."
             return
         }
         let now=CACurrentMediaTime()
         guard now.isFinite, now >= value.receipt, now-value.receipt < 0.5,
-              let source=value.filteredSummary.captureTimestampSeconds,
+              let source=value.observation.summary.captureTimestampSeconds,
               lastSource.map({ source > $0 }) ?? true else {
             accessible.invalidateDepth(.unknown)
-            sample=nil; image=nil; distances=[nil,nil,nil]; summary=nil; inputQuality=[]; floorDiagnostics=[:]; floorStatus="Floor unavailable; waiting for fresh tracking."; clearDepthDetails(); resetCheck()
+            sample=nil; image=nil; distances=[nil,nil,nil]; if summary != nil { summary=nil }; inputQuality=[]; floorDiagnostics=[:]; floorStatus="Floor unavailable; waiting for fresh tracking."; clearDepthDetails(); resetCheck()
             status="Delayed frame; depth unknown and check reset."; return
         }
-        let result=value.filteredSummary
-        let sectors=DisplaySectors(imageLeft: result.sectors[0].distanceMetres,
-            imageCenter: result.sectors[1].distanceMetres, imageRight: result.sectors[2].distanceMetres)
-        guard accessible.showLocalPreview(sectors, sourceMilliseconds: source*1000,
-            receiptMilliseconds: value.receipt*1000, token: value.displayToken) else {
+        lastSource=source;sample=value;image=value.image
+        calibration.observe(value.mountFrame,timestamp:source)
+        // A callback may have replaced the source epoch while observing this frame.
+        guard epoch == event.epoch else { return }
+        floorDiagnostics=value.mountFrame.diagnostics
+        floorStatus=value.mountFrame.problem ?? "Current level-floor geometry supported"
+        guard calibration.eligible,let result=value.mountFrame.summary else {
+            if summary != nil { summary=nil }
+            distances=[nil,nil,nil]
             accessible.invalidateDepth(.unknown)
-            sample=nil; image=nil; distances=[nil,nil,nil]; summary=nil; inputQuality=[]; floorDiagnostics=[:]; floorStatus="Floor unavailable; waiting for fresh tracking."; clearDepthDetails(); resetCheck()
-            status="Waiting for a new display frame."; return
+            status=calibration.message
+            clearDepthDetails()
+            return
         }
-        floorDiagnostics=value.floorDiagnostics
-        let removed=value.floorDiagnostics["excluded_high_confidence_pixels"] as? Int ?? 0
-        let mapped=value.floorDiagnostics["mask_applied"] as? Bool ?? false
-        floorStatus=mapped ? "Floor mapped · \(removed) floor pixels excluded." : "Floor not mapped; using full depth columns."
-        lastSource=source; sample=value; image=value.image; summary=result
-        distances=result.sectors.map(\.distanceMetres)
-        let configuration = try! DepthSectorConfiguration()
+        let sectors=DisplaySectors(imageLeft:result.sectors[0].distanceMetres,
+            imageCenter:result.sectors[1].distanceMetres,imageRight:result.sectors[2].distanceMetres)
+        guard accessible.showLocalPreview(sectors,sourceMilliseconds:source*1000,
+            receiptMilliseconds:value.receipt*1000,token:value.displayToken) else {
+            if summary != nil { summary=nil };distances=[nil,nil,nil]
+            accessible.invalidateDepth(.unknown);return
+        }
+        summary=result;distances=result.sectors.map(\.distanceMetres)
         depthDetails=result.sectors.map { sector in
-            let coverage = Int((sector.validFraction ?? 0) * 100)
-            switch sector.evidence {
-            case .measured:
-                return "High-confidence depth: \(coverage)% of this column."
-            case .insufficientCoverage:
-                let minimum = Int(configuration.minimumValidFraction * 100)
-                return "Not enough high-confidence depth: \(coverage)%; need \(minimum)%."
-            case .insufficientSamples:
-                return "Too few usable depth samples: \(sector.validSamples); need \(configuration.minimumValidSamples)."
-            case .unavailable:
-                return "Depth unavailable for this column."
-            }
+            "Selected region high-confidence coverage: \(Int((sector.validFraction ?? 0)*100))%; \(sector.evidence.rawValue)."
         }
         check.observeGeometry(value.observation.geometry); syncProgress()
-        status=check.complete ? "Portrait target check complete for this session." : "Live portrait view; repeat target check after remounting."
+        status="Calibrated region live · left / center / right obstacle locations"
     }
     func setApplicationActive(_ value: Bool) { setActive(value) }
     func setInterrupted(_ value: Bool) {
@@ -232,7 +247,7 @@ import CaneSightARLifecycle
     func record() {
         guard let sample else { status="Need a new valid frame."; return }
         do {
-            try check.record(summary: sample.filteredSummary, geometry: sample.observation.geometry,
+            try check.record(summary: sample.mountFrame.summary ?? sample.observation.summary, geometry: sample.observation.geometry,
                              receipt: sample.receipt,now: CACurrentMediaTime())
             syncProgress()
             status=check.complete ? "Portrait target check complete for this session." : "Recorded. Keep the phone fixed; follow the next target prompt."
@@ -246,8 +261,7 @@ import CaneSightARLifecycle
 struct CameraSample: @unchecked Sendable {
     let observation: PortraitObservation
     let image: CGImage
-    let filteredSummary: DepthSectorSummary
-    let floorDiagnostics: [String:Any]
+    let mountFrame: CalibratedCameraFrame
     let receipt: Double
     let displayToken: DepthDisplayToken
 }
@@ -282,16 +296,19 @@ final class CameraCapture: NSObject, ARSessionDelegate, @unchecked Sendable {
     private var scheduled=false
     private var loss: UInt64=0
     private var next: Double=0
+    private var mountProfile: MountProfile?
+    private var mountRegion=MountRegion()
+    private let device: String
     private var diagnosticsEnabled = ProcessInfo.processInfo.arguments.contains("--sector-quality-probe") ||
         ProcessInfo.processInfo.arguments.contains("--target-inspection")
     func setDiagnostics(_ enabled: Bool) { lock.withLock { diagnosticsEnabled = enabled } }
     private let receive: @MainActor @Sendable (CameraEvent)->Void
-    init(receive: @escaping @MainActor @Sendable (CameraEvent)->Void,
+    init(device: String,receive: @escaping @MainActor @Sendable (CameraEvent)->Void,
          receiveQuality: @escaping @MainActor @Sendable (CameraQuality)->Void) {
-        self.receive=receive; self.receiveQuality=receiveQuality
+        self.device=device; self.receive=receive; self.receiveQuality=receiveQuality
     }
-    func begin(_ value: UUID, token: DepthDisplayToken) {
-        lock.lock(); epoch=value; displayToken=token; loss=0; next=0; lock.unlock()
+    func begin(_ value: UUID, token: DepthDisplayToken,profile: MountProfile?,region: MountRegion) {
+        lock.lock(); mountProfile=profile;mountRegion=region;epoch=value; displayToken=token; loss=0; next=0; lock.unlock()
     }
     func updateDisplayToken(_ value: DepthDisplayToken) {
         lock.lock(); displayToken=value; lock.unlock()
@@ -309,7 +326,7 @@ final class CameraCapture: NSObject, ARSessionDelegate, @unchecked Sendable {
         while true {
             lock.lock()
             guard let input=pending else { working=false; lock.unlock(); return }
-            pending=nil; let current=epoch==input.1; lock.unlock()
+            pending=nil; let current=epoch==input.1; let profile=mountProfile,region=mountRegion;lock.unlock()
             guard current else { continue }
             var sample: CameraSample?
             if let observation=try? PortraitDepth.process(input.0) {
@@ -324,9 +341,8 @@ final class CameraCapture: NSObject, ARSessionDelegate, @unchecked Sendable {
                     emit(nil,epoch:input.1); continue
                 }
                 if let image=context.createCGImage(source.transformed(by: pixels),from: CGRect(x: 0,y: 0,width: 180,height: 320)) {
-                    let floor=Self.filterFloor(input.0, observation:observation)
-                    sample=CameraSample(observation: observation,image: image,filteredSummary:floor.0,
-                        floorDiagnostics:floor.1,receipt: input.2,displayToken: input.3)
+                    let mount=MountFrameProcessor.process(input.0,observation:observation,profile:profile,region:region,device:device)
+                    sample=CameraSample(observation:observation,image:image,mountFrame:mount,receipt:input.2,displayToken:input.3)
                     // Diagnostics own one bounded slot on a separate low-priority queue.
                     // Never delay the frame delivery or production freshness fence.
                     let inspect = lock.withLock { () -> Bool in
@@ -345,44 +361,6 @@ final class CameraCapture: NSObject, ARSessionDelegate, @unchecked Sendable {
             }
             emit(sample,epoch: input.1)
         }
-    }
-    /// Current-frame geometry only; no stored floor model survives lifecycle changes.
-    private static func filterFloor(_ frame: ARFrame, observation: PortraitObservation) -> (DepthSectorSummary,[String:Any]) {
-        let anchors: [ARPlaneAnchor] = frame.anchors.compactMap { $0 as? ARPlaneAnchor }
-        let floors: [ARPlaneAnchor] = anchors.filter { plane in
-            guard plane.alignment == .horizontal, plane.classification == .floor else { return false }
-            let upright = abs(plane.transform.columns.1.y) > Float(0.996)
-            let cameraHeight = frame.camera.transform.columns.3.y - plane.transform.columns.3.y
-            return upright && cameraHeight > Float(0.25)
-        }
-        var info:[String:Any] = ["classified_floor_planes":floors.count,"excluded_high_confidence_pixels":0,"mask_applied":false,
-            "raw_sector_distance_m":observation.summary.sectors.map { $0.distanceMetres.map { $0 as Any } ?? NSNull() }]
-        guard !floors.isEmpty, floors.count <= 8, let depth=frame.sceneDepth, let confidence=depth.confidenceMap,
-              let raw=try? DepthPixelBufferReader.copyFrame(depth:depth.depthMap,confidence:confidence,
-                captureTimestampSeconds:frame.timestamp,mode:.live,tracking:.normal),let levels=raw.confidence else {
-            return (observation.summary,info)
-        }
-        let resolution=frame.camera.imageResolution, k=frame.camera.intrinsics
-        let sx=Float(raw.width)/Float(resolution.width), sy=Float(raw.height)/Float(resolution.height)
-        let planes=floors.map { anchor in
-            FloorSurfaceMask.Plane(cameraToPlane:simd_inverse(anchor.transform)*frame.camera.transform,
-                boundary:anchor.geometry.boundaryVertices.map { SIMD2<Float>($0.x,$0.z) })
-        }
-        let maskStarted=CACurrentMediaTime()
-        let indices=FloorSurfaceMask.indices(width:raw.width,height:raw.height,metres:raw.metres,confidence:levels,
-            intrinsics:SIMD4(k.columns.0.x*sx,k.columns.1.y*sy,k.columns.2.x*sx,k.columns.2.y*sy),planes:planes)
-        var masked=raw.metres
-        for index in indices { masked[index] = .nan }
-        let filtered=DepthFrame(width:raw.width,height:raw.height,metres:masked,confidence:levels,
-            captureTimestampSeconds:raw.captureTimestampSeconds,mode:raw.mode,tracking:raw.tracking)
-        info["excluded_high_confidence_pixels"]=indices.count
-        info["mask_processing_ms"]=(CACurrentMediaTime()-maskStarted)*1000
-        // Original ROI and coverage denominator retained: floor-only can become Unknown.
-        let result=(try? observation.geometry.mapping.process(filtered)) ??
-            DepthSectorSummary.unavailable(mode:raw.mode,captureTimestampSeconds:raw.captureTimestampSeconds,reason:.invalidDimensions)
-        info["mask_applied"]=true
-        info["filtered_sector_distance_m"]=result.sectors.map { $0.distanceMetres.map { $0 as Any } ?? NSNull() }
-        return (result,info)
     }
     /// Optional read-only histogram. Reuses the exact display permutation/crop;
     /// never changes confidence, distances, thresholds or outbound observations.

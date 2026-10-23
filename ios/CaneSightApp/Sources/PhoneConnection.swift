@@ -130,13 +130,13 @@ private struct SectorQualityTally {
         }
     }
     private var lastProbeWrite: Double = -.infinity
-    private func recordProbe() {
+    private func recordProbe(force: Bool=false) {
         guard ProcessInfo.processInfo.arguments.contains("--phone-connection-probe"),
               let folder = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
         // Bounded local diagnostics; no identities, credentials, images or location.
         // Spatial measurements are independently sampled and never readiness inputs.
         let now=CACurrentMediaTime()
-        guard now-lastProbeWrite >= 1 else { return }
+        guard force || now-lastProbeWrite >= 1 else { return }
         lastProbeWrite=now
         let value: [String: Any] = ["status": message, "wss_connected": connected,
             "depth_sends": sentDepth, "diagnostic_depth_enabled": diagnosticDepth,
@@ -149,6 +149,7 @@ private struct SectorQualityTally {
             "local_clock_observations": clockChecks, "max_media_continuous_discrepancy_ms": clockMaxMismatchMS,
             "sector_quality": sectorQuality.mapValues { $0.snapshot }, "all_three_numeric_captures": allNumericCaptures,
             "floor_filter": camera?.floorDiagnostics ?? [:],
+            "mount_calibration":camera?.calibration.diagnostic ?? [:],
             "current_input_quality": camera?.inputQuality ?? [],
             "input_quality_age_ms": camera?.qualityAgeMS.map { $0 as Any } ?? NSNull(),
             "target_inspection": camera?.inspectionSnapshot ?? [:],
@@ -235,6 +236,7 @@ private struct SectorQualityTally {
         do {
             while !Task.isCancelled, epoch == generation, active, requested {
                 senderElapsedMS = try clock.now()
+                recordProbe() // Also refresh calibration progress while waiting for peer, without emitting wire metadata.
                 if ContinuousClock.now >= nextPoll {
                     message = client == nil ? "Pairing with backend…" : message
                     let grant: PhoneSession?
@@ -329,7 +331,7 @@ private struct SectorQualityTally {
                     message = "Backend connection failed (network code \(network.code.rawValue)) · reconnect required"
                 } else { message = "Connection stopped · reconnect required; saved bond retained" }
                 requested = false; diagnosticDepth = false; connected = false
-                recordProbe()
+                recordProbe(force:true)
             }
         }
         fence.invalidate(end: true)

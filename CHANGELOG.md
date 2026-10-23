@@ -1482,6 +1482,14 @@ Add ten synthetic cross-component isolation cases, a fixed 43-case QA runner wit
 
 Validation: 43 Python campaign cases and 15 portable GPS Swift tests passed with no skips/failures. Strict Swift concurrency complete and warnings as errors. Checked publishing runs current repository checks. Native device/permission/provider/transport/audio acceptance remains explicitly unverified; task is not Done.
 
+## 2026-10-23 — MAC-MOUNT-CALIBRATION-20261023: Add persistent helper mount calibration and gravity-compensated obstacle sectors
+
+Author: michaelkrymski (AI-assisted) · Task: CS-013
+
+Preserve Mac integration in a recoverable checkpoint and merge fetched solo main. Locate original debug patch; following explicit operator correction, use full-width yellow band divided into preview thirds with explicit vertical/height setup. Add version-2 confirmed profiles, stable/physical side/low-target wizard, atomic source invalidation, gravity-referenced yaw-following physical ROI, current floor/height envelope and offscreen unknowns. Reuse private bond, native v1 summaries and original capture/clock provenance. Add local far-depth rejection reasons and remove calibration's unnecessary demand for measurable unknown background. No packet/receiver or motor changes; no drift bound configured.
+
+Validation: 31 geometry/profile/window tests, 4 processor integration cases, 10 pairing/fence tests, 257 repository tests and 145 backend tests (6 skips) passed; replay passed. Two Simulator UI cases passed separately after scroll/snapshot fixes. Signed physical builds/signatures/installs ran. Fixed tall-band packing dimension overflow; four real phone snapshots now produce approximately 2.33/2.34/2.49 m selected sectors with high-confidence depth beyond 2 m. Uncalibrated source sends zero depth packets; phone authenticated waiting for Pi. Full-band helper side/low/save/restart and joint receiver checks remain pending; no guidance or capture-age acceptance claimed.
+
 ## 2026-10-23 — SOLO-WORKFLOW-LIDAR-PLAN-20261023: Replace team allocation gates with solo maintenance and plan calibrated cane LiDAR
 
 Author: michaelkrymski (AI-assisted) · Task: CS-001

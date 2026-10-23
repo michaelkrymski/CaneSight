@@ -202,6 +202,38 @@ final class HostUITests: XCTestCase {
     }
 
 #if targetEnvironment(simulator)
+    @MainActor func testMountSetupCannotSaveWithoutRealMeasurements() {
+        let app=XCUIApplication();app.launch()
+        let calibrate=app.buttons["calibrateMount"];reveal(calibrate,in:app)
+        XCTAssertTrue(calibrate.waitForExistence(timeout:10));calibrate.tap()
+        let capture=app.buttons["captureNeutralMount"];reveal(capture,in:app)
+        XCTAssertTrue(capture.exists);XCTAssertFalse(capture.isEnabled)
+        let helper=app.switches["mountHelperPresent"];reveal(helper,in:app)
+        helper.coordinate(withNormalizedOffset:CGVector(dx:0.9,dy:0.5)).tap()
+        reveal(capture,in:app);XCTAssertTrue(capture.isEnabled);capture.tap()
+        XCTAssertFalse(app.buttons["saveMountCalibration"].exists)
+        let status=app.staticTexts["mountCalibrationStatus"];reveal(status,in:app)
+        XCTAssertTrue(status.waitForExistence(timeout:5))
+        XCTAssertTrue(status.label.contains("fresh depth"))
+        let moved=app.buttons["mountMoved"];reveal(moved,in:app);moved.tap()
+        let profile=app.staticTexts["mountProfileStatus"];reveal(profile,in:app)
+        XCTAssertTrue(profile.label.contains("required"))
+        for i in 0..<3 {
+            let distance=app.staticTexts["distance\(i)"];reveal(distance,in:app)
+            XCTAssertEqual(distance.label.split(separator:",").last?.trimmingCharacters(in:.whitespaces),"Unknown")
+        }
+    }
+    @MainActor func testMountInvalidationStaysRequiredAcrossBackgroundAndRelaunch() {
+        let app=XCUIApplication();app.launch()
+        let moved=app.buttons["mountMoved"];reveal(moved,in:app)
+        XCTAssertTrue(moved.waitForExistence(timeout:10));moved.tap()
+        XCUIApplication(bundleIdentifier:"com.apple.springboard").activate();app.activate()
+        let status=app.staticTexts["mountProfileStatus"];reveal(status,in:app)
+        XCTAssertTrue(status.label.contains("required"))
+        app.terminate();app.launch();reveal(status,in:app)
+        XCTAssertTrue(status.label.contains("required"))
+        XCTAssertFalse(app.buttons["saveMountCalibration"].exists)
+    }
     @MainActor func testUnsupportedCameraShowsUnavailable() {
         let app=XCUIApplication(); app.launch()
         XCTAssertTrue(text(row("hardwareSupport",in:app)).contains("Unavailable"))
@@ -241,8 +273,16 @@ final class HostUITests: XCTestCase {
     }
     @MainActor private func reveal(_ element:XCUIElement,in app:XCUIApplication) {
         if element.exists && element.isHittable { return }
-        for _ in 0..<5 { app.swipeUp(); if element.exists && element.isHittable { return } }
-        for _ in 0..<5 { app.swipeDown(); if element.exists && element.isHittable { return } }
+        for _ in 0..<8 {
+            app.coordinate(withNormalizedOffset:CGVector(dx:0.04,dy:0.8)).press(forDuration:0.05,
+                thenDragTo:app.coordinate(withNormalizedOffset:CGVector(dx:0.04,dy:0.25)))
+            if element.exists && element.isHittable { return }
+        }
+        for _ in 0..<8 {
+            app.coordinate(withNormalizedOffset:CGVector(dx:0.04,dy:0.25)).press(forDuration:0.05,
+                thenDragTo:app.coordinate(withNormalizedOffset:CGVector(dx:0.04,dy:0.8)))
+            if element.exists && element.isHittable { return }
+        }
     }
     @MainActor private func waitForMeasurement(_ app:XCUIApplication)->Bool {
         let measured=NSPredicate { _,_ in

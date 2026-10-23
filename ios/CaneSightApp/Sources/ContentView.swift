@@ -36,37 +36,10 @@ struct CameraView: View {
             Section("Camera & LiDAR") {
                 LabeledContent("Hardware support",value: camera.supported ? "Scene depth supported" : "Unavailable")
                     .accessibilityIdentifier("hardwareSupport")
-                ZStack {
-                    Color.black
-                    if let image=camera.image { Image(decorative: image,scale: 1).resizable() }
-                    HStack(spacing: 0) { ForEach(0..<3) { _ in Rectangle().stroke(.white,lineWidth: 1) } }
-                    if camera.inspectionEnabled {
-                        Rectangle().stroke(.yellow,lineWidth:2).frame(width:20,height:40)
-                            .position(x:CGFloat(camera.inspectionColumn)*20+10,y:CGFloat(camera.inspectionRow)*40+20)
-                    }
-                }.frame(width: 180,height: 320)
-                    .accessibilityLabel("Portrait camera preview; three vertical depth columns")
-                    .contentShape(Rectangle())
-                    .gesture(DragGesture(minimumDistance:0).onChanged { value in
-                        guard camera.inspectionEnabled else { return }
-                        camera.inspectionColumn=max(0,min(8,Int(value.location.x/20)))
-                        camera.inspectionRow=max(0,min(7,Int(value.location.y/40)))
-                    })
-                    .frame(maxWidth:.infinity)
-                Toggle("Inspect target patch",isOn:$camera.inspectionEnabled)
-                if camera.inspectionEnabled {
-                    Text("Tap the target in the preview. Yellow patch is diagnostic only; it does not change the transmitted columns.").font(.caption)
-                    let patch=camera.inspectionSnapshot
-                    if let total=patch["total_samples"] as? Int, let high=patch["positive_finite_high"] as? Int {
-                        Text("Patch high confidence: \(high)/\(total) pixels")
-                        if let all=patch["all_confidence"] as? [String:Any], let filtered=patch["high_only"] as? [String:Any] {
-                            Text("Patch 10th percentile · all confidence: \(metres(all["p10_m"])) · high only: \(metres(filtered["p10_m"]))").font(.caption)
-                        }
-                    }
-                }
+                MountCalibrationPreview(camera:camera,mount:camera.calibration)
                 Text(camera.status).accessibilityIdentifier("captureStatus")
                 Text(camera.floorStatus).font(.caption)
-                Text("Floor exclusion is experimental; very low obstacles can be missed. Unknown does not mean clear.").font(.caption)
+
                 Button {
                     camera.requested ? camera.stop() : camera.start()
                 } label: {
@@ -78,7 +51,7 @@ struct CameraView: View {
                     .accessibilityIdentifier("captureToggle")
                 Button("Camera permission settings") { camera.openSettings() }
             }
-            Section("Portrait depth columns") {
+            Section("Calibrated obstacle sectors") {
                 ForEach(0..<3) { index in
                     VStack(alignment: .leading,spacing: 6) {
                         LabeledContent(names[index]) {
@@ -89,18 +62,9 @@ struct CameraView: View {
                             .accessibilityIdentifier("depthDetail\(index)")
                     }
                 }
-                Text("The floor can affect all three readings. This view does not classify floors or measure drop-offs.").font(.caption)
+                Text("Left obstacle → left vibration; center → both; right → right. You choose your movement. Unknown is not clear.").font(.caption)
             }
-            Section("Check physical sides") {
-                Text("For this session only. Keep the phone fixed; place a broad object 0.5–1 m away on the requested side.").font(.caption)
-                Text("Left \(camera.counts[0])/3 · Center \(camera.counts[1])/3 · Right \(camera.counts[2])/3")
-                    .accessibilityIdentifier("mountCounts")
-                if let target=camera.target {
-                    Button("Record target on physical \(names[target].lowercased())") { camera.record() }
-                        .frame(minHeight: 60).disabled(camera.image == nil)
-                } else { Text("Portrait target check complete for this session") }
-                Button("Reset side check") { camera.resetCheck() }.frame(minHeight: 60)
-            }
+            MountCalibrationControls(camera:camera,mount:camera.calibration)
             Section("Connection") {
                 Text("Open the Connection tab for phone pairing and diagnostic transport.")
             }
@@ -111,6 +75,96 @@ struct CameraView: View {
         return String(format:"%.2f m",distance)
     }
 
+}
+
+struct MountCalibrationPreview: View {
+    @ObservedObject var camera: CameraController
+    @ObservedObject var mount: MountCalibrationController
+    var body: some View {
+        ZStack {
+            Color.black
+            if let image=camera.image { Image(decorative:image,scale:1).resizable() }
+            if !mount.polygons.isEmpty {
+                ForEach(Array(mount.polygons.enumerated()),id:\.offset) { item in
+                    Path { path in
+                        let corners=item.element
+                        if let first=corners.first {
+                            path.move(to:CGPoint(x:CGFloat(first.x)*180,y:CGFloat(first.y)*320))
+                            for p in corners.dropFirst() { path.addLine(to:CGPoint(x:CGFloat(p.x)*180,y:CGFloat(p.y)*320)) }
+                            path.closeSubpath()
+                        }
+                    }.stroke(.yellow,lineWidth:1.5)
+                }
+            } else if mount.profile == nil && (mount.step == .position || !mount.wizard) {
+                // Full-width band requested after inspecting the old 20x40 debug patch.
+                HStack(spacing:0) {
+                    ForEach(0..<3) { _ in Rectangle().stroke(.yellow,lineWidth:1.5) }
+                }.frame(width:180,height:CGFloat(mount.region.height)*320)
+                    .position(x:CGFloat(mount.region.x+MountRegion.width/2)*180,
+                              y:CGFloat(mount.region.y+mount.region.height/2)*320)
+            }
+            if mount.wizard {
+                ForEach(Array(mount.exclusions.enumerated()),id:\.offset) { item in
+                    Circle().fill(item.element[2] == 2 ? Color.blue : Color.red).frame(width:2,height:2)
+                        .position(x:CGFloat(item.element[0])*180,y:CGFloat(item.element[1])*320)
+                }
+            }
+        }.frame(width:180,height:320).contentShape(Rectangle())
+            .clipped()
+            .gesture(SpatialTapGesture().onEnded { value in
+                mount.moveRegion(y:Float(value.location.y/320))
+            },including:mount.step == .position ? .all : .subviews)
+            .accessibilityLabel("Yellow calibrated region; three obstacle sectors. Red exclusions are confidence; blue are floor.")
+            .accessibilityIdentifier("mountRegionPreview")
+            .frame(maxWidth:.infinity)
+    }
+}
+
+struct MountCalibrationControls: View {
+    @ObservedObject var camera: CameraController
+    @ObservedObject var mount: MountCalibrationController
+    var body: some View {
+        Section("Mount calibration") {
+            Text(mount.profileStatus).accessibilityIdentifier("mountProfileStatus")
+            Text(mount.message).accessibilityIdentifier("mountCalibrationStatus")
+            DisclosureGroup("Why a sector is Unknown") {
+                ForEach(Array(mount.depthReasons.enumerated()),id:\.offset) { item in
+                    Text(item.element).font(.caption)
+                }
+            }
+            Button("Calibrate mount") { camera.beginMountCalibration() }
+                .frame(minHeight:50).accessibilityIdentifier("calibrateMount")
+            Button("Mount moved / recalibrate",role:.destructive) { camera.mountMoved() }
+                .frame(minHeight:50).accessibilityIdentifier("mountMoved")
+            if mount.wizard {
+                Toggle("Sighted helper present; normal cane grip on level ground",isOn:$mount.helperPresent)
+                    .accessibilityIdentifier("mountHelperPresent")
+                Text("Adjust the phone mount angle, then tap the preview to position the full-width yellow band away from the floor, hand and cane. Adjust its height explicitly below. Keep the assembly still for capture. Red dots: low confidence. Blue: excluded floor.").font(.caption)
+                Text("Setup only · selected distances: \(mount.localDistances.map { $0.map { String(format:"%.2f m",$0) } ?? "Unknown" }.joined(separator:" / "))")
+                    .accessibilityIdentifier("mountSetupDistances")
+                if mount.step == .position {
+                    Text("Detection band height: \(Int(mount.region.height*100))% of view")
+                    Slider(value:Binding(get:{ Double(mount.region.height) },set:{ mount.resizeRegion(height:Float($0)) }),
+                        in:Double(MountRegion.defaultHeight)...1)
+                        .accessibilityLabel("Detection band height")
+                    Button("Capture neutral mount") { mount.collect() }
+                        .disabled(!mount.helperPresent).frame(minHeight:50).accessibilityIdentifier("captureNeutralMount")
+                } else if mount.step == .stable {
+                    Text("Stable frames: \(mount.progress) · at least 2.5 seconds")
+                } else if mount.step == .confirm {
+                    Button("Helper confirms · save calibration") { mount.save() }
+                        .disabled(!mount.helperPresent).frame(minHeight:50).accessibilityIdentifier("saveMountCalibration")
+                } else {
+                    Text("Left \(mount.targetCounts[0])/3 · Center \(mount.targetCounts[1])/3 · Right \(mount.targetCounts[2])/3 · Low \(mount.lowCount)/3")
+                        .accessibilityIdentifier("mountCounts")
+                    Button("Helper confirms · record \(mount.step.rawValue) target") { mount.recordTarget() }
+                        .disabled(!mount.helperPresent).frame(minHeight:50).accessibilityIdentifier("recordMountTarget")
+                }
+            }
+            Text("Level ground only: ±15° pitch, ±10° roll, ±10 cm grip-height change from setup. Initial low-obstacle check: 8–20 cm high. Unsupported geometry stays unavailable. Mount slips cannot be distinguished automatically from cane motion.").font(.caption)
+            Text("A saved profile survives ordinary restarts. Repeat setup after changing or doubting the mount. Floor exclusion is experimental; silence does not indicate a clear path.").font(.caption)
+        }
+    }
 }
 
 struct ConnectionView: View {
