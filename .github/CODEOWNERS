@@ -1,11 +1,2 @@
-# Last matching rule wins. Actual enforcement requires branch protection.
-/docs/master/ @michaelkrymski
-/docs/reference/ @michaelkrymski
-/shared/ @michaelkrymski
-/AGENTS.md @michaelkrymski
-/governance.json @michaelkrymski
-/trello-sync.json @michaelkrymski
-/.github/ @michaelkrymski
-/scripts/ @michaelkrymski
-/tests/test_governance.py @michaelkrymski
-/tasks/ @michaelkrymski
+# Solo maintenance: no automatic owner-review requests or required second reviewer.
+# Michael may edit all paths; git history retains earlier ownership.

@@ -1,3 +1,5 @@
+> Historical team workflow. Superseded on October 23, 2026 by AGENTS.md and docs/operations/SOLO_DEVELOPMENT.md. Claim, ownership and extra-review requirements below do not apply to Michael in solo mode.
+
 # PM self-assignment and independent implementation review
 
 Michael Krymski (`michaelkrymski`) controls task assignments, including his own.

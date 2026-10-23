@@ -1,0 +1,9 @@
+{
+  "id": "SOLO-WORKFLOW-LIDAR-PLAN-20261023",
+  "date": "2026-10-23",
+  "author": "michaelkrymski (AI-assisted)",
+  "task": "CS-001",
+  "summary": "Replace team allocation gates with solo maintenance and plan calibrated cane LiDAR",
+  "details": "Michael explicitly authorized removing claim/ownership/second-review blockers. Add trusted solo-owner exemption, optional task IDs and named-branch flexibility in the checked publisher, simpler optional task metadata and authoritative solo instructions. Existing task history, runtime safeguards and test workflows remain. Add the Mac/iPhone calibration implementation prompt and Windows/Pi/backend integration plan; no LiDAR runtime code changed.",
+  "validation": "Five new solo-workflow and 23 governance/publisher tests passed. Final Windows root discovery: 245 tests OK, 15 skips, after adding an explicit POSIX-only marker to the existing chmod-600 test; the credential loader is unchanged and Linux still runs that case. Structure/changelog/whitespace passed. GitHub settings were updated and verified: no required extra review/admin enforcement/conversation resolution; repository-checks retained, force/deletion blocked. Remote CI/publication recorded in the PR. No LiDAR runtime or physical-device changes."
+}

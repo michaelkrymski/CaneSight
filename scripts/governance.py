@@ -25,6 +25,9 @@ def protected(path, policy):
 
 
 def inspect_changes(files, policy, get_base, get_head, author, task_ids):
+    # Trusted-main policy: a PR cannot opt itself into the owner's solo exemption.
+    if policy.get('collaboration_mode') == 'solo' and author == policy['pm_github']:
+        return [], False
     errors, needs_approval = [], False
     new_cr = any(f['filename'].startswith('decisions/CR-') and f['status'] == 'added' for f in files)
     new_log = any(f['filename'].startswith('changes/') and f['filename'].endswith('.json') and f['status'] == 'added' for f in files)
@@ -100,7 +103,7 @@ def main():
     if pr.get('changed_files', 0) != len(files):
         raise SystemExit('Incomplete file list; refusing validation')
     task_ids = sorted(set(re.findall(r'CS-\d{3}', pr['title'])))
-    if not task_ids:
+    if not task_ids and not (policy.get('collaboration_mode') == 'solo' and pr['user']['login'] == policy['pm_github']):
         raise SystemExit('PR title must contain its task ID, e.g. [CS-021]')
     cache = {}
 
