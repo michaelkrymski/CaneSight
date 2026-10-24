@@ -1,0 +1,9 @@
+{
+  "id": "CS-033-BOND-ACTIVATION-GMARCIALCALLEJA-20261018",
+  "date": "2026-10-18",
+  "author": "Gavin (gmarcialcalleja)",
+  "task": "CS-033",
+  "summary": "Activate reviewed persistent-bond backend with preserved native deployment",
+  "details": "After verified Michael current-head approval and merged PR96 plus explicit user GO, activated exact tested additive image and persistent read-only registry. Existing runtime environment, command, model mounts and proxy preserved; private enrollment not regenerated. Client rollout and phone depth/clock integration remain separate.",
+  "validation": "Public health200 and missing bond authorization401. Full verified HTTPS/WSS manual session/enrollment/relay/expiry/reconnect probe passed with native readiness200 while enrolled. Five generated YOLO results preserve original lineage and role/session isolation (median119.121ms, max/p95160.44ms). No actual bonded phone/Pi connection, Apple build, scene accuracy or motor acceptance claimed."
+}

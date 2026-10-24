@@ -1,0 +1,32 @@
+{
+  "task": "CS-033",
+  "date": "2026-10-18",
+  "accepted_main": "a253bf6",
+  "approved_pr": 96,
+  "approved_head": "22559a4a09f09ae8e9e142de4d83aa42a508443f",
+  "base_url": "https://64.177.50.116",
+  "previous_image": "sha256:8a7bcf8fa9dbcfedea2ecef6d0e5e94d766dc50c2505739229454a0ad851f3fa",
+  "activated_image": "sha256:2ba85c9980bc9199d4dbbbac297aba1a4a6dec33fbab39817e7678e7bad4dde6",
+  "accepted_runtime_hashes_verified": true,
+  "registry_persistent_readonly": true,
+  "existing_environment_command_model_mounts_preserved": true,
+  "proxy_unchanged": true,
+  "health_http": 200,
+  "unauthenticated_bond_http": 401,
+  "session_https_wss_probe_passed": true,
+  "readiness_while_enrolled": {
+    "ingestion_configured": true,
+    "model_available": true,
+    "worker_healthy": true
+  },
+  "generated_vision_samples": 5,
+  "generated_upload_to_result_ms": {
+    "median": 119.121,
+    "p95_nearest_rank": 160.44,
+    "max": 160.44
+  },
+  "role_isolation_expiry_revocation_original_lineage_passed": true,
+  "real_bond_device_connectivity_verified": false,
+  "ios_compilation_depth_clock_integration_verified": false,
+  "motor_or_scene_accuracy_acceptance": false
+}
