@@ -1,0 +1,43 @@
+{
+  "task": "CS-017",
+  "recorded_at_utc": "2026-10-18T10:53:06.736012+00:00",
+  "base_commit": "4c67bf82bf82951bb7947a19ac7c95b28f0cc873",
+  "container_image": "swift:6.0.3@sha256:f19aea3f9a889df5884e1186e60be74869613477d99656b598c115a4b91af8a1",
+  "network": "none",
+  "exit_code": 0,
+  "test_count": 13,
+  "failure_count": 0,
+  "strict_concurrency": "complete",
+  "warnings_as_errors": true,
+  "source_sha256": {
+    "ios\\CaneSightApp\\Sources\\LifecycleTelemetry.swift": "6775833fd3d7e69501dbee307356d7fb2f7b9b828cccca509bd7e5c4795bfa26",
+    "tests\\ios\\LifecycleTransportTests.swift": "56db0ed63d21768c0ebb7d4cc8aed82e45121d0da57bb74987e6e89c593d6fa5",
+    "tests\\ios\\run_lifecycle_transport.py": "acb9b2049bac3d84fda7c7a75f7fdf579ae470220cf8a15fcb30874505c2f50b"
+  },
+  "telemetry_dependency_commit": "8a6c7b207b48fa4ff859ca02811247c21d882721",
+  "telemetry_dependency_sha256": {
+    "ios/CaneSightTelemetry/.gitignore": "acc718146d21aae829cba1761475e05de39d73209d83af2ab8487a74843cead0",
+    "ios/CaneSightTelemetry/Package.swift": "474f860935824fbd0741bbbd06c758be9485948b9cd6c5c64419b878dee3e2c9",
+    "ios/CaneSightTelemetry/README.md": "d16d09f3b80815c8ef3e0839b811dd62d6f5f3b362bff1092ba643e3f5dbc30a",
+    "ios/CaneSightTelemetry/Sources/CaneSightTelemetry/NativeWebSocket.swift": "70e7f1d25329887707c5aed7aa3f867daaa341e2a263799ea0763b0c90c13edc",
+    "ios/CaneSightTelemetry/Sources/CaneSightTelemetry/TelemetryClient.swift": "2706e8d18faa67b210fa9acaf601e644f025b98bde3fd5fbe61e47e1a245748a",
+    "ios/CaneSightTelemetry/Sources/CaneSightTelemetry/TelemetryCore.swift": "6b91e0b501f2b36dfaee7a271637cee50f227e2d39a4141d388734f4d816300d",
+    "ios/CaneSightTelemetry/Sources/CaneSightTelemetry/Wire.swift": "fefac72a19d86ce8eee716dbfaf960402cfb9d6fa13a1a9539f926abee7dca5f",
+    "ios/CaneSightTelemetry/Sources/TelemetryFixtures/main.swift": "0dcf0d980d9f260617e0eb02ca8e6ae59caa7478ef964c321de74b8ba604567e",
+    "ios/CaneSightTelemetry/Tests/CaneSightTelemetryTests/ClientTests.swift": "afeb626a0c62bda1be615e9a24dae8421493c124128c812ad6df685ea3c26768",
+    "ios/CaneSightTelemetry/Tests/CaneSightTelemetryTests/CoreTests.swift": "9da5d24bb415bbcadd12f461d7ee9eee240ca30b2473e0029284949aaee3636c",
+    "ios/CaneSightTelemetry/Tests/CaneSightTelemetryTests/NativeWebSocketTests.swift": "79407d460096e659d7f40297b52fbbc43c19f569b71a346fa90d39f59f7c1c23"
+  },
+  "lifecycle_source_sha256": {
+    "ios/Lifecycle/Package.swift": "0ff318d5a8e4d3d9bee1dc5d826467b8ccd660aaee4b46282db940f0739ddc0b",
+    "ios/Lifecycle/Sources/CaneSightARLifecycle/ARLifecycleBridge.swift": "a3b461f03fc9331c85fbc8c46d879c8dbafe792eca86b3d5c0556533fcb458a3",
+    "ios/Lifecycle/Sources/CaneSightLifecycle/DepthLifecycle.swift": "d391d4ab76e1e5b5934a4997aea00c86862bac593e18600dfd5d500561bd7205",
+    "ios/Lifecycle/Tests/CaneSightARLifecycleTests/ARLifecycleBridgeTests.swift": "c47a4c6c4fcff8ab842eda5d5f08fd01c8bfbf99b8ca37796be819bd70ae1c33",
+    "ios/Lifecycle/Tests/CaneSightLifecycleTests/DepthLifecycleTests.swift": "213c2797e014def4e1a929f88613c26c003fd09c6fa4a4dcd50103bc172d7f4d"
+  },
+  "limits": [
+    "Linux host coordinator tests with actual CS-016 actor and fake sockets/clocks.",
+    "CameraController and native Apple SDK integration are not compiled by this harness.",
+    "No verified device clock mapping, native network, physical phone/Pi or motor test."
+  ]
+}

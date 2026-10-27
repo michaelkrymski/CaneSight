@@ -5,6 +5,16 @@
 	};
 	"objectVersion" = 56;
 	"objects" = {
+		"CC017A202610180000000001" = {
+			"isa" = "PBXFileReference";
+			"lastKnownFileType" = "sourcecode.swift";
+			"path" = "LifecycleTelemetry.swift";
+			"sourceTree" = "<group>";
+		};
+		"CC017A202610180000000002" = {
+			"isa" = "PBXBuildFile";
+			"fileRef" = "CC017A202610180000000001";
+		};
         "A16D00000000000000000001" = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DeviceTests/LiveDepthPairTests.swift"; sourceTree = SOURCE_ROOT; };
         "A16D00000000000000000002" = { isa = PBXBuildFile; fileRef = "A16D00000000000000000001"; };
         "F67FB2B029D74BB97222A7B9" = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "../DepthTelemetry/Sources/CaneSightDepthTelemetry/DepthTelemetryAdapter.swift"; sourceTree = SOURCE_ROOT; };
@@ -167,7 +177,7 @@
 		"CAF85B0888D78F1F83771A07" = {
 			"path" = "Sources";
 			"isa" = "PBXGroup";
-			"children" = ("D70A3D048D076FF9FF96DB25", "709163852BCDD888C6716E1C", "EEFBE34ACFDFBA13D8254F64", "DBAD69CF556DB7F78B9351A6", );
+			"children" = ("D70A3D048D076FF9FF96DB25", "709163852BCDD888C6716E1C", "EEFBE34ACFDFBA13D8254F64", "DBAD69CF556DB7F78B9351A6", "CC017A202610180000000001", );
 			"sourceTree" = "<group>";
 		};
 		"A8792157CB4F27FB949C035F" = {
@@ -283,7 +293,7 @@
 		"6E05F42004B343A6E75C6AA6" = {
 			"isa" = "PBXSourcesBuildPhase";
 			"buildActionMask" = "2147483647";
-			"files" = ("2EA1D5659CA1997FCEF2B3C2", "879FDE897C285471E1175FC8", "642456A429D61328C130A03F", "1A14D02BE6500B5AF361CBC8", );
+			"files" = ("2EA1D5659CA1997FCEF2B3C2", "879FDE897C285471E1175FC8", "642456A429D61328C130A03F", "1A14D02BE6500B5AF361CBC8", "CC017A202610180000000002", );
 			"runOnlyForDeploymentPostprocessing" = "0";
 		};
 		"EB53C7BC8B5458CC86DA504A" = {

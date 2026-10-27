@@ -954,6 +954,14 @@ Michael requested CS-016; bondmila published a stopped-work handoff on #64. Acce
 
 Validation: 195 repository tests, structure/rendered-log/whitespace checks passed. Existing unchanged telemetry: 21 strict Swift tests, four replay wire/backend tests and unsigned physical-iOS SDK build passed. HTTPS health request to documented origin timed out from this Mac. Ownership amendment requires exact-head PM authorization and normal independent reviewed merge; no new implementation or live paired acceptance claimed.
 
+## 2026-10-18 — CS-017-ACCEPTED-TELEMETRY-LAYOUT-20261018: Integrate accepted CS-016 host package layout and verify lifecycle coordinator
+
+Author: gmarcialcalleja (AI-assisted) · Task: CS-017
+
+Merge accepted CS-016/main 86a8783 into lifecycle PR #84. Preserve lifecycle source entries alongside accepted transport device targets and sibling telemetry package; keep accepted privacy text and remove conflict markers. Default harness resolves the accepted sibling package without the old review pin. Update runtime blockers to reflect CS-016 acceptance while retaining actual clock/device gates.
+
+Validation: All 13 strict-concurrency Swift coordinator/actor tests passed using the actual merged HEAD package and network-disabled pinned Linux image. Top-level Xcode object IDs unique and staged whitespace check passed. Windows full shared suite exposes the accepted Pi private-file fixture's POSIX requirement; Linux checked publication is used without weakening the reader. No Apple SDK or physical device/motor acceptance.
+
 ## 2026-10-18 — CS-017-CLEANUP-REENTRANCY-20261018: Fence lifecycle cleanup and latch clock-fault notifications
 
 Author: Gavin (gmarcialcalleja) · Task: CS-017
@@ -961,6 +969,30 @@ Author: Gavin (gmarcialcalleja) · Task: CS-017
 Prevent synchronous disconnect/UI cleanup callbacks from recursively invalidating or reconnecting. Record earlier Apple build evidence with exact pinned source limits and preserve remaining transport, clock and paired-device acceptance gates.
 
 Validation: 12 portable Swift 6.0.3 Linux tests passed with complete strict concurrency and warnings as errors; 3 Python consumer expiry/reconnect tests passed. No current-head Apple SDK or physical test claimed.
+
+## 2026-10-18 — CS-017-CURRENT-TELEMETRY-20261018: Prepare lifecycle verification for current CS-016 actor and accepted sibling layout
+
+Author: gmarcialcalleja (AI-assisted) · Task: CS-017
+
+Integrate accepted main into existing lifecycle PR #84. Add an exact telemetry-ref input to the network-disabled Swift integration harness without changing host pins or teammate code. When CS-016 adopts the accepted sibling package and removes its duplicate review pin, the default harness uses the exact HEAD telemetry package. Missing package fails closed. Preserve existing actor/coordinator and capture-clock requirements.
+
+Validation: 13 actual coordinator/CS-016 actor tests passed against review commit 8a6c7b2 under Swift 6.0.3 complete strict concurrency and warnings as errors, with fake clocks/sockets. Three Pi receiver lifecycle regressions passed. Main integration checks passed: structure/log/whitespace and 222 shared tests with 11 Windows/platform skips. No new Apple SDK, phone/Pi or motor acceptance.
+
+## 2026-10-18 — CS-017-TRANSPORT-FENCE-20261018: Fence host telemetry synchronously on capture and application lifecycle loss
+
+Author: Gavin (gmarcialcalleja, AI-assisted) · Task: CS-017
+
+Add opt-in host coordinator around the pinned unmodified CS-016 actor, synchronous native socket cancellation, capture-admission tickets, bounded cleanup/recovery and original capture timestamps. Preserve sequence history and reject late connections, old workers, missing mappings and clock reversal. Default preview remains local until reviewed enrollment and verified clock configuration are supplied.
+
+Validation: 13 portable Swift transport tests passed with complete strict concurrency and warnings as errors; Xcode project plist syntax validated. Apple SDK compilation and paired phone/Pi measurements remain pending. No camera, Pi or motor access.
+
+## 2026-10-18 — CS-017-TRANSPORT-REVIEW-20261018: Link transport lifecycle checkpoint to draft review #84
+
+Author: Gavin (gmarcialcalleja, AI-assisted) · Task: CS-017
+
+Record PR #84 for software checkpoint 4275ca6ef96affb879dfaebddbdf3dc57445753c. Retain blocked task status for dependency, enrolled verified clock configuration, current Apple host build and paired phone/Pi acceptance.
+
+Validation: Checked initial publishing passed repository validation, 212 root unittest cases with 11 skips, changelog and whitespace checks. 13 Swift coordinator tests and three receiver tests passed; no physical hardware access.
 
 ## 2026-10-18 — CS-018-ACCEPTED-HOST-EVIDENCE-20261018: Reconcile accessible-status acceptance with the merged phone host
 

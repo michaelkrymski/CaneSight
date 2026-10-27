@@ -9,6 +9,7 @@ import CaneSightMountMappingARKit
 import CaneSightStatus
 import CaneSightLifecycle
 import CaneSightARLifecycle
+import CaneSightTelemetry
 
 @MainActor final class CameraController: ObservableObject, DepthLifecycleEvents {
     let accessible: StatusController
@@ -33,6 +34,24 @@ import CaneSightARLifecycle
     private var timer: Timer?
     private var orientationObserver: NSObjectProtocol?
     private lazy var capture = CameraCapture { [weak self] event in self?.receive(event) }
+    private var telemetry: LifecycleTelemetry?
+
+    /// Called by reviewed enrollment/clock integration, never by camera Start.
+    /// No credential storage or assumed ARFrame clock equivalence is added here.
+    func configureTelemetry(session: PhoneSession, clock: VerifiedCaptureClock) throws {
+        guard telemetry == nil else { throw TelemetryError.configuration }
+        let transport = LifecycleTelemetry(session: session, clock: clock, unknown: { [weak self] in
+            self?.clearTransportDepth()
+        })
+        telemetry = transport
+        capture.setTransportFence(transport.captureFence)
+        transport.setApplicationActive(active)
+    }
+
+    private func clearTransportDepth() {
+        accessible.invalidateDepth(.unknown)
+        sample=nil; image=nil; distances=[nil,nil,nil]; summary=nil; clearDepthDetails(); resetCheck()
+    }
 
     init(statusController: StatusController) {
         accessible = statusController
@@ -56,6 +75,7 @@ import CaneSightARLifecycle
         if value && !supported { accessible.invalidateDepth(.unsupported) }
         guard active != value else { return }
         active = value
+        telemetry?.setApplicationActive(value)
         if !value { halt("App inactive; depth unknown and check reset.", depthReason: .inactive) }
         else {
             updateOrientation(autoRestart: false)
@@ -89,6 +109,7 @@ import CaneSightARLifecycle
     }
     private func run() {
         halt("Starting; waiting for portrait depth.")
+        telemetry?.sessionRestarted()
         capture.begin(epoch, token: accessible.depthToken)
         session.delegate=capture; session.delegateQueue=capture.callbacks
         let configuration=ARWorldTrackingConfiguration()
@@ -99,6 +120,7 @@ import CaneSightARLifecycle
         }
     }
     private func halt(_ reason: String, pause: Bool=true, depthReason: DepthStatus = .unknown) {
+        telemetry?.setTrackingNormal(false)
         accessible.invalidateDepth(depthReason)
         epoch=UUID(); capture.stop()
         if pause { session.pause() }
@@ -128,6 +150,7 @@ import CaneSightARLifecycle
         guard let sample else { return }
         let now=CACurrentMediaTime()
         if !now.isFinite || now < sample.receipt || now-sample.receipt >= 0.5 {
+            telemetry?.setTrackingNormal(false)
             accessible.invalidateDepth(.stale); self.sample=nil; image=nil; distances=[nil,nil,nil]; summary=nil; clearDepthDetails(); resetCheck()
             status="No recent frame; depth unknown and check reset."
         }
@@ -140,6 +163,7 @@ import CaneSightARLifecycle
         }
         if event.loss != lastLoss { check.reset(); lastLoss=event.loss }
         guard let value=event.sample else {
+            telemetry?.setTrackingNormal(false)
             accessible.invalidateDepth(.unknown)
             sample=nil; image=nil; distances=[nil,nil,nil]; summary=nil; clearDepthDetails(); syncProgress()
             status="Waiting for valid depth/tracking; check reset."
@@ -149,11 +173,17 @@ import CaneSightARLifecycle
         guard now.isFinite, now >= value.receipt, now-value.receipt < 0.5,
               let source=value.observation.summary.captureTimestampSeconds,
               lastSource.map({ source > $0 }) ?? true else {
+            telemetry?.setTrackingNormal(false)
             accessible.invalidateDepth(.unknown)
             sample=nil; image=nil; distances=[nil,nil,nil]; summary=nil; clearDepthDetails(); resetCheck()
             status="Delayed frame; depth unknown and check reset."; return
         }
         let result=value.observation.summary
+        if result.reason == .processedFrame {
+            telemetry?.setTrackingNormal(true)
+        } else {
+            telemetry?.setTrackingNormal(false)
+        }
         let sectors=DisplaySectors(imageLeft: result.sectors[0].distanceMetres,
             imageCenter: result.sectors[1].distanceMetres, imageRight: result.sectors[2].distanceMetres)
         guard accessible.showLocalPreview(sectors, sourceMilliseconds: source*1000,
@@ -181,15 +211,26 @@ import CaneSightARLifecycle
         }
         check.observeGeometry(value.observation.geometry); syncProgress()
         status=check.complete ? "Portrait target check complete for this session." : "Live portrait view; repeat target check after remounting."
+        if result.reason == .processedFrame, result.sectors.count == 3 {
+            let values = result.sectors
+            if let left = try? CaneSightTelemetry.DepthSector(distanceMetres: values[0].distanceMetres, validFraction: values[0].validFraction ?? 0),
+               let center = try? CaneSightTelemetry.DepthSector(distanceMetres: values[1].distanceMetres, validFraction: values[1].validFraction ?? 0),
+               let right = try? CaneSightTelemetry.DepthSector(distanceMetres: values[2].distanceMetres, validFraction: values[2].validFraction ?? 0),
+               let depth = try? CaneSightTelemetry.DepthSample(capturedAtMS: source*1000, tracking: .normal,
+                                                             left: left, center: center, right: right) {
+                telemetry?.submit(depth, ticket: value.transportTicket)
+            }
+        }
     }
     func setApplicationActive(_ value: Bool) { setActive(value) }
     func setInterrupted(_ value: Bool) {
+        telemetry?.setInterrupted(value)
         if value { requested=false; halt("Camera interrupted; depth unknown. Restart when ready.", pause: false) }
     }
     func setTrackingNormal(_ normal: Bool) {
         if !normal { halt("Tracking unavailable; depth unknown.") }
     }
-    func sessionFailed() { requested=false; halt("Camera failed; restart when ready.", pause: false) }
+    func sessionFailed() { telemetry?.sessionFailed(); requested=false; halt("Camera failed; restart when ready.", pause: false) }
     func sessionRestarted() { halt("New session; waiting for fresh depth.") }
     func openSettings() {
         if let url=URL(string: UIApplication.openSettingsURLString) { UIApplication.shared.open(url) }
@@ -213,6 +254,7 @@ struct CameraSample: @unchecked Sendable {
     let image: CGImage
     let receipt: Double
     let displayToken: DepthDisplayToken
+    let transportTicket: TransportCaptureTicket?
 }
 struct CameraEvent: @unchecked Sendable {
     let epoch: UUID
@@ -229,7 +271,8 @@ final class CameraCapture: NSObject, ARSessionDelegate, @unchecked Sendable {
     private let context=CIContext(options: [.cacheIntermediates:false])
     private let lock=NSLock()
     private var epoch: UUID?
-    private var pending: (ARFrame,UUID,Double,DepthDisplayToken)?
+    private var pending: (ARFrame,UUID,Double,DepthDisplayToken,TransportCaptureTicket?)?
+    private var transportFence: CaptureTransportFence?
     private var displayToken: DepthDisplayToken?
     private var working=false
     private var delivery: CameraEvent?
@@ -238,6 +281,9 @@ final class CameraCapture: NSObject, ARSessionDelegate, @unchecked Sendable {
     private var next: Double=0
     private let receive: @MainActor @Sendable (CameraEvent)->Void
     init(receive: @escaping @MainActor @Sendable (CameraEvent)->Void) { self.receive=receive }
+    func setTransportFence(_ value: CaptureTransportFence) {
+        lock.lock(); transportFence=value; lock.unlock()
+    }
     func begin(_ value: UUID, token: DepthDisplayToken) {
         lock.lock(); epoch=value; displayToken=token; loss=0; next=0; lock.unlock()
     }
@@ -247,9 +293,16 @@ final class CameraCapture: NSObject, ARSessionDelegate, @unchecked Sendable {
     func stop() { lock.lock(); epoch=nil; pending=nil; delivery=nil; lock.unlock() }
     func session(_ session: ARSession,didUpdate frame: ARFrame) {
         let now=CACurrentMediaTime()
+        lock.lock(); let fence=transportFence; lock.unlock()
+        if !frame.timestamp.isFinite || frame.timestamp < 0 { fence?.revoke() }
+        if case .normal = frame.camera.trackingState {
+            if frame.sceneDepth == nil { fence?.revoke() }
+        } else { fence?.revoke() }
+        // Ticket belongs to capture admission, never to later worker completion.
+        let ticket=fence?.captureTicket()
         lock.lock()
         guard let epoch, let displayToken, now.isFinite, now>=next else { lock.unlock(); return }
-        next=now+0.2; pending=(frame,epoch,now,displayToken)
+        next=now+0.2; pending=(frame,epoch,now,displayToken,ticket)
         let launch = !working; working=true; lock.unlock()
         if launch { worker.async { self.process() } }
     }
@@ -269,7 +322,8 @@ final class CameraCapture: NSObject, ARSessionDelegate, @unchecked Sendable {
                 let pixels=CGAffineTransform(a: 180*t.a/w,b: -320*t.b/w,
                     c: -180*t.c/h,d: 320*t.d/h,tx: 180*(t.c+t.tx),ty: 320*(1-t.d-t.ty))
                 if let image=context.createCGImage(source.transformed(by: pixels),from: CGRect(x: 0,y: 0,width: 180,height: 320)) {
-                    sample=CameraSample(observation: observation,image: image,receipt: input.2,displayToken: input.3)
+                    sample=CameraSample(observation: observation,image: image,receipt: input.2,
+                                        displayToken: input.3,transportTicket: input.4)
                 }
             }
             emit(sample,epoch: input.1)
@@ -279,8 +333,10 @@ final class CameraCapture: NSObject, ARSessionDelegate, @unchecked Sendable {
         lock.lock()
         guard epoch==value else { lock.unlock(); return }
         if sample==nil { loss &+= 1 }
+        let fence=transportFence
         delivery=CameraEvent(epoch: value,sample: sample,loss: loss)
         let launch = !scheduled; scheduled=true; lock.unlock()
+        if sample == nil { fence?.revoke() }
         if launch {
             DispatchQueue.main.async {
                 self.lock.lock(); let value=self.delivery; self.delivery=nil; self.scheduled=false; self.lock.unlock()
@@ -289,7 +345,8 @@ final class CameraCapture: NSObject, ARSessionDelegate, @unchecked Sendable {
         }
     }
     private func interrupt() {
-        lock.lock(); let value=epoch; epoch=nil; pending=nil; delivery=nil; lock.unlock()
+        lock.lock(); let value=epoch; let fence=transportFence; epoch=nil; pending=nil; delivery=nil; lock.unlock()
+        fence?.revoke() // Before the MainActor event can wait behind UI work.
         if let value {
             let event=CameraEvent(epoch: value,sample: nil,loss: 0,interrupted: true)
             DispatchQueue.main.async { self.receive(event) }

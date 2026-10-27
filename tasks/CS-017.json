@@ -17,13 +17,20 @@
   "elapsed_window": "8–11",
   "owner": "gmarcialcalleja",
   "status": "blocked",
-  "branch": "task/CS-017-ar-lifecycle",
-  "pr_url": "https://github.com/michaelkrymski/CaneSight/pull/63",
+  "branch": "task/CS-017-transport-fence",
+  "pr_url": "https://github.com/michaelkrymski/CaneSight/pull/84",
   "evidence": [
     "Merged ownership: https://github.com/michaelkrymski/CaneSight/pull/59",
     "ios/Lifecycle: Swift lifecycle guard, ARKit/UIKit forwarding bridge and integration guide. 10 core XCTest cases pass with Swift 6.0.3 on Linux; Apple bridge and its 2 tests excluded on Linux.",
     "python -m unittest discover -s tests -v: 113 passed, including 3 CS-017 consumer expiry/reconnect regressions.",
-    "2026-10-18 follow-up: 12 portable Swift tests and 3 receiver regressions passed; cleanup reentrancy and terminal clock-fault notification fixed. tests/ios/evidence/CS-017-cleanup-20261018.json records source hashes and earlier Apple build provenance from PR #69."
+    "2026-10-18 follow-up: 12 portable Swift tests and 3 receiver regressions passed; cleanup reentrancy and terminal clock-fault notification fixed. tests/ios/evidence/CS-017-cleanup-20261018.json records source hashes and earlier Apple build provenance from PR #69.",
+    "2026-10-18 transport follow-up: production host coordinator uses exact unmodified CS-016 actor pin 0433fc94af1a1e3edfe2d2bb28925cb3be6df1ee; 13 portable strict-concurrency transport tests passed. Source-hashed evidence: tests/ios/evidence/CS-017-transport-20261018.json. Native host SDK build and paired-device acceptance remain pending.",
+    "handoffs/CS-017-current-telemetry-20261018.md",
+    "tests/ios/evidence/CS-017-current-telemetry-20261018.json",
+    "All 13 strict-concurrency coordinator/actor tests passed against current CS-016 review commit 8a6c7b2 (exact full commit/source hashes in evidence); three Pi lifecycle receiver regressions passed. Harness now accepts an explicit telemetry ref and supports accepted sibling package layout after CS-016 merge. No Apple SDK or actual phone/Pi verification in this checkpoint.",
+    "handoffs/CS-017-accepted-cs016-verified-20261018.md",
+    "tests/ios/evidence/CS-017-accepted-cs016-20261018.json",
+    "Accepted CS-016/main 86a8783 integrated. All 13 strict Swift lifecycle/actor tests passed using default accepted sibling-package layout, without a review-ref override. Xcode project keeps accepted device targets and lifecycle source, with unique top-level IDs. No Apple SDK or actual phone/Pi/motor acceptance in this checkpoint."
   ],
-  "blocker": "Awaiting CS-016 host transport wiring, verified device capture-clock mapping, current-head Apple build/native bridge runtime tests and measured paired LiDAR phone-to-Pi interruption/background/lock/reconnect evidence. PR #69 reports earlier pinned Apple builds and local preview checks only; no paired acceptance or motor readiness claimed."
+  "blocker": "Accepted CS-016 telemetry is integrated and default-layout strict Swift tests pass. Await Apple SDK/native host verification, authorized app enrollment/independently measured capture-clock bounds and paired phone/Pi interruption/background/lock/reconnect evidence. Physical power/mapping/motor acceptance remains separate."
 }
