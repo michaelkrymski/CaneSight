@@ -234,6 +234,7 @@ private struct SectorQualityTally {
         var nextPoll = ContinuousClock.now
         var lastCapture: Double = -1
         var producer: ProducerState = .starting
+        var recoverAutomatically = false
         do {
             while !Task.isCancelled, epoch == generation, active, requested {
                 senderElapsedMS = try clock.now()
@@ -325,17 +326,39 @@ private struct SectorQualityTally {
                     localClockFailed = true
                     message = "Diagnostic clock check failed · depth stopped; reconnect required"
                 } else if (error as? BondError) == .invalidResponse {
-                    message = "Pairing response rejected or session rotated · reconnect required"
+                    message = "Pair changed · reconnecting with saved bond…"
+                    recoverAutomatically = true
                 } else if let transport = error as? TelemetryError {
-                    message = "WSS stopped (\(transport)) · reconnect required; saved bond retained"
+                    // A clock/invalid sample must not restart itself as if valid.
+                    recoverAutomatically = transport == .connection
+                    if transport == .rejected {
+                        // An expired session token and a revoked durable bond are
+                        // different. Only rejoin automatically when the saved
+                        // role credential still authorizes a new/waiting pair.
+                        fence.invalidate(end: true)
+                        do {
+                            let replacement = try await http.poll(bond, bootID: boot)
+                            recoverAutomatically = replacement == nil || replacement?.sessionID != sessionID
+                        } catch { recoverAutomatically = false }
+                    }
+                    message = recoverAutomatically
+                        ? "Connection interrupted · reconnecting with saved bond…"
+                        : "Connection rejected · check pairing or reconnect; saved bond retained"
                 } else if let network = error as? URLError {
-                    message = "Backend connection failed (network code \(network.code.rawValue)) · reconnect required"
+                    message = "Backend unavailable · reconnecting with saved bond…"
+                    recoverAutomatically = true
                 } else { message = "Connection stopped · reconnect required; saved bond retained" }
-                requested = false; diagnosticDepth = false; connected = false
+                if !recoverAutomatically { requested = false; diagnosticDepth = false }
+                connected = false
                 recordProbe(force:true)
             }
         }
         fence.invalidate(end: true)
         if let client { await client.close() }
+        if recoverAutomatically, epoch == generation, active, requested, !Task.isCancelled {
+            do { try await Task.sleep(for: .seconds(3)) } catch { return }
+            guard epoch == generation, active, requested, !Task.isCancelled else { return }
+            begin() // Fresh source/clock epoch; old samples and socket are discarded.
+        }
     }
 }
