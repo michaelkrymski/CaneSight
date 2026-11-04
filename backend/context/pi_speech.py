@@ -47,6 +47,8 @@ class EspeakSink:
         self._route = None
         self._sink_name = None
         self._stream_name = None
+        self._failure = None
+        self._exit_codes = {'generator': None, 'playback': None}
         if bluetooth_sink is None and bluez_device is None:
             bluetooth_sink = os.environ.get('CANESIGHT_BLUETOOTH_SINK')
             bluez_device = os.environ.get('CANESIGHT_BLUEZ_DEVICE')
@@ -74,12 +76,26 @@ class EspeakSink:
 
     def _route_lost(self):
         with self._lock:
+            self._failure = self._failure or 'route'
             self._fault = True
             self.stop()
+
+    def diagnostics(self):
+        """Read cached failure evidence without probing, polling or changing health."""
+        with self._lock:
+            snapshot = dict(fault=self._fault, closed=self._closed,
+                            failure=self._failure, exit_codes=dict(self._exit_codes),
+                            automatic_route_monitoring=self._route is not None)
+            if self._route is not None:
+                from .bluetooth_route import BluetoothRouteMonitor
+                if isinstance(self._route, BluetoothRouteMonitor):
+                    snapshot['route'] = self._route.diagnostics()
+            return snapshot
 
     def healthy(self):
         with self._lock:
             if self._route is not None and not self._route.ready():
+                self._failure = self._failure or 'route'
                 self._fault = True
                 self.stop()
             for field in ('_process', '_playback'):
@@ -87,6 +103,9 @@ class EspeakSink:
                 if process is not None:
                     code = process.poll()
                     if code is not None:
+                        name = 'generator' if field == '_process' else 'playback'
+                        self._exit_codes[name] = code
+                        if code != 0: self._failure = self._failure or name+'_exit'
                         setattr(self, field, None)
                         self._fault = self._fault or code != 0
             if self._fault:
@@ -118,6 +137,7 @@ class EspeakSink:
                 self._process.stdin.write(text.encode('utf-8'))
                 self._process.stdin.close()
             except Exception:
+                self._failure = self._failure or 'launch_or_input'
                 self._fault = True
                 self.stop()
                 raise RuntimeError('Speech unavailable') from None
@@ -131,7 +151,10 @@ class EspeakSink:
                 if process is None:
                     continue
                 try:
-                    if process.poll() is None:
+                    code = process.poll()
+                    if code is not None:
+                        self._exit_codes['generator' if field == '_process' else 'playback'] = code
+                    if code is None:
                         try:
                             os.killpg(process.pid, signal.SIGKILL)
                         except ProcessLookupError:
@@ -141,6 +164,7 @@ class EspeakSink:
                         if pipe is not None and not pipe.closed: pipe.close()
                     setattr(self, field, None)
                 except Exception:
+                    self._failure = self._failure or 'stop'
                     self._fault = failed = True
             if failed:
                 raise RuntimeError('Speech stop unavailable; replace adapter') from None

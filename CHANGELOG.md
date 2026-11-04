@@ -1266,6 +1266,14 @@ Record installed GPIO21 button, reported camera and speaker availability while p
 
 Validation: Read issue #68 and author identity via GitHub. Existing 71 context tests passed for current code; documentation/runtime update only. Checked publisher runs shared checks; no new hardware or audible test claimed.
 
+## 2026-10-18 — CS-040-HELPER-FAILURE-DETAILS-20261018: Identify the helper failure behind audible but faulted monitored speech
+
+Author: bondmila (AI-assisted) · Task: CS-040
+
+Preserve positive operator audio and failed software gate separately, plus successful read-only timing samples. Add closed helper/JSON failure reasons retained through parallel queries and monitor faults; generic messages, deadlines and fail-closed behavior unchanged.
+
+Validation: 111 context tests pass, including actual disposable helper timeout/overflow/nonzero/encoding tests and private parallel/JSON diagnostics. Required publisher runs shared checks. Actual helper failure under Pi speech load remains pending.
+
 ## 2026-10-18 — CS-040-MANUAL-CANCEL-OPERATOR-EVIDENCE-BONDMILA-20261018: Record passing focused Pi manual cancellation observation
 
 Author: bondmila (AI-assisted) · Task: CS-040
@@ -1290,6 +1298,14 @@ Operator reported the new GPIO21 spoken-menu sequence worked and explicitly decl
 
 Validation: Verified in-scope implementation matches last prepared 04f660b; preceding branch/combined test evidence remains separate. Checked publisher runs shared checks and exact-head CI is inspected before ready-for-review.
 
+## 2026-10-18 — CS-040-PARALLEL-ROUTE-QUERIES-20261018: Prevent serial route-query latency from expiring otherwise timely observations
+
+Author: bondmila (AI-assisted) · Task: CS-040
+
+Preserve Pi observation_expired report. Reproduce expiry with 80ms reads, then run at most three independent queries concurrently in one bounded nonoverlapping round. Keep original helper/cache/grace/identity and loss-latch protections. Explain exclusive-report refusal without starting audio.
+
+Validation: The new latency regression fails before and passes after; 108 context tests pass including stalled-query expiry/no-worker-accumulation and preserved-report refusal. Actual candidate Pi sound/cancellation remains pending; see handoff for edge/shared results.
+
 ## 2026-10-18 — CS-040-RECOVERY-REPORTS-MANUAL-DIAGNOSTIC-BONDMILA-20261018: Preserve mixed Pi recovery evidence and isolate manual audibility test
 
 Author: bondmila (AI-assisted) · Task: CS-040
@@ -1305,6 +1321,14 @@ Author: bondmila (AI-assisted) · Task: CS-040
 Synchronize accepted GPS checkpoint from main d1d8eb9 (GPS 94ccaaf plus CS-045 measurement analysis). Regenerate the conflicted log; menu, audio, GPIO, safety contracts and requirements unchanged. Await actual operator menu report without claiming a physical pass.
 
 Validation: 79 context tests passed. Checked publisher runs shared validation, governance, changelog and whitespace checks; final CI inspected by exact head.
+
+## 2026-10-18 — CS-040-SILENT-PLAYBACK-DIAGNOSTICS-20261018: Diagnose failed Pi monitored speech without relaxing the route guard
+
+Author: bondmila (AI-assisted) · Task: CS-040
+
+Preserve real no-speech/software failure and reported isolated playback observation. Expose cached closed route/probe/process failure codes in speaker bench reports; diagnostics cannot probe, rearm or skip cleanup. Original guard budgets and fail-closed behavior retained.
+
+Validation: Context/edge regression results recorded in handoff; checked publisher runs shared checks. Actual Pi diagnostic-build result and root cause remain pending; no successful monitored speech or audible cancellation claimed.
 
 ## 2026-10-18 — CS-040-SPEAKER-RECOVERY-BONDMILA-20261018: Prepare operator-guided Bluetooth cancellation and fresh-request recovery test
 

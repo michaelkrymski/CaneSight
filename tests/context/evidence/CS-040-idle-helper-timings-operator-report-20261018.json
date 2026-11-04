@@ -1,0 +1,30 @@
+{
+  "task": "CS-040",
+  "reported_date": "2026-10-18",
+  "provenance": "User pasted the read-only parallel helper timing script output; script requested ten samples per helper and played no audio. Actual machine CPU load is not known.",
+  "requested_samples_per_helper": 10,
+  "script_audio_played": false,
+  "reported_timings": {
+    "sinks": {
+      "median_ms": 50.599999999999994,
+      "max_ms": 52.9,
+      "failures": []
+    },
+    "streams": {
+      "median_ms": 48.05,
+      "max_ms": 56.0,
+      "failures": []
+    },
+    "device": {
+      "median_ms": 36.349999999999994,
+      "max_ms": 42.0,
+      "failures": []
+    }
+  },
+  "agent_observed_hardware": false,
+  "physical_audio_accepted": false,
+  "limitations": [
+    "These samples did not run during the monitored-speech bench and do not explain its query failure.",
+    "Do not classify the failed guarded playback as passed or increase the helper deadline based on an idle sample."
+  ]
+}

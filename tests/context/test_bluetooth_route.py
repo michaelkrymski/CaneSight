@@ -11,7 +11,7 @@ import unittest
 from unittest.mock import Mock, patch
 
 from backend.context.bluetooth_route import (RouteProbe, BluetoothRouteMonitor,
-    MAX_AGE_S, command, target, main)
+    MAX_AGE_S, command, target, main, QueryFailure)
 from backend.context.pi_speech import EspeakSink
 
 SINK = 'bluez_output.01_02_03_04_05_06.1'
@@ -23,9 +23,17 @@ def route():
                 properties={'device.api': 'bluez5'}, volume={'mono': {'value': 65536}})
 
 
+def responses(*, sinks=None, connected='b true\n', inputs=None):
+    def run(args):
+        if args[-1] == 'sinks': return json.dumps([route()] if sinks is None else sinks)
+        if args[-1] == 'Connected': return connected
+        return json.dumps([] if inputs is None else inputs)
+    return Mock(side_effect=run)
+
+
 class ProbeTests(unittest.TestCase):
     def probe(self, entries=None, connected='b true\n'):
-        run = Mock(side_effect=[json.dumps([route()] if entries is None else entries), connected])
+        run = responses(sinks=entries, connected=connected)
         probe = RouteProbe(SINK, DEVICE, run=run)
         return probe, run
 
@@ -34,11 +42,10 @@ class ProbeTests(unittest.TestCase):
             data = route(); data['state'] = state
             probe, run = self.probe([data])
             self.assertTrue(probe())
-            self.assertEqual(run.call_args_list[0].args[0],
-                ['/usr/bin/pactl', '--format=json', 'list', 'sinks'])
-            self.assertEqual(run.call_args_list[1].args[0],
+            self.assertEqual(sorted(c.args[0] for c in run.call_args_list), sorted([
+                ['/usr/bin/pactl', '--format=json', 'list', 'sinks'],
                 ['/usr/bin/busctl', '--system', 'get-property', 'org.bluez',
-                 DEVICE, 'org.bluez.Device1', 'Connected'])
+                 DEVICE, 'org.bluez.Device1', 'Connected']]))
 
     def test_disconnected_missing_duplicate_muted_zero_volume_or_wrong_api_refused(self):
         for connected in ('b false', '', 'true', 'b true\nPRIVATE'):
@@ -50,15 +57,14 @@ class ProbeTests(unittest.TestCase):
             data = route(); data.update(mutation)
             probe, run = self.probe([data])
             self.assertFalse(probe())
-            self.assertEqual(run.call_count, 1)
+            self.assertEqual(run.call_count, 2)
         for entries in ([], [route(), route()]):
             probe, _ = self.probe(entries)
             self.assertFalse(probe())
 
     def test_live_stream_must_remain_on_the_configured_sink(self):
         for sink, expected in ((42, True), (43, False), ('42', False)):
-            run = Mock(side_effect=[json.dumps([route()]), 'b true',
-                json.dumps([{'sink': sink, 'properties': {'media.name': 'fixture-stream'}}])])
+            run = responses(inputs=[{'sink': sink, 'properties': {'media.name': 'fixture-stream'}}])
             probe = RouteProbe(SINK, DEVICE, run=run, stream=lambda: 'fixture-stream')
             self.assertIs(probe(), expected)
 
@@ -84,6 +90,115 @@ class ProbeTests(unittest.TestCase):
 
 
 class MonitorTests(unittest.TestCase):
+    def test_precise_helper_reason_survives_parallel_round_and_fault_cleanup(self):
+        def run(args):
+            if args[-1] == 'sinks': raise QueryFailure('read_timeout')
+            return 'b true'
+        probe = RouteProbe(SINK, DEVICE, run=run)
+        m = self.make(probe)
+        with self.assertRaises(ValueError): m.start()
+        self.assertEqual(m.diagnostics()['failure'], 'probe_query_failed')
+        self.assertEqual(m.diagnostics()['probe_stage'], 'sink_query')
+        self.assertEqual(m.diagnostics()['query_failure'], 'read_timeout')
+        m.close()
+        self.assertEqual(m.diagnostics()['query_failure'], 'read_timeout')
+
+    def test_malformed_json_is_distinct_from_helper_timeout_without_content_leak(self):
+        probe = RouteProbe(SINK, DEVICE,
+            run=lambda args: 'PRIVATE-SENTINEL' if args[-1] == 'sinks' else 'b true')
+        m = self.make(probe)
+        with self.assertRaises(ValueError): m.start()
+        self.assertEqual(m.diagnostics()['query_failure'], 'invalid_json')
+        self.assertNotIn('PRIVATE-SENTINEL', json.dumps(m.diagnostics()))
+
+    def test_stalled_parallel_stream_query_still_expires_without_worker_accumulation(self):
+        active, entered, release, lost = (threading.Event() for _ in range(4))
+        calls = []
+        def run(args):
+            calls.append(args[-1])
+            if args[-1] == 'sinks': return json.dumps([route()])
+            if args[-1] == 'Connected': return 'b true'
+            entered.set(); release.wait(2)
+            return json.dumps([{'sink': 42, 'properties': {'media.name': 'fixture-stream'}}])
+        probe = RouteProbe(SINK, DEVICE, run=run,
+                           stream=lambda: 'fixture-stream' if active.is_set() else None)
+        monitor = BluetoothRouteMonitor(probe, lost.set)
+        try:
+            monitor.start(); active.set()
+            self.assertTrue(entered.wait(.5))
+            before = len(calls)
+            for _ in range(10): self.assertFalse(probe())
+            self.assertEqual(len(calls), before)
+            self.assertTrue(lost.wait(.6))
+            self.assertEqual(monitor.diagnostics()['failure'], 'observation_expired')
+            release.set()
+            self.assertFalse(monitor.ready())
+        finally:
+            release.set(); monitor.close()
+
+    def test_individually_timely_queries_do_not_expire_a_connected_route(self):
+        # Each 80ms read is inside the existing 100ms helper budget. Serial
+        # reads + the poll wait cannot maintain the 350ms start-age budget.
+        active = threading.Event()
+        def run(args):
+            time.sleep(.080)
+            if args[-1] == 'sinks': return json.dumps([route()])
+            if args[-1] == 'Connected': return 'b true'
+            return json.dumps([{'sink': 42, 'properties': {'media.name': 'fixture-stream'}}])
+        probe = RouteProbe(SINK, DEVICE, run=run,
+                           stream=lambda: 'fixture-stream' if active.is_set() else None)
+        lost = threading.Event()
+        monitor = BluetoothRouteMonitor(probe, lost.set)
+        try:
+            monitor.start()
+            active.set()
+            self.assertFalse(lost.wait(.7), monitor.diagnostics())
+            self.assertTrue(monitor.ready())
+        finally:
+            monitor.close()
+
+    def test_failure_diagnostics_preserve_reason_without_reprobing_or_rearming(self):
+        run = responses(inputs=[{'sink': 43, 'properties': {'media.name': 'fixture-stream'}}])
+        probe = RouteProbe(SINK, DEVICE, run=run, stream=lambda: 'fixture-stream')
+        m = self.make(probe)
+        with self.assertRaises(ValueError): m.start()
+        calls = run.call_count
+        for _ in range(3):
+            diagnostic = m.diagnostics()
+            self.assertEqual(diagnostic['failure'], 'probe_rejected')
+            self.assertEqual(diagnostic['probe_stage'], 'stream_binding')
+            self.assertTrue(diagnostic['fault'])
+        self.assertEqual(run.call_count, calls)
+        text = json.dumps(diagnostic)
+        for private in (SINK, DEVICE, 'fixture-stream'):
+            self.assertNotIn(private, text)
+        probe.failure_stage = None
+        self.assertFalse(m.refresh())
+        self.assertEqual(m.diagnostics()['probe_stage'], 'stream_binding')
+
+    def test_query_error_and_stale_cache_have_distinct_closed_diagnostics(self):
+        probe = RouteProbe(SINK, DEVICE, run=Mock(side_effect=ValueError('PRIVATE-SENTINEL')))
+        m = self.make(probe)
+        with self.assertRaises(ValueError): m.start()
+        self.assertEqual(m.diagnostics()['failure'], 'probe_query_failed')
+        self.assertEqual(m.diagnostics()['probe_stage'], 'sink_query')
+        self.assertNotIn('PRIVATE-SENTINEL', json.dumps(m.diagnostics()))
+        m.close()
+        m = self.make(); m.start(); self.now += MAX_AGE_S+.001
+        self.assertFalse(m.ready())
+        self.assertEqual(m.diagnostics()['failure'], 'observation_expired')
+
+    def test_untrusted_probe_diagnostic_attribute_cannot_leak_or_prevent_latching(self):
+        class Probe:
+            def __call__(self): return False
+            @property
+            def failure_stage(self): raise ValueError('PRIVATE-SENTINEL')
+        m = self.make(Probe())
+        with self.assertRaises(ValueError): m.start()
+        self.assertTrue(m.diagnostics()['fault'])
+        self.assertIsNone(m.diagnostics()['probe_stage'])
+        self.loss.assert_called_once()
+
     def make(self, probe=lambda: True):
         self.now = 10.
         self.loss = Mock()
@@ -157,6 +272,19 @@ class MonitorTests(unittest.TestCase):
 
 @unittest.skipUnless(os.name == 'posix', 'Owned helper process groups require POSIX')
 class CommandTests(unittest.TestCase):
+    def test_helper_failures_have_closed_reasons_and_generic_messages(self):
+        for code, reason in [
+            ('import time; time.sleep(10)', 'read_timeout'),
+            ('print("x"*70000)', 'output_limit'),
+            ('import sys; print("PRIVATE-SENTINEL"); sys.exit(23)', 'helper_exit'),
+            ('import os; os.write(1, bytes([255]))', 'invalid_utf8')]:
+            with self.subTest(reason=reason):
+                with self.assertRaises(QueryFailure) as failure:
+                    command([sys.executable, '-c', code])
+                self.assertEqual(failure.exception.reason, reason)
+                self.assertEqual(str(failure.exception), 'Bluetooth route observation unavailable')
+        self.assertEqual(QueryFailure('PRIVATE-SENTINEL').reason, 'query_failed')
+
     def test_timeout_oversize_and_nonzero_are_sanitized(self):
         for code in ('import time; time.sleep(10)', 'print("x"*70000)',
                      'import sys; print("PRIVATE"); sys.exit(1)'):
@@ -221,6 +349,21 @@ class MonitoredSpeechTests(unittest.TestCase):
         self.sink._route.ok = True
         self.assertFalse(self.sink.healthy())
         with self.assertRaises(ValueError): self.sink.speak('Description unavailable.')
+
+    def test_generator_failure_is_preserved_after_owned_process_cleanup(self):
+        self.engine.write_text('#!'+sys.executable+'\nimport sys\nsys.stdin.read()\nsys.exit(23)\n')
+        self.sink.speak('Description unavailable.')
+        self.sink._process.wait(timeout=2)
+        self.assertFalse(self.sink.healthy())
+        diagnostic = self.sink.diagnostics()
+        self.assertEqual(diagnostic['failure'], 'generator_exit')
+        self.assertEqual(diagnostic['exit_codes']['generator'], 23)
+        self.assertTrue(diagnostic['fault'])
+        self.assertTrue(diagnostic['automatic_route_monitoring'])
+        for private in (SINK, DEVICE, str(self.engine), str(self.player)):
+            self.assertNotIn(private, json.dumps(diagnostic))
+        self.sink.close()
+        self.assertEqual(self.sink.diagnostics()['exit_codes']['generator'], 23)
 
     def test_narration_cancels_pending_provider_and_cannot_deliver_after_route_reconnect(self):
         if __package__:

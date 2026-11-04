@@ -1,0 +1,9 @@
+{
+  "id": "CS-040-SILENT-PLAYBACK-DIAGNOSTICS-20261018",
+  "date": "2026-10-18",
+  "author": "bondmila (AI-assisted)",
+  "task": "CS-040",
+  "summary": "Diagnose failed Pi monitored speech without relaxing the route guard",
+  "details": "Preserve real no-speech/software failure and reported isolated playback observation. Expose cached closed route/probe/process failure codes in speaker bench reports; diagnostics cannot probe, rearm or skip cleanup. Original guard budgets and fail-closed behavior retained.",
+  "validation": "Context/edge regression results recorded in handoff; checked publisher runs shared checks. Actual Pi diagnostic-build result and root cause remain pending; no successful monitored speech or audible cancellation claimed."
+}

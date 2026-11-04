@@ -1,0 +1,9 @@
+{
+  "id": "CS-040-HELPER-FAILURE-DETAILS-20261018",
+  "date": "2026-10-18",
+  "author": "bondmila (AI-assisted)",
+  "task": "CS-040",
+  "summary": "Identify the helper failure behind audible but faulted monitored speech",
+  "details": "Preserve positive operator audio and failed software gate separately, plus successful read-only timing samples. Add closed helper/JSON failure reasons retained through parallel queries and monitor faults; generic messages, deadlines and fail-closed behavior unchanged.",
+  "validation": "111 context tests pass, including actual disposable helper timeout/overflow/nonzero/encoding tests and private parallel/JSON diagnostics. Required publisher runs shared checks. Actual helper failure under Pi speech load remains pending."
+}

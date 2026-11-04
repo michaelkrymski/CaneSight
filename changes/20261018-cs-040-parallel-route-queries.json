@@ -1,0 +1,9 @@
+{
+  "id": "CS-040-PARALLEL-ROUTE-QUERIES-20261018",
+  "date": "2026-10-18",
+  "author": "bondmila (AI-assisted)",
+  "task": "CS-040",
+  "summary": "Prevent serial route-query latency from expiring otherwise timely observations",
+  "details": "Preserve Pi observation_expired report. Reproduce expiry with 80ms reads, then run at most three independent queries concurrently in one bounded nonoverlapping round. Keep original helper/cache/grace/identity and loss-latch protections. Explain exclusive-report refusal without starting audio.",
+  "validation": "The new latency regression fails before and passes after; 108 context tests pass including stalled-query expiry/no-worker-accumulation and preserved-report refusal. Actual candidate Pi sound/cancellation remains pending; see handoff for edge/shared results."
+}

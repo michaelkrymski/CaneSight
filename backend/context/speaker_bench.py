@@ -11,6 +11,7 @@ import time
 
 from .narration import NarrationController
 from .pi_speech import EspeakSink
+from . import pi_speech
 
 DESCRIPTION = {'objects': ['chair', 'table', 'stairs'], 'uncertain': True}
 
@@ -222,10 +223,18 @@ def main(argv=None):
     except (KeyboardInterrupt, EOFError):
         summary['error'] = 'Bench interrupted; incomplete evidence'
         status = 130
+    except FileExistsError:
+        summary['error'] = 'Report already exists; choose a new output filename. Original report preserved.'
     except Exception:
         summary['error'] = 'Bench unavailable; inspect installation/output and rerun'
     finally:
         if sink is not None:
+            # A reporting error must never skip audio cleanup.
+            try:
+                if isinstance(sink, pi_speech.EspeakSink):
+                    summary['sink_diagnostics'] = sink.diagnostics()
+            except Exception:
+                summary['sink_diagnostics_unavailable'] = True
             try:
                 sink.close()
             except Exception:
