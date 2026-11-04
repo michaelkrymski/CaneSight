@@ -1514,3 +1514,11 @@ Michael explicitly authorized removing claim/ownership/second-review blockers. A
 
 Validation: Five new solo-workflow and 23 governance/publisher tests passed. Final Windows root discovery: 245 tests OK, 15 skips, after adding an explicit POSIX-only marker to the existing chmod-600 test; the credential loader is unchanged and Linux still runs that case. Structure/changelog/whitespace passed. GitHub settings were updated and verified: no required extra review/admin enforcement/conversation resolution; repository-checks retained, force/deletion blocked. Remote CI/publication recorded in the PR. No LiDAR runtime or physical-device changes.
 
+## 2026-11-04 — PI-CALIBRATED-LIDAR-CANDIDATE-20261104: Prepare untested bonded LiDAR-to-haptics runtime and deployment helpers
+
+Author: michaelkrymski (AI-assisted) · Task: CS-025
+
+Build on the existing Mac calibration branch. Add a camera-independent saved-bond Pi receiver with clock diagnostics, original-age gates, bounded obstacle-side haptics and automatic connection recovery; optional camera/context path shares the same Pi session. Add validated tuning, service/config installer and versioned Windows transfer. Phone transient connection/session loss recovers automatically with a fresh epoch. No wire/model/registry or live service changes.
+
+Validation: Automated and physical tests intentionally not added or run at Michael's request; syntax/parser and git diff inspection only. Xcode/phone/Pi/server operation remains unverified for these changes. Real GPIO still requires an explicit supported clock-drift bound; none is fabricated or copied from old conditional measurement evidence. Final manual procedure and limits are documented.
+

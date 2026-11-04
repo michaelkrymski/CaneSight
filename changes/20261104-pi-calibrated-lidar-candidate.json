@@ -1,0 +1,9 @@
+{
+  "id": "PI-CALIBRATED-LIDAR-CANDIDATE-20261104",
+  "date": "2026-11-04",
+  "author": "michaelkrymski (AI-assisted)",
+  "task": "CS-025",
+  "summary": "Prepare untested bonded LiDAR-to-haptics runtime and deployment helpers",
+  "details": "Build on the existing Mac calibration branch. Add a camera-independent saved-bond Pi receiver with clock diagnostics, original-age gates, bounded obstacle-side haptics and automatic connection recovery; optional camera/context path shares the same Pi session. Add validated tuning, service/config installer and versioned Windows transfer. Phone transient connection/session loss recovers automatically with a fresh epoch. No wire/model/registry or live service changes.",
+  "validation": "Automated and physical tests intentionally not added or run at Michael's request; syntax/parser and git diff inspection only. Xcode/phone/Pi/server operation remains unverified for these changes. Real GPIO still requires an explicit supported clock-drift bound; none is fabricated or copied from old conditional measurement evidence. Final manual procedure and limits are documented."
+}

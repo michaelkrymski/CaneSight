@@ -9,6 +9,24 @@ from .haptics import HapticScheduler, SimulatedOutput, clock_ms, number
 
 
 @dataclass(frozen=True)
+class DepthPolicySettings:
+    near_metres: float = 1.2
+    release_metres: float = 1.5
+    minimum_valid_fraction: float = .5
+    recovery_frames: int = 2
+    pulse_ms: float = 100
+
+    def __post_init__(self):
+        for value in (self.near_metres, self.release_metres, self.minimum_valid_fraction, self.pulse_ms):
+            number(value)
+        if (not 0 < self.near_metres < self.release_metres <= 10
+                or not 0 < self.minimum_valid_fraction <= 1
+                or type(self.recovery_frames) is not int or not 2 <= self.recovery_frames <= 10
+                or not 10 <= self.pulse_ms <= 150):
+            raise ValueError('Invalid depth thresholds, recovery count or bounded pulse duration')
+
+
+@dataclass(frozen=True)
 class PhoneBinding:
     """Trusted operator binding, NOT discovered from incoming packets.
 
@@ -54,7 +72,10 @@ class LocalPolicy:
     Center takes precedence and requests both channels atomically.
     """
     def __init__(self, gate, phone_id, scheduler, *, clock=clock_ms, watchdog=None, trace=None,
-                 enable_gpio=False):
+                 enable_gpio=False, settings=None):
+        self.settings = settings if settings is not None else DepthPolicySettings()
+        if not isinstance(self.settings, DepthPolicySettings):
+            raise ValueError('Use validated depth policy settings')
         if not isinstance(gate, CaptureAgeGate) or not isinstance(scheduler, HapticScheduler):
             raise ValueError('Use the accepted gate and capped scheduler')
         if type(enable_gpio) is not bool:
@@ -151,16 +172,16 @@ class LocalPolicy:
                     self.last_deadline = observation.deadline_ms
                     for sector, value in message['sectors'].items():
                         distance = value['distance_m']
-                        if distance is None or distance <= 0 or value['valid_fraction'] < .5:
+                        if distance is None or distance <= 0 or value['valid_fraction'] < self.settings.minimum_valid_fraction:
                             self.counts[sector] = 0
                             self.hazards[sector] = 'unknown'
                             continue
-                        self.counts[sector] = min(2,self.counts[sector]+1)
-                        if self.counts[sector] < 2:
+                        self.counts[sector] = min(self.settings.recovery_frames,self.counts[sector]+1)
+                        if self.counts[sector] < self.settings.recovery_frames:
                             self.hazards[sector] = 'unknown'
-                        elif distance <= 1.2:
+                        elif distance <= self.settings.near_metres:
                             self.hazards[sector] = 'nearby'
-                        elif distance >= 1.5:
+                        elif distance >= self.settings.release_metres:
                             self.hazards[sector] = 'not-nearby-observed'
                         # Mid-band preserves prior classification; unknown stays unknown.
                 wanted = ('left','right') if self.hazards['center']=='nearby' else tuple(
@@ -179,7 +200,7 @@ class LocalPolicy:
                 else:
                     self.scheduler.set_ready(True)
                     if fresh_sequence:
-                        accepted = self.scheduler.pulse(wanted,100,valid_until_ms=observation.deadline_ms)
+                        accepted = self.scheduler.pulse(wanted,self.settings.pulse_ms,valid_until_ms=observation.deadline_ms)
                         reason = 'accepted' if accepted else self.scheduler.last_rejection
                         if accepted:
                             self.active = wanted

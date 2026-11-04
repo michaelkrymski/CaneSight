@@ -168,7 +168,10 @@ class VisionReceiver:
                 reader = asyncio.create_task(read())
                 async def probes():
                     while not self._stop.is_set():
-                        if self.phone_binding and self.phone_binding.relative_drift_ppm is not None:
+                        # Probe even before a drift budget is configured so the
+                        # receiver can report real clock replies. finish_probe
+                        # still rejects age eligibility when drift is unknown.
+                        if self.phone_binding:
                             try:
                                 message = self.gate.start_probe(self.phone_binding.source_id)
                             except Unavailable:
